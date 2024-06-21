@@ -1,0 +1,9 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?link rel="stylesheet" type="text/css" href="/css/style.css" ?>
+<?script src="/pdf/js/bootstrap.min.js" ?>
+<zk>
+<window title="new page title" border="normal">
+	<button class="cuadro">Ver</button>
+	
+</window>
+</zk>

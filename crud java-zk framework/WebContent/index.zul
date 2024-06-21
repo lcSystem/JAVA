@@ -1,0 +1,170 @@
+<?page title="Auto Generated index.zul"?>
+<borderlayout height="450px" id="borderlayoutFormulario"
+	use="Controller.ControllerFormulario">
+	<north title="Visa Estados Unidos" maxsize="300"  height="50%" size="100%"
+		splittable="true" collapsible="false" autoscroll="true">
+		
+		<borderlayout>
+			<west size="56%" flex="true" maxsize="250"
+				splittable="false" collapsible="false" border="none">
+
+				<div style="background:#3E9196">
+ <button label="Upload Image" upload="true,maxsize=300">
+	  <attribute name="onUpload"><![CDATA[
+            org.zkoss.util.media.Media media = event.getMedia();
+            if (media instanceof org.zkoss.image.Image) {
+                org.zkoss.zul.Image image = new org.zkoss.zul.Image();
+                image.setContent(media);
+                image.setParent(pics);
+            } else {
+                Messagebox.show("Not an image: "+media, "Error", Messagebox.OK, Messagebox.ERROR);
+                break;
+            }
+        ]]></attribute>
+        
+         </button>				
+					<space bar="false" spacing="2%" />
+					<listbox mold="select" id="opciones">
+						<listitem label="Nombre" selected="true"
+							value="0" />
+						<listitem label="Apellido" value="1" />
+						<listitem label="N. Documento" value="2" />
+						<listitem label="Edad" value="3" />
+						<listitem label="Sexo" value="4" />
+					</listbox>
+
+					<label id="resultado"></label>
+					<space bar="false" spacing="50px" />
+					<span sclass="z-icon-filter" style="color:white" />
+
+					<textbox id="documentoPer"
+						style="margin:px 5px; text-transform:lowercase"
+						placeholder="Buscar" value="" />
+					<button iconSclass="z-icon-search"
+						style="margin:5px 5px; background: #848484;"
+						onClick="borderlayoutFormulario.listarPersonas()" />
+					<button iconSclass="z-icon-refresh"
+						style="margin:5px 5px; background: #848484;"
+						onClick="borderlayoutFormulario.refrescarLista()" />
+					<label id="mostrar"/>
+					<listbox style="background:#3E9196;">
+						<listhead style="background:#3E9196;">
+							<listheader style="background:#3E9196;"
+								width="30%" label="Nombre" align="center" sort="auto" />
+							<listheader style="background:#3E9196"
+								width="15%" label="Apellido" align="center" sort="auto" />
+							<listheader style="background:#3E9196"
+								width="17%" label="Cédula" align="center" sort="auto" />
+							<listheader style="background:#3E9196"
+								width="14%" label="Edad" align="center" sort="auto" />
+							<listheader style="background:#3E9196"
+								width="17%" label="Sexo" align="center" sort="auto" />
+						</listhead>
+					</listbox>
+
+					<listbox id="listado" onSelect="borderlayoutFormulario.seleccionarPersona()" rows="5">
+						<listhead>
+							<listheader width="70px" />
+							<listheader label="Nombre" align="center"
+								sort="auto(model)" />
+							<listheader label="Apellido" align="center"
+								sort="auto(make)" />
+							<listheader label="N. Documento"
+								align="center" sort="auto(type)" />
+							<listheader label="Edad" align="center"
+								sort="auto(cost)" />
+							<listheader label="Sexo" align="center"
+								sort="auto(engineDisplacement)" />
+						</listhead>
+					</listbox>
+				</div>
+			</west>
+			<east size="42%" flex="true" maxsize="250"
+				splittable="false" collapsible="false" border="none">
+				<div style="background:#ffff">
+					<div>
+						<div style="background:#3E9196;">
+
+							<button label="agregar +"
+								style="margin:5px 5px; background: #6DA3BD;" id="btn_nuevo"
+								onClick="borderlayoutFormulario.nuevo()"  />
+								
+							<button iconSclass="z-icon-check" label="guardar"
+								style="margin:5px 5px; background:#58D68D;" id="btn_guardar"
+								onClick="borderlayoutFormulario.guardarPersona()"  dir="reverse" disabled="true"/>
+								
+							<button iconSclass="z-icon-refresh" label="actualizar" id="btn_Actualizar"
+								style="margin:5px 5px; background: #5DADE2 ;" 
+								onClick="borderlayoutFormulario.actualizarPersona()"  dir="reverse" disabled="true"/>
+								
+							<button iconSclass="z-icon-trash-o" label="eliminar" id="btn_eliminar"
+								style="margin:5px 5px; background: #EC7063;"
+								onClick="borderlayoutFormulario.eliminarPersona()"  dir="reverse" disabled="true"/>
+
+						</div>
+					</div>
+
+					<grid>
+						<rows>
+							<row>
+                                  NOMBRE:
+								<textbox id="nombre"
+									style="text-transform:uppercase;" 
+									disabled="true" placeholder="Nombre" constraint="no empty"/>
+							</row>
+							<row>
+							APELLIDO:
+								<textbox id="apellido"
+									style="text-transform:uppercase;" 
+									disabled="true" placeholder="APELLIDO" constraint="no empty"/>
+							</row>
+							<row>
+                               EDAD:
+								<intbox id="edad"
+									 disabled="true"
+									placeholder="EDAD"  maxlength="3"  constraint="no empty"/>
+							</row>
+							<row>
+							NÚMERO CÉDULA:
+								<textbox id="documento"
+								 disabled="true" 
+									placeholder="NÚMERO CÉDULA" constraint="no empty"/>
+							</row>
+							<row>
+							SEXO:
+								<listbox mold="select" id="sexo"
+									disabled="true">
+									<listitem label="Masculino"
+										value="m" selected="true"  />
+									<listitem label="Femenino"
+										value="f" />
+								</listbox>
+							</row>
+							
+						</rows>
+					</grid>
+					<button iconSclass="z-icon-refresh" onClick="borderlayoutFormulario.limpiarCampo();" style="  width: 10px;
+  height: 10px;
+  position: relative;
+  left: 450px;
+  top: -35px;
+  background-color:#3E9196;"/>
+  
+    
+  	<button label="Establecer" onClick="borderlayoutFormulario.descargar();" style="  width: 97px;
+  height: 15px;
+  position: relative;
+  left: 450px;
+  top: -35px;
+  background-color:#3E9196;"/>
+  	  <separator />
+  <vlayout id="pics" height="360px" style="overflow:auto" />
+	
+
+				</div>
+				
+			</east>
+			
+		</borderlayout>
+	</north>
+</borderlayout>
