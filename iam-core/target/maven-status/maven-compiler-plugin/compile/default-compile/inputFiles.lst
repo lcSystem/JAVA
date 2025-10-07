@@ -1,3 +1,7 @@
-/home/lsyst/Documentos/spring/iam-core/src/main/java/com/tt/iam_core/IamCoreApplication.java
-/home/lsyst/Documentos/spring/iam-core/src/main/java/com/tt/iam_core/infrastructure/entities/UsuarioEntity.java
-/home/lsyst/Documentos/spring/iam-core/src/main/java/com/tt/iam_core/infrastructure/repositories/UsuarioRepository.java
+/home/lsyst/Documentos/JAVA/iam-core/src/main/java/com/tt/iam_core/IamCoreApplication.java
+/home/lsyst/Documentos/JAVA/iam-core/src/main/java/com/tt/iam_core/infrastructure/entities/Menu.java
+/home/lsyst/Documentos/JAVA/iam-core/src/main/java/com/tt/iam_core/infrastructure/entities/Organizacion.java
+/home/lsyst/Documentos/JAVA/iam-core/src/main/java/com/tt/iam_core/infrastructure/entities/Permiso.java
+/home/lsyst/Documentos/JAVA/iam-core/src/main/java/com/tt/iam_core/infrastructure/entities/Rol.java
+/home/lsyst/Documentos/JAVA/iam-core/src/main/java/com/tt/iam_core/infrastructure/entities/Usuario.java
+/home/lsyst/Documentos/JAVA/iam-core/src/main/java/com/tt/iam_core/infrastructure/repositories/UsuarioRepository.java
