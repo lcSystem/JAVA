@@ -2,10 +2,13 @@ package com.tt.iam_core.infrastructure.entities;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,9 +22,21 @@ public class Usuario {
     private String passwordHash;
 
     private Boolean estado;
-    private LocalDateTime fechaCreacion;
+    private LocalDateTime fechaCreacion = LocalDateTime.now();
 
-    // getters & setters
+    @ManyToOne
+    @JoinColumn(name = "organizacion_id")
+    private Organizacion organizacion;
+
+    @ManyToMany
+    @JoinTable(
+        name = "usuario_rol",
+        joinColumns = @JoinColumn(name = "usuario_id"),
+        inverseJoinColumns = @JoinColumn(name = "rol_id")
+    )
+    private Set<Rol> roles = new HashSet<>();
+
+    // Getters y Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -39,4 +54,10 @@ public class Usuario {
 
     public LocalDateTime getFechaCreacion() { return fechaCreacion; }
     public void setFechaCreacion(LocalDateTime fechaCreacion) { this.fechaCreacion = fechaCreacion; }
+
+    public Organizacion getOrganizacion() { return organizacion; }
+    public void setOrganizacion(Organizacion organizacion) { this.organizacion = organizacion; }
+
+    public Set<Rol> getRoles() { return roles; }
+    public void setRoles(Set<Rol> roles) { this.roles = roles; }
 }

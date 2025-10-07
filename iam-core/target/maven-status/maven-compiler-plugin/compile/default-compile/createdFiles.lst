@@ -1,1 +1,5 @@
-com/tt/iam_core/IamCoreApplication.class
+com/tt/iam_core/infrastructure/entities/Menu.class
+com/tt/iam_core/infrastructure/entities/Usuario.class
+com/tt/iam_core/infrastructure/entities/Rol.class
+com/tt/iam_core/infrastructure/entities/Permiso.class
+com/tt/iam_core/infrastructure/entities/Organizacion.class
