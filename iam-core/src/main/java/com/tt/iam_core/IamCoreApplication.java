@@ -1,6 +1,6 @@
 package com.tt.iam_core;
 
-import com.tt.iam_core.infrastructure.entities.Usuario;
+import com.tt.iam_core.infrastructure.entities.UsuarioEntity;
 import com.tt.iam_core.infrastructure.repositories.UsuarioRepository; 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -19,13 +19,11 @@ public class IamCoreApplication {
     @Bean
     CommandLineRunner testDb(UsuarioRepository repo) {
         return args -> {
-            // Verificar si el usuario "admin" ya existe
             if (!repo.existsByUsername("admin")) {
-                Usuario u = new Usuario();
+                UsuarioEntity u = new UsuarioEntity();
                 u.setUsername("admin");
                 u.setEmail("admin@empresa.com");
                 
-                // Hashear la contraseña
                 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
                 u.setPasswordHash(encoder.encode("123456"));
                 
@@ -38,7 +36,6 @@ public class IamCoreApplication {
                 System.out.println("Usuario 'admin' ya existe, no se creó.");
             }
 
-            // Mostrar todos los usuarios guardados
             repo.findAll().forEach(user -> 
                 System.out.println("Usuario guardado: " + user.getUsername())
             );

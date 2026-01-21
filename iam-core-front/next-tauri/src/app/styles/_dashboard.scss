@@ -1,0 +1,70 @@
+// src/app/styles/globals.scss
+
+$primary-color: #4f46e5; // azul profesional
+$secondary-color: #6366f1; 
+$success-color: #10b981;
+$warning-color: #f59e0b;
+$danger-color: #ef4444;
+$text-color: #111827;
+$bg-color: #f3f4f6;
+$card-bg: #ffffff;
+$card-shadow: 0 4px 6px rgba(0,0,0,0.1);
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: $bg-color;
+  margin: 0;
+  padding: 0;
+  color: $text-color;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+  padding: 1rem;
+
+  .widget {
+    background-color: $card-bg;
+    border-radius: 0.75rem;
+    box-shadow: $card-shadow;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    transition: transform 0.2s, box-shadow 0.2s;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    }
+
+    .widget-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+
+      .icon {
+        font-size: 2rem;
+      }
+
+      .title {
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+    }
+
+    .widget-content {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .widget-subtext {
+      font-size: 0.875rem;
+      color: darken($text-color, 30%);
+    }
+  }
+}
