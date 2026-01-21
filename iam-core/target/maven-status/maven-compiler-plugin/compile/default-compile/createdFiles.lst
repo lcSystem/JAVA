@@ -1,5 +1,11 @@
-com/tt/iam_core/infrastructure/entities/Menu.class
-com/tt/iam_core/infrastructure/entities/Usuario.class
-com/tt/iam_core/infrastructure/entities/Rol.class
-com/tt/iam_core/infrastructure/entities/Permiso.class
-com/tt/iam_core/infrastructure/entities/Organizacion.class
+com/tt/iam_core/infrastructure/entities/PermisoEntity.class
+com/tt/iam_core/infrastructure/entities/RolEntity.class
+com/tt/iam_core/infrastructure/repositories/UsuarioRepository.class
+com/tt/iam_core/infrastructure/entities/UsuarioEntity.class
+com/tt/iam_core/infrastructure/entities/OrganizacionEntity.class
+com/tt/iam_core/infrastructure/entities/MenuEntity.class
+com/tt/iam_core/infrastructure/entities/EstadoMenuEntity.class
+com/tt/iam_core/domain/model/Menu.class
+com/tt/iam_core/domain/model/Permiso.class
+com/tt/iam_core/infrastructure/entities/MenuPermisoEntity.class
+com/tt/iam_core/IamCoreApplication.class

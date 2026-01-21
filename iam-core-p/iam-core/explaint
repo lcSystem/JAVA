@@ -1,0 +1,94 @@
+📊 Explicación de tu Proyecto ERP
+🎯 Descripción General:
+Es un Sistema ERP (Enterprise Resource Planning) completo desarrollado con Spring Boot en el backend y HTML/CSS/JavaScript en el frontend. Gestiona recursos empresariales de forma integral.
+
+🏗️ Arquitectura del Proyecto:
+Backend (Spring Boot):
+1. Autenticación y Seguridad (AuthenticatedBackend/):
+
+✅ JWT Authentication con RSA
+✅ Sistema de roles (ADMIN, USER)
+✅ Blacklist de tokens (logout seguro)
+✅ Filtros de seguridad personalizados
+
+2. Módulos Principales (controller/, model/, service/):
+
+👥 Clientes - Gestión de clientes
+👔 Empleados - RRHH completo
+📁 Proyectos - Gestión de proyectos
+✅ Tareas - Asignación y seguimiento
+🏢 Departamentos - Organización empresarial
+💰 Gastos - Control financiero
+📄 Facturas y Presupuestos - Facturación
+🏖️ Vacaciones - Gestión de ausencias
+💳 Pagos - Registro de pagos
+
+3. Tecnologías Backend:
+
+Spring Boot 3.1.1
+Spring Security + OAuth2
+JPA/Hibernate
+MySQL/MariaDB
+JWT (JSON Web Tokens)
+Lombok (reducir boilerplate)
+
+
+Frontend (resources/static/):
+Interfaz Completa:
+
+📊 Dashboard administrativo
+📝 Formularios para cada módulo
+📈 Gráficos (Chart.js)
+📅 Calendario (FullCalendar)
+📋 Tablas con DataTables
+📎 Upload de archivos
+
+Tecnologías Frontend:
+
+Bootstrap 4
+jQuery
+Font Awesome
+DataTables
+FullCalendar
+Select2
+
+
+🎨 Páginas Disponibles:
+Login → Dashboard → Módulos:
+├── Empleados
+├── Clientes  
+├── Proyectos
+├── Tareas
+├── Departamentos
+├── Facturas/Presupuestos
+├── Gastos
+├── Pagos
+├── Vacaciones
+└── Perfil de usuario
+
+🔐 Seguridad:
+
+Autenticación JWT con RSA
+Control de acceso por roles
+Token blacklist para logout
+Validación en backend
+Protección CSRF
+
+
+📦 Características Destacadas:
+✅ Multi-tenant (diferentes roles)
+✅ RESTful API completa
+✅ Responsive Design
+✅ Gestión de archivos (upload/download)
+✅ Reportes y visualizaciones
+✅ Calendario integrado
+✅ Búsqueda y filtros avanzados
+
+🚀 Uso:
+bash# Ejecutar
+./mvnw spring-boot:run
+
+# Acceder
+http://localhost:8081
+
+En resumen: Es un ERP profesional y completo para gestionar todos los aspectos de una empresa, desde empleados hasta facturación 🏢✨
