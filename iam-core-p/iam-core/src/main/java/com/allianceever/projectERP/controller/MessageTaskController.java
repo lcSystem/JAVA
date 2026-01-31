@@ -17,7 +17,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 
 @RestController
-@RequestMapping("/messageTask")
+@RequestMapping("/api/messageTask")
 @AllArgsConstructor
 public class MessageTaskController {
     private MessageTaskService messageTaskService;

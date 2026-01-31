@@ -16,7 +16,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 
 @RestController
-@RequestMapping("/designation")
+@RequestMapping("/api/designation")
 @AllArgsConstructor
 public class DesignationController {
     private DesignationService designationService;

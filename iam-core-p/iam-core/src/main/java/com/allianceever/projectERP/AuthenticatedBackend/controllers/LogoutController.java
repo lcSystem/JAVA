@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/logout")
+@RequestMapping("/api/logout")
 public class LogoutController {
 
     private final TokenBlacklistRepository blacklistRepository;
@@ -17,16 +18,18 @@ public class LogoutController {
         this.blacklistRepository = blacklistRepository;
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<String> logout(@RequestHeader("Authorization") String token) {
-        // Extract the token from the "Authorization" header (assuming it's in the format "Bearer {token}")
-        String jwtToken = token.substring(7); // Remove "Bearer " prefix
+        // Extraer el token del header "Authorization"
+        if(token == null || !token.startsWith("Bearer ")) {
+            return ResponseEntity.badRequest().body("Invalid token header");
+        }
+        String jwtToken = token.substring(7); // Remove "Bearer "
 
-        // Create a BlacklistedToken entity and save it to the repository
+        // Guardar en blacklist
         BlacklistedToken blacklistedToken = new BlacklistedToken(jwtToken);
         blacklistRepository.save(blacklistedToken);
 
-        // Respond with success
         return ResponseEntity.ok("Logout successful");
     }
 }

@@ -27,7 +27,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 
 @RestController
-@RequestMapping("/employee")
+@RequestMapping("/api/employee")
 @AllArgsConstructor
 public class EmployeeController {
     private EmployeeService employeeService;

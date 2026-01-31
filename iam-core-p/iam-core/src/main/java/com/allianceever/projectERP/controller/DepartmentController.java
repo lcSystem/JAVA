@@ -16,7 +16,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 
 @RestController
-@RequestMapping("/department")
+@RequestMapping("/api/department")
 @AllArgsConstructor
 public class DepartmentController {
     private DepartmentService departmentService;

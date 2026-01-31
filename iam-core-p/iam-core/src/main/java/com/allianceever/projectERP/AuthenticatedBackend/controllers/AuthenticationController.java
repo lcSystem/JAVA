@@ -3,8 +3,6 @@ package com.allianceever.projectERP.AuthenticatedBackend.controllers;
 import com.allianceever.projectERP.AuthenticatedBackend.models.ChangePasswordDTO;
 import com.allianceever.projectERP.model.dto.EmployeeDto;
 import com.allianceever.projectERP.service.EmployeeService;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,8 +14,9 @@ import com.allianceever.projectERP.AuthenticatedBackend.models.LoginResponseDTO;
 import com.allianceever.projectERP.AuthenticatedBackend.models.RegistrationDTO;
 import com.allianceever.projectERP.AuthenticatedBackend.services.AuthenticationService;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
 public class AuthenticationController {
 
     @Autowired
@@ -26,61 +25,64 @@ public class AuthenticationController {
     @Autowired
     private EmployeeService employeeService;
 
+    // ---------------- Register ----------------
     @PostMapping("/register")
-    public ApplicationUser registerUser(@ModelAttribute RegistrationDTO body){
-        return authenticationService.registerUser(body.getUsername(), body.getPassword(), body.getRole());
+    public ResponseEntity<ApplicationUser> registerUser(@RequestBody RegistrationDTO body){
+        ApplicationUser user = authenticationService.registerUser(body.getUsername(), body.getPassword(), body.getRole());
+        return ResponseEntity.ok(user);
     }
-    
+
+    // ---------------- Login ----------------
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> loginUser(@ModelAttribute RegistrationDTO body, HttpServletResponse response){
+    public ResponseEntity<LoginResponseDTO> loginUser(@RequestBody RegistrationDTO body){
         LoginResponseDTO loginResponseDTO = authenticationService.loginUser(body.getUsername(), body.getPassword());
         if (loginResponseDTO.getUser() != null) {
-            String jwtToken = loginResponseDTO.getJwt();
-            // Set the JWT token in an HTTP-only cookie
-            Cookie cookie = new Cookie("jwtToken", jwtToken);
-            cookie.setHttpOnly(true);
-            cookie.setPath("/"); // Set the path to "/" to make the cookie accessible everywhere on your website
-            response.addCookie(cookie);
-
             return ResponseEntity.ok(loginResponseDTO);
         } else {
+            return ResponseEntity.status(401).build();
+        }
+    }
+
+    // ---------------- Update user ----------------
+    @PostMapping("/update")
+    public ResponseEntity<ApplicationUser> updateUser(@RequestBody RegistrationDTO body){
+        ApplicationUser user = authenticationService.updateUser(body.getUsername(), body.getPassword(), body.getRole());
+        if(user != null){
+            return ResponseEntity.ok(user);
+        }else{
             return ResponseEntity.notFound().build();
         }
     }
 
-    @PostMapping("/update")
-    public ApplicationUser updateUser(@ModelAttribute RegistrationDTO body){
-        return authenticationService.updateUser(body.getUsername(), body.getPassword(), body.getRole());
-    }
-
-    @PostMapping("/delete/{id}")
+    // ---------------- Delete user ----------------
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable("id") Long employeeID){
         EmployeeDto employeeDto = employeeService.getById(employeeID);
         if (employeeDto != null) {
-            String username = employeeDto.getUserName();
-            authenticationService.delete(username);
+            authenticationService.delete(employeeDto.getUserName());
             return ResponseEntity.ok("User deleted successfully!");
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
+    // ---------------- Change Password ----------------
     @PostMapping("/changePassword")
-    public ResponseEntity<String> changePassword(@ModelAttribute ChangePasswordDTO body, @AuthenticationPrincipal Jwt jwt){
-        // Retrieve username from the jwt
+    public ResponseEntity<String> changePassword(@RequestBody ChangePasswordDTO body, @AuthenticationPrincipal Jwt jwt){
         String username = jwt.getClaimAsString("sub");
         String role = jwt.getClaimAsString("roles");
-        // verify username and password
+
         LoginResponseDTO loginResponseDTO = authenticationService.loginUser(username, body.getOldPassword());
-        if (loginResponseDTO.getUser() != null && !body.getNewPassword().equals("")) {
-            ApplicationUser applicationUser = authenticationService.updateUser(username, body.getNewPassword(), role);
-            if(applicationUser != null){
+        if (loginResponseDTO.getUser() != null && !body.getNewPassword().isEmpty()) {
+            ApplicationUser updatedUser = authenticationService.updateUser(username, body.getNewPassword(), role);
+            if(updatedUser != null){
                 return ResponseEntity.ok("Password changed successfully!");
-            }else{
+            } else {
                 return ResponseEntity.notFound().build();
             }
         } else {
-            return ResponseEntity.notFound().build();
+
+            return ResponseEntity.status(400).body("Invalid old password or new password is empty");
         }
     }
 }
