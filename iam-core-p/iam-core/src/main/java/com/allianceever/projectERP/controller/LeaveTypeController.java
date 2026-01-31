@@ -15,7 +15,7 @@ import static com.allianceever.projectERP.controller.EmployeeController.getStrin
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
-@RequestMapping("/leaveType")
+@RequestMapping("/api/leaveType")
 @ComponentScan(basePackages = "com.allianceever.projectERP")
 public class LeaveTypeController {
 

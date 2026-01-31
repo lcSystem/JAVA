@@ -30,7 +30,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 
 @RestController
-@RequestMapping("/fileProject")
+@RequestMapping("/api/fileProject")
 @AllArgsConstructor
 public class FileProjectController {
     private FileProjectService fileProjectService;

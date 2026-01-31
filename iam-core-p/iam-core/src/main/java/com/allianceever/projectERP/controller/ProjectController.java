@@ -20,7 +20,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 
 @RestController
-@RequestMapping("/project")
+@RequestMapping("/api/project")
 @AllArgsConstructor
 public class ProjectController {
     private ProjectService projectService;

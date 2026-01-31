@@ -25,7 +25,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 
 @RestController
-@RequestMapping("/client")
+@RequestMapping("/api/client")
 @AllArgsConstructor
 public class ClientController {
     private ClientService clientService;

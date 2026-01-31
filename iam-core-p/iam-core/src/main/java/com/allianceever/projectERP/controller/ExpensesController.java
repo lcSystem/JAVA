@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
-@RequestMapping("/expenses")
+@RequestMapping("/api/expenses")
 public class ExpensesController {
 
     private ExpensesService expensesService;

@@ -11,7 +11,7 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
-@RequestMapping("/leaderProject")
+@RequestMapping("/api/leaderProject")
 @AllArgsConstructor
 public class LeaderProjectController {
     private LeaderProjectService leaderProjectService;

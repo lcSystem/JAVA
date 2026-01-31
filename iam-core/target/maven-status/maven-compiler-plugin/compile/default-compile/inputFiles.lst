@@ -2,6 +2,7 @@
 /home/lsyst/Documentos/JAVA/iam-core/src/main/java/com/tt/iam_core/domain/model/Menu.java
 /home/lsyst/Documentos/JAVA/iam-core/src/main/java/com/tt/iam_core/infrastructure/entities/PermisoEntity.java
 /home/lsyst/Documentos/JAVA/iam-core/src/main/java/com/tt/iam_core/domain/model/PermisoId.java
+/home/lsyst/Documentos/JAVA/iam-core/src/main/java/com/tt/iam_core/domain/ports/in/AutorizarAccionUseCase.java
 /home/lsyst/Documentos/JAVA/iam-core/src/main/java/com/tt/iam_core/domain/model/Rol.java
 /home/lsyst/Documentos/JAVA/iam-core/src/main/java/com/tt/iam_core/infrastructure/entities/OrganizacionEntity.java
 /home/lsyst/Documentos/JAVA/iam-core/src/main/java/com/tt/iam_core/IamCoreApplication.java
@@ -16,5 +17,7 @@
 /home/lsyst/Documentos/JAVA/iam-core/src/main/java/com/tt/iam_core/infrastructure/entities/UsuarioEntity.java
 /home/lsyst/Documentos/JAVA/iam-core/src/main/java/com/tt/iam_core/domain/model/EstadoMenu.java
 /home/lsyst/Documentos/JAVA/iam-core/src/main/java/com/tt/iam_core/domain/model/MenuId.java
+/home/lsyst/Documentos/JAVA/iam-core/src/main/java/com/tt/iam_core/application/services/AutorizarAccionService.java
+/home/lsyst/Documentos/JAVA/iam-core/src/main/java/com/tt/iam_core/domain/ports/out/UsuarioRepository.java
 /home/lsyst/Documentos/JAVA/iam-core/src/main/java/com/tt/iam_core/infrastructure/repositories/UsuarioRepository.java
 /home/lsyst/Documentos/JAVA/iam-core/src/main/java/com/tt/iam_core/domain/model/RolId.java

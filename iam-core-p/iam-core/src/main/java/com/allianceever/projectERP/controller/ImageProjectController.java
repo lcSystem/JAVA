@@ -29,7 +29,7 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
-@RequestMapping("/imageProject")
+@RequestMapping("/api/imageProject")
 @AllArgsConstructor
 public class ImageProjectController {
     private ImageProjectService imageProjectService;

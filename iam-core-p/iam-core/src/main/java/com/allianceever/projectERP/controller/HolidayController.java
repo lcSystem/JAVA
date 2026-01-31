@@ -12,7 +12,7 @@ import static com.allianceever.projectERP.controller.EmployeeController.getStrin
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
-@RequestMapping("/holiday")
+@RequestMapping("/api/holiday")
 @ComponentScan(basePackages = "com.allianceever.projectERP")
 @AllArgsConstructor // Add this annotation to generate a constructor with all required dependencies
 public class HolidayController {
