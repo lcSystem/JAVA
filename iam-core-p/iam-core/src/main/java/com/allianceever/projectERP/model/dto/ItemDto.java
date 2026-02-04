@@ -27,6 +27,6 @@ public class ItemDto {
 
     private double amount;
 
-    private EstimatesInvoicesDto EstimateInvoices;
+    // private EstimatesInvoicesDto EstimateInvoices;
 
 }
