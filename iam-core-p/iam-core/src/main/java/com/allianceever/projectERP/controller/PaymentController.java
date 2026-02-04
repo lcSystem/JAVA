@@ -7,11 +7,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/payment")
 @ComponentScan(basePackages = "com.allianceever.projectERP")
 public class PaymentController {
-
 
     private PaymentService paymentService;
 
@@ -20,19 +21,39 @@ public class PaymentController {
         this.paymentService = paymentService;
     }
 
-    @PostMapping("/addPayment")
-    public ResponseEntity<Void> addPayment(@RequestBody PaymentDto request) {
-        paymentService.create(request); // Implement this method
-        return ResponseEntity.ok().build();
+    @GetMapping("/all")
+    public ResponseEntity<List<PaymentDto>> getAllPayments() {
+        return ResponseEntity.ok(paymentService.getAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<PaymentDto> getPaymentById(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(paymentService.getById(id));
+    }
 
-    // Build Delete Employee REST API
+    @PostMapping("/create")
+    public ResponseEntity<PaymentDto> createPayment(@RequestBody PaymentDto paymentDto) {
+        return ResponseEntity.ok(paymentService.create(paymentDto));
+    }
+
+    // Mantener addPayment por compatibilidad si es necesario, pero create es
+    // preferido
+    @PostMapping("/addPayment")
+    public ResponseEntity<PaymentDto> addPayment(@RequestBody PaymentDto request) {
+        return ResponseEntity.ok(paymentService.create(request));
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<PaymentDto> updatePayment(@RequestBody PaymentDto paymentDto) {
+        if (paymentDto.getId() == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(paymentService.update(paymentDto.getId(), paymentDto));
+    }
+
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteEmployee(@PathVariable("id")  Long id){
-
+    public ResponseEntity<String> deletePayment(@PathVariable("id") Long id) {
         paymentService.delete(id);
-        return ResponseEntity.ok("payment deleted successfully!");
+        return ResponseEntity.ok("Payment deleted successfully!");
     }
 }
-

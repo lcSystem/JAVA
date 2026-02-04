@@ -34,7 +34,7 @@ public class EstimateInvoiceController {
 
         // Create and save ItemDto entities
         for (ItemDto itemDto : estimatesInvoicesDto.getItems()) {
-            itemDto.setEstimateInvoices(createdEstimatesInvoices); // Establish the relationship
+            // itemDto.setEstimateInvoices(createdEstimatesInvoices); // Establish the relationship
             itemService.create(itemDto);
         }
 

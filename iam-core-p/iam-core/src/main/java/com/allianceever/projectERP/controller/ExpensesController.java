@@ -1,19 +1,18 @@
 package com.allianceever.projectERP.controller;
 
-
-import com.allianceever.projectERP.model.dto.EmployeeDto;
 import com.allianceever.projectERP.model.dto.ExpensesDto;
-import com.allianceever.projectERP.model.dto.LeavesDto;
+
 import com.allianceever.projectERP.model.entity.Expenses;
 import com.allianceever.projectERP.service.ExpensesService;
-import lombok.AllArgsConstructor;
+
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.BeanUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -30,6 +29,11 @@ public class ExpensesController {
         this.mapper = mapper;
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<List<ExpensesDto>> getAllExpenses() {
+        return ResponseEntity.ok(expensesService.getAllExpensesOrderedByDate());
+    }
+
     @PostMapping("/create")
     public ResponseEntity<ExpensesDto> create(@ModelAttribute ExpensesDto expensesDto) {
         ExpensesDto createdExpense = expensesService.create(expensesDto);
@@ -38,7 +42,7 @@ public class ExpensesController {
 
     // Build Delete Employee REST API
     @PostMapping("/delete/{id}")
-    public ResponseEntity<String> deleteExpense(@PathVariable("id") Long employeeID){
+    public ResponseEntity<String> deleteExpense(@PathVariable("id") Long employeeID) {
         ExpensesDto employeeDto = expensesService.getById(employeeID);
         if (employeeDto != null) {
             expensesService.delete(employeeID);
@@ -48,16 +52,12 @@ public class ExpensesController {
         }
     }
 
-
     @GetMapping("/getExpense/{expenseId}")
     public Expenses getExpenseById(@PathVariable("expenseId") Long expenseId) {
         // Fetch the expense data by ID
         ExpensesDto expense = expensesService.getById(expenseId); // Replace with your service method
 
-        return mapper.map(expense,Expenses.class);
+        return mapper.map(expense, Expenses.class);
     }
-
-
-
 
 }
