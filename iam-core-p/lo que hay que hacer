@@ -1,0 +1,283 @@
+Buenísimo que hayas pegado el estado real de tu esquema 👍
+Ahora sí, hablemos sin anestesia pero con cariño técnico 😄
+Lo que tienes funciona, pero no es robusto ni flexible para un ERP a largo plazo. Hay varios vicios estructurales típicos de sistemas que crecieron sin un modelo claro.
+
+Voy por partes: qué está mal, por qué, y cómo mejorarlo sin romper todo.
+
+1️⃣ Problema raíz: exceso de texto y cero relaciones reales
+🔴 Síntoma grave
+
+Veo muchísimas columnas varchar(255) que deberían ser claves foráneas:
+
+Ejemplos:
+
+employees.departement
+
+employees.designation
+
+employees.role
+
+employee_project.employeeid
+
+task.projectid
+
+leaves.username
+
+project.created_by
+
+👉 Esto rompe totalmente la integridad referencial.
+
+❌ Consecuencias
+
+Datos inconsistentes
+
+No puedes hacer JOINs fiables
+
+Cambiar un nombre rompe el histórico
+
+Rendimiento pobre
+
+Seguridad imposible de auditar
+
+2️⃣ Usuarios y seguridad: esto es crítico 🔐
+❌ Estado actual
+users.password VARCHAR(255)
+employees.password VARCHAR(255)
+employees.role VARCHAR(255)
+
+
+⚠️ Muy peligroso
+
+Password duplicado en dos tablas
+
+No está claro si es hash
+
+Rol como texto
+
+✅ Modelo correcto (mínimo viable profesional)
+users
+users (
+  id BIGINT PK,
+  username VARCHAR(100) UNIQUE,
+  password_hash VARCHAR(255),
+  is_active BOOLEAN,
+  created_at DATETIME
+)
+
+roles
+roles (
+  id BIGINT PK,
+  code VARCHAR(50) UNIQUE,
+  name VARCHAR(100)
+)
+
+user_roles (ya la tienes, bien 👍)
+user_roles (
+  user_id BIGINT FK,
+  role_id BIGINT FK,
+  PRIMARY KEY (user_id, role_id)
+)
+
+
+🟢 Elimina:
+
+employees.password
+
+employees.role
+
+3️⃣ Employees ≠ Users (concepto clave)
+
+Esto lo tienes mezclado.
+
+❌ Ahora
+
+employees parece:
+
+persona
+
+usuario
+
+credenciales
+
+rol
+
+✅ Debe ser
+
+employees → datos laborales
+
+users → autenticación
+
+Relación correcta
+employees (
+  id BIGINT PK,
+  user_id BIGINT FK,
+  first_name,
+  last_name,
+  department_id,
+  designation_id,
+  ...
+)
+
+
+✔ Un empleado puede tener usuario
+✔ Un usuario no siempre es empleado (clientes, APIs, bots)
+
+4️⃣ Departments y Designations están mal modelados
+❌ Problema
+designation.department_name VARCHAR(255)
+employees.departement VARCHAR(255)
+
+✅ Modelo correcto
+departments (
+  id BIGINT PK,
+  name VARCHAR(100)
+)
+
+designations (
+  id BIGINT PK,
+  department_id BIGINT FK,
+  name VARCHAR(100)
+)
+
+employees.department_id BIGINT FK
+employees.designation_id BIGINT FK
+
+
+🔥 Esto te permite:
+
+jerarquías
+
+reportes reales
+
+cambios sin romper datos
+
+5️⃣ Proyectos, tareas y relaciones (mucho texto, poca lógica)
+❌ Ahora
+task.projectid VARCHAR(255)
+employee_task.employeeid VARCHAR(255)
+leader_project.leaderid VARCHAR(255)
+
+✅ Debería ser
+projects (
+  id BIGINT PK,
+  name,
+  status,
+  start_date DATE,
+  end_date DATE
+)
+
+tasks (
+  id BIGINT PK,
+  project_id BIGINT FK,
+  name,
+  status
+)
+
+employee_task (
+  employee_id BIGINT FK,
+  task_id BIGINT FK,
+  PRIMARY KEY (employee_id, task_id)
+)
+
+6️⃣ Fechas como VARCHAR = dolor futuro ⏳
+
+Veo esto en TODO el esquema:
+
+start_date VARCHAR(255)
+end_date VARCHAR(255)
+birthday VARCHAR(255)
+
+❌ Error clásico
+
+No puedes ordenar
+
+No puedes filtrar
+
+No puedes usar funciones de fecha
+
+✅ Corrección
+
+Usa:
+
+DATE
+DATETIME
+TIMESTAMP
+
+
+Ejemplo:
+
+birthday DATE
+created_at DATETIME
+
+7️⃣ Menús dinámicos con JSON: aquí sí vas bien ✅
+
+Lo bueno: no metiste menús en BD 👏
+Eso está perfecto para flexibilidad.
+
+Recomendación concreta
+
+Mantén los JSON fuera de la BD
+
+Usa permission codes que EXISTAN en BD
+
+Valida en backend que el permiso exista
+
+Ejemplo:
+
+{
+  "label": "Proyectos",
+  "path": "/projects",
+  "permission": "PROJECT.VIEW"
+}
+
+
+Si el permiso no existe → error en logs
+
+8️⃣ Qué NO tocar ahora (para no romper todo)
+
+✔ item, estimates_invoices, expenses
+✔ Secuencias _seq (si usas JPA/Hibernate)
+✔ Tablas de archivos (file_project, image_project)
+
+9️⃣ Plan realista de mejora (sin suicidio técnico)
+Fase 1 (seguridad)
+
+Unificar passwords en users
+
+Eliminar roles en texto
+
+Usar user_role_junction
+
+Fase 2 (normalización)
+
+Reemplazar VARCHAR FK por BIGINT FK
+
+Crear departments, designations reales
+
+Fase 3 (fechas)
+
+Migrar fechas a DATE/DATETIME
+
+Fase 4 (permisos + JSON)
+
+Tabla permissions
+
+Validar menús dinámicos
+
+🔚 Conclusión honesta
+
+🟥 Estado actual: funcional pero frágil
+🟨 Riesgo: alto a mediano plazo
+🟩 Potencial: muy bueno si corriges ahora
+
+Si quieres, en el próximo mensaje puedo:
+
+📐 Redibujar solo el módulo de seguridad
+
+🔄 Proponerte scripts de migración
+
+🧠 Diseñar el servicio que cruza permisos + JSON
+
+🛠️ Adaptarlo a Spring / Java puro / Node / PHP
+
+Dime por dónde seguimos y lo pulimos como ERP de verdad 💪
