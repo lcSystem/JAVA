@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class FileProjectServiceImpl implements FileProjectService {
     private FileProjectRepo fileProjectRepo;
     private ModelMapper mapper;
+
     @Override
     public FileProjectDto create(FileProjectDto fileProjectDto) {
         // convert DTO to entity
@@ -36,7 +37,7 @@ public class FileProjectServiceImpl implements FileProjectService {
 
     @Override
     public List<FileProjectDto> findAll(String projectID) {
-        List<FileProject> fileProjects = fileProjectRepo.findByProjectID(projectID);
+        List<FileProject> fileProjects = fileProjectRepo.findByProjectID(Long.valueOf(projectID));
         return fileProjects.stream().map((fileProject) -> mapToDTO(fileProject))
                 .collect(Collectors.toList());
     }
@@ -51,23 +52,21 @@ public class FileProjectServiceImpl implements FileProjectService {
 
     @Override
     public void delete(Long FileProjectID) {
-        FileProject fileProject = fileProjectRepo.findById(FileProjectID).orElseThrow(
-                () -> new ResourceNotFoundException("FileProject is not exist with given id : " + FileProjectID));
+        if (!fileProjectRepo.existsById(FileProjectID)) {
+            throw new ResourceNotFoundException("FileProject is not exist with given id : " + FileProjectID);
+        }
 
         fileProjectRepo.deleteById(FileProjectID);
     }
 
-
-
-
     // convert entity into DTO
-    private FileProjectDto mapToDTO(FileProject fileProject){
+    private FileProjectDto mapToDTO(FileProject fileProject) {
         FileProjectDto fileProjectDto = mapper.map(fileProject, FileProjectDto.class);
         return fileProjectDto;
     }
 
     // convert DTO to entity
-    private FileProject mapToEntity(FileProjectDto fileProjectDto){
+    private FileProject mapToEntity(FileProjectDto fileProjectDto) {
         FileProject fileProject = mapper.map(fileProjectDto, FileProject.class);
         return fileProject;
     }

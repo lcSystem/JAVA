@@ -2,32 +2,24 @@ package com.allianceever.projectERP.service.implementation;
 
 import com.allianceever.projectERP.exception.ResourceNotFoundException;
 import com.allianceever.projectERP.model.dto.PaymentDto;
-
 import com.allianceever.projectERP.model.entity.Payment;
-
 import com.allianceever.projectERP.repository.PaymentRepo;
 import com.allianceever.projectERP.service.PaymentService;
+import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
+@SuppressWarnings("null")
 public class PaymentServiceImpl implements PaymentService {
 
     private PaymentRepo paymentRepo;
-
     private ModelMapper mapper;
-
-    @Autowired
-    public PaymentServiceImpl(PaymentRepo paymentRepo, ModelMapper mapper) {
-        this.paymentRepo = paymentRepo;
-        this.mapper = mapper;
-    }
 
     @Override
     public PaymentDto create(PaymentDto paymentDto) {
@@ -41,9 +33,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     public List<PaymentDto> getAll() {
-
         List<Payment> payments = paymentRepo.findAll();
-
         return payments.stream()
                 .map(payment -> mapper.map(payment, PaymentDto.class))
                 .collect(Collectors.toList());
@@ -62,7 +52,10 @@ public class PaymentServiceImpl implements PaymentService {
                 .orElseThrow(() -> new ResourceNotFoundException("Payment not found with id: " + id));
 
         // Update fields
-        existingPayment.setInvoiceID(paymentDto.getInvoiceID());
+        if (paymentDto.getEstimatesInvoices() != null) {
+            existingPayment.setEstimatesInvoices(mapper.map(paymentDto.getEstimatesInvoices(),
+                    com.allianceever.projectERP.model.entity.EstimatesInvoices.class));
+        }
         existingPayment.setPaidDate(paymentDto.getPaidDate());
         existingPayment.setPaidAmount(paymentDto.getPaidAmount());
 
@@ -78,5 +71,4 @@ public class PaymentServiceImpl implements PaymentService {
         }
         paymentRepo.deleteById(id);
     }
-
 }

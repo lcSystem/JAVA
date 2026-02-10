@@ -5,31 +5,29 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class ExpensesDto {
 
-    private Integer Id;
+    private Long Id;
 
     private String itemName;
 
     private String purchaseFrom;
 
-
-    private String purchaseDate;
-
+    private LocalDate purchaseDate;
 
     private String purchasedBy;
 
-    private String Amount;
-
+    private BigDecimal Amount;
 
     private String paidBy;
 
     private String Status;
-
 
     @Lob
     private byte[] data;

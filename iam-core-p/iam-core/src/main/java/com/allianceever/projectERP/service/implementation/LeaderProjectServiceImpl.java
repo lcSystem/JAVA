@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class LeaderProjectServiceImpl implements LeaderProjectService {
     private LeaderProjectRepo leaderProjectRepo;
     private ModelMapper mapper;
+
     @Override
     public LeaderProjectDto create(LeaderProjectDto leaderProjectDto) {
         // convert DTO to entity
@@ -36,14 +37,14 @@ public class LeaderProjectServiceImpl implements LeaderProjectService {
 
     @Override
     public List<LeaderProjectDto> findAll(String projectID) {
-        List<LeaderProject> leaderProjects = leaderProjectRepo.findByProjectID(projectID);
+        List<LeaderProject> leaderProjects = leaderProjectRepo.findByProjectID(Long.valueOf(projectID));
         return leaderProjects.stream().map((leaderProject) -> mapToDTO(leaderProject))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<LeaderProjectDto> findAllByLeaderID(String leaderID) {
-        List<LeaderProject> leaderProjects = leaderProjectRepo.findByLeaderID(leaderID);
+        List<LeaderProject> leaderProjects = leaderProjectRepo.findByLeaderID(Long.valueOf(leaderID));
         return leaderProjects.stream().map((leaderProject) -> mapToDTO(leaderProject))
                 .collect(Collectors.toList());
     }
@@ -58,10 +59,11 @@ public class LeaderProjectServiceImpl implements LeaderProjectService {
 
     @Override
     public LeaderProjectDto getByLeaderIDAndProjectID(String leaderID, String projectID) {
-        LeaderProject leaderProject = leaderProjectRepo.findByLeaderIDAndProjectID(leaderID, projectID);
-        if(leaderProject != null){
+        LeaderProject leaderProject = leaderProjectRepo.findByLeaderIDAndProjectID(Long.valueOf(leaderID),
+                Long.valueOf(projectID));
+        if (leaderProject != null) {
             return mapToDTO(leaderProject);
-        }else{
+        } else {
             return null;
         }
     }
@@ -74,17 +76,14 @@ public class LeaderProjectServiceImpl implements LeaderProjectService {
         leaderProjectRepo.deleteById(LeaderProjectID);
     }
 
-
-
-
     // convert entity into DTO
-    private LeaderProjectDto mapToDTO(LeaderProject leaderProject){
+    private LeaderProjectDto mapToDTO(LeaderProject leaderProject) {
         LeaderProjectDto leaderProjectDto = mapper.map(leaderProject, LeaderProjectDto.class);
         return leaderProjectDto;
     }
 
     // convert DTO to entity
-    private LeaderProject mapToEntity(LeaderProjectDto leaderProjectDto){
+    private LeaderProject mapToEntity(LeaderProjectDto leaderProjectDto) {
         LeaderProject leaderProject = mapper.map(leaderProjectDto, LeaderProject.class);
         return leaderProject;
     }

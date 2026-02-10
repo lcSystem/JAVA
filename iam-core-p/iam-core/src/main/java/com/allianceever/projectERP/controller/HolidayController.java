@@ -4,19 +4,20 @@ import com.allianceever.projectERP.model.dto.HolidayDto;
 import com.allianceever.projectERP.service.HolidayService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-import static com.allianceever.projectERP.controller.EmployeeController.getStrings;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping("/api/holiday")
-@ComponentScan(basePackages = "com.allianceever.projectERP")
-@AllArgsConstructor // Add this annotation to generate a constructor with all required dependencies
+@AllArgsConstructor
 public class HolidayController {
 
     private HolidayService holidayService;
@@ -28,14 +29,14 @@ public class HolidayController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<HolidayDto> createHoliday(@ModelAttribute() HolidayDto holidayDto) {
+    public ResponseEntity<HolidayDto> createHoliday(@ModelAttribute HolidayDto holidayDto) {
         HolidayDto createdHoliday = holidayService.create(holidayDto);
         return new ResponseEntity<>(createdHoliday, CREATED);
     }
 
-    @GetMapping("/{holidayName}")
-    public ResponseEntity<HolidayDto> getHolidayByHolidayName(@PathVariable("holidayName") String holidayName) {
-        HolidayDto holidayDto = holidayService.getByHolidayName(holidayName);
+    @GetMapping("/{id}")
+    public ResponseEntity<HolidayDto> getHolidayById(@PathVariable("id") Long id) {
+        HolidayDto holidayDto = holidayService.getById(id);
         if (holidayDto != null) {
             return ResponseEntity.ok(holidayDto);
         } else {
@@ -44,36 +45,38 @@ public class HolidayController {
     }
 
     @PostMapping("/updateHoliday")
+    @SuppressWarnings("null")
     public ResponseEntity<HolidayDto> updateHoliday(@ModelAttribute HolidayDto holidayDto) {
-        String HolidayName = holidayDto.getHolidayName();
-        HolidayDto existingHoliday = holidayService.getByHolidayName(HolidayName);
+        Long holidayId = holidayDto.getHolidayId();
+        HolidayDto existingHoliday = holidayService.getById(holidayId);
         if (existingHoliday == null) {
             return ResponseEntity.notFound().build();
         }
-        // Perform a partial update of the existingEmployee using the employeeDto data
+
         BeanUtils.copyProperties(holidayDto, existingHoliday, getNullPropertyNames(holidayDto));
 
-        // Save the updated employee data back to the database
-        HolidayDto updatedHoliday = holidayService.update(HolidayName, existingHoliday);
+        HolidayDto updatedHoliday = holidayService.update(holidayId, existingHoliday);
         return ResponseEntity.ok(updatedHoliday);
     }
 
-    // Build Delete Employee REST API
-    @PostMapping("/delete/{HolidayName}")
-    public ResponseEntity<String> deleteEmployee(@PathVariable("HolidayName") String holidayName) {
-        HolidayDto holidayDto = holidayService.getByHolidayName(holidayName);
-        // if (employeeDto != null) {
-        // employeeService.delete(employeeID);
-        // return ResponseEntity.ok("Employee deleted successfully!");
-        // } else {
-        // return ResponseEntity.notFound().build();
-        // }
-
-        holidayService.delete(holidayName);
+    @PostMapping("/delete/{id}")
+    public ResponseEntity<String> deleteHoliday(@PathVariable("id") Long id) {
+        holidayService.delete(id);
         return ResponseEntity.ok("Holiday deleted successfully!");
     }
 
+    @SuppressWarnings("null")
     public static String[] getNullPropertyNames(Object source) {
-        return getStrings(source);
+        final BeanWrapper src = new BeanWrapperImpl(source);
+        java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();
+
+        Set<String> emptyNames = new HashSet<>();
+        for (java.beans.PropertyDescriptor pd : pds) {
+            Object srcValue = src.getPropertyValue(pd.getName());
+            if (srcValue == null)
+                emptyNames.add(pd.getName());
+        }
+        String[] result = new String[emptyNames.size()];
+        return emptyNames.toArray(result);
     }
 }

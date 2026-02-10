@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class ImageProjectServiceImpl implements ImageProjectService {
     private ImageProjectRepo imageProjectRepo;
     private ModelMapper mapper;
+
     @Override
     public ImageProjectDto create(ImageProjectDto imageProjectDto) {
         // convert DTO to entity
@@ -36,7 +37,7 @@ public class ImageProjectServiceImpl implements ImageProjectService {
 
     @Override
     public List<ImageProjectDto> findAll(String projectID) {
-        List<ImageProject> imageProjects = imageProjectRepo.findByProjectID(projectID);
+        List<ImageProject> imageProjects = imageProjectRepo.findByProjectID(Long.valueOf(projectID));
         return imageProjects.stream().map((imageProject) -> mapToDTO(imageProject))
                 .collect(Collectors.toList());
     }
@@ -57,17 +58,14 @@ public class ImageProjectServiceImpl implements ImageProjectService {
         imageProjectRepo.deleteById(ImageProjectID);
     }
 
-
-
-
     // convert entity into DTO
-    private ImageProjectDto mapToDTO(ImageProject imageProject){
+    private ImageProjectDto mapToDTO(ImageProject imageProject) {
         ImageProjectDto imageProjectDto = mapper.map(imageProject, ImageProjectDto.class);
         return imageProjectDto;
     }
 
     // convert DTO to entity
-    private ImageProject mapToEntity(ImageProjectDto imageProjectDto){
+    private ImageProject mapToEntity(ImageProjectDto imageProjectDto) {
         ImageProject imageProject = mapper.map(imageProjectDto, ImageProject.class);
         return imageProject;
     }

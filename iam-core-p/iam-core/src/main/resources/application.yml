@@ -5,12 +5,16 @@ spring:
     password: 123456
   jpa:
     hibernate:
-      ddlAuto: update
+       ddl-auto: validate
     showSql: true
     properties:
       hibernate:
         formatSql: true
     database: mysql
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
   servlet:
     multipart:
       max-file-size: 10MB

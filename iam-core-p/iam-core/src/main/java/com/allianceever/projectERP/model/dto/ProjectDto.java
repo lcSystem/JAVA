@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -13,8 +14,8 @@ public class ProjectDto {
     private Long projectID;
     private String project_Name;
     private String company_Name;
-    private String start_Date;
-    private String end_Date;
+    private LocalDate start_Date;
+    private LocalDate end_Date;
     private String rate;
     private String rate_Type;
     private String priority;

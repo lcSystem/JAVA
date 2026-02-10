@@ -11,13 +11,14 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name="item")
+@Table(name = "item")
 
 public class Item {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer itemID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "item_id")
+    private Long itemID;
 
     private String name;
 
@@ -32,7 +33,5 @@ public class Item {
     @ManyToOne
     @JoinColumn(name = "estimate_invoices_id")
     private EstimatesInvoices estimateInvoices;
-
-
 
 }

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import jakarta.validation.constraints.Size;
 
-
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -18,11 +18,12 @@ import jakarta.validation.constraints.Size;
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "project_id")
     private Long projectID;
     private String project_Name;
     private String company_Name;
-    private String start_Date;
-    private String end_Date;
+    private LocalDate start_Date;
+    private LocalDate end_Date;
     private String rate;
     private String rate_Type;
     private String priority;

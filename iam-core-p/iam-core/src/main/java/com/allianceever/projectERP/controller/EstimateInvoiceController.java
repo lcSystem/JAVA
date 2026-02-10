@@ -20,21 +20,18 @@ import static com.allianceever.projectERP.controller.EmployeeController.getStrin
 @RestController
 @RequestMapping("/createEstimateInvoice")
 @ComponentScan(basePackages = "com.allianceever.projectERP")
-@AllArgsConstructor // Add this annotation to generate a constructor with all required dependencies
+@AllArgsConstructor
 public class EstimateInvoiceController {
 
     private EstimatesInvoicesService estimatesInvoicesService;
     private ItemService itemService;
     private final RSAKeyProperties rsaKeyProperties;
 
-
     @PostMapping("/create")
-    public ModelAndView createEstimatesInvoices(@RequestBody EstimatesInvoicesDto estimatesInvoicesDto){
-        EstimatesInvoicesDto createdEstimatesInvoices = estimatesInvoicesService.create(estimatesInvoicesDto);
+    public ModelAndView createEstimatesInvoices(@RequestBody EstimatesInvoicesDto estimatesInvoicesDto) {
+        estimatesInvoicesService.create(estimatesInvoicesDto);
 
-        // Create and save ItemDto entities
         for (ItemDto itemDto : estimatesInvoicesDto.getItems()) {
-            // itemDto.setEstimateInvoices(createdEstimatesInvoices); // Establish the relationship
             itemService.create(itemDto);
         }
 
@@ -42,42 +39,40 @@ public class EstimateInvoiceController {
     }
 
     @GetMapping("/view/{id}")
-    public ModelAndView viewEstimatesInvoices(@PathVariable("id")  Integer id ,RedirectAttributes redirectAttributes, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public ModelAndView viewEstimatesInvoices(@PathVariable("id") Long id, RedirectAttributes redirectAttributes,
+            @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String role = "";
         try {
             Claims claims = Jwts.parserBuilder()
-                    .setSigningKey(rsaKeyProperties.getPublicKey()) // Use the public key for verification
+                    .setSigningKey(rsaKeyProperties.getPublicKey())
                     .build()
                     .parseClaimsJws(jwtToken)
                     .getBody();
 
-            // Retrieve role from the jwt
             role = (String) claims.get("roles");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        if(role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")){
+        if (role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")) {
             EstimatesInvoicesDto estimatesInvoicesDto = estimatesInvoicesService.getById(id);
 
-            String type=estimatesInvoicesDto.getType();
-            if("estimate".equals(type)){
+            String type = estimatesInvoicesDto.getType();
+            if ("estimate".equals(type)) {
                 redirectAttributes.addFlashAttribute("estimate", estimatesInvoicesDto);
                 return new ModelAndView("redirect:/estimate-view.html");
-            }else{
+            } else {
                 redirectAttributes.addFlashAttribute("estimate", estimatesInvoicesDto);
                 return new ModelAndView("redirect:/invoice-view.html");
             }
-        }else {
+        } else {
             return new ModelAndView("redirect:/error-404.html");
         }
     }
 
-
-    // Build Delete Employee REST API
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> deleteEmployee(@PathVariable("id")  Integer id){
+    public ResponseEntity<String> deleteEstimatesInvoices(@PathVariable("id") Long id) {
         EstimatesInvoicesDto estimatesInvoicesDto = estimatesInvoicesService.getById(id);
 
         if (estimatesInvoicesDto != null) {
@@ -88,62 +83,58 @@ public class EstimateInvoiceController {
         }
     }
 
-
-    @GetMapping("/edit/{id}") // Keep this mapping as it is
-    public ModelAndView editEstimate(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
+    @GetMapping("/edit/{id}")
+    public ModelAndView editEstimate(@PathVariable("id") Long id, RedirectAttributes redirectAttributes,
+            @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String role = "";
         try {
             Claims claims = Jwts.parserBuilder()
-                    .setSigningKey(rsaKeyProperties.getPublicKey()) // Use the public key for verification
+                    .setSigningKey(rsaKeyProperties.getPublicKey())
                     .build()
                     .parseClaimsJws(jwtToken)
                     .getBody();
 
-            // Retrieve role from the jwt
             role = (String) claims.get("roles");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        if(role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")){
+        if (role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")) {
             EstimatesInvoicesDto estimatesInvoicesDto = estimatesInvoicesService.getById(id);
-            String type=estimatesInvoicesDto.getType();
+            String type = estimatesInvoicesDto.getType();
 
-            if("estimate".equals(type)){
+            if ("estimate".equals(type)) {
                 redirectAttributes.addFlashAttribute("estimate", estimatesInvoicesDto);
-                return  new ModelAndView("redirect:/edit-estimate.html");  // Directly return the template name
-            }else{
-
+                return new ModelAndView("redirect:/edit-estimate.html");
+            } else {
                 redirectAttributes.addFlashAttribute("estimate", estimatesInvoicesDto);
-                return  new ModelAndView("redirect:/edit-invoice.html");  // Directly return the template name
+                return new ModelAndView("redirect:/edit-invoice.html");
             }
-        }else {
+        } else {
             return new ModelAndView("redirect:/error-404.html");
         }
     }
 
-
-
     @PutMapping("/updateEstimatesInvoices")
-    public ResponseEntity<EstimatesInvoicesDto> updateLeaves(@RequestBody EstimatesInvoicesDto estimatesInvoicesDto){
-        Integer id = estimatesInvoicesDto.getId();
+    @SuppressWarnings("null")
+    public ResponseEntity<EstimatesInvoicesDto> updateEstimatesInvoices(
+            @RequestBody EstimatesInvoicesDto estimatesInvoicesDto) {
+        Long id = estimatesInvoicesDto.getId();
         EstimatesInvoicesDto existingEstimatesInvoices = estimatesInvoicesService.getById(id);
         if (existingEstimatesInvoices == null) {
             return ResponseEntity.notFound().build();
         }
-        // Perform a partial update of the existingEmployee using the employeeDto data
-        BeanUtils.copyProperties(estimatesInvoicesDto, existingEstimatesInvoices, getNullPropertyNames(estimatesInvoicesDto));
 
-        // Save the updated employee data back to the database
-        EstimatesInvoicesDto updatedEstimatesInvoices = estimatesInvoicesService.update(id,existingEstimatesInvoices);
+        BeanUtils.copyProperties(estimatesInvoicesDto, existingEstimatesInvoices,
+                getNullPropertyNames(estimatesInvoicesDto));
+
+        EstimatesInvoicesDto updatedEstimatesInvoices = estimatesInvoicesService.update(id, existingEstimatesInvoices);
         return ResponseEntity.ok(updatedEstimatesInvoices);
     }
 
-
-
+    @SuppressWarnings("null")
     public static String[] getNullPropertyNames(Object source) {
         return getStrings(source);
     }
-
 }

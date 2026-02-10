@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class MessageTaskServiceImpl implements MessageTaskService {
     private MessageTaskRepo messageTaskRepo;
     private ModelMapper mapper;
+
     @Override
     public MessageTaskDto create(MessageTaskDto messageTaskDto) {
         // convert DTO to entity
@@ -36,7 +37,7 @@ public class MessageTaskServiceImpl implements MessageTaskService {
 
     @Override
     public List<MessageTaskDto> findAll(String taskID) {
-        List<MessageTask> messageTasks = messageTaskRepo.findByTaskID(taskID);
+        List<MessageTask> messageTasks = messageTaskRepo.findByTaskID(Long.valueOf(taskID));
         return messageTasks.stream().map((messageTask) -> mapToDTO(messageTask))
                 .collect(Collectors.toList());
     }
@@ -49,7 +50,6 @@ public class MessageTaskServiceImpl implements MessageTaskService {
         return mapToDTO(messageTask);
     }
 
-
     @Override
     public void delete(Long MessageTaskID) {
         MessageTask messageTask = messageTaskRepo.findById(MessageTaskID).orElseThrow(
@@ -58,17 +58,14 @@ public class MessageTaskServiceImpl implements MessageTaskService {
         messageTaskRepo.deleteById(MessageTaskID);
     }
 
-
-
-
     // convert entity into DTO
-    private MessageTaskDto mapToDTO(MessageTask messageTask){
+    private MessageTaskDto mapToDTO(MessageTask messageTask) {
         MessageTaskDto messageTaskDto = mapper.map(messageTask, MessageTaskDto.class);
         return messageTaskDto;
     }
 
     // convert DTO to entity
-    private MessageTask mapToEntity(MessageTaskDto messageTaskDto){
+    private MessageTask mapToEntity(MessageTaskDto messageTaskDto) {
         MessageTask messageTask = mapper.map(messageTaskDto, MessageTask.class);
         return messageTask;
     }

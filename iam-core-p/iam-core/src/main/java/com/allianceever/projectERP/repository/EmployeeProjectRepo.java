@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface EmployeeProjectRepo extends JpaRepository<EmployeeProject, Long> {
-    List<EmployeeProject> findByProjectID(String projectID);
-    List<EmployeeProject> findByEmployeeID(String employeeID);
-    EmployeeProject findByEmployeeIDAndProjectID(String employeeID, String projectID);
+    List<EmployeeProject> findByProject_ProjectID(Long projectID);
+
+    List<EmployeeProject> findByEmployee_EmployeeID(Long employeeID);
+
+    EmployeeProject findByEmployee_EmployeeIDAndProject_ProjectID(Long employeeID, Long projectID);
 }

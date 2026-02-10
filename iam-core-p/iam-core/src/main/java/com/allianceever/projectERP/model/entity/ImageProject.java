@@ -15,8 +15,10 @@ import lombok.ToString;
 public class ImageProject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "image_project_id")
     private Long imageProjectID;
-    private String projectID;
+    @Column(name = "project_id")
+    private Long projectID;
     private String imageName;
     private String originalName;
 }

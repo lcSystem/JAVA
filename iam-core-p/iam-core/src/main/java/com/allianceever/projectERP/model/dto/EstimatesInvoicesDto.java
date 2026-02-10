@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -12,19 +13,19 @@ import java.util.List;
 @AllArgsConstructor
 public class EstimatesInvoicesDto {
 
-    private Integer id;
+    private Long id;
 
     private String type;
 
-    private Integer clientID;
+    private ClientDto client;
 
-    private Integer projectID;
+    private ProjectDto project;
 
-    private String createDate;
+    private LocalDate createDate;
 
-    private  String estimateDate;
+    private LocalDate estimateDate;
 
-    private String expiryDate;
+    private LocalDate expiryDate;
 
     private BigDecimal total;
 
@@ -34,10 +35,6 @@ public class EstimatesInvoicesDto {
 
     private Integer tax;
 
-
     private List<ItemDto> items;
-
-
-
 
 }

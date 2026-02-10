@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class EmployeeTaskServiceImpl implements EmployeeTaskService {
     private EmployeeTaskRepo employeeTaskRepo;
     private ModelMapper mapper;
+
     @Override
     public EmployeeTaskDto create(EmployeeTaskDto employeeTaskDto) {
         // convert DTO to entity
@@ -36,7 +37,7 @@ public class EmployeeTaskServiceImpl implements EmployeeTaskService {
 
     @Override
     public List<EmployeeTaskDto> findAll(String taskID) {
-        List<EmployeeTask> employeeTasks = employeeTaskRepo.findByTaskID(taskID);
+        List<EmployeeTask> employeeTasks = employeeTaskRepo.findByTaskID(Long.valueOf(taskID));
         return employeeTasks.stream().map((employeeTask) -> mapToDTO(employeeTask))
                 .collect(Collectors.toList());
     }
@@ -51,10 +52,11 @@ public class EmployeeTaskServiceImpl implements EmployeeTaskService {
 
     @Override
     public EmployeeTaskDto getByEmployeeIDAndTaskID(String employeeID, String taskID) {
-        EmployeeTask employeeTask = employeeTaskRepo.findByEmployeeIDAndTaskID(employeeID, taskID);
-        if(employeeTask != null){
+        EmployeeTask employeeTask = employeeTaskRepo.findByEmployeeIDAndTaskID(Long.valueOf(employeeID),
+                Long.valueOf(taskID));
+        if (employeeTask != null) {
             return mapToDTO(employeeTask);
-        }else{
+        } else {
             return null;
         }
     }
@@ -67,17 +69,14 @@ public class EmployeeTaskServiceImpl implements EmployeeTaskService {
         employeeTaskRepo.deleteById(EmployeeTaskID);
     }
 
-
-
-
     // convert entity into DTO
-    private EmployeeTaskDto mapToDTO(EmployeeTask employeeTask){
+    private EmployeeTaskDto mapToDTO(EmployeeTask employeeTask) {
         EmployeeTaskDto employeeTaskDto = mapper.map(employeeTask, EmployeeTaskDto.class);
         return employeeTaskDto;
     }
 
     // convert DTO to entity
-    private EmployeeTask mapToEntity(EmployeeTaskDto employeeTaskDto){
+    private EmployeeTask mapToEntity(EmployeeTaskDto employeeTaskDto) {
         EmployeeTask employeeTask = mapper.map(employeeTaskDto, EmployeeTask.class);
         return employeeTask;
     }

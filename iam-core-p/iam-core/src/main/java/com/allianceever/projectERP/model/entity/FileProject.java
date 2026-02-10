@@ -15,8 +15,10 @@ import lombok.ToString;
 public class FileProject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "file_project_id")
     private Long fileProjectID;
-    private String projectID;
+    @Column(name = "project_id")
+    private Long projectID;
     private String fileName;
     private String originalName;
     private String dateCreation;

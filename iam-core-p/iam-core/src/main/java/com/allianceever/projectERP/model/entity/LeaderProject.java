@@ -15,9 +15,12 @@ import lombok.ToString;
 public class LeaderProject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "leader_project_id")
     private Long leaderProjectID;
-    private String projectID;
-    private String leaderID;
+    @Column(name = "project_id")
+    private Long projectID;
+    @Column(name = "leader_id")
+    private Long leaderID;
     private String first_Name;
     private String last_Name;
     private String designation;

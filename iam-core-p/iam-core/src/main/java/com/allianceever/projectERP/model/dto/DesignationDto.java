@@ -1,10 +1,9 @@
 package com.allianceever.projectERP.model.dto;
 
-        import jakarta.persistence.Column;
-        import lombok.AllArgsConstructor;
-        import lombok.Data;
-        import lombok.NoArgsConstructor;
-
+import jakarta.persistence.Column;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
@@ -12,5 +11,5 @@ package com.allianceever.projectERP.model.dto;
 public class DesignationDto {
     private Long designationID;
     private String designationName;
-    private String departmentName;
+    private DepartmentDto department;
 }

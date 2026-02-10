@@ -1,31 +1,28 @@
 package com.allianceever.projectERP.model.entity;
 
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.time.LocalDate;
+
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name="holiday")
+@Table(name = "holiday")
 public class Holiday {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer HolidayId;
+    @Column(name = "holidayid")
+    private Long holidayId;
     @Column(unique = true)
     private String holidayName;
-    private String holidayDate;
-    private String holidayDateEnd;
-
+    private LocalDate holidayDate;
+    private LocalDate holidayDateEnd;
 
 }

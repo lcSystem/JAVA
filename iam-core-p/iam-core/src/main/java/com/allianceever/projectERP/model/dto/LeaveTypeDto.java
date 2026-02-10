@@ -1,6 +1,5 @@
 package com.allianceever.projectERP.model.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,13 +8,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LeaveTypeDto {
-    private Integer leaveTypeId;
+    private Long leaveTypeId;
 
-    private String  username;
+    private String username;
 
     private String leaveName;
 
-    private String days;
+    private Integer days;
 
     private String leaveStatus;
 }

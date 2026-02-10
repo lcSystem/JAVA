@@ -9,9 +9,9 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface ExpensesRepo extends JpaRepository<Expenses,Long> {
+public interface ExpensesRepo extends JpaRepository<Expenses, Long> {
 
-    @Query(value = "SELECT * FROM expenses ORDER BY STR_TO_DATE(purchase_date, '%d/%m/%Y') ASC", nativeQuery = true)
+    @Query(value = "SELECT * FROM expenses ORDER BY purchase_date ASC", nativeQuery = true)
 
     List<Expenses> findAllOrderByDate();
 }

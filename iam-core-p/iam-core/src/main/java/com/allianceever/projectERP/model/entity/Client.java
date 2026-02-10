@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -16,6 +17,7 @@ import lombok.ToString;
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "client_id")
     private Long clientID;
     private String first_Name;
     private String last_Name;
@@ -27,7 +29,7 @@ public class Client {
 
     @Column(unique = true)
     private String company_Name;
-    private String date_Creation;
+    private LocalDate date_Creation;
     private String address;
     @Column(unique = true)
     private String ice;

@@ -11,23 +11,31 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
+
 @AllArgsConstructor
 @Service
+@SuppressWarnings("null")
 public class HolidayServiceImpl implements HolidayService {
 
     private HolidayRepo holidayRepo;
     private ModelMapper mapper;
 
-
     @Override
     public HolidayDto getByHolidayName(String holidayName) {
         Holiday holiday = holidayRepo.findByHolidayName(holidayName);
-        return mapper.map(holiday,HolidayDto.class);
+        if (holiday == null) {
+            return null;
+        }
+        return mapper.map(holiday, HolidayDto.class);
     }
 
-
+    @Override
+    public HolidayDto getById(Long id) {
+        Holiday holiday = holidayRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Holiday does not exist with the given id: " + id));
+        return mapper.map(holiday, HolidayDto.class);
+    }
 
     @Override
     public HolidayDto create(HolidayDto holidayDto) {
@@ -40,32 +48,23 @@ public class HolidayServiceImpl implements HolidayService {
     }
 
     @Override
-    public HolidayDto update(String holidayName, HolidayDto holidayDto) {
-        // Find the existing holiday entity by name
-        Optional<Holiday> holidayOptional = Optional.ofNullable(holidayRepo.findByHolidayName(holidayName));
+    public HolidayDto update(Long id, HolidayDto holidayDto) {
+        // Find the existing holiday entity by id
+        Holiday existingHoliday = holidayRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Holiday does not exist with the given id: " + id));
 
-        Holiday existingHoliday = holidayOptional.orElseThrow(() ->
-                new ResourceNotFoundException("Holiday does not exist with the given name: " + holidayName)
-        );
-
-
-        // Update the fields of existingHoliday with the corresponding fields from holidayDto
+        // Update the fields of existingHoliday with the corresponding fields from
+        // holidayDto
+        existingHoliday.setHolidayName(holidayDto.getHolidayName());
         existingHoliday.setHolidayDate(holidayDto.getHolidayDate());
         existingHoliday.setHolidayDateEnd(holidayDto.getHolidayDateEnd());
-
 
         // Save the updated entity back to the database
         Holiday updatedHoliday = holidayRepo.save(existingHoliday);
 
-
         // Convert the updated entity to DTO and return it
         return mapper.map(updatedHoliday, HolidayDto.class);
     }
-
-
-
-
-
 
     @Override
     public List<HolidayDto> getAllHolidaysOrderedByDate() {
@@ -74,20 +73,15 @@ public class HolidayServiceImpl implements HolidayService {
         return holidays.stream()
                 .map(holiday -> mapper.map(holiday, HolidayDto.class))
                 .collect(Collectors.toList());
-}
+    }
 
     @Override
     @Transactional
-
-    public void delete(String HolidayName) {
-         Optional<Holiday> holidayOptional = Optional.ofNullable(holidayRepo.findByHolidayName(HolidayName));
-
-        if (holidayOptional.isPresent()) {
-            Holiday holiday = holidayOptional.get();
-            holidayRepo.deleteByHolidayName(HolidayName);
-        } else {
-            throw new ResourceNotFoundException("Employee is not exist with given name: " + HolidayName);
+    public void delete(Long id) {
+        if (!holidayRepo.existsById(id)) {
+            throw new ResourceNotFoundException("Holiday does not exist with given id: " + id);
         }
+        holidayRepo.deleteById(id);
     }
 
 }

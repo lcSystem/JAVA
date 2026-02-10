@@ -11,18 +11,23 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name="LeaveType")
+@Table(name = "leave_type")
 public class LeaveType {
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     @Id
-    private Integer leaveTypeId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "leave_type_id")
+    private Long leaveTypeId;
 
-    private String  username;
+    @Column(name = "username", nullable = false, length = 100)
+    private String username;
 
-    @Column(unique = true)
+    @Column(name = "leave_name", nullable = false, unique = true, length = 100)
     private String leaveName;
 
-    private String days;
+    @Column(name = "days", nullable = false)
+    private Integer days;
 
+    @Column(name = "leave_status", nullable = false, length = 30)
     private String leaveStatus;
 }
