@@ -15,7 +15,6 @@ import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
-
 @RestController
 @RequestMapping("/api/messageTask")
 @AllArgsConstructor
@@ -29,32 +28,37 @@ public class MessageTaskController {
 
     // Build Get All MessageTask REST API
     @GetMapping("/all")
-    public ResponseEntity<List<MessageTaskDto>> getAllMessageTasks(){
+    public ResponseEntity<List<MessageTaskDto>> getAllMessageTasks() {
         List<MessageTaskDto> messageTasks = messageTaskService.getAll();
         return ResponseEntity.ok(messageTasks);
     }
 
     // Build Get MessageTask REST API
     @GetMapping("/{id}")
-    public ResponseEntity<MessageTaskDto> getMessageTaskById(@PathVariable("id") Long messageTaskID, @AuthenticationPrincipal Jwt jwt){
+    public ResponseEntity<MessageTaskDto> getMessageTaskById(@PathVariable("id") Long messageTaskID,
+            @AuthenticationPrincipal Jwt jwt) {
         // Retrieve username and role from the jwt Token
         String username = jwt.getClaimAsString("sub");
         String role = jwt.getClaimAsString("roles");
 
         MessageTaskDto messageTaskDto = messageTaskService.getById(messageTaskID);
         if (messageTaskDto != null) {
-            if(role.equals("ADMIN") || role.equals("Business_Development")){
+            if (role.equals("ADMIN") || role.equals("Business_Development")) {
                 return ResponseEntity.ok(messageTaskDto);
-            }else {
+            } else {
                 TaskDto taskDto = taskService.getById(Long.valueOf(messageTaskDto.getTaskID()));
-                String projectID = taskDto.getProjectID();
+                String projectID = (taskDto.getProject() != null) ? String.valueOf(taskDto.getProject().getProjectID())
+                        : null;
                 EmployeeDto employeeDto = employeeService.getByUsername(username);
                 String employeeID = String.valueOf(employeeDto.getEmployeeID());
 
-                EmployeeTaskDto employeeTaskDto = employeeTaskService.getByEmployeeIDAndTaskID(employeeID,messageTaskDto.getTaskID());
-                EmployeeProjectDto employeeProjectDto = employeeProjectService.getByEmployeeIDAndProjectID(employeeID,projectID);
-                LeaderProjectDto leaderProjectDto = leaderProjectService.getByLeaderIDAndProjectID(employeeID, projectID);
-                if(leaderProjectDto != null || employeeProjectDto != null || employeeTaskDto != null){
+                EmployeeTaskDto employeeTaskDto = employeeTaskService.getByEmployeeIDAndTaskID(employeeID,
+                        messageTaskDto.getTaskID());
+                EmployeeProjectDto employeeProjectDto = employeeProjectService.getByEmployeeIDAndProjectID(employeeID,
+                        projectID);
+                LeaderProjectDto leaderProjectDto = leaderProjectService.getByLeaderIDAndProjectID(employeeID,
+                        projectID);
+                if (leaderProjectDto != null || employeeProjectDto != null || employeeTaskDto != null) {
                     return ResponseEntity.ok(messageTaskDto);
                 }
                 return ResponseEntity.notFound().build();
@@ -66,7 +70,8 @@ public class MessageTaskController {
 
     // Build Add MessageTask REST API
     @PostMapping("/create")
-    public ResponseEntity<MessageTaskDto> createMessageTask(@ModelAttribute MessageTaskDto messageTaskDto, @AuthenticationPrincipal Jwt jwt){
+    public ResponseEntity<MessageTaskDto> createMessageTask(@ModelAttribute MessageTaskDto messageTaskDto,
+            @AuthenticationPrincipal Jwt jwt) {
         // Retrieve username and role from the jwt Token
         String username = jwt.getClaimAsString("sub");
         String role = jwt.getClaimAsString("roles");
@@ -88,17 +93,20 @@ public class MessageTaskController {
             messageTaskDto.setImageName(employeeDto.getImageName());
             messageTaskDto.setDate(messageDate);
 
-            if(role.equals("ADMIN") || role.equals("Business_Development")){
+            if (role.equals("ADMIN") || role.equals("Business_Development")) {
                 MessageTaskDto createdMessageTask = messageTaskService.create(messageTaskDto);
                 return new ResponseEntity<>(createdMessageTask, CREATED);
-            }else {
+            } else {
                 TaskDto taskDto = taskService.getById(Long.valueOf(messageTaskDto.getTaskID()));
-                String projectID = taskDto.getProjectID();
+                String projectID = (taskDto.getProject() != null) ? String.valueOf(taskDto.getProject().getProjectID())
+                        : null;
                 String employeeID = String.valueOf(employeeDto.getEmployeeID());
 
-                EmployeeTaskDto employeeTaskDto = employeeTaskService.getByEmployeeIDAndTaskID(employeeID,messageTaskDto.getTaskID());
-                LeaderProjectDto leaderProjectDto = leaderProjectService.getByLeaderIDAndProjectID(employeeID, projectID);
-                if(leaderProjectDto != null || employeeTaskDto != null){
+                EmployeeTaskDto employeeTaskDto = employeeTaskService.getByEmployeeIDAndTaskID(employeeID,
+                        messageTaskDto.getTaskID());
+                LeaderProjectDto leaderProjectDto = leaderProjectService.getByLeaderIDAndProjectID(employeeID,
+                        projectID);
+                if (leaderProjectDto != null || employeeTaskDto != null) {
                     MessageTaskDto createdMessageTask = messageTaskService.create(messageTaskDto);
                     return new ResponseEntity<>(createdMessageTask, CREATED);
                 }
@@ -109,27 +117,29 @@ public class MessageTaskController {
         }
     }
 
-
     // Build Delete MessageTask REST API
     @PostMapping("/delete/{id}")
-    public ResponseEntity<String> deleteMessageTask(@PathVariable("id") Long messageTaskID, @AuthenticationPrincipal Jwt jwt){
+    public ResponseEntity<String> deleteMessageTask(@PathVariable("id") Long messageTaskID,
+            @AuthenticationPrincipal Jwt jwt) {
         // Retrieve username and role from the jwt Token
         String username = jwt.getClaimAsString("sub");
         String role = jwt.getClaimAsString("roles");
 
         MessageTaskDto messageTaskDto = messageTaskService.getById(messageTaskID);
         if (messageTaskDto != null) {
-            if(role.equals("ADMIN") || role.equals("Business_Development")){
+            if (role.equals("ADMIN") || role.equals("Business_Development")) {
                 messageTaskService.delete(messageTaskID);
                 return ResponseEntity.ok("MessageTask deleted successfully!");
-            }else {
+            } else {
                 TaskDto taskDto = taskService.getById(Long.valueOf(messageTaskDto.getTaskID()));
-                String projectID = taskDto.getProjectID();
+                String projectID = (taskDto.getProject() != null) ? String.valueOf(taskDto.getProject().getProjectID())
+                        : null;
                 EmployeeDto employeeDto = employeeService.getByUsername(username);
                 String employeeID = String.valueOf(employeeDto.getEmployeeID());
 
-                LeaderProjectDto leaderProjectDto = leaderProjectService.getByLeaderIDAndProjectID(employeeID, projectID);
-                if(leaderProjectDto != null){
+                LeaderProjectDto leaderProjectDto = leaderProjectService.getByLeaderIDAndProjectID(employeeID,
+                        projectID);
+                if (leaderProjectDto != null) {
                     messageTaskService.delete(messageTaskID);
                     return ResponseEntity.ok("MessageTask deleted successfully!");
                 }
@@ -142,24 +152,27 @@ public class MessageTaskController {
 
     // Build Get All MessageTask By TaskID REST API
     @GetMapping("/ByTaskID/{taskID}")
-    public ResponseEntity<List<MessageTaskDto>> getAllMessageTasksByTaskID(@PathVariable("taskID") String taskID, @AuthenticationPrincipal Jwt jwt){
+    public ResponseEntity<List<MessageTaskDto>> getAllMessageTasksByTaskID(@PathVariable("taskID") String taskID,
+            @AuthenticationPrincipal Jwt jwt) {
         // Retrieve username and role from the jwt Token
         String username = jwt.getClaimAsString("sub");
         String role = jwt.getClaimAsString("roles");
 
-        if(role.equals("ADMIN") || role.equals("Business_Development")){
+        if (role.equals("ADMIN") || role.equals("Business_Development")) {
             List<MessageTaskDto> messageTasks = messageTaskService.findAll(taskID);
             return ResponseEntity.ok(messageTasks);
-        }else {
+        } else {
             TaskDto taskDto = taskService.getById(Long.valueOf(taskID));
-            String projectID = taskDto.getProjectID();
+            String projectID = (taskDto.getProject() != null) ? String.valueOf(taskDto.getProject().getProjectID())
+                    : null;
             EmployeeDto employeeDto = employeeService.getByUsername(username);
             String employeeID = String.valueOf(employeeDto.getEmployeeID());
 
-            EmployeeTaskDto employeeTaskDto = employeeTaskService.getByEmployeeIDAndTaskID(employeeID,taskID);
-            EmployeeProjectDto employeeProjectDto = employeeProjectService.getByEmployeeIDAndProjectID(employeeID,projectID);
+            EmployeeTaskDto employeeTaskDto = employeeTaskService.getByEmployeeIDAndTaskID(employeeID, taskID);
+            EmployeeProjectDto employeeProjectDto = employeeProjectService.getByEmployeeIDAndProjectID(employeeID,
+                    projectID);
             LeaderProjectDto leaderProjectDto = leaderProjectService.getByLeaderIDAndProjectID(employeeID, projectID);
-            if(leaderProjectDto != null || employeeProjectDto != null || employeeTaskDto != null){
+            if (leaderProjectDto != null || employeeProjectDto != null || employeeTaskDto != null) {
                 List<MessageTaskDto> messageTasks = messageTaskService.findAll(taskID);
                 return ResponseEntity.ok(messageTasks);
             }

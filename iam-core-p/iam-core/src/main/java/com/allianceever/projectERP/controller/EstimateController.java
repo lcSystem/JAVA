@@ -33,7 +33,7 @@ public class EstimateController {
 
     // Build Get Estimate by ID REST API
     @GetMapping("/{id}")
-    public ResponseEntity<EstimatesInvoicesDto> getEstimateById(@PathVariable("id") Integer estimateID) {
+    public ResponseEntity<EstimatesInvoicesDto> getEstimateById(@PathVariable("id") Long estimateID) {
         EstimatesInvoicesDto estimateDto = estimatesInvoicesService.getById(estimateID);
         if (estimateDto != null) {
             return ResponseEntity.ok(estimateDto);
@@ -52,9 +52,10 @@ public class EstimateController {
 
     // Build Update Estimate REST API
     @PostMapping("/updateEstimate")
+    @SuppressWarnings("null")
     public ResponseEntity<EstimatesInvoicesDto> updateEstimate(
             @ModelAttribute EstimatesInvoicesDto estimatesInvoicesDto) {
-        Integer estimateID = estimatesInvoicesDto.getId();
+        Long estimateID = estimatesInvoicesDto.getId();
         EstimatesInvoicesDto existingEstimate = estimatesInvoicesService.getById(estimateID);
         if (existingEstimate == null) {
             return ResponseEntity.notFound().build();
@@ -69,7 +70,7 @@ public class EstimateController {
 
     // Build Delete Estimate REST API
     @PostMapping("/delete/{id}")
-    public ResponseEntity<String> deleteEstimate(@PathVariable("id") Integer estimateID) {
+    public ResponseEntity<String> deleteEstimate(@PathVariable("id") Long estimateID) {
         EstimatesInvoicesDto estimateDto = estimatesInvoicesService.getById(estimateID);
         if (estimateDto != null) {
             estimatesInvoicesService.delete(estimateID);
@@ -80,6 +81,7 @@ public class EstimateController {
     }
 
     // Helper method to get the names of null properties
+    @SuppressWarnings("null")
     public static String[] getNullPropertyNames(Object source) {
         final BeanWrapper src = new BeanWrapperImpl(source);
         java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();

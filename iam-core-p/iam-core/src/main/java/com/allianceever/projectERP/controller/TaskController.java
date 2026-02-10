@@ -23,7 +23,6 @@ import java.util.Set;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
-
 @RestController
 @RequestMapping("/api/task")
 @AllArgsConstructor
@@ -35,30 +34,33 @@ public class TaskController {
 
     // Build Get All Task REST API
     @GetMapping("/all")
-    public ResponseEntity<List<TaskDto>> getAllTasks(){
+    public ResponseEntity<List<TaskDto>> getAllTasks() {
         List<TaskDto> tasks = taskService.getAll();
         return ResponseEntity.ok(tasks);
     }
 
     // Build Get Task REST API
     @GetMapping("/{id}")
-    public ResponseEntity<TaskDto> getTaskById(@PathVariable("id") Long taskID, @AuthenticationPrincipal Jwt jwt){
+    public ResponseEntity<TaskDto> getTaskById(@PathVariable("id") Long taskID, @AuthenticationPrincipal Jwt jwt) {
         // Retrieve username and role from the jwt Token
         String username = jwt.getClaimAsString("sub");
         String role = jwt.getClaimAsString("roles");
 
         TaskDto taskDto = taskService.getById(taskID);
         if (taskDto != null) {
-            if(role.equals("ADMIN") || role.equals("Business_Development")){
+            if (role.equals("ADMIN") || role.equals("Business_Development")) {
                 return ResponseEntity.ok(taskDto);
-            }else {
-                String projectID = taskDto.getProjectID();
+            } else {
+                String projectID = (taskDto.getProject() != null) ? String.valueOf(taskDto.getProject().getProjectID())
+                        : null;
                 EmployeeDto employeeDto = employeeService.getByUsername(username);
                 String employeeID = String.valueOf(employeeDto.getEmployeeID());
 
-                EmployeeProjectDto employeeProjectDto = employeeProjectService.getByEmployeeIDAndProjectID(employeeID,projectID);
-                LeaderProjectDto leaderProjectDto = leaderProjectService.getByLeaderIDAndProjectID(employeeID, projectID);
-                if(leaderProjectDto != null || employeeProjectDto != null){
+                EmployeeProjectDto employeeProjectDto = employeeProjectService.getByEmployeeIDAndProjectID(employeeID,
+                        projectID);
+                LeaderProjectDto leaderProjectDto = leaderProjectService.getByLeaderIDAndProjectID(employeeID,
+                        projectID);
+                if (leaderProjectDto != null || employeeProjectDto != null) {
                     return ResponseEntity.ok(taskDto);
                 }
                 return ResponseEntity.notFound().build();
@@ -68,24 +70,24 @@ public class TaskController {
         }
     }
 
-
     // Build Add Task REST API
     @PostMapping("/create")
-    public ResponseEntity<TaskDto> createTask(@ModelAttribute TaskDto taskDto, @AuthenticationPrincipal Jwt jwt){
+    public ResponseEntity<TaskDto> createTask(@ModelAttribute TaskDto taskDto, @AuthenticationPrincipal Jwt jwt) {
         // Retrieve username and role from the jwt Token
         String username = jwt.getClaimAsString("sub");
         String role = jwt.getClaimAsString("roles");
 
-        if(role.equals("ADMIN") || role.equals("Business_Development")){
+        if (role.equals("ADMIN") || role.equals("Business_Development")) {
             TaskDto createdTask = taskService.create(taskDto);
             return new ResponseEntity<>(createdTask, CREATED);
-        }else {
-            String projectID = taskDto.getProjectID();
+        } else {
+            String projectID = (taskDto.getProject() != null) ? String.valueOf(taskDto.getProject().getProjectID())
+                    : null;
             EmployeeDto employeeDto = employeeService.getByUsername(username);
             String employeeID = String.valueOf(employeeDto.getEmployeeID());
 
             LeaderProjectDto leaderProjectDto = leaderProjectService.getByLeaderIDAndProjectID(employeeID, projectID);
-            if(leaderProjectDto != null){
+            if (leaderProjectDto != null) {
                 TaskDto createdTask = taskService.create(taskDto);
                 return new ResponseEntity<>(createdTask, CREATED);
             }
@@ -93,10 +95,10 @@ public class TaskController {
         }
     }
 
-
     // Build Update Task REST API
     @PostMapping("/updateTask")
-    public ResponseEntity<TaskDto> updateTask(@ModelAttribute TaskDto taskDto, @AuthenticationPrincipal Jwt jwt){
+    @SuppressWarnings("null")
+    public ResponseEntity<TaskDto> updateTask(@ModelAttribute TaskDto taskDto, @AuthenticationPrincipal Jwt jwt) {
         // Retrieve username and role from the jwt Token
         String username = jwt.getClaimAsString("sub");
         String role = jwt.getClaimAsString("roles");
@@ -109,45 +111,48 @@ public class TaskController {
         // Perform a partial update of the existingTask using the taskDto data
         BeanUtils.copyProperties(taskDto, existingTask, getNullPropertyNames(taskDto));
 
-        if(role.equals("ADMIN") || role.equals("Business_Development")){
+        if (role.equals("ADMIN") || role.equals("Business_Development")) {
             // Save the updated task data back to the database
-            TaskDto updatedTask = taskService.update(TaskID,existingTask);
+            TaskDto updatedTask = taskService.update(TaskID, existingTask);
             return ResponseEntity.ok(updatedTask);
-        }else {
-            String projectID = existingTask.getProjectID();
+        } else {
+            String projectID = (existingTask.getProject() != null)
+                    ? String.valueOf(existingTask.getProject().getProjectID())
+                    : null;
             EmployeeDto employeeDto = employeeService.getByUsername(username);
             String employeeID = String.valueOf(employeeDto.getEmployeeID());
 
             LeaderProjectDto leaderProjectDto = leaderProjectService.getByLeaderIDAndProjectID(employeeID, projectID);
-            if(leaderProjectDto != null){
+            if (leaderProjectDto != null) {
                 // Save the updated task data back to the database
-                TaskDto updatedTask = taskService.update(TaskID,existingTask);
+                TaskDto updatedTask = taskService.update(TaskID, existingTask);
                 return ResponseEntity.ok(updatedTask);
             }
             return ResponseEntity.notFound().build();
         }
     }
 
-
     // Build Delete Task REST API
     @PostMapping("/delete/{id}")
-    public ResponseEntity<String> deleteTask(@PathVariable("id") Long taskID, @AuthenticationPrincipal Jwt jwt){
+    public ResponseEntity<String> deleteTask(@PathVariable("id") Long taskID, @AuthenticationPrincipal Jwt jwt) {
         // Retrieve username and role from the jwt Token
         String username = jwt.getClaimAsString("sub");
         String role = jwt.getClaimAsString("roles");
 
         TaskDto taskDto = taskService.getById(taskID);
         if (taskDto != null) {
-            if(role.equals("ADMIN") || role.equals("Business_Development")){
+            if (role.equals("ADMIN") || role.equals("Business_Development")) {
                 taskService.delete(taskID);
                 return ResponseEntity.ok("Task deleted successfully!");
-            }else {
-                String projectID = taskDto.getProjectID();
+            } else {
+                String projectID = (taskDto.getProject() != null) ? String.valueOf(taskDto.getProject().getProjectID())
+                        : null;
                 EmployeeDto employeeDto = employeeService.getByUsername(username);
                 String employeeID = String.valueOf(employeeDto.getEmployeeID());
 
-                LeaderProjectDto leaderProjectDto = leaderProjectService.getByLeaderIDAndProjectID(employeeID, projectID);
-                if(leaderProjectDto != null){
+                LeaderProjectDto leaderProjectDto = leaderProjectService.getByLeaderIDAndProjectID(employeeID,
+                        projectID);
+                if (leaderProjectDto != null) {
                     taskService.delete(taskID);
                     return ResponseEntity.ok("Task deleted successfully!");
                 }
@@ -158,9 +163,8 @@ public class TaskController {
         }
     }
 
-
-
     // Helper method to get the names of null properties in the employeeDto
+    @SuppressWarnings("null")
     public static String[] getNullPropertyNames(Object source) {
         final BeanWrapper src = new BeanWrapperImpl(source);
         java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();
@@ -168,7 +172,8 @@ public class TaskController {
         Set<String> emptyNames = new HashSet<>();
         for (java.beans.PropertyDescriptor pd : pds) {
             Object srcValue = src.getPropertyValue(pd.getName());
-            if (srcValue == null) emptyNames.add(pd.getName());
+            if (srcValue == null)
+                emptyNames.add(pd.getName());
         }
         String[] result = new String[emptyNames.size()];
         return emptyNames.toArray(result);

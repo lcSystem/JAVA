@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class EmployeeProjectServiceImpl implements EmployeeProjectService {
     private EmployeeProjectRepo employeeProjectRepo;
     private ModelMapper mapper;
+
     @Override
     public EmployeeProjectDto create(EmployeeProjectDto employeeProjectDto) {
         // convert DTO to entity
@@ -36,14 +37,15 @@ public class EmployeeProjectServiceImpl implements EmployeeProjectService {
 
     @Override
     public List<EmployeeProjectDto> findAll(String projectID) {
-        List<EmployeeProject> employeeProjects = employeeProjectRepo.findByProjectID(projectID);
+        List<EmployeeProject> employeeProjects = employeeProjectRepo.findByProject_ProjectID(Long.valueOf(projectID));
         return employeeProjects.stream().map((employeeProject) -> mapToDTO(employeeProject))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<EmployeeProjectDto> findAllByEmployeeID(String employeeID) {
-        List<EmployeeProject> employeeProjects = employeeProjectRepo.findByEmployeeID(employeeID);
+        List<EmployeeProject> employeeProjects = employeeProjectRepo
+                .findByEmployee_EmployeeID(Long.valueOf(employeeID));
         return employeeProjects.stream().map((employeeProject) -> mapToDTO(employeeProject))
                 .collect(Collectors.toList());
     }
@@ -51,40 +53,40 @@ public class EmployeeProjectServiceImpl implements EmployeeProjectService {
     @Override
     public EmployeeProjectDto getById(Long EmployeeProjectID) {
         EmployeeProject employeeProject = employeeProjectRepo.findById(EmployeeProjectID).orElseThrow(
-                () -> new ResourceNotFoundException("EmployeeProject is not exist with given id : " + EmployeeProjectID));
+                () -> new ResourceNotFoundException(
+                        "EmployeeProject is not exist with given id : " + EmployeeProjectID));
 
         return mapToDTO(employeeProject);
     }
 
     @Override
     public EmployeeProjectDto getByEmployeeIDAndProjectID(String employeeID, String projectID) {
-        EmployeeProject employeeProject = employeeProjectRepo.findByEmployeeIDAndProjectID(employeeID, projectID);
-        if(employeeProject != null){
+        EmployeeProject employeeProject = employeeProjectRepo
+                .findByEmployee_EmployeeIDAndProject_ProjectID(Long.valueOf(employeeID), Long.valueOf(projectID));
+        if (employeeProject != null) {
             return mapToDTO(employeeProject);
-        }else{
+        } else {
             return null;
         }
     }
 
     @Override
     public void delete(Long EmployeeProjectID) {
-        EmployeeProject employeeProject = employeeProjectRepo.findById(EmployeeProjectID).orElseThrow(
-                () -> new ResourceNotFoundException("EmployeeProject is not exist with given id : " + EmployeeProjectID));
+        if (!employeeProjectRepo.existsById(EmployeeProjectID)) {
+            throw new ResourceNotFoundException("EmployeeProject is not exist with given id : " + EmployeeProjectID);
+        }
 
         employeeProjectRepo.deleteById(EmployeeProjectID);
     }
 
-
-
-
     // convert entity into DTO
-    private EmployeeProjectDto mapToDTO(EmployeeProject employeeProject){
+    private EmployeeProjectDto mapToDTO(EmployeeProject employeeProject) {
         EmployeeProjectDto employeeProjectDto = mapper.map(employeeProject, EmployeeProjectDto.class);
         return employeeProjectDto;
     }
 
     // convert DTO to entity
-    private EmployeeProject mapToEntity(EmployeeProjectDto employeeProjectDto){
+    private EmployeeProject mapToEntity(EmployeeProjectDto employeeProjectDto) {
         EmployeeProject employeeProject = mapper.map(employeeProjectDto, EmployeeProject.class);
         return employeeProject;
     }

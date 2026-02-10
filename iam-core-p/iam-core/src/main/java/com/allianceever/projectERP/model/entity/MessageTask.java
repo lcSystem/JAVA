@@ -16,9 +16,12 @@ import lombok.ToString;
 public class MessageTask {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "message_task_id")
     private Long messageTaskID;
-    private String taskID;
-    private String employeeID;
+    @Column(name = "task_id")
+    private Long taskID;
+    @Column(name = "employee_id")
+    private Long employeeID;
     private String first_Name;
     private String last_Name;
     private String imageName;

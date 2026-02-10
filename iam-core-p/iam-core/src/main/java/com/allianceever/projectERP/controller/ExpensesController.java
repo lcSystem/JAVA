@@ -1,33 +1,23 @@
 package com.allianceever.projectERP.controller;
 
 import com.allianceever.projectERP.model.dto.ExpensesDto;
-
-import com.allianceever.projectERP.model.entity.Expenses;
 import com.allianceever.projectERP.service.ExpensesService;
-
-import org.modelmapper.ModelMapper;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
+import lombok.AllArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static com.allianceever.projectERP.controller.EmployeeController.getNullPropertyNames;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping("/api/expenses")
+@AllArgsConstructor
 public class ExpensesController {
 
     private ExpensesService expensesService;
-    private ModelMapper mapper;
-
-    @Autowired
-    public ExpensesController(ExpensesService expensesService, ModelMapper mapper) {
-        this.expensesService = expensesService;
-        this.mapper = mapper;
-    }
 
     @GetMapping("/all")
     public ResponseEntity<List<ExpensesDto>> getAllExpenses() {
@@ -37,27 +27,45 @@ public class ExpensesController {
     @PostMapping("/create")
     public ResponseEntity<ExpensesDto> create(@ModelAttribute ExpensesDto expensesDto) {
         ExpensesDto createdExpense = expensesService.create(expensesDto);
-        return ResponseEntity.ok(createdExpense);
+        return new ResponseEntity<>(createdExpense, CREATED);
     }
 
-    // Build Delete Employee REST API
-    @PostMapping("/delete/{id}")
-    public ResponseEntity<String> deleteExpense(@PathVariable("id") Long employeeID) {
-        ExpensesDto employeeDto = expensesService.getById(employeeID);
-        if (employeeDto != null) {
-            expensesService.delete(employeeID);
-            return ResponseEntity.ok("Expenses deleted successfully!");
+    @GetMapping("/{id}")
+    public ResponseEntity<ExpensesDto> getExpenseById(@PathVariable("id") Long id) {
+        ExpensesDto expense = expensesService.getById(id);
+        if (expense != null) {
+            return ResponseEntity.ok(expense);
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
-    @GetMapping("/getExpense/{expenseId}")
-    public Expenses getExpenseById(@PathVariable("expenseId") Long expenseId) {
-        // Fetch the expense data by ID
-        ExpensesDto expense = expensesService.getById(expenseId); // Replace with your service method
+    @PostMapping("/updateExpenses")
+    @SuppressWarnings("null")
+    public ResponseEntity<ExpensesDto> updateExpenses(@ModelAttribute ExpensesDto expensesDto) {
+        Long expenseId = expensesDto.getId();
+        if (expenseId == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        ExpensesDto existingExpense = expensesService.getById(expenseId);
+        if (existingExpense == null) {
+            return ResponseEntity.notFound().build();
+        }
 
-        return mapper.map(expense, Expenses.class);
+        BeanUtils.copyProperties(expensesDto, existingExpense, getNullPropertyNames(expensesDto));
+
+        ExpensesDto updatedExpense = expensesService.update(expenseId, existingExpense);
+        return ResponseEntity.ok(updatedExpense);
     }
 
+    @PostMapping("/delete/{id}")
+    public ResponseEntity<String> deleteExpense(@PathVariable("id") Long id) {
+        ExpensesDto expense = expensesService.getById(id);
+        if (expense != null) {
+            expensesService.delete(id);
+            return ResponseEntity.ok("Expenses deleted successfully!");
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

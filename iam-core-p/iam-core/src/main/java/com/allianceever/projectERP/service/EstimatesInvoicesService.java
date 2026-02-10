@@ -6,25 +6,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
 public interface EstimatesInvoicesService {
 
-
-
     EstimatesInvoicesDto create(EstimatesInvoicesDto estimatesInvoicesDto);
 
+    EstimatesInvoicesDto getById(Long id);
 
-    EstimatesInvoicesDto getById(Integer id);
-
-
-    EstimatesInvoicesDto update(Integer id,EstimatesInvoicesDto estimatesInvoicesDto);
-
+    EstimatesInvoicesDto update(Long id, EstimatesInvoicesDto estimatesInvoicesDto);
 
     List<EstimatesInvoicesDto> getAllEstimates();
 
     List<EstimatesInvoicesDto> getAllInvoices();
 
-
-    void delete(Integer id);
+    void delete(Long id);
 }

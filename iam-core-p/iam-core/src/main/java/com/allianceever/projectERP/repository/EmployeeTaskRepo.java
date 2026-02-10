@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface EmployeeTaskRepo extends JpaRepository<EmployeeTask, Long> {
-    List<EmployeeTask> findByTaskID(String taskID);
-    EmployeeTask findByEmployeeIDAndTaskID(String employeeID, String taskID);
+    List<EmployeeTask> findByTaskID(Long taskID);
+
+    EmployeeTask findByEmployeeIDAndTaskID(Long employeeID, Long taskID);
 }

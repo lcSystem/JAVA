@@ -6,38 +6,37 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name="expenses")
+@Table(name = "expenses")
 public class Expenses {
 
-    @jakarta.persistence.Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer Id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Id;
 
     private String itemName;
 
     private String purchaseFrom;
 
-
-    @Column(name="purchase_date")
-    private String purchaseDate;
-
+    @Column(name = "purchase_date")
+    private LocalDate purchaseDate;
 
     private String purchasedBy;
 
-    private String Amount;
-
+    private BigDecimal Amount;
 
     private String paidBy;
 
     private String Status;
 
-
     @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] data;
 }

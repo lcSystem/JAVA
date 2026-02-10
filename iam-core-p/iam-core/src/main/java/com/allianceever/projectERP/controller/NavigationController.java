@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -39,9 +40,8 @@ public class NavigationController {
     private LeaderProjectService leaderProjectService;
     private TaskService taskService;
 
-
-    @RequestMapping(value = {"/index.html", "/"})
-    public String getIndex(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    @RequestMapping(value = { "/index.html", "/" })
+    public String getIndex(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -54,12 +54,12 @@ public class NavigationController {
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
@@ -67,8 +67,8 @@ public class NavigationController {
             e.printStackTrace();
         }
 
-        if(!role.equals("")){
-            if(role.equals("ADMIN")){
+        if (!role.equals("")) {
+            if (role.equals("ADMIN")) {
                 // nombre des employees
                 Integer nombre_employees = employeeService.getAll().size();
                 model.addAttribute("nombre_employees", nombre_employees);
@@ -101,44 +101,42 @@ public class NavigationController {
 
                 // Sum of expenses :
                 List<ExpensesDto> originalList5 = expensesService.getAllExpensesOrderedByDate();
-         
 
-                double SumExpenses = originalList5.stream()
-        .map(ExpensesDto::getAmount)
-        .filter(v -> v != null && !v.trim().isEmpty())
-        .mapToDouble(Double::parseDouble)
-        .sum();
-model.addAttribute("SumExpenses", SumExpenses);
-
+                BigDecimal SumExpenses = originalList5.stream()
+                        .map(ExpensesDto::getAmount)
+                        .filter(v -> v != null)
+                        .reduce(BigDecimal.ZERO, BigDecimal::add);
+                model.addAttribute("SumExpenses", SumExpenses.doubleValue());
 
                 // Earning = Sum payments
-                double SumPayments = 0;
-                for(PaymentDto paymentDto : originalList3){
-                    SumPayments = SumPayments + paymentDto.getPaidAmount().doubleValue();
+                BigDecimal SumPayments = BigDecimal.ZERO;
+                for (PaymentDto paymentDto : originalList3) {
+                    if (paymentDto.getPaidAmount() != null) {
+                        SumPayments = SumPayments.add(paymentDto.getPaidAmount());
+                    }
                 }
-                model.addAttribute("Earning", SumPayments);
+                model.addAttribute("Earning", SumPayments.doubleValue());
 
                 // Profit = Earning - Expenses
-                double Profit = SumPayments - SumExpenses;
-                model.addAttribute("Profit", Profit);
-                
+                BigDecimal Profit = SumPayments.subtract(SumExpenses);
+                model.addAttribute("Profit", Profit.doubleValue());
 
                 return "index";
-            }else{
+            } else {
                 return "error-404";// 401 unauthorized
             }
-        }else{
+        } else {
             return "login";
         }
     }
 
     @RequestMapping("/login.html")
-    public String getLogin(){
+    public String getLogin() {
         return "login";
     }
 
     @RequestMapping("/change-password.html")
-    public String getChangePassword(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public String getChangePassword(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -151,12 +149,12 @@ model.addAttribute("SumExpenses", SumExpenses);
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
@@ -164,24 +162,22 @@ model.addAttribute("SumExpenses", SumExpenses);
             e.printStackTrace();
         }
 
-        if(!role.equals("")){
+        if (!role.equals("")) {
             return "change-password";
-        }else{
+        } else {
             return "login";
         }
     }
 
-
     @RequestMapping("/error-404.html")
-    public String getError404(){
+    public String getError404() {
         return "error-404";
     }
 
-
-    //**** Part Ayoub Ighachen:
+    // **** Part Ayoub Ighachen:
     //
     @GetMapping("/employees.html")
-    public String ListEmployees(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public String ListEmployees(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -194,12 +190,12 @@ model.addAttribute("SumExpenses", SumExpenses);
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
@@ -207,21 +203,21 @@ model.addAttribute("SumExpenses", SumExpenses);
             e.printStackTrace();
         }
 
-        if(!role.equals("")){
-            if(role.equals("ADMIN") || role.equals("Human_Capital")){
+        if (!role.equals("")) {
+            if (role.equals("ADMIN") || role.equals("Human_Capital")) {
                 model.addAttribute("employees", employeeService.getAll());
                 return "employees";
-            }else{
+            } else {
                 return "error-404";// 401 unauthorized
             }
-        }else{
+        } else {
             return "login";
         }
     }
 
-
     @GetMapping("/profile.html/{id}")
-    public String getProfile(@PathVariable("id") Long employeeID, Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public String getProfile(@PathVariable("id") Long employeeID, Model model,
+            @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -234,12 +230,12 @@ model.addAttribute("SumExpenses", SumExpenses);
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
@@ -247,13 +243,13 @@ model.addAttribute("SumExpenses", SumExpenses);
             e.printStackTrace();
         }
 
-        if(!role.equals("")){
+        if (!role.equals("")) {
             EmployeeDto employeeDto = employeeService.getById(employeeID);
-            if(employeeDto.getUserName().equals(username) || role.equals("ADMIN") || role.equals("Human_Capital")){
+            if (employeeDto.getUserName().equals(username) || role.equals("ADMIN") || role.equals("Human_Capital")) {
                 model.addAttribute("employee", employeeService.getById(employeeID));
-                //Return the projects assigned for this employee
+                // Return the projects assigned for this employee
                 List<ProjectDto> projectDtoList = projectService.getAllByUsername(employeeDto.getUserName());
-                for(ProjectDto projectDto : projectDtoList){
+                for (ProjectDto projectDto : projectDtoList) {
                     String projectID = String.valueOf(projectDto.getProjectID());
                     projectDto.setLeaderProjectDtoList(leaderProjectService.findAll(projectID));
                     projectDto.setEmployeeProjectDtoList(employeeProjectService.findAll(projectID));
@@ -261,17 +257,17 @@ model.addAttribute("SumExpenses", SumExpenses);
                 model.addAttribute("projects", projectDtoList);
 
                 return "profile";
-            }else{
+            } else {
                 return "error-404";// 401 unauthorized
             }
-        }else{
+        } else {
             return "login";
         }
     }
 
     //
     @GetMapping("/departments.html")
-    public String ListDepartments(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public String ListDepartments(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -284,12 +280,12 @@ model.addAttribute("SumExpenses", SumExpenses);
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
@@ -297,17 +293,17 @@ model.addAttribute("SumExpenses", SumExpenses);
             e.printStackTrace();
         }
 
-        if(role.equals("ADMIN") || role.equals("Human_Capital")){
+        if (role.equals("ADMIN") || role.equals("Human_Capital")) {
             model.addAttribute("departments", departmentService.getAll());
             return "departments";
-        }else {
+        } else {
             return "error-404";
         }
     }
 
     //
     @GetMapping("/designations.html")
-    public String ListDesignations(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public String ListDesignations(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -320,12 +316,12 @@ model.addAttribute("SumExpenses", SumExpenses);
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
@@ -333,17 +329,17 @@ model.addAttribute("SumExpenses", SumExpenses);
             e.printStackTrace();
         }
 
-        if(role.equals("ADMIN") || role.equals("Human_Capital")){
+        if (role.equals("ADMIN") || role.equals("Human_Capital")) {
             model.addAttribute("designations", designationService.getAll());
             return "designations";
-        }else {
+        } else {
             return "error-404";
         }
     }
 
     //
     @GetMapping("/clients.html")
-    public String ListClients(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public String ListClients(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -356,12 +352,12 @@ model.addAttribute("SumExpenses", SumExpenses);
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
@@ -369,16 +365,17 @@ model.addAttribute("SumExpenses", SumExpenses);
             e.printStackTrace();
         }
 
-        if(role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")){
+        if (role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")) {
             model.addAttribute("clients", clientService.getAll());
             return "clients";
-        }else {
+        } else {
             return "error-404";
         }
     }
 
     @GetMapping("/client-profile.html/{id}")
-    public String getClientProfile(@PathVariable("id") Long clientID, Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public String getClientProfile(@PathVariable("id") Long clientID, Model model,
+            @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -391,12 +388,12 @@ model.addAttribute("SumExpenses", SumExpenses);
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
@@ -404,12 +401,12 @@ model.addAttribute("SumExpenses", SumExpenses);
             e.printStackTrace();
         }
 
-        if(role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")){
+        if (role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")) {
             model.addAttribute("client", clientService.getById(clientID));
-            //Return the projects assigned for this client
+            // Return the projects assigned for this client
             ClientDto clientDto = clientService.getById(clientID);
             List<ProjectDto> projectDtoList = projectService.getAllByCompany_Name(clientDto.getCompany_Name());
-            for(ProjectDto projectDto : projectDtoList){
+            for (ProjectDto projectDto : projectDtoList) {
                 String projectID = String.valueOf(projectDto.getProjectID());
                 projectDto.setLeaderProjectDtoList(leaderProjectService.findAll(projectID));
                 projectDto.setEmployeeProjectDtoList(employeeProjectService.findAll(projectID));
@@ -417,14 +414,14 @@ model.addAttribute("SumExpenses", SumExpenses);
             model.addAttribute("projects", projectDtoList);
 
             return "client-profile";
-        }else {
+        } else {
             return "error-404";
         }
     }
 
     //
     @GetMapping("/projects.html")
-    public String ListProjects(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public String ListProjects(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -437,12 +434,12 @@ model.addAttribute("SumExpenses", SumExpenses);
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
@@ -450,19 +447,19 @@ model.addAttribute("SumExpenses", SumExpenses);
             e.printStackTrace();
         }
 
-        if(!role.equals("")){
-            if(role.equals("ADMIN") || role.equals("Business_Development")){
+        if (!role.equals("")) {
+            if (role.equals("ADMIN") || role.equals("Business_Development")) {
                 List<ProjectDto> projectDtoList = projectService.getAll();
-                for(ProjectDto projectDto : projectDtoList){
+                for (ProjectDto projectDto : projectDtoList) {
                     String projectID = String.valueOf(projectDto.getProjectID());
                     projectDto.setLeaderProjectDtoList(leaderProjectService.findAll(projectID));
                     projectDto.setEmployeeProjectDtoList(employeeProjectService.findAll(projectID));
                 }
                 model.addAttribute("projects", projectDtoList);
-            }else {
-                //Return the projects assigned for this username like a Leader or an Employee
+            } else {
+                // Return the projects assigned for this username like a Leader or an Employee
                 List<ProjectDto> projectDtoList = projectService.getAllByUsername(username);
-                for(ProjectDto projectDto : projectDtoList){
+                for (ProjectDto projectDto : projectDtoList) {
                     String projectID = String.valueOf(projectDto.getProjectID());
                     projectDto.setLeaderProjectDtoList(leaderProjectService.findAll(projectID));
                     projectDto.setEmployeeProjectDtoList(employeeProjectService.findAll(projectID));
@@ -470,13 +467,14 @@ model.addAttribute("SumExpenses", SumExpenses);
                 model.addAttribute("projects", projectDtoList);
             }
             return "projects";
-        }else{
+        } else {
             return "login";
         }
     }
 
     @GetMapping("/project-view.html/{id}")
-    public String getViewProject(@PathVariable("id") Long projectID, Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public String getViewProject(@PathVariable("id") Long projectID, Model model,
+            @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -489,12 +487,12 @@ model.addAttribute("SumExpenses", SumExpenses);
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
@@ -502,8 +500,8 @@ model.addAttribute("SumExpenses", SumExpenses);
             e.printStackTrace();
         }
 
-        if(!role.equals("")){
-            if(role.equals("ADMIN") || role.equals("Business_Development")){
+        if (!role.equals("")) {
+            if (role.equals("ADMIN") || role.equals("Business_Development")) {
                 model.addAttribute("project", projectService.getById(projectID));
                 model.addAttribute("imageProjects", imageProjectService.findAll(String.valueOf(projectID)));
                 model.addAttribute("fileProjects", fileProjectService.findAll(String.valueOf(projectID)));
@@ -511,15 +509,16 @@ model.addAttribute("SumExpenses", SumExpenses);
                 model.addAttribute("leaderProjects", leaderProjectService.findAll(String.valueOf(projectID)));
                 model.addAttribute("tasks", taskService.findAll(String.valueOf(projectID)));
                 return "project-view";
-            }else {
+            } else {
                 // We check if the project is affected for this username
                 List<ProjectDto> projectDtoList = projectService.getAllByUsername(username);
-                for(ProjectDto projectDto : projectDtoList){
-                    if(projectDto.getProjectID() == projectID){
+                for (ProjectDto projectDto : projectDtoList) {
+                    if (projectDto.getProjectID() == projectID) {
                         model.addAttribute("project", projectService.getById(projectID));
                         model.addAttribute("imageProjects", imageProjectService.findAll(String.valueOf(projectID)));
                         model.addAttribute("fileProjects", fileProjectService.findAll(String.valueOf(projectID)));
-                        model.addAttribute("employeeProjects", employeeProjectService.findAll(String.valueOf(projectID)));
+                        model.addAttribute("employeeProjects",
+                                employeeProjectService.findAll(String.valueOf(projectID)));
                         model.addAttribute("leaderProjects", leaderProjectService.findAll(String.valueOf(projectID)));
                         model.addAttribute("tasks", taskService.findAll(String.valueOf(projectID)));
                         return "project-view";
@@ -527,13 +526,14 @@ model.addAttribute("SumExpenses", SumExpenses);
                 }
                 return "error-404";
             }
-        }else{
+        } else {
             return "login";
         }
     }
 
     @GetMapping("/tasks.html/{id}")
-    public String getTasks(@PathVariable("id") Long projectID, Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public String getTasks(@PathVariable("id") Long projectID, Model model,
+            @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -546,12 +546,12 @@ model.addAttribute("SumExpenses", SumExpenses);
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
@@ -559,17 +559,17 @@ model.addAttribute("SumExpenses", SumExpenses);
             e.printStackTrace();
         }
 
-        if(!role.equals("")){
-            if(role.equals("ADMIN") || role.equals("Business_Development")){
+        if (!role.equals("")) {
+            if (role.equals("ADMIN") || role.equals("Business_Development")) {
                 model.addAttribute("projects", projectService.getAll());
                 model.addAttribute("projectTasks", projectService.getById(projectID));
                 model.addAttribute("tasks", taskService.findAll(String.valueOf(projectID)));
                 return "tasks";
-            }else {
+            } else {
                 // We check if the project is affected for this username
                 List<ProjectDto> projectDtoList = projectService.getAllByUsername(username);
-                for(ProjectDto projectDto : projectDtoList){
-                    if(projectDto.getProjectID() == projectID){
+                for (ProjectDto projectDto : projectDtoList) {
+                    if (projectDto.getProjectID() == projectID) {
                         model.addAttribute("projects", projectDtoList);
                         model.addAttribute("projectTasks", projectService.getById(projectID));
                         model.addAttribute("tasks", taskService.findAll(String.valueOf(projectID)));
@@ -578,18 +578,15 @@ model.addAttribute("SumExpenses", SumExpenses);
                 }
                 return "error-404";
             }
-        }else{
+        } else {
             return "login";
         }
     }
 
-    //************************
-
-
-
+    // ************************
 
     @GetMapping("/holidays.html")
-    public String ListHolidays(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public String ListHolidays(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -602,12 +599,12 @@ model.addAttribute("SumExpenses", SumExpenses);
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
@@ -615,17 +612,16 @@ model.addAttribute("SumExpenses", SumExpenses);
             e.printStackTrace();
         }
 
-        if(!role.equals("")){
+        if (!role.equals("")) {
             model.addAttribute("holidays", holidayService.getAllHolidaysOrderedByDate());
             return "holidays";
-        }else{
+        } else {
             return "login";
         }
     }
 
-
     @GetMapping("/leave-type.html")
-    public String ListLeaveTypes(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public String ListLeaveTypes(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -638,22 +634,22 @@ model.addAttribute("SumExpenses", SumExpenses);
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(!role.equals("")){
-            if(role.equals("ADMIN") || role.equals("Human_Capital")){
+        if (!role.equals("")) {
+            if (role.equals("ADMIN") || role.equals("Human_Capital")) {
                 model.addAttribute("leaveTypes", leaveTypeService.getAllLeaveType());
-            }else{
+            } else {
                 model.addAttribute("leaveTypes", leaveTypeService.getAllLeaveTypeByUsername(username));
             }
             return "leave-type";
@@ -661,9 +657,8 @@ model.addAttribute("SumExpenses", SumExpenses);
         return "login";
     }
 
-
     @GetMapping("/leaves-employee.html")
-    public String ListLeaves(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public String ListLeaves(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -676,12 +671,12 @@ model.addAttribute("SumExpenses", SumExpenses);
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
@@ -689,20 +684,19 @@ model.addAttribute("SumExpenses", SumExpenses);
             e.printStackTrace();
         }
 
-        if(!role.equals("")){
+        if (!role.equals("")) {
             model.addAttribute("leaves", leavesService.getAllLeavesByUsernameOrderedByDate(username));
             model.addAttribute("oneLeave", new Leaves());
-            model.addAttribute("leavesTypes",leaveTypeService.getAllLeaveTypeByUsername(username));
+            model.addAttribute("leavesTypes", leaveTypeService.getAllLeaveTypeByUsername(username));
 
             return "leaves-employee";
-        }else{
+        } else {
             return "login";
         }
     }
 
-
     @GetMapping("/leaves.html")
-    public String Leaves(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public String Leaves(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -715,12 +709,12 @@ model.addAttribute("SumExpenses", SumExpenses);
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
@@ -728,26 +722,25 @@ model.addAttribute("SumExpenses", SumExpenses);
             e.printStackTrace();
         }
 
-        if(!role.equals("")){
-            if(role.equals("ADMIN") || role.equals("Human_Capital")){
+        if (!role.equals("")) {
+            if (role.equals("ADMIN") || role.equals("Human_Capital")) {
                 model.addAttribute("leaves", leavesService.getAllLeavesOrderedByDate());
                 model.addAttribute("oneLeave", new Leaves());
-                model.addAttribute("leavesTypes",leaveTypeService.getAllLeaveTypeByUsername(username));
+                model.addAttribute("leavesTypes", leaveTypeService.getAllLeaveTypeByUsername(username));
 
                 return "leaves";
-            }else{
+            } else {
                 return "error-404";
             }
-        }else{
+        } else {
             return "login";
         }
     }
-
 
     //////////////////////////////////////// Estimate
 
     @GetMapping("/estimates.html")
-    public String estimates(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public String estimates(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -760,12 +753,12 @@ model.addAttribute("SumExpenses", SumExpenses);
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
@@ -773,16 +766,16 @@ model.addAttribute("SumExpenses", SumExpenses);
             e.printStackTrace();
         }
 
-        if(role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")){
+        if (role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")) {
             model.addAttribute("estimates", estimatesInvoicesService.getAllEstimates());
             return "estimates";
-        }else {
+        } else {
             return "error-404";
         }
     }
 
     @GetMapping("/create-estimate.html")
-    public String create_estimate(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public String create_estimate(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -795,12 +788,12 @@ model.addAttribute("SumExpenses", SumExpenses);
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
@@ -808,15 +801,15 @@ model.addAttribute("SumExpenses", SumExpenses);
             e.printStackTrace();
         }
 
-        if(role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")){
+        if (role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")) {
             return "create-estimate";
-        }else {
+        } else {
             return "error-404";
         }
     }
 
     @GetMapping("/edit-estimate.html")
-    public String editEstimates(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public String editEstimates(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -829,12 +822,12 @@ model.addAttribute("SumExpenses", SumExpenses);
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
@@ -842,15 +835,15 @@ model.addAttribute("SumExpenses", SumExpenses);
             e.printStackTrace();
         }
 
-        if(role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")){
+        if (role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")) {
             return "edit-estimate";
-        }else {
+        } else {
             return "error-404";
         }
     }
 
     @GetMapping("/estimate-view.html")
-    public String viewEstimates(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public String viewEstimates(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -863,12 +856,12 @@ model.addAttribute("SumExpenses", SumExpenses);
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
@@ -876,9 +869,9 @@ model.addAttribute("SumExpenses", SumExpenses);
             e.printStackTrace();
         }
 
-        if(role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")){
+        if (role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")) {
             return "estimate-view";
-        }else {
+        } else {
             return "error-404";
         }
     }
@@ -886,7 +879,7 @@ model.addAttribute("SumExpenses", SumExpenses);
     ////////////////
 
     @GetMapping("/invoices.html")
-    public String invoices(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public String invoices(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -899,12 +892,12 @@ model.addAttribute("SumExpenses", SumExpenses);
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
@@ -912,16 +905,16 @@ model.addAttribute("SumExpenses", SumExpenses);
             e.printStackTrace();
         }
 
-        if(role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")){
+        if (role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")) {
             model.addAttribute("estimates", estimatesInvoicesService.getAllInvoices());
             return "invoices";
-        }else {
+        } else {
             return "error-404";
         }
     }
 
     @GetMapping("/create-invoice.html")
-    public String create_invoice(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public String create_invoice(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -934,12 +927,12 @@ model.addAttribute("SumExpenses", SumExpenses);
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
@@ -947,15 +940,15 @@ model.addAttribute("SumExpenses", SumExpenses);
             e.printStackTrace();
         }
 
-        if(role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")){
+        if (role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")) {
             return "create-invoice";
-        }else {
+        } else {
             return "error-404";
         }
     }
 
     @GetMapping("/edit-invoice.html")
-    public String editInvoices(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public String editInvoices(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -968,12 +961,12 @@ model.addAttribute("SumExpenses", SumExpenses);
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
@@ -981,15 +974,15 @@ model.addAttribute("SumExpenses", SumExpenses);
             e.printStackTrace();
         }
 
-        if(role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")){
+        if (role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")) {
             return "edit-invoice";
-        }else {
+        } else {
             return "error-404";
         }
     }
 
     @GetMapping("/invoice-view.html")
-    public String viewInvoices(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public String viewInvoices(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -1002,12 +995,12 @@ model.addAttribute("SumExpenses", SumExpenses);
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
@@ -1015,18 +1008,17 @@ model.addAttribute("SumExpenses", SumExpenses);
             e.printStackTrace();
         }
 
-        if(role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")){
+        if (role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")) {
             return "invoice-view";
-        }else {
+        } else {
             return "error-404";
         }
     }
 
-
-    ////////////payment
+    //////////// payment
 
     @GetMapping("/payments.html")
-    public String payments(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public String payments(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -1039,12 +1031,12 @@ model.addAttribute("SumExpenses", SumExpenses);
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
@@ -1052,18 +1044,18 @@ model.addAttribute("SumExpenses", SumExpenses);
             e.printStackTrace();
         }
 
-        if(role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")){
+        if (role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")) {
             model.addAttribute("payments", paymentService.getAll());
             return "payments";
-        }else {
+        } else {
             return "error-404";
         }
     }
 
-    ///////Expenses
+    /////// Expenses
 
     @GetMapping("/expenses.html")
-    public String expenses(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken){
+    public String expenses(Model model, @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
         String username = "";
         String role = "";
         try {
@@ -1076,12 +1068,12 @@ model.addAttribute("SumExpenses", SumExpenses);
             // Retrieve username and role from the jwt
             username = (String) claims.get("sub");
             role = (String) claims.get("roles");
-            if(role.equals("ADMIN")){
+            if (role.equals("ADMIN")) {
                 Employee user = new Employee();
                 user.setFirst_Name("ADMIN");
                 user.setImageName("admin.png");
                 model.addAttribute("user", user);
-            }else {
+            } else {
                 model.addAttribute("user", employeeService.getByUsername(username));
             }
 
@@ -1089,11 +1081,11 @@ model.addAttribute("SumExpenses", SumExpenses);
             e.printStackTrace();
         }
 
-        if(role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")){
+        if (role.equals("ADMIN") || role.equals("Marketing") || role.equals("Business_Development")) {
             model.addAttribute("oneExpense", new Expenses());
             model.addAttribute("expenses", expensesService.getAllExpensesOrderedByDate());
             return "expenses";
-        }else {
+        } else {
             return "error-404";
         }
     }

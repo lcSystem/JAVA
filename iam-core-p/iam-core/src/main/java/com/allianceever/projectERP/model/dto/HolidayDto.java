@@ -1,20 +1,19 @@
 package com.allianceever.projectERP.model.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class HolidayDto {
 
-    private Integer HolidayId;
+    private Long HolidayId;
     private String holidayName;
-    private String holidayDate;
-    private String holidayDateEnd;
+    private LocalDate holidayDate;
+    private LocalDate holidayDateEnd;
 
 }

@@ -3,25 +3,26 @@ package com.allianceever.projectERP.model.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class LeavesDto {
 
-    private Integer LeavesID;
+    private Long LeavesID;
 
-    private String  username;
+    private String username;
 
-    private String  EmployeeName;
+    private String EmployeeName;
 
-    private String LeaveType;
+    private LeaveTypeDto leaveType;
 
     private Integer NumberOfDays;
 
-    private String StartDate;
+    private LocalDate StartDate;
 
-    private String EndDate;
+    private LocalDate EndDate;
 
     private String LeaveReason;
 

@@ -23,12 +23,14 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
+@SuppressWarnings("null")
 public class ProjectServiceImpl implements ProjectService {
     private ProjectRepo projectRepo;
     private ModelMapper mapper;
     private EmployeeService employeeService;
     private EmployeeProjectService employeeProjectService;
     private LeaderProjectService leaderProjectService;
+
     @Override
     public ProjectDto create(ProjectDto projectDto) {
         // convert DTO to entity
@@ -42,8 +44,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public ProjectDto update(Long ProjectID, ProjectDto projectDto) {
         projectRepo.findById(ProjectID).orElseThrow(
-                () -> new ResourceNotFoundException("Project is not exist with given id : " + ProjectID)
-        );
+                () -> new ResourceNotFoundException("Project is not exist with given id : " + ProjectID));
         // convert DTO to entity
         Project project = mapToEntity(projectDto);
         Project updatedProject = projectRepo.save(project);
@@ -63,8 +64,10 @@ public class ProjectServiceImpl implements ProjectService {
     public List<ProjectDto> getAllByUsername(String username) {
         EmployeeDto employeeDto = employeeService.getByUsername(username);
         Long employeeID = employeeDto.getEmployeeID();
-        List<EmployeeProjectDto> employeeProjectDtoList = employeeProjectService.findAllByEmployeeID(String.valueOf(employeeID));
-        List<LeaderProjectDto> leaderProjectDtoList = leaderProjectService.findAllByLeaderID(String.valueOf(employeeID));
+        List<EmployeeProjectDto> employeeProjectDtoList = employeeProjectService
+                .findAllByEmployeeID(String.valueOf(employeeID));
+        List<LeaderProjectDto> leaderProjectDtoList = leaderProjectService
+                .findAllByLeaderID(String.valueOf(employeeID));
 
         // Create a Set to store unique project IDs
         Set<String> uniqueProjectIDs = new HashSet<>();
@@ -107,23 +110,21 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void delete(Long ProjectID) {
-        Project project = projectRepo.findById(ProjectID).orElseThrow(
-                () -> new ResourceNotFoundException("Project is not exist with given id : " + ProjectID));
+        if (!projectRepo.existsById(ProjectID)) {
+            throw new ResourceNotFoundException("Project is not exist with given id : " + ProjectID);
+        }
 
         projectRepo.deleteById(ProjectID);
     }
 
-
-
-
     // convert entity into DTO
-    private ProjectDto mapToDTO(Project project){
+    private ProjectDto mapToDTO(Project project) {
         ProjectDto projectDto = mapper.map(project, ProjectDto.class);
         return projectDto;
     }
 
     // convert DTO to entity
-    private Project mapToEntity(ProjectDto projectDto){
+    private Project mapToEntity(ProjectDto projectDto) {
         Project project = mapper.map(projectDto, Project.class);
         return project;
     }

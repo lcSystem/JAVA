@@ -15,26 +15,41 @@ import com.allianceever.projectERP.AuthenticatedBackend.repository.RoleRepositor
 import com.allianceever.projectERP.AuthenticatedBackend.repository.UserRepository;
 
 @SpringBootApplication
-public class ProjectErpApplication  {
+public class ProjectErpApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ProjectErpApplication.class, args);
 	}
 
 	@Bean
-	CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository, PasswordEncoder passwordEncode){
-		return args ->{
-			if(roleRepository.findByAuthority("ADMIN").isPresent()) return;
-			Role adminRole = roleRepository.save(new Role("ADMIN"));
-			roleRepository.save(new Role("Employee"));
-			roleRepository.save(new Role("Marketing"));
-			roleRepository.save(new Role("IT"));
-			roleRepository.save(new Role("Human_Capital"));
-			roleRepository.save(new Role("Business_Development"));
+	CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository,
+			PasswordEncoder passwordEncode) {
+		return args -> {
+			if (roleRepository.findByAuthority("ADMIN").isEmpty()) {
+				roleRepository.save(new Role("ADMIN"));
+			}
+			if (roleRepository.findByAuthority("Employee").isEmpty()) {
+				roleRepository.save(new Role("Employee"));
+			}
+			if (roleRepository.findByAuthority("Marketing").isEmpty()) {
+				roleRepository.save(new Role("Marketing"));
+			}
+			if (roleRepository.findByAuthority("IT").isEmpty()) {
+				roleRepository.save(new Role("IT"));
+			}
+			if (roleRepository.findByAuthority("Human_Capital").isEmpty()) {
+				roleRepository.save(new Role("Human_Capital"));
+			}
+			if (roleRepository.findByAuthority("Business_Development").isEmpty()) {
+				roleRepository.save(new Role("Business_Development"));
+			}
 
+			Role adminRole = roleRepository.findByAuthority("ADMIN").get();
 			Set<Role> roles = new HashSet<>();
 			roles.add(adminRole);
 
-		//	userRepository.save(new ApplicationUser(1, "lcardenas", passwordEncode.encode("67551623"), roles));
+			if (userRepository.findByUsername("lcardenas").isEmpty()) {
+				userRepository.save(new ApplicationUser(2, "lcardenas", passwordEncode.encode("67551623"), roles));
+			}
 		};
 	}
 }

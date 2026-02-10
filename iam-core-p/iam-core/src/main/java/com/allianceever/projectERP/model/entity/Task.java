@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.time.LocalDate;
+
 @Entity
 @Data
 @AllArgsConstructor
@@ -16,11 +18,16 @@ import lombok.ToString;
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "task_id")
     private Long taskID;
-    private String projectID;
+
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project project;
+
     private String task_Name;
     private String task_Priority;
-    private String due_Date;
+    private LocalDate due_Date;
     @Size(max = 1000)
     private String description;
     private String status;

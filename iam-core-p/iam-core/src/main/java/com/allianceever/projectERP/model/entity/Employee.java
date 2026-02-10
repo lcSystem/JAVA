@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.time.LocalDate;
 
 @Entity
 @Data
@@ -16,6 +17,7 @@ import lombok.ToString;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "employee_id")
     private Long employeeID;
     private String first_Name;
     private String last_Name;
@@ -23,22 +25,28 @@ public class Employee {
     private String userName;
     private String email;
     private String password;
-    @Column(name = "joinDate")
-    private String joinDate;
+    @Column(name = "join_date")
+    private LocalDate joinDate;
     private String phone;
-    private String departement;
-    private String designation;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
+
+    @ManyToOne
+    @JoinColumn(name = "designation_id")
+    private Designation designation;
     private String company;
     private Integer remainingLeaves;
     private String role;
-    @Column(name = "pinCode")
+    @Column(name = "pin_code")
     private Double pinCode;
     private String cv_Name;
     private Byte cv;
     @Column(unique = true)
     private String cin;
     private String reportTo;
-    private String birthday;
+    private LocalDate birthday;
     private String address;
     private String gender;
     private String state;

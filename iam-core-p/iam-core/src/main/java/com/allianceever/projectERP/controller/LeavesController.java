@@ -1,15 +1,11 @@
 package com.allianceever.projectERP.controller;
 
-import com.allianceever.projectERP.AuthenticatedBackend.utils.RSAKeyProperties;
 import com.allianceever.projectERP.model.dto.EmployeeDto;
 import com.allianceever.projectERP.model.dto.LeavesDto;
 import com.allianceever.projectERP.service.EmployeeService;
 import com.allianceever.projectERP.service.LeavesService;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
-
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -27,7 +23,6 @@ import static com.allianceever.projectERP.controller.EmployeeController.getStrin
 public class LeavesController {
     private LeavesService leavesService;
     private EmployeeService employeeService;
-    private final RSAKeyProperties rsaKeyProperties;
 
     @GetMapping("/all")
     public ResponseEntity<List<LeavesDto>> getAllLeaves() {
@@ -37,17 +32,14 @@ public class LeavesController {
     @PostMapping("/create")
     public ResponseEntity<LeavesDto> createLeaves(@ModelAttribute() LeavesDto leavesDto,
             @AuthenticationPrincipal Jwt jwt) {
-        // Retrieve username and role from the jwt
         String username = jwt.getClaimAsString("sub");
         String role = jwt.getClaimAsString("roles");
 
-        // Logic to set username and employeeName
         if (role.equals("ADMIN")) {
             leavesDto.setUsername(username);
             leavesDto.setEmployeeName(username);
         } else {
             EmployeeDto employeeDto = employeeService.getByUsername(username);
-            // Default to username if employee not found, or handle error
             String employeeName = (employeeDto != null) ? employeeDto.getFirst_Name() + " " + employeeDto.getLast_Name()
                     : username;
             leavesDto.setUsername(username);
@@ -58,106 +50,81 @@ public class LeavesController {
         return new ResponseEntity<>(createdLeave, org.springframework.http.HttpStatus.CREATED);
     }
 
-    @GetMapping("/{Leaves}")
-    public ResponseEntity<LeavesDto> getLeavesByLeavesID(@PathVariable("Leaves") Integer LeavesID,
-            @CookieValue(value = "jwtToken", defaultValue = "") String jwtToken) {
-        String username = "";
-        String role = "";
-        try {
-            Claims claims = Jwts.parserBuilder()
-                    .setSigningKey(rsaKeyProperties.getPublicKey()) // Use the public key for verification
-                    .build()
-                    .parseClaimsJws(jwtToken)
-                    .getBody();
-
-            // Retrieve username and role from the jwt
-            username = (String) claims.get("sub");
-            role = (String) claims.get("roles");
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        LeavesDto leavesDto = leavesService.getByLeavesID(LeavesID);
-        if (leavesDto != null) {
-            if (!role.equals("")) {
-                if (leavesDto.getUsername().equals(username) || role.equals("ADMIN") || role.equals("Human_Capital")) {
-                    return ResponseEntity.ok(leavesDto);
-                } else {
-                    return ResponseEntity.notFound().build();
-                }
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @PutMapping("/updateLeaves")
-    public ResponseEntity<LeavesDto> updateLeaves(@ModelAttribute LeavesDto leavesDto,
+    @GetMapping("/{LeavesID}")
+    public ResponseEntity<LeavesDto> getLeavesByLeavesID(@PathVariable("LeavesID") Long LeavesID,
             @AuthenticationPrincipal Jwt jwt) {
-        // Retrieve username and role from the jwt
         String username = jwt.getClaimAsString("sub");
         String role = jwt.getClaimAsString("roles");
 
-        Integer LeavesID = leavesDto.getLeavesID();
+        LeavesDto leavesDto = leavesService.getByLeavesID(LeavesID);
+        if (leavesDto != null) {
+            if (leavesDto.getUsername().equals(username) || role.equals("ADMIN") || role.equals("Human_Capital")) {
+                return ResponseEntity.ok(leavesDto);
+            }
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/updateLeaves")
+    @SuppressWarnings("null")
+    public ResponseEntity<LeavesDto> updateLeaves(@ModelAttribute LeavesDto leavesDto,
+            @AuthenticationPrincipal Jwt jwt) {
+        String username = jwt.getClaimAsString("sub");
+        String role = jwt.getClaimAsString("roles");
+
+        Long LeavesID = leavesDto.getLeavesID();
+        if (LeavesID == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
         LeavesDto existingLeaves = leavesService.getByLeavesID(LeavesID);
         if (existingLeaves == null) {
             return ResponseEntity.notFound().build();
         }
+
         BeanUtils.copyProperties(leavesDto, existingLeaves, getNullPropertyNames(leavesDto));
 
         if (leavesDto.getStatus() != null) {
-            if (!leavesDto.equals("")) {
-                if (role.equals("ADMIN") || role.equals("Human_Capital")) {
-                    String approvedBy;
-                    if (role.equals("Human_Capital")) {
-                        EmployeeDto employeeDto = employeeService.getByUsername(username);
-                        approvedBy = employeeDto.getFirst_Name() + " " + employeeDto.getLast_Name();
-                    } else {
-                        approvedBy = "ADMIN";
-                    }
-                    existingLeaves.setApprovedBy(approvedBy);
-                    LeavesDto updatedLeaves = leavesService.update(LeavesID, existingLeaves);
-                    return ResponseEntity.ok(updatedLeaves);
+            if (role.equals("ADMIN") || role.equals("Human_Capital")) {
+                String approvedBy;
+                if (role.equals("Human_Capital")) {
+                    EmployeeDto employeeDto = employeeService.getByUsername(username);
+                    approvedBy = employeeDto.getFirst_Name() + " " + employeeDto.getLast_Name();
                 } else {
-                    return ResponseEntity.notFound().build();
+                    approvedBy = "ADMIN";
                 }
-            } else {
-                if (existingLeaves.getUsername().equals(username) || role.equals("ADMIN")
-                        || role.equals("Human_Capital")) {
-                    LeavesDto updatedLeaves = leavesService.update(LeavesID, existingLeaves);
-                    return ResponseEntity.ok(updatedLeaves);
-                }
-                return ResponseEntity.notFound().build();
+                existingLeaves.setApprovedBy(approvedBy);
+            } else if (!existingLeaves.getUsername().equals(username)) {
+                return ResponseEntity.status(org.springframework.http.HttpStatus.FORBIDDEN).build();
             }
-        } else {
-            if (existingLeaves.getUsername().equals(username) || role.equals("ADMIN") || role.equals("Human_Capital")) {
-                LeavesDto updatedLeaves = leavesService.update(LeavesID, existingLeaves);
-                return ResponseEntity.ok(updatedLeaves);
-            }
-            return ResponseEntity.notFound().build();
+        } else if (!existingLeaves.getUsername().equals(username) && !role.equals("ADMIN")
+                && !role.equals("Human_Capital")) {
+            return ResponseEntity.status(org.springframework.http.HttpStatus.FORBIDDEN).build();
         }
+
+        LeavesDto updatedLeaves = leavesService.update(LeavesID, existingLeaves);
+        return ResponseEntity.ok(updatedLeaves);
     }
 
-    // Build Delete Employee REST API
     @DeleteMapping("/delete/{LeavesID}")
-    public ResponseEntity<String> deleteEmployee(@PathVariable("LeavesID") Integer LeavesID,
+    public ResponseEntity<String> deleteLeaves(@PathVariable("LeavesID") Long LeavesID,
             @AuthenticationPrincipal Jwt jwt) {
-        // Retrieve username and role from the jwt
         String username = jwt.getClaimAsString("sub");
         String role = jwt.getClaimAsString("roles");
 
         LeavesDto leavesDto = leavesService.getByLeavesID(LeavesID);
+        if (leavesDto == null) {
+            return ResponseEntity.notFound().build();
+        }
 
         if (leavesDto.getUsername().equals(username) || role.equals("ADMIN") || role.equals("Human_Capital")) {
             leavesService.delete(LeavesID);
             return ResponseEntity.ok("Leave deleted successfully!");
         }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.status(org.springframework.http.HttpStatus.FORBIDDEN).build();
     }
 
+    @SuppressWarnings("null")
     public static String[] getNullPropertyNames(Object source) {
         return getStrings(source);
     }

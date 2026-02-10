@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -14,24 +15,28 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name="estimates_invoices")
+@Table(name = "estimates_invoices")
 
 public class EstimatesInvoices {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     private String type;
 
-    private Integer clientID;
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
 
-    private Integer projectID;
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project project;
 
-    private String createDate;
+    private LocalDate createDate;
 
-    private  String estimateDate	;
+    private LocalDate estimateDate;
 
-    private String expiryDate;
+    private LocalDate expiryDate;
 
     private BigDecimal total;
 
@@ -41,9 +46,7 @@ public class EstimatesInvoices {
 
     private Integer tax;
 
-
-    @OneToMany(mappedBy = "estimateInvoices",  cascade = CascadeType.ALL)
-    private List<Item> items ;
-
+    @OneToMany(mappedBy = "estimateInvoices", cascade = CascadeType.ALL)
+    private List<Item> items;
 
 }

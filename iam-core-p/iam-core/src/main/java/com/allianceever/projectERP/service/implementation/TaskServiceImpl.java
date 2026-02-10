@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public class TaskServiceImpl implements TaskService {
     private TaskRepo taskRepo;
     private ModelMapper mapper;
+
     @Override
     public TaskDto create(TaskDto taskDto) {
         // convert DTO to entity
@@ -30,8 +31,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public TaskDto update(Long taskID, TaskDto taskDto) {
         taskRepo.findById(taskID).orElseThrow(
-                () -> new ResourceNotFoundException("Task is not exist with given id : " + taskID)
-        );
+                () -> new ResourceNotFoundException("Task is not exist with given id : " + taskID));
         // convert DTO to entity
         Task task = mapToEntity(taskDto);
         Task updatedTask = taskRepo.save(task);
@@ -49,7 +49,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public List<TaskDto> findAll(String projectID) {
-        List<Task> tasks = taskRepo.findByProjectID(projectID);
+        List<Task> tasks = taskRepo.findByProjectProjectID(Long.valueOf(projectID));
         return tasks.stream().map((task) -> mapToDTO(task))
                 .collect(Collectors.toList());
     }
@@ -62,26 +62,22 @@ public class TaskServiceImpl implements TaskService {
         return mapToDTO(task);
     }
 
-
     @Override
     public void delete(Long TaskID) {
-        Task task = taskRepo.findById(TaskID).orElseThrow(
-                () -> new ResourceNotFoundException("Task is not exist with given id : " + TaskID));
-
+        if (!taskRepo.existsById(TaskID)) {
+            throw new ResourceNotFoundException("Task is not exist with given id : " + TaskID);
+        }
         taskRepo.deleteById(TaskID);
     }
 
-
-
-
     // convert entity into DTO
-    private TaskDto mapToDTO(Task task){
+    private TaskDto mapToDTO(Task task) {
         TaskDto taskDto = mapper.map(task, TaskDto.class);
         return taskDto;
     }
 
     // convert DTO to entity
-    private Task mapToEntity(TaskDto taskDto){
+    private Task mapToEntity(TaskDto taskDto) {
         Task task = mapper.map(taskDto, Task.class);
         return task;
     }
