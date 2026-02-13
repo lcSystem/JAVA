@@ -48,13 +48,13 @@ public class SecurityConfiguration {
 
     // ----------------- Password Encoder -----------------
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     // ----------------- Authentication Manager -----------------
     @Bean
-    public AuthenticationManager authManager(UserDetailsService detailsService){
+    public AuthenticationManager authManager(UserDetailsService detailsService) {
         DaoAuthenticationProvider daoProvider = new DaoAuthenticationProvider();
         daoProvider.setUserDetailsService(detailsService);
         daoProvider.setPasswordEncoder(passwordEncoder());
@@ -63,50 +63,50 @@ public class SecurityConfiguration {
 
     // ----------------- Security Filter Chain -----------------
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            // CORS + CSRF
-            .cors(cors -> {}) // activa CORS
-            .csrf(csrf -> csrf.disable())
+                // CORS + CSRF
+                .cors(cors -> {
+                }) // activa CORS
+                .csrf(csrf -> csrf.disable())
 
-            // Stateless session
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                // Stateless session
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-            // JWT + TokenValidationFilter
-            .addFilterBefore(tokenValidationFilter, UsernamePasswordAuthenticationFilter.class)
+                // JWT + TokenValidationFilter
+                .addFilterBefore(tokenValidationFilter, UsernamePasswordAuthenticationFilter.class)
 
-            // Rutas
-            .authorizeHttpRequests(auth -> {
-                // Preflight OPTIONS
-                auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
+                // Rutas
+                .authorizeHttpRequests(auth -> {
+                    // Preflight OPTIONS
+                    auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
 
-                // Auth libre
-                auth.requestMatchers("/api/auth/**").permitAll();
+                    // Auth libre
+                    auth.requestMatchers("/api/auth/**").permitAll();
 
-                // TODO API protegida
-                auth.requestMatchers("/api/**").authenticated();
+                    // TODO API protegida
+                    auth.requestMatchers("/api/**").authenticated();
 
-                // cualquier otra cosa (no hay HTML aquí)
-                auth.anyRequest().permitAll();
-            })
+                    // cualquier otra cosa (no hay HTML aquí)
+                    auth.anyRequest().permitAll();
+                })
 
-            // JWT Resource Server
-            .oauth2ResourceServer(oauth2 -> oauth2
-                    .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()))
-            );
+                // JWT Resource Server
+                .oauth2ResourceServer(oauth2 -> oauth2
+                        .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())));
 
         return http.build();
     }
 
     // ----------------- JWT Decoder -----------------
     @Bean
-    public JwtDecoder jwtDecoder(){
+    public JwtDecoder jwtDecoder() {
         return NimbusJwtDecoder.withPublicKey(keys.getPublicKey()).build();
     }
 
     // ----------------- JWT Encoder -----------------
     @Bean
-    public JwtEncoder jwtEncoder(){
+    public JwtEncoder jwtEncoder() {
         JWK jwk = new RSAKey.Builder(keys.getPublicKey())
                 .privateKey(keys.getPrivateKey())
                 .build();
@@ -116,7 +116,7 @@ public class SecurityConfiguration {
 
     // ----------------- JWT Authentication Converter -----------------
     @Bean
-    public JwtAuthenticationConverter jwtAuthenticationConverter(){
+    public JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
         jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName("roles");
         jwtGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
@@ -130,7 +130,7 @@ public class SecurityConfiguration {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5500")); // <- tu frontend
+        config.setAllowedOrigins(List.of("http://localhost:5500", "http://localhost:3000")); // frontend ports
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
