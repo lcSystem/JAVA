@@ -17,6 +17,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "users")
@@ -28,6 +29,18 @@ public class ApplicationUser implements UserDetails {
 	@Column(unique = true)
 	private String username;
 	private String password;
+
+	@Column(name = "email")
+	private String email;
+
+	@Column(name = "estado", nullable = false, columnDefinition = "TINYINT")
+	private Boolean estado = true;
+
+	@Column(name = "fecha_creacion")
+	private LocalDateTime fechaCreacion;
+
+	@Column(name = "organizacion_id")
+	private Long organizacionId;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_role_junction", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
@@ -111,6 +124,38 @@ public class ApplicationUser implements UserDetails {
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Boolean getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Boolean estado) {
+		this.estado = estado;
+	}
+
+	public LocalDateTime getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(LocalDateTime fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public Long getOrganizacionId() {
+		return organizacionId;
+	}
+
+	public void setOrganizacionId(Long organizacionId) {
+		this.organizacionId = organizacionId;
 	}
 
 }

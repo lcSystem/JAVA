@@ -1,0 +1,107 @@
+Posibles mejoras:
+
+Algunos campos podrían ser NOT NULL en vez de permitir NULL sin restricción, como nombres, correos o fechas de creación. Esto evita datos incompletos.
+
+Campos como password en users y employees están definidos como varchar(255) sin encriptación: grave problema de seguridad.
+
+Muchos campos permiten NULL y no tienen defaults. Esto puede provocar inconsistencias en los reportes.
+
+Seguridad
+
+Almacenamiento de contraseñas:
+
+password varchar(255)
+
+
+Problema: No hay hashing ni salting. Debe usarse bcrypt, Argon2 o similar. Nunca guardar en texto plano.
+
+Tokens (blacklisted_token): Parece que solo almacenas tokens, pero no hay expiración ni control adicional.
+Posible mejora: agregar expiry_date y usar token hash en vez de guardar el token tal cual.
+
+Datos sensibles de clientes: campos como ice, rc, rib son únicos pero no cifrados. Dependiendo de la legislación (ej. GDPR o Ley de Protección de Datos en Colombia) puede requerir encriptación o almacenamiento seguro.
+
+Usuarios y roles:
+
+La tabla users tiene relación con roles, bien.
+
+No hay control de last_login, failed_attempts, ni bloqueo de cuenta tras intentos fallidos: riesgo de fuerza bruta.
+
+Datos personales:
+
+Campos como first_name, last_name, email, phone, cin, birthday están todos en texto plano. Si esta DB se expone, sería un gran riesgo.
+
+3️⃣ Relacional / Normalización
+
+Las tablas están bastante normalizadas, aunque veo algunos puntos que podrían mejorar:
+
+employee_project y employee_task tienen campos redundantes (first_name, last_name, designation, image_name) que ya existen en employees. Esto rompe la normalización y puede causar inconsistencias.
+
+Lo mismo en leader_project.
+
+Mejor sería solo almacenar employee_id o leader_id y hacer joins cuando necesites los datos personales.
+
+Tablas como file_project y image_project solo tienen file_name, original_name, project_id. Correcto, aunque quizá convenga normalizar project_id como FK y mantener consistencia.
+
+4️⃣ Recomendaciones generales
+
+Seguridad
+
+Hashear todas las contraseñas (bcrypt o Argon2).
+
+Considerar cifrar datos sensibles (ICE, RC, RIB, CIN).
+
+Revisar tokens, implementar expiración y hashing.
+
+Agregar created_at y updated_at en tablas críticas.
+
+Normalización
+
+Evitar redundancia en employee_project, employee_task, leader_project.
+
+Mantener solo id y obtener info por joins.
+
+Integridad
+
+Revisar campos que actualmente permiten NULL y que deberían ser obligatorios.
+
+Definir restricciones de validación en la base de datos para fechas y emails.
+
+Auditoría y trazabilidad
+
+Agregar campos created_by, updated_by, created_at, updated_at en tablas como client, project, employees.
+
+Esto se usa generalmente para invalidar tokens antes de que expiren (por ejemplo, cuando el usuario cierra sesión o se revoca acceso).
+
+Mejoras que podrías hacer:
+
+Guardar un hash del token en lugar del token completo (para no exponerlo si alguien accede a la DB).
+
+Agregar expiry_date para limpiar tokens viejos automáticamente.
+
+Indexar el campo token si la lista se hace grande, para mejorar rendimiento en las consultas.
+
+2️⃣ Usuarios y contraseñas
+
+Aunque uses JWT, aún necesitas guardar contraseñas de manera segura para login:
+
+Nunca guardes contraseñas en texto plano, incluso si JWT se usa después.
+
+Usa bcrypt o Argon2.
+
+JWT solo reemplaza la sesión, no elimina la necesidad de un login seguro.
+
+3️⃣ Seguridad general con JWT
+
+Tokens cortos y expiran rápido → Evitar usar tokens de larga duración.
+
+HTTPS obligatorio → Para que el token no se intercepte.
+
+No guardar datos sensibles en el payload del JWT → Solo info mínima, como user_id o role.
+
+Revocación de tokens → Tu tabla blacklisted_token cumple eso, perfecto. Solo hay que implementarlo bien y limpiar periódicamente.
+
+4️⃣ Redundancia de datos
+
+JWT no soluciona la redundancia que mencioné antes en employee_project, employee_task, etc.
+
+Los campos duplicados (first_name, last_name) no afectan la seguridad, pero sí pueden generar inconsistencias y más trabajo al actualizar info del empleado.
