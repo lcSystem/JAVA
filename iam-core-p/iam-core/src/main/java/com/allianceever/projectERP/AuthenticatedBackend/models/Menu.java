@@ -3,6 +3,7 @@ package com.allianceever.projectERP.AuthenticatedBackend.models;
 import java.util.HashSet;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -10,8 +11,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -42,9 +41,11 @@ public class Menu {
     @Column(length = 100)
     private String icono;
 
+    @Column(length = 50, unique = true)
+    private String codigo;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
-    @JsonIgnore
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Menu parent;
@@ -60,7 +61,14 @@ public class Menu {
     @Column(columnDefinition = "TINYINT")
     private Boolean estado = true;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "asignacion_menu_permiso", joinColumns = @JoinColumn(name = "menu_id"), inverseJoinColumns = @JoinColumn(name = "permiso_id"))
-    private Set<Permiso> permisos = new HashSet<>();
+    @OneToMany(mappedBy = "menu", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<RoleMenuPermission> menuPermissions = new HashSet<>();
+
+    @com.fasterxml.jackson.annotation.JsonProperty("parentId")
+    public Long getParentId() {
+        return parent != null ? parent.getId() : null;
+    }
 }

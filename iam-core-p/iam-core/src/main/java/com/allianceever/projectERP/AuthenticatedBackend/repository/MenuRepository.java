@@ -12,8 +12,26 @@ import com.allianceever.projectERP.AuthenticatedBackend.models.Menu;
 
 @Repository
 public interface MenuRepository extends JpaRepository<Menu, Long> {
+
     List<Menu> findByParentIsNullOrderByOrdenAsc();
 
-    @Query("SELECT DISTINCT m FROM Menu m JOIN m.permisos p WHERE p.id IN :permisoIds ORDER BY m.orden ASC")
-    List<Menu> findByPermisoIds(@Param("permisoIds") Set<Long> permisoIds);
+    /**
+     * Find all leaf menus where at least one of the given roles has can_read =
+     * true.
+     */
+    @Query("SELECT DISTINCT m FROM Menu m " +
+            "JOIN RoleMenuPermission rmp ON rmp.menu = m " +
+            "WHERE rmp.role.roleId IN :roleIds AND rmp.canRead = true " +
+            "ORDER BY m.orden ASC")
+    List<Menu> findReadableMenusByRoleIds(@Param("roleIds") Set<Integer> roleIds);
+
+    /**
+     * Find all active menus ordered for tree building.
+     */
+    List<Menu> findByEstadoTrueOrderByOrdenAsc();
+
+    /**
+     * Find all leaf menus (menus with codigo set — these are the actionable ones).
+     */
+    List<Menu> findByCodigoIsNotNullOrderByOrdenAsc();
 }

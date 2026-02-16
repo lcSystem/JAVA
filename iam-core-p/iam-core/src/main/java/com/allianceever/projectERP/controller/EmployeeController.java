@@ -1,5 +1,6 @@
 package com.allianceever.projectERP.controller;
 
+import com.allianceever.projectERP.AuthenticatedBackend.security.RequirePermission;
 import com.allianceever.projectERP.model.dto.EmployeeDto;
 import com.allianceever.projectERP.service.EmployeeService;
 import lombok.AllArgsConstructor;
@@ -33,6 +34,7 @@ public class EmployeeController {
 
     // Build Get All Employee REST API
     @GetMapping("/all")
+    @RequirePermission(menu = "EMPLEADOS", action = "READ")
     public ResponseEntity<List<EmployeeDto>> getAllEmployees() {
         List<EmployeeDto> employees = employeeService.getAll();
         return ResponseEntity.ok(employees);
@@ -60,6 +62,7 @@ public class EmployeeController {
 
     // Build Add Employee REST API
     @PostMapping("/create")
+    @RequirePermission(menu = "EMPLEADOS", action = "CREATE")
     public ResponseEntity<EmployeeDto> createEmployee(@ModelAttribute EmployeeDto employeeDto) {
         EmployeeDto createdEmployee = employeeService.create(employeeDto);
         return new ResponseEntity<>(createdEmployee, CREATED);
@@ -112,6 +115,7 @@ public class EmployeeController {
 
     // Build Update Employee REST API
     @PostMapping("/updateEmployee")
+    @RequirePermission(menu = "EMPLEADOS", action = "UPDATE")
     @SuppressWarnings("null")
     public ResponseEntity<EmployeeDto> updateEmployee(@ModelAttribute EmployeeDto employeeDto) {
         Long EmployeeID = employeeDto.getEmployeeID();
@@ -129,6 +133,7 @@ public class EmployeeController {
 
     // Build Delete Employee REST API
     @PostMapping("/delete/{id}")
+    @RequirePermission(menu = "EMPLEADOS", action = "DELETE")
     public ResponseEntity<String> deleteEmployee(@PathVariable("id") Long employeeID) {
         EmployeeDto employeeDto = employeeService.getById(employeeID);
         if (employeeDto != null) {
