@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.allianceever.projectERP.AuthenticatedBackend.models.ApplicationUser;
 import com.allianceever.projectERP.AuthenticatedBackend.models.Menu;
+import com.allianceever.projectERP.AuthenticatedBackend.models.MenuOrderDTO;
 import com.allianceever.projectERP.AuthenticatedBackend.models.Role;
 import com.allianceever.projectERP.AuthenticatedBackend.repository.MenuRepository;
 import com.allianceever.projectERP.AuthenticatedBackend.repository.RoleRepository;
@@ -109,12 +110,22 @@ public class SecurityManagementService {
         menu.setEstado(menuDetails.getEstado());
 
         if (menuDetails.getParent() != null && menuDetails.getParent().getId() != null) {
-            if (menuDetails.getParent().getId().equals(id)) {
-                throw new RuntimeException("Cannot set menu as its own parent");
+            Long parentId = menuDetails.getParent().getId();
+            if (parentId.equals(id)) {
+                throw new RuntimeException("No se puede asignar un menú como su propio padre");
             }
-            Menu parent = menuRepository.findById(menuDetails.getParent().getId())
+            // Check for circular reference: walk up parent chain from the proposed parent
+            Menu candidate = menuRepository.findById(parentId)
                     .orElseThrow(() -> new RuntimeException("Parent menu not found"));
-            menu.setParent(parent);
+            Menu walker = candidate.getParent();
+            while (walker != null) {
+                if (walker.getId().equals(id)) {
+                    throw new RuntimeException(
+                            "Referencia circular detectada: el menú padre propuesto es un descendiente de este menú");
+                }
+                walker = walker.getParent();
+            }
+            menu.setParent(candidate);
         } else {
             menu.setParent(null);
         }
@@ -129,5 +140,14 @@ public class SecurityManagementService {
                     "No se puede eliminar un menú que tiene submenús. Elimine o mueva los submenús primero.");
         }
         menuRepository.delete(menu);
+    }
+
+    public void updateMenuOrder(List<MenuOrderDTO> orders) {
+        for (MenuOrderDTO order : orders) {
+            menuRepository.findById(order.getId()).ifPresent(menu -> {
+                menu.setOrden(order.getOrden());
+                menuRepository.save(menu);
+            });
+        }
     }
 }

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.allianceever.projectERP.AuthenticatedBackend.models.ApplicationUser;
 import com.allianceever.projectERP.AuthenticatedBackend.models.AssignPermissionRequest;
 import com.allianceever.projectERP.AuthenticatedBackend.models.Menu;
+import com.allianceever.projectERP.AuthenticatedBackend.models.MenuOrderDTO;
 import com.allianceever.projectERP.AuthenticatedBackend.models.MenuTreeDTO;
 import com.allianceever.projectERP.AuthenticatedBackend.models.PermissionMatrixDTO;
 import com.allianceever.projectERP.AuthenticatedBackend.models.Role;
@@ -51,17 +52,21 @@ public class SecurityManagementController {
     }
 
     @PostMapping("/users")
-    public ApplicationUser createUser(@RequestBody ApplicationUser user) {
+    public ApplicationUser createUser(@RequestBody ApplicationUser user, @AuthenticationPrincipal Jwt jwt) {
+        checkPermission(jwt, "USERS", "CREATE");
         return securityService.createUser(user);
     }
 
     @PutMapping("/users/{id}")
-    public ApplicationUser updateUser(@PathVariable Long id, @RequestBody ApplicationUser user) {
+    public ApplicationUser updateUser(@PathVariable Long id, @RequestBody ApplicationUser user,
+            @AuthenticationPrincipal Jwt jwt) {
+        checkPermission(jwt, "USERS", "UPDATE");
         return securityService.updateUser(id, user);
     }
 
     @DeleteMapping("/users/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<?> deleteUser(@PathVariable Long id, @AuthenticationPrincipal Jwt jwt) {
+        checkPermission(jwt, "USERS", "DELETE");
         securityService.deleteUser(id);
         return ResponseEntity.ok().build();
     }
@@ -75,17 +80,20 @@ public class SecurityManagementController {
     }
 
     @PostMapping("/roles")
-    public Role createRole(@RequestBody Role role) {
+    public Role createRole(@RequestBody Role role, @AuthenticationPrincipal Jwt jwt) {
+        checkPermission(jwt, "ROLES", "CREATE");
         return securityService.createRole(role);
     }
 
     @PutMapping("/roles/{id}")
-    public Role updateRole(@PathVariable Integer id, @RequestBody Role role) {
+    public Role updateRole(@PathVariable Integer id, @RequestBody Role role, @AuthenticationPrincipal Jwt jwt) {
+        checkPermission(jwt, "ROLES", "UPDATE");
         return securityService.updateRole(id, role);
     }
 
     @DeleteMapping("/roles/{id}")
-    public ResponseEntity<?> deleteRole(@PathVariable Integer id) {
+    public ResponseEntity<?> deleteRole(@PathVariable Integer id, @AuthenticationPrincipal Jwt jwt) {
+        checkPermission(jwt, "ROLES", "DELETE");
         securityService.deleteRole(id);
         return ResponseEntity.ok().build();
     }
@@ -104,18 +112,29 @@ public class SecurityManagementController {
     }
 
     @PostMapping("/menus")
-    public Menu createMenu(@RequestBody Menu menu) {
+    public Menu createMenu(@RequestBody Menu menu, @AuthenticationPrincipal Jwt jwt) {
+        // For menus, we check permission on the "MENUS" resource itself
+        checkPermission(jwt, "MENUS", "CREATE");
         return securityService.createMenu(menu);
     }
 
     @PutMapping("/menus/{id}")
-    public Menu updateMenu(@PathVariable Long id, @RequestBody Menu menu) {
+    public Menu updateMenu(@PathVariable Long id, @RequestBody Menu menu, @AuthenticationPrincipal Jwt jwt) {
+        checkPermission(jwt, "MENUS", "UPDATE");
         return securityService.updateMenu(id, menu);
     }
 
     @DeleteMapping("/menus/{id}")
-    public ResponseEntity<?> deleteMenu(@PathVariable Long id) {
+    public ResponseEntity<?> deleteMenu(@PathVariable Long id, @AuthenticationPrincipal Jwt jwt) {
+        checkPermission(jwt, "MENUS", "DELETE");
         securityService.deleteMenu(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/menus/reorder")
+    public ResponseEntity<?> reorderMenus(@RequestBody List<MenuOrderDTO> orders, @AuthenticationPrincipal Jwt jwt) {
+        checkPermission(jwt, "MENUS", "UPDATE");
+        securityService.updateMenuOrder(orders);
         return ResponseEntity.ok().build();
     }
 
@@ -187,6 +206,14 @@ public class SecurityManagementController {
     // ============================
     // Helpers
     // ============================
+
+    private void checkPermission(Jwt jwt, String menuCodigo, String action) {
+        Set<String> roleNames = extractRoleNames(jwt);
+        Set<Integer> roleIds = resolveRoleIds(roleNames);
+        if (!permissionService.hasPermission(roleNames, roleIds, menuCodigo, action)) {
+            throw new RuntimeException("Access Denied: You do not have permission to " + action + " " + menuCodigo);
+        }
+    }
 
     private Set<String> extractRoleNames(Jwt jwt) {
         Set<String> roleNames = new HashSet<>();
