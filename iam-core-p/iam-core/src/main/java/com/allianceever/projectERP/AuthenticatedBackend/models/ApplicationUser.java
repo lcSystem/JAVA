@@ -42,6 +42,45 @@ public class ApplicationUser implements UserDetails {
 	@Column(name = "organizacion_id")
 	private Long organizacionId;
 
+	@Column(name = "first_name")
+	private String firstName;
+
+	@Column(name = "last_name")
+	private String lastName;
+
+	@Column(name = "phone")
+	private String phone;
+
+	@Column(name = "bio", length = 1000)
+	private String bio;
+
+	@Column(name = "profile_picture")
+	private String profilePicture;
+
+	@Column(name = "facebook")
+	private String facebook;
+
+	@Column(name = "twitter")
+	private String twitter;
+
+	@Column(name = "linkedin")
+	private String linkedin;
+
+	@Column(name = "instagram")
+	private String instagram;
+
+	@Column(name = "country")
+	private String country;
+
+	@Column(name = "city")
+	private String city;
+
+	@Column(name = "postal_code")
+	private String postalCode;
+
+	@Column(name = "tax_id")
+	private String taxId;
+
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_role_junction", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "role_id") })
@@ -156,6 +195,110 @@ public class ApplicationUser implements UserDetails {
 
 	public void setOrganizacionId(Long organizacionId) {
 		this.organizacionId = organizacionId;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getBio() {
+		return bio;
+	}
+
+	public void setBio(String bio) {
+		this.bio = bio;
+	}
+
+	public String getProfilePicture() {
+		return profilePicture;
+	}
+
+	public void setProfilePicture(String profilePicture) {
+		this.profilePicture = profilePicture;
+	}
+
+	public String getFacebook() {
+		return facebook;
+	}
+
+	public void setFacebook(String facebook) {
+		this.facebook = facebook;
+	}
+
+	public String getTwitter() {
+		return twitter;
+	}
+
+	public void setTwitter(String twitter) {
+		this.twitter = twitter;
+	}
+
+	public String getLinkedin() {
+		return linkedin;
+	}
+
+	public void setLinkedin(String linkedin) {
+		this.linkedin = linkedin;
+	}
+
+	public String getInstagram() {
+		return instagram;
+	}
+
+	public void setInstagram(String instagram) {
+		this.instagram = instagram;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getPostalCode() {
+		return postalCode;
+	}
+
+	public void setPostalCode(String postalCode) {
+		this.postalCode = postalCode;
+	}
+
+	public String getTaxId() {
+		return taxId;
+	}
+
+	public void setTaxId(String taxId) {
+		this.taxId = taxId;
 	}
 
 }
