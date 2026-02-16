@@ -20,6 +20,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.EqualsAndHashCode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "menu")
@@ -48,6 +49,7 @@ public class Menu {
     @JoinColumn(name = "parent_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @JsonIgnoreProperties({ "parent", "children", "menuPermissions" })
     private Menu parent;
 
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)

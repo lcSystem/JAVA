@@ -161,7 +161,9 @@ public class PermissionService {
 
         for (Menu m : allMenus) {
             MenuTreeDTO.PermissionsDTO perms = permMap.get(m.getId());
-            boolean isLeaf = m.getCodigo() != null && m.getRuta() != null;
+            boolean hasRuta = m.getRuta() != null && !m.getRuta().isBlank();
+            boolean hasCodigo = m.getCodigo() != null && !m.getCodigo().isBlank();
+            boolean isLeaf = hasCodigo && hasRuta;
 
             if (isLeaf) {
                 // Leaf must have READ permission
@@ -208,7 +210,9 @@ public class PermissionService {
         // If no visible children, this group is hidden
         // Exception: if the parent itself is a leaf (has ruta), check its own
         // permission
-        if (parent.getRuta() != null && parent.getCodigo() != null) {
+        boolean parentHasRuta = parent.getRuta() != null && !parent.getRuta().isBlank();
+        boolean parentHasCodigo = parent.getCodigo() != null && !parent.getCodigo().isBlank();
+        if (parentHasRuta && parentHasCodigo) {
             MenuTreeDTO leafDTO = leafDTOs.get(parent.getId());
             if (leafDTO != null) {
                 return leafDTO;
