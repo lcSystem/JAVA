@@ -2,15 +2,16 @@ package com.allianceever.projectERP.AuthenticatedBackend.models;
 
 import org.springframework.security.core.GrantedAuthority;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
@@ -26,9 +27,9 @@ public class Role implements GrantedAuthority {
 
     private String authority;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "asignacion_rol_permiso", joinColumns = @JoinColumn(name = "rol_id"), inverseJoinColumns = @JoinColumn(name = "permiso_id"))
-    private Set<Permiso> permisos = new HashSet<>();
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private Set<RoleMenuPermission> menuPermissions = new HashSet<>();
 
     public Role() {
         super();
@@ -45,7 +46,6 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
-        // TODO Auto-generated method stub
         return this.authority;
     }
 
@@ -61,11 +61,11 @@ public class Role implements GrantedAuthority {
         this.roleId = roleId;
     }
 
-    public Set<Permiso> getPermisos() {
-        return permisos;
+    public Set<RoleMenuPermission> getMenuPermissions() {
+        return menuPermissions;
     }
 
-    public void setPermisos(Set<Permiso> permisos) {
-        this.permisos = permisos;
+    public void setMenuPermissions(Set<RoleMenuPermission> menuPermissions) {
+        this.menuPermissions = menuPermissions;
     }
 }

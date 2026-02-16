@@ -11,35 +11,39 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
+import com.allianceever.projectERP.AuthenticatedBackend.models.ApplicationUser;
+
 @Service
 public class TokenService {
-    
+
     @Autowired
     private JwtEncoder jwtEncoder;
 
-    // Define the token expiration time in seconds (e.g., 30 minutes)
-    private static final long TOKEN_EXPIRATION_SECONDS = 30 * 60; // 30 minutes
+    // Token expiration: 8 hours for a work day
+    private static final long TOKEN_EXPIRATION_SECONDS = 8 * 60 * 60;
 
-    public String generateJwt(Authentication auth){
+    public String generateJwt(Authentication auth) {
 
         Instant now = Instant.now();
-
-        // Calculate the expiration time based on the current time
         Instant expirationTime = now.plusSeconds(TOKEN_EXPIRATION_SECONDS);
 
         String scope = auth.getAuthorities().stream()
-            .map(GrantedAuthority::getAuthority)
-            .collect(Collectors.joining(" "));
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(" "));
 
-        JwtClaimsSet claims = JwtClaimsSet.builder()
-            .issuer("self")
-            .issuedAt(now)
-            .expiresAt(expirationTime)
-            .subject(auth.getName())
-            .claim("roles", scope)
-            .build();
+        // Extract userId if principal is ApplicationUser
+        JwtClaimsSet.Builder claimsBuilder = JwtClaimsSet.builder()
+                .issuer("iam-core")
+                .issuedAt(now)
+                .expiresAt(expirationTime)
+                .subject(auth.getName())
+                .claim("roles", scope);
 
-        return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+        if (auth.getPrincipal() instanceof ApplicationUser) {
+            ApplicationUser user = (ApplicationUser) auth.getPrincipal();
+            claimsBuilder.claim("userId", user.getUserId());
+        }
+
+        return jwtEncoder.encode(JwtEncoderParameters.from(claimsBuilder.build())).getTokenValue();
     }
-
 }

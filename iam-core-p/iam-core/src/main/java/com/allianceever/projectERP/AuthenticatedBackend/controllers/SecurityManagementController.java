@@ -1,9 +1,13 @@
 package com.allianceever.projectERP.AuthenticatedBackend.controllers;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,12 +19,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.allianceever.projectERP.AuthenticatedBackend.models.ApplicationUser;
+import com.allianceever.projectERP.AuthenticatedBackend.models.AssignPermissionRequest;
 import com.allianceever.projectERP.AuthenticatedBackend.models.Menu;
-import com.allianceever.projectERP.AuthenticatedBackend.models.Permiso;
+import com.allianceever.projectERP.AuthenticatedBackend.models.MenuTreeDTO;
+import com.allianceever.projectERP.AuthenticatedBackend.models.PermissionMatrixDTO;
 import com.allianceever.projectERP.AuthenticatedBackend.models.Role;
+import com.allianceever.projectERP.AuthenticatedBackend.repository.RoleRepository;
+import com.allianceever.projectERP.AuthenticatedBackend.services.PermissionService;
 import com.allianceever.projectERP.AuthenticatedBackend.services.SecurityManagementService;
 
-@CrossOrigin(origins = "*") // Adjust as needed
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/security")
 public class SecurityManagementController {
@@ -28,7 +36,15 @@ public class SecurityManagementController {
     @Autowired
     private SecurityManagementService securityService;
 
-    // --- Users ---
+    @Autowired
+    private PermissionService permissionService;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    // ============================
+    // Users
+    // ============================
     @GetMapping("/users")
     public List<ApplicationUser> getAllUsers() {
         return securityService.getAllUsers();
@@ -50,7 +66,9 @@ public class SecurityManagementController {
         return ResponseEntity.ok().build();
     }
 
-    // --- Roles ---
+    // ============================
+    // Roles
+    // ============================
     @GetMapping("/roles")
     public List<Role> getAllRoles() {
         return securityService.getAllRoles();
@@ -72,29 +90,9 @@ public class SecurityManagementController {
         return ResponseEntity.ok().build();
     }
 
-    // --- Permisos ---
-    @GetMapping("/permisos")
-    public List<Permiso> getAllPermisos() {
-        return securityService.getAllPermisos();
-    }
-
-    @PostMapping("/permisos")
-    public Permiso createPermiso(@RequestBody Permiso permiso) {
-        return securityService.createPermiso(permiso);
-    }
-
-    @PutMapping("/permisos/{id}")
-    public Permiso updatePermiso(@PathVariable Long id, @RequestBody Permiso permiso) {
-        return securityService.updatePermiso(id, permiso);
-    }
-
-    @DeleteMapping("/permisos/{id}")
-    public ResponseEntity<?> deletePermiso(@PathVariable Long id) {
-        securityService.deletePermiso(id);
-        return ResponseEntity.ok().build();
-    }
-
-    // --- Menus ---
+    // ============================
+    // Menus (admin management)
+    // ============================
     @GetMapping("/menus")
     public List<Menu> getAllMenus() {
         return securityService.getAllMenus();
@@ -121,9 +119,95 @@ public class SecurityManagementController {
         return ResponseEntity.ok().build();
     }
 
-    // --- User Menus (filtered by permissions) ---
-    @GetMapping("/users/{id}/menus")
-    public List<Menu> getUserMenus(@PathVariable Long id) {
-        return securityService.getUserMenus(id);
+    // ============================
+    // Permissions (RBAC management)
+    // ============================
+
+    /**
+     * Get the permission matrix for a specific role.
+     * Shows all menus and their CRUD flags for that role.
+     */
+    @GetMapping("/roles/{roleId}/permissions")
+    public PermissionMatrixDTO getRolePermissions(@PathVariable Integer roleId) {
+        return permissionService.getPermissionMatrix(roleId);
+    }
+
+    /**
+     * Assign permissions to a role.
+     * Replaces all existing permissions for that role.
+     * ADMIN role cannot be modified.
+     */
+    @PutMapping("/roles/{roleId}/permissions")
+    public PermissionMatrixDTO assignRolePermissions(
+            @PathVariable Integer roleId,
+            @RequestBody AssignPermissionRequest request) {
+        return permissionService.assignPermissions(roleId, request);
+    }
+
+    // ============================
+    // Current User Menus (filtered by permissions)
+    // ============================
+
+    /**
+     * Get the menu tree for the currently authenticated user.
+     * Only includes menus where the user has READ permission.
+     * Returns hierarchical structure with CRUD permissions per menu.
+     */
+    @GetMapping("/my/menus")
+    public List<MenuTreeDTO> getMyMenus(@AuthenticationPrincipal Jwt jwt) {
+        Set<String> roleNames = extractRoleNames(jwt);
+        Set<Integer> roleIds = resolveRoleIds(roleNames);
+        return permissionService.getUserMenuTree(roleNames, roleIds);
+    }
+
+    /**
+     * Get the menu tree for a specific user (admin use).
+     */
+    @GetMapping("/users/{userId}/menus")
+    public List<MenuTreeDTO> getUserMenus(@PathVariable Long userId) {
+        // Get user's roles
+        ApplicationUser user = securityService.getAllUsers().stream()
+                .filter(u -> u.getUserId().longValue() == userId)
+                .findFirst()
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Set<String> roleNames = new HashSet<>();
+        Set<Integer> roleIds = new HashSet<>();
+        user.getAuthorities().forEach(auth -> {
+            if (auth instanceof Role) {
+                Role role = (Role) auth;
+                roleNames.add(role.getAuthority());
+                roleIds.add(role.getRoleId());
+            }
+        });
+
+        return permissionService.getUserMenuTree(roleNames, roleIds);
+    }
+
+    // ============================
+    // Helpers
+    // ============================
+
+    private Set<String> extractRoleNames(Jwt jwt) {
+        Set<String> roleNames = new HashSet<>();
+        String rolesStr = jwt.getClaimAsString("roles");
+        if (rolesStr != null) {
+            for (String role : rolesStr.split(" ")) {
+                String clean = role.trim();
+                if (!clean.isEmpty()) {
+                    roleNames.add(clean);
+                }
+            }
+        }
+        return roleNames;
+    }
+
+    private Set<Integer> resolveRoleIds(Set<String> roleNames) {
+        Set<Integer> roleIds = new HashSet<>();
+        for (String name : roleNames) {
+            roleRepository.findByAuthority(name)
+                    .ifPresent(role -> roleIds.add(role.getRoleId()));
+        }
+        return roleIds;
     }
 }
