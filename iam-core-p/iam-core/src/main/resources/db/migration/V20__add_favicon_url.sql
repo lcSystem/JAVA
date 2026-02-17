@@ -1,0 +1,1 @@
+ALTER TABLE app_design_settings ADD COLUMN favicon_url VARCHAR(255);
