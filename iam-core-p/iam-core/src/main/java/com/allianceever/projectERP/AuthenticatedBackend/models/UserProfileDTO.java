@@ -15,6 +15,7 @@ public class UserProfileDTO {
     private String city;
     private String postalCode;
     private String taxId;
+    private String username;
 
     public UserProfileDTO() {
     }
@@ -34,6 +35,7 @@ public class UserProfileDTO {
         this.city = user.getCity();
         this.postalCode = user.getPostalCode();
         this.taxId = user.getTaxId();
+        this.username = user.getUsername();
     }
 
     public String getFirstName() {
@@ -146,5 +148,13 @@ public class UserProfileDTO {
 
     public void setTaxId(String taxId) {
         this.taxId = taxId;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

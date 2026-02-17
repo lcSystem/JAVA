@@ -87,6 +87,7 @@ public class SecurityConfiguration {
 
                     // Auth libre
                     auth.requestMatchers("/api/auth/**").permitAll();
+                    auth.requestMatchers("/uploads/**").permitAll();
 
                     // TODO API protegida
                     auth.requestMatchers("/api/**").authenticated();

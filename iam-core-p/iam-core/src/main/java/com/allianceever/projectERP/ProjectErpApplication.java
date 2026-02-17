@@ -21,7 +21,7 @@ public class ProjectErpApplication {
 	}
 
 	@Bean
-	CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository,
+	static CommandLineRunner run(RoleRepository roleRepository, UserRepository userRepository,
 			PasswordEncoder passwordEncode) {
 		return args -> {
 			if (roleRepository.findByAuthority("ADMIN").isEmpty()) {
