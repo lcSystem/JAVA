@@ -1,17 +1,11 @@
 package com.allianceever.projectERP.AuthenticatedBackend.configuration;
 
-import com.allianceever.projectERP.AuthenticatedBackend.utils.RSAKeyProperties;
 import com.allianceever.projectERP.AuthenticatedBackend.utils.TokenValidationFilter;
-import com.nimbusds.jose.jwk.JWK;
-import com.nimbusds.jose.jwk.JWKSet;
-import com.nimbusds.jose.jwk.RSAKey;
-import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
-import com.nimbusds.jose.jwk.source.JWKSource;
-import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
@@ -22,10 +16,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.JwtEncoder;
-import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
-import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
@@ -41,12 +31,10 @@ import java.util.List;
 @EnableAspectJAutoProxy
 public class SecurityConfiguration {
 
-    private final RSAKeyProperties keys;
     private final TokenValidationFilter tokenValidationFilter;
 
     @Autowired
-    public SecurityConfiguration(RSAKeyProperties keys, TokenValidationFilter tokenValidationFilter) {
-        this.keys = keys;
+    public SecurityConfiguration(TokenValidationFilter tokenValidationFilter) {
         this.tokenValidationFilter = tokenValidationFilter;
     }
 
@@ -67,6 +55,7 @@ public class SecurityConfiguration {
 
     // ----------------- Security Filter Chain -----------------
     @Bean
+    @Order(2)
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 // CORS + CSRF
@@ -101,22 +90,6 @@ public class SecurityConfiguration {
                         .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())));
 
         return http.build();
-    }
-
-    // ----------------- JWT Decoder -----------------
-    @Bean
-    public JwtDecoder jwtDecoder() {
-        return NimbusJwtDecoder.withPublicKey(keys.getPublicKey()).build();
-    }
-
-    // ----------------- JWT Encoder -----------------
-    @Bean
-    public JwtEncoder jwtEncoder() {
-        JWK jwk = new RSAKey.Builder(keys.getPublicKey())
-                .privateKey(keys.getPrivateKey())
-                .build();
-        JWKSource<SecurityContext> jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
-        return new NimbusJwtEncoder(jwks);
     }
 
     // ----------------- JWT Authentication Converter -----------------

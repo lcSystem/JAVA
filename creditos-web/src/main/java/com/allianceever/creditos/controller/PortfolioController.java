@@ -1,0 +1,33 @@
+package com.allianceever.creditos.controller;
+
+import com.allianceever.creditos.service.PortfolioService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
+
+@RestController
+@RequestMapping("/api/portfolio")
+@RequiredArgsConstructor
+public class PortfolioController {
+
+    private final PortfolioService portfolioService;
+
+    @GetMapping("/summary")
+    @PreAuthorize("hasAuthority('CREDIT_ADMIN')")
+    public ResponseEntity<Map<String, Object>> getSummary() {
+        return ResponseEntity.ok(portfolioService.getPortfolioSummary());
+    }
+
+    @PostMapping("/update-statuses")
+    @PreAuthorize("hasAuthority('CREDIT_ADMIN')")
+    public ResponseEntity<Void> updateStatuses() {
+        portfolioService.updateOverdueInstallments();
+        return ResponseEntity.ok().build();
+    }
+}
