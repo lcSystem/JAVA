@@ -19,6 +19,7 @@
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/allianceever/creditos/controller/CreditRequestController.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/allianceever/creditos/CreditosWebApplication.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/allianceever/creditos/model/CreditType.java
+/home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/allianceever/creditos/controller/AmortizationController.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/allianceever/creditos/repository/AmortizationInstallmentRepository.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/allianceever/creditos/domain/model/CreditRequest.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/allianceever/creditos/security/CustomAuthoritiesConverter.java

@@ -25,6 +25,7 @@ com/allianceever/creditos/domain/ports/in/ScoringUseCase.class
 com/allianceever/creditos/infrastructure/configuration/HexagonalConfig.class
 com/allianceever/creditos/repository/ApprovalAuditRepository.class
 com/allianceever/creditos/model/CreditType$CreditTypeBuilder.class
+com/allianceever/creditos/controller/AmortizationController.class
 com/allianceever/creditos/model/ApprovalAudit$ApprovalAuditBuilder.class
 com/allianceever/creditos/controller/CreditTypeController.class
 com/allianceever/creditos/model/Payment$PaymentBuilder.class

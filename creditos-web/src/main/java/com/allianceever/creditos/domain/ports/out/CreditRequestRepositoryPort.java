@@ -10,4 +10,6 @@ public interface CreditRequestRepositoryPort {
     Optional<CreditRequest> findById(Long id);
 
     List<CreditRequest> findByApplicantUserId(Long userId);
+
+    List<CreditRequest> findAll();
 }

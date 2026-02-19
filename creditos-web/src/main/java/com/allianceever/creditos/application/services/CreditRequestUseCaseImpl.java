@@ -131,4 +131,15 @@ public class CreditRequestUseCaseImpl implements CreditRequestUseCase {
     public List<CreditRequest> getRequestsByUserId(Long userId) {
         return creditRequestRepositoryPort.findByApplicantUserId(userId);
     }
+
+    @Override
+    public List<CreditRequest> getAllRequests() {
+        return creditRequestRepositoryPort.findAll();
+    }
+
+    @Override
+    public CreditRequest getRequestById(Long id) {
+        return creditRequestRepositoryPort.findById(id)
+                .orElseThrow(() -> new RuntimeException("Request not found"));
+    }
 }

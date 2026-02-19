@@ -16,6 +16,21 @@ public class CreditRequestController {
 
         private final com.allianceever.creditos.domain.ports.in.CreditRequestUseCase creditRequestUseCase;
 
+        @GetMapping
+        @PreAuthorize("hasAuthority('CREDIT_READ') or hasAuthority('ROLE_ADMIN')")
+        public ResponseEntity<List<CreditRequestDTO>> getAllRequests() {
+                return ResponseEntity.ok(creditRequestUseCase.getAllRequests().stream()
+                                .map(com.allianceever.creditos.infrastructure.mappers.CreditRequestMapper::toDTO)
+                                .collect(java.util.stream.Collectors.toList()));
+        }
+
+        @GetMapping("/{id}")
+        @PreAuthorize("hasAuthority('CREDIT_READ')")
+        public ResponseEntity<CreditRequestDTO> getRequestById(@PathVariable Long id) {
+                return ResponseEntity.ok(com.allianceever.creditos.infrastructure.mappers.CreditRequestMapper
+                                .toDTO(creditRequestUseCase.getRequestById(id)));
+        }
+
         @PostMapping("/submit")
         @PreAuthorize("hasAuthority('CREDIT_SIM_CREATE') or hasAuthority('ROLE_ADMIN') or hasAuthority('CREDIT_CREATE')")
         public ResponseEntity<CreditRequestDTO> submitRequest(@RequestBody CreditRequestDTO dto,
