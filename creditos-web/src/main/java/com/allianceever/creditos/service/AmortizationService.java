@@ -1,7 +1,8 @@
 package com.allianceever.creditos.service;
 
-import com.allianceever.creditos.model.AmortizationInstallment;
-import com.allianceever.creditos.model.CreditRequest;
+import com.allianceever.creditos.domain.model.AmortizationInstallment;
+import com.allianceever.creditos.domain.model.CreditRequest;
+import com.allianceever.creditos.domain.ports.in.AmortizationUseCase;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -11,11 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class AmortizationService {
+public class AmortizationService implements AmortizationUseCase {
 
-    /**
-     * Calcula la tabla de amortización usando el Sistema Francés (Cuota Fija).
-     */
+    @Override
     public List<AmortizationInstallment> generateFrenchSchedule(CreditRequest request) {
         List<AmortizationInstallment> schedule = new ArrayList<>();
 
@@ -25,7 +24,6 @@ public class AmortizationService {
                 RoundingMode.HALF_UP);
         BigDecimal monthlyRate = annualRate.divide(new BigDecimal("12"), 10, RoundingMode.HALF_UP);
 
-        // Cuota = P * [r(1+r)^n] / [(1+r)^n - 1]
         BigDecimal onePlusR = BigDecimal.ONE.add(monthlyRate);
         BigDecimal compoundInterest = onePlusR.pow(terms);
 
@@ -41,7 +39,6 @@ public class AmortizationService {
             BigDecimal interestPayment = remainingBalance.multiply(monthlyRate).setScale(2, RoundingMode.HALF_UP);
             BigDecimal principalPayment = monthlyInstallment.subtract(interestPayment);
 
-            // Ajuste para la última cuota para evitar residuos por redondeo
             if (i == terms) {
                 principalPayment = remainingBalance;
                 monthlyInstallment = principalPayment.add(interestPayment);
@@ -50,16 +47,16 @@ public class AmortizationService {
                 remainingBalance = remainingBalance.subtract(principalPayment);
             }
 
-            AmortizationInstallment installment = AmortizationInstallment.builder()
-                    .request(request)
-                    .installmentNumber(i)
-                    .dueDate(nextDueDate)
-                    .principalAmount(principalPayment)
-                    .interestAmount(interestPayment)
-                    .totalInstallment(monthlyInstallment)
-                    .remainingBalance(remainingBalance)
-                    .status("PENDING")
-                    .build();
+            AmortizationInstallment installment = new AmortizationInstallment(
+                    null,
+                    i,
+                    nextDueDate,
+                    principalPayment,
+                    interestPayment,
+                    BigDecimal.ZERO,
+                    monthlyInstallment,
+                    remainingBalance,
+                    "PENDING");
 
             schedule.add(installment);
             nextDueDate = nextDueDate.plusMonths(1);
