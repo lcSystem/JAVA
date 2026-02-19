@@ -1,7 +1,7 @@
 package com.tt.iam_core;
 
 import com.tt.iam_core.infrastructure.entities.UsuarioEntity;
-import com.tt.iam_core.infrastructure.repositories.UsuarioRepository; 
+import com.tt.iam_core.infrastructure.repositories.UsuarioRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.boot.SpringApplication;
@@ -23,11 +23,11 @@ public class IamCoreApplication {
                 UsuarioEntity u = new UsuarioEntity();
                 u.setUsername("admin");
                 u.setEmail("admin@empresa.com");
-                
+
                 BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
                 u.setPasswordHash(encoder.encode("123456"));
-                
-                u.setEstado(true); 
+
+                u.setEstado(true);
                 u.setFechaCreacion(LocalDateTime.now());
 
                 repo.save(u);
@@ -36,9 +36,7 @@ public class IamCoreApplication {
                 System.out.println("Usuario 'admin' ya existe, no se creó.");
             }
 
-            repo.findAll().forEach(user -> 
-                System.out.println("Usuario guardado: " + user.getUsername())
-            );
+            repo.findAll().forEach(user -> System.out.println("Usuario guardado: " + user.getUsername()));
         };
     }
 }

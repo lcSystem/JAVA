@@ -1,9 +1,13 @@
 package com.tt.iam_core.infrastructure.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "menu")
 public class MenuEntity {
 
@@ -37,20 +41,18 @@ public class MenuEntity {
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
     private Set<MenuEntity> subMenus;
 
-    // equals & hashCode (OBLIGATORIO con Set)
-
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof MenuEntity)) return false;
+        if (this == o)
+            return true;
+        if (!(o instanceof MenuEntity))
+            return false;
         MenuEntity menu = (MenuEntity) o;
-        return id != null && id.equals(menu.id);
+        return id != null && id.equals(menu.getId());
     }
 
     @Override
     public int hashCode() {
         return getClass().hashCode();
     }
-
-    // getters y setters
 }

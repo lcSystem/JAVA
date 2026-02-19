@@ -1,9 +1,13 @@
 package com.tt.iam_core.infrastructure.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "permiso")
 public class PermisoEntity {
 
@@ -25,6 +29,4 @@ public class PermisoEntity {
 
     @OneToMany(mappedBy = "permiso", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<MenuPermisoEntity> menus;
-
-    // getters y setters
 }

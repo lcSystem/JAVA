@@ -16,12 +16,13 @@ public class Usuario {
             UsuarioId id,
             String username,
             String passwordHash,
-            Organizacion organizacion
-    ) {
+            Organizacion organizacion,
+            Set<Rol> roles) {
         this.id = id;
         this.username = username;
         this.passwordHash = passwordHash;
         this.organizacion = organizacion;
+        this.roles = roles;
         this.activo = true;
     }
 

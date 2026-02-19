@@ -1,10 +1,12 @@
-package com.tt.iam_core.application.service;
+package com.tt.iam_core.application.services;
 
 import com.tt.iam_core.domain.model.Usuario;
 import com.tt.iam_core.domain.model.UsuarioId;
 import com.tt.iam_core.domain.ports.in.AutorizarAccionUseCase;
 import com.tt.iam_core.domain.ports.out.UsuarioRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class AutorizarAccionService implements AutorizarAccionUseCase {
 
     private final UsuarioRepository usuarioRepository;
@@ -13,8 +15,8 @@ public class AutorizarAccionService implements AutorizarAccionUseCase {
         this.usuarioRepository = usuarioRepository;
     }
 
-   @Override
-    public boolean autorizar(UsuarioId usuarioId, String accion, String recurso) {
+    @Override
+    public boolean ejecutar(UsuarioId usuarioId, String accion, String recurso) {
 
         Usuario usuario = usuarioRepository
                 .findById(usuarioId)
