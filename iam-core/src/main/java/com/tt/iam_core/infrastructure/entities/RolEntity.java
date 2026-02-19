@@ -1,35 +1,32 @@
-    package com.tt.iam_core.infrastructure.entities;
+package com.tt.iam_core.infrastructure.entities;
 
-    import jakarta.persistence.*;
-    import java.util.Set;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
-    @Entity
-    @Table(name = "rol")
-    public class RolEntity {
+@Entity
+@Getter
+@Setter
+@Table(name = "rol")
+public class RolEntity {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-        @Column(nullable = false, unique = true, length = 50)
-        private String nombre;
-        
-        @Column
-        private String descripcion;
+    @Column(nullable = false, unique = true, length = 50)
+    private String nombre;
 
-        @Column(nullable = false, length = 20)
-        private String estado = "activo";
+    @Column
+    private String descripcion;
 
-        @ManyToMany(mappedBy = "roles")
-        private Set<UsuarioEntity> usuarios;
+    @Column(nullable = false, length = 20)
+    private String estado = "activo";
 
-        @ManyToMany
-        @JoinTable(
-            name = "asignacion_rol_permiso",
-            joinColumns = @JoinColumn(name = "rol_id"),
-            inverseJoinColumns = @JoinColumn(name = "permiso_id")
-        )
-        private Set<PermisoEntity> permisos;
+    @ManyToMany(mappedBy = "roles")
+    private java.util.Set<UsuarioEntity> usuarios;
 
-        // Getters y Setters
-    }
+    @ManyToMany
+    @JoinTable(name = "asignacion_rol_permiso", joinColumns = @JoinColumn(name = "rol_id"), inverseJoinColumns = @JoinColumn(name = "permiso_id"))
+    private java.util.Set<PermisoEntity> permisos;
+}
