@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "credit_requests")
+@org.hibernate.annotations.SQLDelete(sql = "UPDATE credit_requests SET deleted_at = NOW() WHERE id = ?")
+@org.hibernate.annotations.Where(clause = "deleted_at IS NULL")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -56,4 +58,16 @@ public class CreditRequest {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @Version
+    private Long version;
+
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
+
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
 }

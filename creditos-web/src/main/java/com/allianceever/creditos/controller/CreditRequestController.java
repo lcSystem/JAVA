@@ -18,7 +18,7 @@ public class CreditRequestController {
     private final CreditRequestService creditRequestService;
 
     @PostMapping("/submit")
-    @PreAuthorize("hasAuthority('CREDIT_CREATE')")
+    @PreAuthorize("hasAuthority('CREDIT_SIM_CREATE') or hasAuthority('ROLE_ADMIN') or hasAuthority('CREDIT_CREATE')")
     public ResponseEntity<CreditRequestDTO> submitRequest(@RequestBody CreditRequestDTO dto,
             Authentication authentication) {
         // En una implementación real, el applicantUserId podría extraerse del token
@@ -27,26 +27,26 @@ public class CreditRequestController {
     }
 
     @PostMapping("/{id}/evaluate")
-    @PreAuthorize("hasAuthority('CREDIT_APPROVE') or hasAuthority('CREDIT_ADMIN')")
+    @PreAuthorize("hasAuthority('CREDIT_APP_UPDATE') or hasAuthority('CREDIT_APPROVE') or hasAuthority('ROLE_ADMIN') or hasAuthority('CREDIT_ADMIN')")
     public ResponseEntity<CreditRequestDTO> evaluate(@PathVariable Long id) {
         return ResponseEntity.ok(creditRequestService.evaluateRequest(id));
     }
 
     @PostMapping("/{id}/approve")
-    @PreAuthorize("hasAuthority('CREDIT_APPROVE') or hasAuthority('CREDIT_ADMIN')")
+    @PreAuthorize("hasAuthority('CREDIT_APP_UPDATE') or hasAuthority('CREDIT_APPROVE') or hasAuthority('ROLE_ADMIN') or hasAuthority('CREDIT_ADMIN')")
     public ResponseEntity<CreditRequestDTO> approve(@PathVariable Long id,
             @RequestParam(required = false) String comments, Authentication authentication) {
         return ResponseEntity.ok(creditRequestService.approveRequest(id, authentication.getName(), comments));
     }
 
     @PostMapping("/{id}/disburse")
-    @PreAuthorize("hasAuthority('CREDIT_DISBURSE') or hasAuthority('CREDIT_ADMIN')")
+    @PreAuthorize("hasAuthority('CREDIT_APP_UPDATE') or hasAuthority('CREDIT_DISBURSE') or hasAuthority('ROLE_ADMIN') or hasAuthority('CREDIT_ADMIN')")
     public ResponseEntity<CreditRequestDTO> disburse(@PathVariable Long id) {
         return ResponseEntity.ok(creditRequestService.disburseRequest(id));
     }
 
     @PostMapping("/{id}/restructure")
-    @PreAuthorize("hasAuthority('CREDIT_RESTRUCTURE') or hasAuthority('CREDIT_ADMIN')")
+    @PreAuthorize("hasAuthority('CREDIT_PORT_UPDATE') or hasAuthority('CREDIT_RESTRUCTURE') or hasAuthority('ROLE_ADMIN') or hasAuthority('CREDIT_ADMIN')")
     public ResponseEntity<CreditRequestDTO> restructure(@PathVariable Long id, @RequestParam Integer newTerm,
             @RequestParam(required = false) String comments, Authentication authentication) {
         return ResponseEntity

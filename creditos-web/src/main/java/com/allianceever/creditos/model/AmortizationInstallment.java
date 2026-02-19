@@ -8,9 +8,15 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "amortization_schedule")
+@org.hibernate.annotations.SQLDelete(sql = "UPDATE amortization_schedule SET deleted_at = NOW() WHERE id = ?")
+@org.hibernate.annotations.Where(clause = "deleted_at IS NULL")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -49,4 +55,24 @@ public class AmortizationInstallment {
 
     @Column(nullable = false, length = 50)
     private String status; // PENDING, PAID, OVERDUE
+
+    @Version
+    private Long version;
+
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
+
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
 }
