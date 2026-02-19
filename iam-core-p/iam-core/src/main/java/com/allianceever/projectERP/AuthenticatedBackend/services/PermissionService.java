@@ -46,9 +46,11 @@ public class PermissionService {
 
     /**
      * Check if the given roles include ADMIN.
+     * Supports both plain "ADMIN" and Spring Security's "ROLE_ADMIN" prefix.
      */
     public boolean isAdmin(Set<String> roleNames) {
-        return roleNames.contains(ADMIN_ROLE);
+        return roleNames.stream()
+                .anyMatch(r -> r.equals(ADMIN_ROLE) || r.equals("ROLE_" + ADMIN_ROLE));
     }
 
     /**
@@ -97,14 +99,15 @@ public class PermissionService {
      * ADMIN gets all menus with full permissions.
      */
     public List<MenuTreeDTO> getUserMenuTree(Set<String> roleNames, Set<Integer> roleIds) {
-        // Get all menus
+        // Get all active menus
         List<Menu> allMenus = menuRepository.findByEstadoTrueOrderByOrdenAsc();
+        boolean userIsAdmin = isAdmin(roleNames);
 
         // Build a map of menu permissions (merged across all roles)
         Map<Long, MenuTreeDTO.PermissionsDTO> permMap;
 
-        if (isAdmin(roleNames)) {
-            // ADMIN: full access to everything
+        if (userIsAdmin) {
+            // ADMIN: full access to everything active
             permMap = new HashMap<>();
             for (Menu m : allMenus) {
                 permMap.put(m.getId(), new MenuTreeDTO.PermissionsDTO(true, true, true, true));
@@ -115,8 +118,51 @@ public class PermissionService {
             permMap = mergePermissions(userPerms);
         }
 
-        // Build tree
-        return buildTree(allMenus, permMap);
+        // Build tree recursively
+        return buildRecursiveTree(null, allMenus, permMap);
+    }
+
+    /**
+     * Recursive function to build menu tree.
+     */
+    private List<MenuTreeDTO> buildRecursiveTree(Long parentId, List<Menu> allMenus,
+            Map<Long, MenuTreeDTO.PermissionsDTO> permMap) {
+        List<MenuTreeDTO> result = new ArrayList<>();
+
+        for (Menu m : allMenus) {
+            Long mParentId = (m.getParent() != null) ? m.getParent().getId() : null;
+
+            // Check if this menu belongs to the current parent
+            if ((parentId == null && mParentId == null) || (parentId != null && parentId.equals(mParentId))) {
+
+                // Recursively build children
+                List<MenuTreeDTO> children = buildRecursiveTree(m.getId(), allMenus, permMap);
+
+                // Logic for visibility:
+                // 1. If it has children, it's a group. Visible if at least one child is
+                // visible.
+                // 2. If it is a leaf (no visible children), check if it has its own READ
+                // permission.
+
+                MenuTreeDTO.PermissionsDTO selfPerms = permMap.get(m.getId());
+                boolean hasReadAccess = selfPerms != null && selfPerms.isRead();
+
+                if (!children.isEmpty()) {
+                    // It's a group with visible children
+                    MenuTreeDTO dto = toDTO(m,
+                            selfPerms != null ? selfPerms : new MenuTreeDTO.PermissionsDTO(true, false, false, false));
+                    dto.setChildren(children);
+                    result.add(dto);
+                } else if (hasReadAccess) {
+                    // It's a leaf (or group without children) that has READ access
+                    MenuTreeDTO dto = toDTO(m, selfPerms);
+                    dto.setChildren(new ArrayList<>());
+                    result.add(dto);
+                }
+            }
+        }
+
+        return result;
     }
 
     /**
@@ -145,98 +191,6 @@ public class PermissionService {
         return result;
     }
 
-    /**
-     * Build hierarchical menu tree, filtering out menus without READ permission.
-     * Parent groups are included only if they have at least one visible child.
-     */
-    private List<MenuTreeDTO> buildTree(List<Menu> allMenus, Map<Long, MenuTreeDTO.PermissionsDTO> permMap) {
-        // Index menus by ID
-        Map<Long, Menu> menuIndex = new HashMap<>();
-        for (Menu m : allMenus) {
-            menuIndex.put(m.getId(), m);
-        }
-
-        // Build DTOs for leaf menus that have READ permission
-        Map<Long, MenuTreeDTO> dtoIndex = new HashMap<>();
-
-        for (Menu m : allMenus) {
-            MenuTreeDTO.PermissionsDTO perms = permMap.get(m.getId());
-            boolean hasRuta = m.getRuta() != null && !m.getRuta().isBlank();
-            boolean hasCodigo = m.getCodigo() != null && !m.getCodigo().isBlank();
-            boolean isLeaf = hasCodigo && hasRuta;
-
-            if (isLeaf) {
-                // Leaf must have READ permission
-                if (perms != null && perms.isRead()) {
-                    MenuTreeDTO dto = toDTO(m, perms);
-                    dtoIndex.put(m.getId(), dto);
-                }
-            }
-        }
-
-        // Build parent groups — include only if they have visible children
-        List<MenuTreeDTO> roots = new ArrayList<>();
-
-        for (Menu m : allMenus) {
-            if (m.getParent() == null) {
-                // This is a root menu group
-                MenuTreeDTO groupDTO = buildGroupDTO(m, allMenus, dtoIndex, permMap);
-                if (groupDTO != null) {
-                    roots.add(groupDTO);
-                }
-            }
-        }
-
-        return roots;
-    }
-
-    /**
-     * Build a group (parent) menu DTO. Returns null if no children are visible.
-     */
-    private MenuTreeDTO buildGroupDTO(Menu parent, List<Menu> allMenus,
-            Map<Long, MenuTreeDTO> leafDTOs, Map<Long, MenuTreeDTO.PermissionsDTO> permMap) {
-
-        List<MenuTreeDTO> visibleChildren = new ArrayList<>();
-
-        for (Menu m : allMenus) {
-            if (m.getParent() != null && m.getParent().getId().equals(parent.getId())) {
-                MenuTreeDTO childDTO = leafDTOs.get(m.getId());
-                if (childDTO != null) {
-                    visibleChildren.add(childDTO);
-                }
-            }
-        }
-
-        // If no visible children, this group is hidden
-        // Exception: if the parent itself is a leaf (has ruta), check its own
-        // permission
-        boolean parentHasRuta = parent.getRuta() != null && !parent.getRuta().isBlank();
-        boolean parentHasCodigo = parent.getCodigo() != null && !parent.getCodigo().isBlank();
-        if (parentHasRuta && parentHasCodigo) {
-            MenuTreeDTO leafDTO = leafDTOs.get(parent.getId());
-            if (leafDTO != null) {
-                return leafDTO;
-            }
-        }
-
-        if (visibleChildren.isEmpty()) {
-            return null;
-        }
-
-        MenuTreeDTO groupDTO = new MenuTreeDTO();
-        groupDTO.setId(parent.getId());
-        groupDTO.setNombre(parent.getNombre());
-        groupDTO.setRuta(parent.getRuta());
-        groupDTO.setIcono(parent.getIcono());
-        groupDTO.setCodigo(parent.getCodigo());
-        groupDTO.setOrden(parent.getOrden());
-        groupDTO.setPermissions(permMap.getOrDefault(parent.getId(),
-                new MenuTreeDTO.PermissionsDTO(true, false, false, false)));
-        groupDTO.setChildren(visibleChildren);
-
-        return groupDTO;
-    }
-
     private MenuTreeDTO toDTO(Menu menu, MenuTreeDTO.PermissionsDTO perms) {
         MenuTreeDTO dto = new MenuTreeDTO();
         dto.setId(menu.getId());
@@ -246,7 +200,6 @@ public class PermissionService {
         dto.setCodigo(menu.getCodigo());
         dto.setOrden(menu.getOrden());
         dto.setPermissions(perms);
-        dto.setChildren(new ArrayList<>());
         return dto;
     }
 
@@ -270,6 +223,9 @@ public class PermissionService {
             permIndex.put(rmp.getMenu().getId(), rmp);
         }
 
+        boolean isRoleAdmin = role.getAuthority().equals(ADMIN_ROLE)
+                || role.getAuthority().equals("ROLE_" + ADMIN_ROLE);
+
         PermissionMatrixDTO matrix = new PermissionMatrixDTO();
         matrix.setRoleId(roleId);
         matrix.setRoleName(role.getAuthority());
@@ -283,7 +239,13 @@ public class PermissionService {
             entry.setMenuNombre(menu.getNombre());
             entry.setMenuCodigo(menu.getCodigo());
 
-            if (rmp != null) {
+            if (isRoleAdmin) {
+                // ADMIN has automatic full access
+                entry.setCanRead(true);
+                entry.setCanCreate(true);
+                entry.setCanUpdate(true);
+                entry.setCanDelete(true);
+            } else if (rmp != null) {
                 entry.setCanRead(Boolean.TRUE.equals(rmp.getCanRead()));
                 entry.setCanCreate(Boolean.TRUE.equals(rmp.getCanCreate()));
                 entry.setCanUpdate(Boolean.TRUE.equals(rmp.getCanUpdate()));

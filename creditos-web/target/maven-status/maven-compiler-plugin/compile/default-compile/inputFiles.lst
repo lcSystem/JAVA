@@ -5,6 +5,7 @@
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/allianceever/creditos/config/SecurityConfig.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/allianceever/creditos/repository/CreditTypeRepository.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/allianceever/creditos/model/CreditRequest.java
+/home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/allianceever/creditos/controller/CreditTypeController.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/allianceever/creditos/repository/CreditRequestRepository.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/allianceever/creditos/dto/PaymentDTO.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/allianceever/creditos/model/ApprovalAudit.java
@@ -18,6 +19,7 @@
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/allianceever/creditos/security/CustomAuthoritiesConverter.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/allianceever/creditos/controller/PortfolioController.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/allianceever/creditos/model/ApplicantProfile.java
+/home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/allianceever/creditos/service/CreditTypeService.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/allianceever/creditos/controller/PaymentController.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/allianceever/creditos/service/AmortizationService.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/allianceever/creditos/service/ScoringService.java

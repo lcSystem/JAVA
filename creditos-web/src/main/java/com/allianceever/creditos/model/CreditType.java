@@ -7,9 +7,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "credit_types")
+@org.hibernate.annotations.SQLDelete(sql = "UPDATE credit_types SET deleted_at = NOW() WHERE id = ?")
+@org.hibernate.annotations.Where(clause = "deleted_at IS NULL")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,6 +28,9 @@ public class CreditType {
 
     @Column(nullable = false, length = 100)
     private String name;
+
+    @Column(length = 500)
+    private String description;
 
     @Column(name = "min_amount", nullable = false)
     private BigDecimal minAmount;
@@ -43,4 +52,24 @@ public class CreditType {
 
     @Builder.Default
     private Boolean active = true;
+
+    @Version
+    private Long version;
+
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
+
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
 }

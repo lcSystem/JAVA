@@ -217,15 +217,26 @@ public class SecurityManagementController {
 
     private Set<String> extractRoleNames(Jwt jwt) {
         Set<String> roleNames = new HashSet<>();
-        String rolesStr = jwt.getClaimAsString("roles");
-        if (rolesStr != null) {
-            for (String role : rolesStr.split(" ")) {
+        Object rolesObj = jwt.getClaim("roles");
+
+        if (rolesObj instanceof String) {
+            String rolesStr = (String) rolesObj;
+            // Handle both spaces (from TokenService) and potentially commas
+            for (String role : rolesStr.split("[\\s,]+")) {
                 String clean = role.trim();
                 if (!clean.isEmpty()) {
                     roleNames.add(clean);
                 }
             }
+        } else if (rolesObj instanceof Iterable) {
+            // Handle cases where roles might already be a list/set
+            for (Object role : (Iterable<?>) rolesObj) {
+                if (role != null) {
+                    roleNames.add(role.toString().trim());
+                }
+            }
         }
+
         return roleNames;
     }
 

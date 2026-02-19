@@ -37,8 +37,17 @@ public class CreditRequestService {
                 .orElseThrow(() -> new RuntimeException("Credit type not found"));
 
         ApplicantProfile profile = applicantProfileRepository.findByUserId(dto.getApplicantUserId())
-                .orElseThrow(() -> new RuntimeException(
-                        "Applicant profile not found for user_id: " + dto.getApplicantUserId()));
+                .orElseGet(() -> {
+                    // Si no existe perfil, creamos uno por defecto para permitir la solicitud
+                    ApplicantProfile newProfile = ApplicantProfile.builder()
+                            .userId(dto.getApplicantUserId())
+                            .monthlyIncome(java.math.BigDecimal.ZERO)
+                            .monthlyExpenses(java.math.BigDecimal.ZERO)
+                            .currentDebts(java.math.BigDecimal.ZERO)
+                            .creditScore(0)
+                            .build();
+                    return applicantProfileRepository.save(newProfile);
+                });
 
         // Validaciones básicas de política
         validateCreditPolicy(dto, type);

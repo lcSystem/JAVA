@@ -86,6 +86,9 @@ public class ApplicationUser implements UserDetails {
 			@JoinColumn(name = "role_id") })
 	private Set<Role> authorities;
 
+	@jakarta.persistence.Transient
+	private Set<GrantedAuthority> permissions = new HashSet<>();
+
 	public ApplicationUser() {
 		super();
 		authorities = new HashSet<>();
@@ -111,10 +114,17 @@ public class ApplicationUser implements UserDetails {
 		this.authorities = authorities;
 	}
 
+	public void setPermissions(Set<GrantedAuthority> permissions) {
+		this.permissions = permissions;
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return this.authorities;
+		Set<GrantedAuthority> allAuthorities = new HashSet<>(this.authorities);
+		if (this.permissions != null) {
+			allAuthorities.addAll(this.permissions);
+		}
+		return allAuthorities;
 	}
 
 	@Override

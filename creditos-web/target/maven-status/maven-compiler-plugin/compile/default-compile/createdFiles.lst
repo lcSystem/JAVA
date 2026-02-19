@@ -1,5 +1,6 @@
 com/allianceever/creditos/config/DataSeeder.class
 com/allianceever/creditos/model/ApprovalAudit$ApprovalAuditBuilder.class
+com/allianceever/creditos/controller/CreditTypeController.class
 com/allianceever/creditos/service/PortfolioService.class
 com/allianceever/creditos/model/Payment$PaymentBuilder.class
 com/allianceever/creditos/config/SecurityConfig.class
@@ -12,6 +13,7 @@ com/allianceever/creditos/controller/PortfolioController.class
 com/allianceever/creditos/service/CreditRequestService.class
 com/allianceever/creditos/service/PaymentService.class
 com/allianceever/creditos/repository/PaymentRepository.class
+com/allianceever/creditos/service/CreditTypeService.class
 com/allianceever/creditos/controller/CreditRequestController.class
 com/allianceever/creditos/model/CreditRequest.class
 com/allianceever/creditos/model/AmortizationInstallment$AmortizationInstallmentBuilder.class
