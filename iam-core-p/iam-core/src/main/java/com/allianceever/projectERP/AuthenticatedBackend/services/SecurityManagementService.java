@@ -25,6 +25,9 @@ public class SecurityManagementService {
     private UserRepository userRepository;
 
     @Autowired
+    private com.allianceever.projectERP.AuthenticatedBackend.infrastructure.messaging.publisher.EventPublisher eventPublisher;
+
+    @Autowired
     private RoleRepository roleRepository;
 
     @Autowired
@@ -40,7 +43,16 @@ public class SecurityManagementService {
 
     public ApplicationUser createUser(ApplicationUser user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userRepository.save(user);
+        ApplicationUser saved = userRepository.save(user);
+        eventPublisher.publish("USER_CREATED", "v1",
+                com.allianceever.projectERP.AuthenticatedBackend.infrastructure.messaging.dto.UserEventV1.builder()
+                        .userId(saved.getUserId().longValue())
+                        .username(saved.getUsername())
+                        .email(saved.getEmail())
+                        .active(saved.getEstado())
+                        .action("CREATED")
+                        .build());
+        return saved;
     }
 
     public ApplicationUser updateUser(Long id, ApplicationUser userDetails) {
@@ -58,7 +70,17 @@ public class SecurityManagementService {
     }
 
     public void deleteUser(Long id) {
-        userRepository.deleteById(id.intValue());
+        userRepository.findById(id.intValue()).ifPresent(user -> {
+            eventPublisher.publish("USER_DELETED", "v1",
+                    com.allianceever.projectERP.AuthenticatedBackend.infrastructure.messaging.dto.UserEventV1.builder()
+                            .userId(user.getUserId().longValue())
+                            .username(user.getUsername())
+                            .email(user.getEmail())
+                            .active(false)
+                            .action("DELETED")
+                            .build());
+            userRepository.delete(user);
+        });
     }
 
     // --- Roles ---
