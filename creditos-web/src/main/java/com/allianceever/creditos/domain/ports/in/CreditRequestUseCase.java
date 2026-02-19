@@ -17,4 +17,8 @@ public interface CreditRequestUseCase {
     CreditRequest restructureCredit(Long requestId, Integer newTerm, String approver, String comments);
 
     List<CreditRequest> getRequestsByUserId(Long userId);
+
+    List<CreditRequest> getAllRequests();
+
+    CreditRequest getRequestById(Long id);
 }
