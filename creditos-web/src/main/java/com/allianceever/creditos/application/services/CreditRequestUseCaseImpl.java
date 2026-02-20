@@ -20,7 +20,10 @@ public class CreditRequestUseCaseImpl implements CreditRequestUseCase {
 
     @Override
     public CreditRequest submitRequest(Long applicantUserId, Long creditTypeId, BigDecimal amount, Integer termMonths,
-            String purpose) {
+            String purpose, String coDebtorName, String coDebtorId, String representativeName,
+            String representativeId, String debtorAdditionalInfo,
+            com.allianceever.creditos.domain.model.CoDebtorProfile coDebtorProfile,
+            com.allianceever.creditos.domain.model.CoDebtorProfile representativeProfile) {
         CreditType type = creditTypeRepositoryPort.findById(creditTypeId)
                 .orElseThrow(() -> new RuntimeException("Credit type not found"));
 
@@ -36,6 +39,13 @@ public class CreditRequestUseCaseImpl implements CreditRequestUseCase {
                 "EVALUATING",
                 null,
                 null,
+                coDebtorName,
+                coDebtorId,
+                representativeName,
+                representativeId,
+                debtorAdditionalInfo,
+                coDebtorProfile,
+                representativeProfile,
                 null);
 
         return creditRequestRepositoryPort.save(request);
@@ -68,6 +78,13 @@ public class CreditRequestUseCaseImpl implements CreditRequestUseCase {
                 request.getStatus(),
                 result.getResult(),
                 result.getRecommendation(),
+                request.getCoDebtorName(),
+                request.getCoDebtorId(),
+                request.getRepresentativeName(),
+                request.getRepresentativeId(),
+                request.getDebtorAdditionalInfo(),
+                request.getCoDebtorProfile(),
+                request.getRepresentativeProfile(),
                 request.getCreatedAt());
 
         return creditRequestRepositoryPort.save(evaluatedRequest);
@@ -88,6 +105,13 @@ public class CreditRequestUseCaseImpl implements CreditRequestUseCase {
                 "APPROVED",
                 request.getScoringResult(),
                 request.getScoringRecommendation(),
+                request.getCoDebtorName(),
+                request.getCoDebtorId(),
+                request.getRepresentativeName(),
+                request.getRepresentativeId(),
+                request.getDebtorAdditionalInfo(),
+                request.getCoDebtorProfile(),
+                request.getRepresentativeProfile(),
                 request.getCreatedAt());
 
         return creditRequestRepositoryPort.save(approvedRequest);
@@ -102,10 +126,6 @@ public class CreditRequestUseCaseImpl implements CreditRequestUseCase {
             throw new RuntimeException("Request must be APPROVED to be disbursed");
         }
 
-        // Amortization logic here if needed (saving installments)
-        // Usually the adapter handles the side effects or we have another port for
-        // installments
-
         CreditRequest disbursedRequest = new CreditRequest(
                 request.getId(),
                 request.getApplicantUserId(),
@@ -116,6 +136,13 @@ public class CreditRequestUseCaseImpl implements CreditRequestUseCase {
                 "DISBURSED",
                 request.getScoringResult(),
                 request.getScoringRecommendation(),
+                request.getCoDebtorName(),
+                request.getCoDebtorId(),
+                request.getRepresentativeName(),
+                request.getRepresentativeId(),
+                request.getDebtorAdditionalInfo(),
+                request.getCoDebtorProfile(),
+                request.getRepresentativeProfile(),
                 request.getCreatedAt());
 
         return creditRequestRepositoryPort.save(disbursedRequest);

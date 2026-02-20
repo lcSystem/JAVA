@@ -17,6 +17,13 @@ public class CreditRequestMapper {
                 entity.getStatus(),
                 entity.getScoringResult(),
                 entity.getScoringRecommendation(),
+                entity.getCoDebtorName(),
+                entity.getCoDebtorId(),
+                entity.getRepresentativeName(),
+                entity.getRepresentativeId(),
+                entity.getDebtorAdditionalInfo(),
+                CoDebtorMapper.toDomain(entity.getCoDebtorProfile()),
+                CoDebtorMapper.toDomain(entity.getRepresentativeProfile()),
                 entity.getCreatedAt());
     }
 
@@ -31,6 +38,13 @@ public class CreditRequestMapper {
         entity.setStatus(domain.getStatus());
         entity.setScoringResult(domain.getScoringResult());
         entity.setScoringRecommendation(domain.getScoringRecommendation());
+        entity.setCoDebtorName(domain.getCoDebtorName());
+        entity.setCoDebtorId(domain.getCoDebtorId());
+        entity.setRepresentativeName(domain.getRepresentativeName());
+        entity.setRepresentativeId(domain.getRepresentativeId());
+        entity.setDebtorAdditionalInfo(domain.getDebtorAdditionalInfo());
+        entity.setCoDebtorProfile(CoDebtorMapper.toEntity(domain.getCoDebtorProfile()));
+        entity.setRepresentativeProfile(CoDebtorMapper.toEntity(domain.getRepresentativeProfile()));
         return entity;
     }
 
@@ -46,6 +60,13 @@ public class CreditRequestMapper {
                 .purpose(domain.getPurpose())
                 .status(domain.getStatus())
                 .scoringResult(domain.getScoringResult())
+                .coDebtorName(domain.getCoDebtorName())
+                .coDebtorId(domain.getCoDebtorId())
+                .representativeName(domain.getRepresentativeName())
+                .representativeId(domain.getRepresentativeId())
+                .debtorAdditionalInfo(domain.getDebtorAdditionalInfo())
+                .coDebtorProfile(CoDebtorMapper.toDTO(domain.getCoDebtorProfile()))
+                .representativeProfile(CoDebtorMapper.toDTO(domain.getRepresentativeProfile()))
                 .build();
     }
 }

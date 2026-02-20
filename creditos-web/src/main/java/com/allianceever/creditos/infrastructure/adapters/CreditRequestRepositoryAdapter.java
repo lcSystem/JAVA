@@ -39,8 +39,15 @@ public class CreditRequestRepositoryAdapter implements CreditRequestRepositoryPo
         } else {
             // New request
             ApplicantProfile applicant = applicantProfileRepository.findByUserId(creditRequest.getApplicantUserId())
-                    .orElseThrow(() -> new RuntimeException(
-                            "Applicant profile not found for user: " + creditRequest.getApplicantUserId()));
+                    .orElseGet(() -> {
+                        ApplicantProfile newProfile = ApplicantProfile.builder()
+                                .userId(creditRequest.getApplicantUserId())
+                                .monthlyIncome(java.math.BigDecimal.ZERO)
+                                .monthlyExpenses(java.math.BigDecimal.ZERO)
+                                .currentDebts(java.math.BigDecimal.ZERO)
+                                .build();
+                        return applicantProfileRepository.save(newProfile);
+                    });
             entity.setApplicant(applicant);
 
             com.allianceever.creditos.model.CreditType type = creditTypeRepository

@@ -40,7 +40,14 @@ public class CreditRequestController {
                 return ResponseEntity.ok(com.allianceever.creditos.infrastructure.mappers.CreditRequestMapper.toDTO(
                                 creditRequestUseCase.submitRequest(dto.getApplicantUserId(), dto.getCreditTypeId(),
                                                 dto.getAmount(),
-                                                dto.getTermMonths(), dto.getPurpose())));
+                                                dto.getTermMonths(), dto.getPurpose(),
+                                                dto.getCoDebtorName(), dto.getCoDebtorId(),
+                                                dto.getRepresentativeName(), dto.getRepresentativeId(),
+                                                dto.getDebtorAdditionalInfo(),
+                                                com.allianceever.creditos.infrastructure.mappers.CoDebtorMapper
+                                                                .toDomain(dto.getCoDebtorProfile()),
+                                                com.allianceever.creditos.infrastructure.mappers.CoDebtorMapper
+                                                                .toDomain(dto.getRepresentativeProfile()))));
         }
 
         @PostMapping("/{id}/evaluate")
