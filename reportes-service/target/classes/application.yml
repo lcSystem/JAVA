@@ -1,0 +1,82 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: reportes-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_reportes?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: ${DB_PASSWORD:123456}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:guest}
+    password: ${RABBITMQ_PASSWORD:guest}
+    publisher-confirm-type: correlated
+    publisher-returns: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: iam-core
+          jwk-set-uri: http://localhost:8081/oauth2/jwks
+
+logging:
+  level:
+    com.allianceever.reportes: DEBUG
+    org.springframework.amqp: INFO
+
+# Resilience4j Config
+resilience4j:
+  circuitbreaker:
+    instances:
+      llmCircuitBreaker:
+        registerHealthMap: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 3
+        waitDurationInOpenState: 5s
+        failureRateThreshold: 50
+        eventConsumerBufferSize: 10
+  timelimiter:
+    instances:
+      llmTimeLimiter:
+        timeoutDuration: 30s
+  bulkhead:
+    instances:
+      llmBulkhead:
+        maxConcurrentCalls: 5
+        maxWaitDuration: 0
+
+# Application Specific
+report:
+  llm:
+    api-url: ${LLM_API_URL:https://api.openai.com/v1/chat/completions}
+    api-key: ${LLM_API_KEY:ChangeMe}
+    model: gpt-3.5-turbo
+  security:
+    hmac-secret: ${HMAC_SECRET:super-secret-key-12345678901234567890}
+  storage:
+    path: ${REPORT_STORAGE_PATH:/home/lsyst/Documentos/JAVA/reportes-service/storage}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+    prometheus:
+      enabled: true
