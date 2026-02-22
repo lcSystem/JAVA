@@ -1,8 +1,11 @@
 'use client';
 
 import React, { useState, FormEvent } from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function ContactWindow() {
+    const { t } = useLanguage();
+    const ct = t.contact;
     const [formData, setFormData] = useState({ name: '', email: '', message: '' });
     const [sent, setSent] = useState(false);
 
@@ -14,7 +17,7 @@ export default function ContactWindow() {
 
     return (
         <div style={{ padding: 24, height: '100%', overflow: 'auto' }}>
-            <div className="section-heading">Get in Touch</div>
+            <div className="section-heading">{ct.title}</div>
 
             {/* Contact methods */}
             <div style={{
@@ -23,23 +26,18 @@ export default function ContactWindow() {
                 gap: 12,
                 marginBottom: 24,
             }}>
-                {[
-                    { icon: '📧', label: 'Email', value: 'Available on request', link: '#' },
-                    { icon: '💼', label: 'LinkedIn', value: 'Connect with me', link: '#' },
-                    { icon: '🐙', label: 'GitHub', value: 'View my repos', link: '#' },
-                    { icon: '🌍', label: 'Location', value: 'Open to relocation', link: null },
-                ].map(item => (
+                {ct.methods.map((item: { icon: string; label: string; value: string }, i: number) => (
                     <div
-                        key={item.label}
+                        key={i}
                         style={{
                             padding: '14px 16px',
                             background: 'rgba(255,255,255,0.02)',
                             border: '1px solid var(--win-border)',
                             borderRadius: 8,
-                            cursor: item.link ? 'pointer' : 'default',
+                            cursor: i < 3 ? 'pointer' : 'default',
                             transition: 'border-color 0.2s',
                         }}
-                        onMouseEnter={e => { if (item.link) (e.currentTarget.style.borderColor = 'rgba(0,120,212,0.4)'); }}
+                        onMouseEnter={e => { if (i < 3) (e.currentTarget.style.borderColor = 'rgba(0,120,212,0.4)'); }}
                         onMouseLeave={e => (e.currentTarget.style.borderColor = 'var(--win-border)')}
                     >
                         <div style={{ fontSize: 20, marginBottom: 6 }}>{item.icon}</div>
@@ -50,11 +48,11 @@ export default function ContactWindow() {
             </div>
 
             {/* Contact form */}
-            <div className="section-heading">Send a Message</div>
+            <div className="section-heading">{ct.formTitle}</div>
             <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 420 }}>
                 <input
                     className="contact-input"
-                    placeholder="Your Name"
+                    placeholder={ct.namePlaceholder}
                     value={formData.name}
                     onChange={e => setFormData({ ...formData, name: e.target.value })}
                     required
@@ -62,14 +60,14 @@ export default function ContactWindow() {
                 <input
                     className="contact-input"
                     type="email"
-                    placeholder="Your Email"
+                    placeholder={ct.emailPlaceholder}
                     value={formData.email}
                     onChange={e => setFormData({ ...formData, email: e.target.value })}
                     required
                 />
                 <textarea
                     className="contact-input"
-                    placeholder="Your Message"
+                    placeholder={ct.messagePlaceholder}
                     rows={4}
                     style={{ resize: 'vertical' }}
                     value={formData.message}
@@ -91,7 +89,7 @@ export default function ContactWindow() {
                         alignSelf: 'flex-start',
                     }}
                 >
-                    {sent ? '✅ Message Sent!' : '📤 Send Message'}
+                    {sent ? ct.sentBtn : ct.sendBtn}
                 </button>
             </form>
         </div>

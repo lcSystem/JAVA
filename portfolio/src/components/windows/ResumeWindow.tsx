@@ -1,11 +1,15 @@
 'use client';
 
 import React from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function ResumeWindow() {
+    const { t } = useLanguage();
+    const rt = t.resume;
+
     return (
         <div style={{ padding: 24, height: '100%', overflow: 'auto' }}>
-            <div className="section-heading">Professional Resume</div>
+            <div className="section-heading">{rt.title}</div>
 
             {/* Header */}
             <div style={{
@@ -16,21 +20,20 @@ export default function ResumeWindow() {
                 marginBottom: 24,
             }}>
                 <h2 style={{ fontSize: 20, fontWeight: 700, color: 'var(--win-text)', marginBottom: 4 }}>
-                    Luis
+                    {rt.name}
                 </h2>
                 <div style={{ fontSize: 14, color: 'var(--win-accent)', fontWeight: 500, marginBottom: 8 }}>
-                    Senior Java Backend Developer
+                    {rt.role}
                 </div>
                 <p style={{ fontSize: 12, color: 'var(--win-text-secondary)', lineHeight: 1.6 }}>
-                    8+ years building enterprise backend systems with Spring Boot, microservices, OAuth2/JWT security, and clean architecture.
-                    Expert in financial platforms, ERP systems, and identity/access management solutions.
+                    {rt.summary}
                 </p>
             </div>
 
             {/* Core Competencies */}
             <div style={{ marginBottom: 24 }}>
                 <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--win-accent)', marginBottom: 12, textTransform: 'uppercase', letterSpacing: 0.5 }}>
-                    Core Competencies
+                    {rt.competenciesTitle}
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
                     {[
@@ -62,39 +65,9 @@ export default function ResumeWindow() {
             {/* Experience */}
             <div style={{ marginBottom: 24 }}>
                 <div style={{ fontSize: 13, fontWeight: 600, color: 'var(--win-accent)', marginBottom: 12, textTransform: 'uppercase', letterSpacing: 0.5 }}>
-                    Professional Experience
+                    {rt.experienceTitle}
                 </div>
-                {[
-                    {
-                        period: '2024 — Present',
-                        title: 'Lead Backend Architect',
-                        items: [
-                            'Designing multi-tenant ERP platform with microservices architecture',
-                            'Implemented OAuth2 Authorization Server with custom JWT claims',
-                            'Built RBAC system securing 50+ endpoints with granular permissions',
-                            'Led migration to Hexagonal Architecture and DDD patterns',
-                        ],
-                    },
-                    {
-                        period: '2021 — 2024',
-                        title: 'Senior Java Developer',
-                        items: [
-                            'Developed credit management system with complete financial lifecycle',
-                            'Designed event-driven communication using RabbitMQ',
-                            'Implemented Docker/Kubernetes deployment pipelines',
-                            'Reduced system configuration time by 60% through parameterization service',
-                        ],
-                    },
-                    {
-                        period: '2018 — 2021',
-                        title: 'Java Developer',
-                        items: [
-                            'Built REST APIs for enterprise applications using Spring Boot',
-                            'Implemented database migrations with Flyway',
-                            'Developed integration tests achieving 85%+ code coverage',
-                        ],
-                    },
-                ].map(exp => (
+                {rt.experiences.map((exp: { period: string; title: string; items: string[] }) => (
                     <div key={exp.period} style={{
                         padding: '14px 18px',
                         marginBottom: 10,
@@ -107,7 +80,7 @@ export default function ResumeWindow() {
                             <span style={{ fontSize: 11, color: 'var(--win-accent)', fontWeight: 500 }}>{exp.period}</span>
                         </div>
                         <ul style={{ padding: '0 0 0 14px', margin: 0 }}>
-                            {exp.items.map((item, i) => (
+                            {exp.items.map((item: string, i: number) => (
                                 <li key={i} style={{ fontSize: 12, color: 'var(--win-text-secondary)', lineHeight: 1.7 }}>
                                     {item}
                                 </li>
@@ -120,6 +93,7 @@ export default function ResumeWindow() {
             {/* Download button */}
             <div style={{ textAlign: 'center', paddingTop: 12 }}>
                 <button
+                    onClick={() => window.open('/cv', '_blank')}
                     style={{
                         padding: '10px 32px',
                         background: 'var(--win-accent)',
@@ -134,7 +108,7 @@ export default function ResumeWindow() {
                     onMouseEnter={e => (e.currentTarget.style.background = 'var(--win-accent-hover)')}
                     onMouseLeave={e => (e.currentTarget.style.background = 'var(--win-accent)')}
                 >
-                    📥 Download Resume (PDF)
+                    {rt.downloadBtn}
                 </button>
             </div>
         </div>

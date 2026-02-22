@@ -2,21 +2,23 @@
 
 import React, { useState, useEffect } from 'react';
 import { useWindowManager } from '@/contexts/WindowManager';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { WindowType } from '@/types/windows';
 
 export default function Taskbar() {
     const { windows, openWindow, restoreWindow, minimizeWindow, focusWindow, startMenuOpen, setStartMenuOpen } = useWindowManager();
+    const { locale, t } = useLanguage();
     const [time, setTime] = useState('');
 
     useEffect(() => {
         const update = () => {
             const now = new Date();
-            setTime(now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }));
+            setTime(now.toLocaleTimeString(locale === 'es' ? 'es-ES' : 'en-US', { hour: '2-digit', minute: '2-digit', hour12: locale !== 'es' }));
         };
         update();
         const interval = setInterval(update, 30000);
         return () => clearInterval(interval);
-    }, []);
+    }, [locale]);
 
     const openWindows = windows.filter(w => w.isOpen);
 
@@ -71,6 +73,7 @@ export default function Taskbar() {
             <div style={{ display: 'flex', alignItems: 'center', gap: 2, flex: 1, overflow: 'hidden' }}>
                 {openWindows.map(w => {
                     const isActive = !w.isMinimized && w.zIndex === Math.max(...openWindows.filter(ow => !ow.isMinimized).map(ow => ow.zIndex));
+                    const title = t.windowTitles[w.id as keyof typeof t.windowTitles] || w.title;
                     return (
                         <button
                             key={w.id}
@@ -98,7 +101,7 @@ export default function Taskbar() {
                             onMouseLeave={e => { if (!isActive) (e.currentTarget as HTMLButtonElement).style.background = 'transparent'; }}
                         >
                             <span>{w.icon}</span>
-                            <span>{w.title}</span>
+                            <span>{title}</span>
                         </button>
                     );
                 })}

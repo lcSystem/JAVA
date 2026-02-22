@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useWindowManager } from '@/contexts/WindowManager';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { WINDOW_REGISTRY, WindowType } from '@/types/windows';
 import Window from './Window';
 import AboutWindow from './windows/AboutWindow';
@@ -28,6 +29,7 @@ const WINDOW_CONTENT: Record<WindowType, React.FC> = {
 
 export default function Desktop() {
     const { windows, openWindow, startMenuOpen, setStartMenuOpen } = useWindowManager();
+    const { t } = useLanguage();
 
     const desktopIcons = Object.values(WINDOW_REGISTRY).filter(c => c.desktopIcon);
 
@@ -38,11 +40,22 @@ export default function Desktop() {
                 height: '100vh',
                 position: 'relative',
                 overflow: 'hidden',
-                backgroundImage: 'radial-gradient(ellipse at 30% 50%, rgba(0, 120, 212, 0.08) 0%, transparent 60%), radial-gradient(ellipse at 70% 80%, rgba(139, 92, 246, 0.06) 0%, transparent 50%)',
-                backgroundColor: 'var(--win-bg)',
+                backgroundImage: 'url(/bg.png)',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
             }}
             onClick={() => { if (startMenuOpen) setStartMenuOpen(false); }}
         >
+            {/* Dark overlay for readability */}
+            <div style={{
+                position: 'absolute',
+                inset: 0,
+                background: 'linear-gradient(135deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.55) 100%)',
+                pointerEvents: 'none',
+                zIndex: 0,
+            }} />
+
             {/* Desktop icons */}
             <div style={{
                 position: 'absolute',
@@ -60,7 +73,7 @@ export default function Desktop() {
                         onDoubleClick={() => openWindow(config.id)}
                     >
                         <div style={{ fontSize: 36 }}>{config.icon}</div>
-                        <span>{config.title}</span>
+                        <span>{t.windowTitles[config.id]}</span>
                     </div>
                 ))}
             </div>

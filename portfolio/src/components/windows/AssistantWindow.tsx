@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect, KeyboardEvent } from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { findAnswer, Intent } from '@/data/knowledgeBase';
 
 interface Message {
@@ -21,20 +22,14 @@ const INTENT_LABELS: Record<Intent, { label: string; color: string }> = {
     fallback: { label: 'RESTRICTED', color: '#ef4444' },
 };
 
-const SUGGESTED_QUESTIONS = [
-    'What is your experience?',
-    'Tell me about your projects',
-    'How do you approach security?',
-    'What is your tech stack?',
-    'Describe your architecture patterns',
-    'What business impact have you had?',
-];
-
 export default function AssistantWindow() {
+    const { locale, t } = useLanguage();
+    const at = t.assistant;
+
     const [messages, setMessages] = useState<Message[]>([
         {
             role: 'assistant',
-            content: '👋 Hello! I\'m the DevAssistant AI, a domain-restricted professional assistant.\n\nI can answer questions about:\n• 🏢 Experience & Background\n• 📂 Projects & Portfolio\n• 🏗️ Architecture & Design Patterns\n• 🔒 Security & IAM\n• 🔧 Technology Stack\n• 📊 Business Impact\n\nAsk me anything in these domains!',
+            content: at.greeting,
             intent: undefined,
         },
     ]);
@@ -52,7 +47,7 @@ export default function AssistantWindow() {
         if (!query) return;
 
         const userMsg: Message = { role: 'user', content: query };
-        const { answer, intent } = findAnswer(query);
+        const { answer, intent } = findAnswer(query, locale);
         const assistantMsg: Message = { role: 'assistant', content: answer, intent };
 
         setMessages(prev => [...prev, userMsg, assistantMsg]);
@@ -120,7 +115,7 @@ export default function AssistantWindow() {
                     flexWrap: 'wrap',
                     gap: 6,
                 }}>
-                    {SUGGESTED_QUESTIONS.map(q => (
+                    {at.suggestedQuestions.map((q: string) => (
                         <button
                             key={q}
                             onClick={() => handleSend(q)}
@@ -148,7 +143,7 @@ export default function AssistantWindow() {
                 <div style={{ display: 'flex', gap: 8 }}>
                     <input
                         className="chat-input"
-                        placeholder="Ask about experience, projects, architecture..."
+                        placeholder={at.placeholder}
                         value={input}
                         onChange={e => setInput(e.target.value)}
                         onKeyDown={handleKeyDown}
@@ -183,7 +178,7 @@ export default function AssistantWindow() {
                     textAlign: 'center',
                     opacity: 0.6,
                 }}>
-                    🔒 Domain-restricted assistant · 100% deterministic · No external API
+                    {at.footer}
                 </div>
             </div>
         </div>

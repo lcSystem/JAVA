@@ -1,6 +1,8 @@
 // ─── Intent Detection System ────────────────────────────────────────
 // Replaces basic keyword matching with domain-based intent classification.
 
+import { Locale } from './translations';
+
 export type Intent =
     | "experience"
     | "projects"
@@ -15,19 +17,28 @@ export type Intent =
 export interface KnowledgeEntry {
     keywords: string[];
     answer: string;
+    answerEs: string;
     intent: Intent;
 }
 
 // ─── Intent Detection Patterns ──────────────────────────────────────
 const INTENT_PATTERNS: Record<Intent, string[]> = {
-    experience: ['experience', 'years', 'how long', 'background', 'career', 'about', 'who', 'introduce', 'profile', 'summary', 'resume', 'work history'],
-    projects: ['project', 'portfolio', 'credit', 'erp', 'iam redesign', 'system', 'platform', 'application', 'built', 'developed'],
-    architecture: ['architecture', 'design', 'pattern', 'hexagonal', 'clean', 'microservices', 'distributed', 'ddd', 'cqrs', 'event-driven'],
-    security: ['security', 'oauth', 'oauth2', 'jwt', 'token', 'authentication', 'authorization', 'rbac', 'role', 'permission', 'access control'],
-    iam: ['iam', 'identity', 'access management', 'rbac', 'permission', 'role-based', 'zero-trust'],
-    skills: ['tech', 'stack', 'technology', 'tools', 'skills', 'database', 'docker', 'kubernetes', 'rabbitmq', 'spring', 'java', 'api', 'gateway', 'postgresql', 'devops'],
-    contact: ['contact', 'reach', 'email', 'hire', 'available', 'visa', 'relocation', 'remote', 'location'],
-    impact: ['impact', 'business', 'value', 'achievement', 'result', 'measurable'],
+    experience: ['experience', 'years', 'how long', 'background', 'career', 'about', 'who', 'introduce', 'profile', 'summary', 'resume', 'work history',
+        'experiencia', 'años', 'cuánto tiempo', 'trayectoria', 'carrera', 'quién', 'presentar', 'perfil', 'resumen', 'historial'],
+    projects: ['project', 'portfolio', 'credit', 'erp', 'iam redesign', 'system', 'platform', 'application', 'built', 'developed',
+        'proyecto', 'portafolio', 'crédito', 'sistema', 'plataforma', 'aplicación', 'construido', 'desarrollado'],
+    architecture: ['architecture', 'design', 'pattern', 'hexagonal', 'clean', 'microservices', 'distributed', 'ddd', 'cqrs', 'event-driven',
+        'arquitectura', 'diseño', 'patrón', 'limpia', 'microservicios', 'distribuido'],
+    security: ['security', 'oauth', 'oauth2', 'jwt', 'token', 'authentication', 'authorization', 'rbac', 'role', 'permission', 'access control',
+        'seguridad', 'autenticación', 'autorización', 'rol', 'permiso', 'control de acceso'],
+    iam: ['iam', 'identity', 'access management', 'rbac', 'permission', 'role-based', 'zero-trust',
+        'identidad', 'gestión de acceso'],
+    skills: ['tech', 'stack', 'technology', 'tools', 'skills', 'database', 'docker', 'kubernetes', 'rabbitmq', 'spring', 'java', 'api', 'gateway', 'postgresql', 'devops', 'node', 'mybatis', 'zk', 'php', 'codeigniter',
+        'tecnología', 'herramientas', 'habilidades', 'base de datos'],
+    contact: ['contact', 'reach', 'email', 'hire', 'available', 'visa', 'relocation', 'remote', 'location', 'country',
+        'contacto', 'email', 'contratar', 'disponible', 'visa', 'reubicación', 'remoto', 'ubicación', 'país'],
+    impact: ['impact', 'business', 'value', 'achievement', 'result', 'measurable',
+        'impacto', 'negocio', 'valor', 'logro', 'resultado'],
     fallback: [],
 };
 
@@ -35,105 +46,62 @@ const INTENT_PATTERNS: Record<Intent, string[]> = {
 export const knowledgeBase: KnowledgeEntry[] = [
     // Experience & Background
     {
-        keywords: ['experience', 'years', 'how long', 'background', 'career'],
-        answer: 'I am a Senior Java Backend Developer with 8+ years of professional experience in enterprise software development. I specialize in building scalable, secure backend systems using Spring Boot, microservices architecture, and cloud-native technologies. My career has been focused on financial systems, ERP platforms, and identity/access management solutions.',
+        keywords: ['experience', 'years', 'how long', 'background', 'career', 'experiencia', 'años', 'trayectoria', 'carrera'],
+        answer: 'I am a Java Backend Developer with 3+ years of experience in enterprise software development. I specialize in building high-availability, high-performance applications using Spring Boot, REST APIs, and SOAP services. My career includes work at Caseware Ingeniería (Java/Spring Boot/Oracle) and Sistemas AsapAseco (PHP/CodeIgniter/Server admin).',
+        answerEs: 'Soy un Desarrollador Backend Java con más de 3 años de experiencia en desarrollo de software empresarial. Me especializo en construir aplicaciones de alta disponibilidad y rendimiento usando Spring Boot, APIs REST y servicios SOAP. Mi trayectoria incluye Caseware Ingeniería (Java/Spring Boot/Oracle) y Sistemas AsapAseco (PHP/CodeIgniter/Admin servidores).',
         intent: 'experience'
     },
     {
-        keywords: ['about', 'who', 'introduce', 'yourself', 'profile', 'summary'],
-        answer: 'I am a Senior Java Backend Developer specializing in enterprise-grade backend systems. My expertise spans Spring Boot, microservices, OAuth2/JWT security, and clean architecture patterns. I have deep experience in financial platforms, ERP systems, and IAM solutions. I bring strong architectural thinking, security-first design, and proven delivery on complex enterprise projects.',
+        keywords: ['about', 'who', 'introduce', 'yourself', 'profile', 'summary', 'quién', 'presentar', 'perfil', 'resumen'],
+        answer: 'I am Luigis, a Java Backend Developer focused on designing scalable architectures and clean, maintainable code. I have experience in financial systems and mission-critical platforms. I work collaboratively in multidisciplinary teams, promoting continuous improvement and delivering value to the business.',
+        answerEs: 'Soy Luigis, Desarrollador Backend Java enfocado en diseñar arquitecturas escalables y código limpio y mantenible. Tengo experiencia en sistemas financieros y plataformas de misión crítica. Trabajo de manera colaborativa promoviendo la mejora continua y entrega de valor al negocio.',
         intent: 'experience'
     },
     // Architecture
     {
-        keywords: ['architecture', 'design', 'pattern', 'hexagonal', 'clean'],
-        answer: 'I follow Clean Architecture and Hexagonal Architecture (Ports & Adapters) principles. This ensures domain logic remains isolated from infrastructure concerns. The domain layer contains business rules with zero external dependencies. Application services orchestrate use cases through input/output ports. Infrastructure adapters handle persistence, messaging, and external integrations. This approach enables testability, flexibility, and maintainability at enterprise scale.',
-        intent: 'architecture'
-    },
-    {
-        keywords: ['microservices', 'distributed', 'service'],
-        answer: 'I design microservices following domain-driven decomposition. Each service owns its data, has well-defined API contracts, and communicates via REST and asynchronous messaging (RabbitMQ). I implement API Gateway patterns for routing and security, use Docker containers for deployment, and Kubernetes for orchestration. Service discovery, circuit breakers, and distributed tracing are part of my standard stack.',
+        keywords: ['architecture', 'design', 'pattern', 'hexagonal', 'clean', 'arquitectura', 'diseño', 'patrón', 'limpia'],
+        answer: 'I follow cleaner architecture principles like Hexagonal Architecture to ensure domain logic remains isolated and testable. My focus is on scalability and performance for enterprise systems.',
+        answerEs: 'Sigo principios de arquitectura limpia como Arquitectura Hexagonal para asegurar que la lógica de dominio permanezca aislada y testeable. Mi enfoque es la escalabilidad y el rendimiento para sistemas empresariales.',
         intent: 'architecture'
     },
     // Security
     {
-        keywords: ['security', 'oauth', 'oauth2', 'jwt', 'token', 'authentication', 'authorization'],
-        answer: 'I implement OAuth2 Authorization Server with Spring Security, issuing JWT tokens with custom claims. The security architecture includes: Authorization Server for token issuance, Resource Servers validating JWTs, token refresh mechanisms, and scope-based access control. JWTs carry custom claims like roles, permissions, and organizational context for fine-grained authorization.',
+        keywords: ['security', 'oauth', 'oauth2', 'jwt', 'token', 'authentication', 'authorization', 'seguridad', 'autenticación', 'autorización'],
+        answer: 'I implement security using Spring Security, OAuth2, and JWT. I have experience building Authorization Servers and Resource Servers with granular RBAC and zero-trust principles.',
+        answerEs: 'Implemento seguridad usando Spring Security, OAuth2 y JWT. Tengo experiencia construyendo Servidores de Autorización y Resource Servers con RBAC granular y principios zero-trust.',
         intent: 'security'
-    },
-    // IAM
-    {
-        keywords: ['rbac', 'role', 'permission', 'access control', 'iam', 'identity'],
-        answer: 'I have designed and implemented enterprise RBAC systems with granular CRUD permissions per module. The model includes: Roles assigned to users, Permissions defining CRUD operations per resource, Menu-based authorization controlling UI visibility, JWT claims carrying permission sets, and endpoint-level @PreAuthorize checks. This ensures zero-trust security where every action is verified against the user\'s permission matrix.',
-        intent: 'iam'
     },
     // Projects
     {
-        keywords: ['credit', 'financial', 'loan', 'credit management'],
-        answer: 'The Credit Management System is a comprehensive financial platform built with Spring Boot 3, featuring: OAuth2 Authorization Server with JWT, RBAC with granular per-menu permissions, PostgreSQL for data persistence, Dockerized microservices with API Gateway, complete credit lifecycle management (application, evaluation, approval, disbursement, payments, portfolio tracking), and secure financial validations at every step.',
+        keywords: ['caseware', 'asapaseco', 'company', 'work', 'empresa', 'trabajo'],
+        answer: 'I have experience at Caseware Ingeniería S.A.S. (until Aug 2025) developing enterprise solutions using Java, Spring Boot, and Oracle. Since Jan 2026, I have been focused on own projects and freelance software development.',
+        answerEs: 'Tengo experiencia en Caseware Ingeniería S.A.S. (hasta Ago 2025) desarrollando soluciones empresariales usando Java, Spring Boot y Oracle. Desde Ene 2026, me he enfocado en proyectos propios y desarrollo freelance.',
+        intent: 'experience'
+    },
+    {
+        keywords: ['caseware', 'financial erp', 'erp financiero', 'higher education', 'educación superior'],
+        answer: 'I have experience at Caseware Ingeniería S.A.S. developing a Financial ERP for higher education using Java, Spring Boot, and ZK Framework. This mission-critical platform focuses on process optimization and financial auditing.',
+        answerEs: 'Tengo experiencia en Caseware Ingeniería S.A.S. desarrollando un ERP Financiero para educación superior usando Java, Spring Boot y ZK Framework. Esta plataforma de misión crítica se enfoca en la optimización de procesos y auditoría financiera.',
         intent: 'projects'
     },
     {
-        keywords: ['erp', 'parameterization', 'parameter', 'configuration'],
-        answer: 'The ERP Parameterization Microservice manages system-wide configurations using: Flyway for versioned database migrations, JPA/Hibernate for persistence, RabbitMQ for event-driven communication with other services, multi-tenant architecture support, and Clean Architecture with clear domain/infrastructure separation. It serves as the central configuration backbone for the entire ERP ecosystem.',
+        keywords: ['custom software', 'softwares a la medida', 'bespoke', 'tailored', 'php', 'bootstrap'],
+        answer: 'I specialize in developing custom software solutions ("softwares a la medida") tailored to business needs, using diverse technologies like PHP (CodeIgniter/Bootstrap) and Java (Spring Boot) to deliver high-availability systems.',
+        answerEs: 'Me especializo en el desarrollo de soluciones de software a la medida según necesidades del negocio, usando diversas tecnologías como PHP (CodeIgniter/Bootstrap) y Java (Spring Boot) para entregar sistemas de alta disponibilidad.',
         intent: 'projects'
     },
+    // Skills
     {
-        keywords: ['iam', 'redesign', 'access management'],
-        answer: 'The IAM RBAC Redesign project involved restructuring the entire identity and access management system: Roles with hierarchical permissions, CRUD operations per module, menu-based authorization for UI control, JWT custom claims carrying the full permission set, React frontend with dynamic menu rendering based on permissions, and audit logging for all access events.',
-        intent: 'projects'
-    },
-    {
-        keywords: ['project', 'projects', 'portfolio', 'work'],
-        answer: 'My key enterprise projects include:\n\n• **Credit Management System** — Complete financial platform with OAuth2, JWT, RBAC, and microservices architecture.\n• **ERP Parameterization Microservice** — Centralized configuration management with RabbitMQ integration and Clean Architecture.\n• **IAM RBAC Redesign** — Enterprise identity management with granular CRUD permissions and menu-based authorization.',
-        intent: 'projects'
-    },
-    // Skills / Technology
-    {
-        keywords: ['tech', 'stack', 'technology', 'technologies', 'tools', 'skills'],
-        answer: 'My core technology stack:\n\n**Backend**: Java 17+, Spring Boot 3, Spring Security, Spring Data JPA\n**Security**: OAuth2 Authorization Server, JWT, RBAC\n**Architecture**: Hexagonal/Clean Architecture, Microservices, DDD\n**Database**: PostgreSQL, MySQL, Oracle\n**Messaging**: RabbitMQ\n**DevOps**: Docker, Kubernetes\n**API**: REST, API Gateway\n**Frontend**: React/Next.js with TypeScript',
+        keywords: ['tech', 'stack', 'technology', 'tools', 'skills', 'tecnología', 'herramientas', 'habilidades'],
+        answer: 'My primary stack: Java, Spring Boot, Hexagonal Architecture, Microservices, Node.js, JPA/Hibernate, MyBatis, REST/SOAP, PostgreSQL, MySQL, Oracle, PL/SQL, React, Next.js, ZK, Git, Flyway, and Linux.',
+        answerEs: 'Mi stack principal: Java, Spring Boot, Arquitectura Hexagonal, Microservicios, Node.js, JPA/Hibernate, MyBatis, REST/SOAP, PostgreSQL, MySQL, Oracle, PL/SQL, React, Next.js, ZK, Git, Flyway y Linux.',
         intent: 'skills'
-    },
-    {
-        keywords: ['database', 'postgresql', 'mysql', 'oracle', 'sql'],
-        answer: 'I work with PostgreSQL (primary choice for new projects), MySQL, and Oracle databases. I implement Flyway for version-controlled migrations, optimize queries with proper indexing strategies, and design normalized schemas with referential integrity. For microservices, each service owns its database following the Database-per-Service pattern.',
-        intent: 'skills'
-    },
-    {
-        keywords: ['docker', 'kubernetes', 'container', 'devops', 'deployment', 'deploy'],
-        answer: 'I containerize all services with Docker, using multi-stage builds for optimization. Docker Compose handles local development environments. For production, Kubernetes manages orchestration with proper health checks, resource limits, and horizontal pod autoscaling. CI/CD pipelines automate testing, building, and deployment workflows.',
-        intent: 'skills'
-    },
-    {
-        keywords: ['rabbitmq', 'messaging', 'queue', 'event', 'async'],
-        answer: 'I implement asynchronous communication between microservices using RabbitMQ. This includes: event-driven architecture for decoupled services, reliable message delivery with acknowledgments, dead letter queues for error handling, and event sourcing patterns where applicable.',
-        intent: 'skills'
-    },
-    {
-        keywords: ['api', 'gateway', 'rest', 'endpoint'],
-        answer: 'I design RESTful APIs following best practices: proper HTTP methods, status codes, pagination, and HATEOAS principles. API Gateway handles routing, rate limiting, and authentication token validation. All endpoints are documented with OpenAPI/Swagger and protected with appropriate authorization checks.',
-        intent: 'skills'
-    },
-    {
-        keywords: ['spring', 'spring boot', 'java', 'backend'],
-        answer: 'Spring Boot 3 is my primary framework. I leverage the full Spring ecosystem: Spring Security for OAuth2/JWT, Spring Data JPA for persistence, Spring Cloud for microservices patterns, Spring AMQP for RabbitMQ integration, and Spring Actuator for observability. I follow convention-over-configuration principles while maintaining explicit security configurations.',
-        intent: 'skills'
-    },
-    // Business Impact
-    {
-        keywords: ['impact', 'business', 'value', 'achievement', 'result'],
-        answer: 'Key achievements:\n\n• Designed and delivered a complete **Credit Management System** processing financial operations with full audit trail\n• Built an **IAM system** securing 50+ endpoints with granular RBAC\n• Reduced system configuration time by **60%** through the ERP Parameterization Microservice\n• Established **architectural standards** adopted across multiple teams\n• Improved security posture through **zero-trust** access control implementation',
-        intent: 'impact'
     },
     // Contact
     {
-        keywords: ['contact', 'reach', 'email', 'hire', 'available'],
-        answer: 'You can reach me through the Contact window in this portfolio. I have links to Email, LinkedIn, and GitHub available there. I am currently open to international opportunities and enterprise-level positions.',
-        intent: 'contact'
-    },
-    {
-        keywords: ['visa', 'relocation', 'international', 'remote', 'location'],
-        answer: 'I am open to international opportunities and willing to relocate with visa sponsorship. I also have experience working in remote and distributed teams across different time zones. My portfolio is designed to demonstrate enterprise-level competence for international recruiters and visa processes.',
+        keywords: ['remote', 'onsite', 'reallocation', 'country', 'remoto', 'presencial', 'país'],
+        answer: 'I am available for remote work or on-site positions within my country. I am not currently open to international relocation.',
+        answerEs: 'Estoy disponible para trabajo remoto o presencial dentro de mi país. Actualmente no estoy abierto a reubicación internacional.',
         intent: 'contact'
     },
 ];
@@ -165,12 +133,14 @@ export function detectIntent(query: string): Intent {
 }
 
 // ─── Answer Retrieval ───────────────────────────────────────────────
-export function findAnswer(query: string): { answer: string; intent: Intent } {
+export function findAnswer(query: string, locale: Locale = 'en'): { answer: string; intent: Intent } {
     const lowerQuery = query.toLowerCase().trim();
 
     if (lowerQuery.length < 2) {
         return {
-            answer: 'Please ask a more specific question about my experience, projects, architecture, or technologies.',
+            answer: locale === 'es'
+                ? 'Por favor haz una pregunta más específica sobre mi experiencia, proyectos, arquitectura o tecnologías.'
+                : 'Please ask a more specific question about my experience, projects, architecture, or technologies.',
             intent: 'fallback',
         };
     }
@@ -180,7 +150,9 @@ export function findAnswer(query: string): { answer: string; intent: Intent } {
     // Security: restrict off-domain queries
     if (intent === 'fallback') {
         return {
-            answer: '🔒 This portfolio assistant is restricted to professional information. Feel free to ask about my experience, projects, architecture decisions, technologies, security design, or business impact.',
+            answer: locale === 'es'
+                ? '🔒 Este asistente del portafolio está restringido a información profesional. Puedes preguntar sobre mi experiencia, proyectos, decisiones de arquitectura, tecnologías, seguridad o impacto de negocio.'
+                : '🔒 This portfolio assistant is restricted to professional information. Feel free to ask about my experience, projects, architecture decisions, technologies, security, or business impact.',
             intent: 'fallback',
         };
     }
@@ -210,11 +182,14 @@ export function findAnswer(query: string): { answer: string; intent: Intent } {
     }
 
     if (bestMatch) {
-        return { answer: bestMatch.answer, intent };
+        const answer = locale === 'es' ? bestMatch.answerEs : bestMatch.answer;
+        return { answer, intent };
     }
 
     return {
-        answer: '🔒 This portfolio assistant is restricted to professional information. Feel free to ask about my experience, projects, architecture decisions, technologies, security design, or business impact.',
+        answer: locale === 'es'
+            ? '🔒 Este asistente del portafolio está restringido a información profesional. Puedes preguntar sobre mi experiencia, proyectos, decisiones de arquitectura, tecnologías, seguridad o impacto de negocio.'
+            : '🔒 This portfolio assistant is restricted to professional information. Feel free to ask about my experience, projects, architecture decisions, technologies, security, or business impact.',
         intent: 'fallback',
     };
 }

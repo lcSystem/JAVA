@@ -1,60 +1,13 @@
 'use client';
 
 import React, { useState } from 'react';
-
-interface Project {
-    title: string;
-    description: string;
-    stack: string[];
-    highlights: string[];
-    impact: string;
-}
-
-const projects: Project[] = [
-    {
-        title: 'Credit Management System',
-        description: 'Comprehensive financial platform managing the complete credit lifecycle from application to portfolio tracking.',
-        stack: ['Spring Boot 3', 'OAuth2', 'JWT', 'PostgreSQL', 'Docker', 'RabbitMQ'],
-        highlights: [
-            'OAuth2 Authorization Server with custom JWT claims',
-            'RBAC with granular per-menu permissions',
-            'Complete credit lifecycle (apply → evaluate → approve → disburse → pay)',
-            'Dockerized microservices with API Gateway',
-            'Secure financial validations at every step',
-        ],
-        impact: 'Processes financial operations with full audit trail and zero-trust security',
-    },
-    {
-        title: 'IAM RBAC Redesign',
-        description: 'Enterprise identity and access management system with hierarchical role-based access control.',
-        stack: ['Spring Security', 'JWT', 'React', 'Next.js', 'PostgreSQL', 'Flyway'],
-        highlights: [
-            'Hierarchical roles with CRUD permissions per module',
-            'Menu-based authorization controlling UI visibility',
-            'JWT custom claims carrying full permission set',
-            'Dynamic React frontend with permission-based rendering',
-            'Audit logging for all access events',
-        ],
-        impact: 'Securing 50+ endpoints with granular RBAC and zero-trust architecture',
-    },
-    {
-        title: 'ERP Parameterization Microservice',
-        description: 'Centralized configuration management backbone for the entire ERP ecosystem.',
-        stack: ['Spring Boot', 'JPA/Hibernate', 'RabbitMQ', 'Flyway', 'Clean Architecture'],
-        highlights: [
-            'Flyway versioned database migrations',
-            'RabbitMQ event-driven communication',
-            'Multi-tenant architecture support',
-            'Clean Architecture with domain/infrastructure separation',
-            'Central configuration backbone for ERP',
-        ],
-        impact: 'Reduced system configuration time by 60%',
-    },
-];
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function ProjectsWindow() {
+    const { t } = useLanguage();
+    const pt = t.projects;
     const [selected, setSelected] = useState(0);
-    const project = projects[selected];
+    const project = pt.items[selected];
 
     return (
         <div style={{ display: 'flex', height: '100%' }}>
@@ -68,9 +21,9 @@ export default function ProjectsWindow() {
                 overflow: 'auto',
             }}>
                 <div style={{ padding: '0 16px 8px', fontSize: 11, color: 'var(--win-text-secondary)', textTransform: 'uppercase', letterSpacing: 0.5 }}>
-                    Projects
+                    {pt.sidebar}
                 </div>
-                {projects.map((p, i) => (
+                {pt.items.map((p: { title: string }, i: number) => (
                     <button
                         key={i}
                         onClick={() => setSelected(i)}
@@ -105,10 +58,18 @@ export default function ProjectsWindow() {
                 {/* Tech stack */}
                 <div style={{ marginBottom: 20 }}>
                     <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--win-accent)', marginBottom: 8, textTransform: 'uppercase', letterSpacing: 0.5 }}>
-                        Tech Stack
+                        {pt.techStack}
                     </div>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                        {project.stack.map(s => (
+                        {(['Spring Boot 3', 'OAuth2', 'JWT', 'PostgreSQL', 'Docker', 'RabbitMQ',
+                            'Spring Security', 'React', 'Next.js', 'Flyway',
+                            'JPA/Hibernate', 'Clean Architecture'][0] ? // stacks per project index
+                            [
+                                ['Spring Boot 3', 'OAuth2', 'JWT', 'PostgreSQL', 'Docker', 'RabbitMQ'],
+                                ['Spring Security', 'JWT', 'React', 'Next.js', 'PostgreSQL', 'Flyway'],
+                                ['Spring Boot', 'JPA/Hibernate', 'RabbitMQ', 'Flyway', 'Clean Architecture'],
+                            ][selected] || [] : []
+                        ).map(s => (
                             <span key={s} className="skill-badge">{s}</span>
                         ))}
                     </div>
@@ -117,10 +78,10 @@ export default function ProjectsWindow() {
                 {/* Key highlights */}
                 <div style={{ marginBottom: 20 }}>
                     <div style={{ fontSize: 12, fontWeight: 600, color: 'var(--win-accent)', marginBottom: 8, textTransform: 'uppercase', letterSpacing: 0.5 }}>
-                        Key Features
+                        {pt.keyFeatures}
                     </div>
                     <ul style={{ padding: '0 0 0 16px', margin: 0 }}>
-                        {project.highlights.map((h, i) => (
+                        {project.highlights.map((h: string, i: number) => (
                             <li key={i} style={{ fontSize: 12, color: 'var(--win-text-secondary)', lineHeight: 1.8 }}>
                                 {h}
                             </li>
@@ -136,7 +97,7 @@ export default function ProjectsWindow() {
                     borderRadius: 8,
                 }}>
                     <div style={{ fontSize: 11, fontWeight: 600, color: 'var(--win-accent)', marginBottom: 4, textTransform: 'uppercase' }}>
-                        📊 Business Impact
+                        {pt.businessImpact}
                     </div>
                     <div style={{ fontSize: 13, color: 'var(--win-text)', fontWeight: 500 }}>
                         {project.impact}
