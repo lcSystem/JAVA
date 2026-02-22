@@ -3,6 +3,7 @@
 import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useWindowManager, WindowState } from '@/contexts/WindowManager';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { WindowType } from '@/types/windows';
 import { useDrag } from '@/hooks/useDrag';
 
@@ -13,6 +14,7 @@ interface WindowProps {
 
 export default function Window({ windowState, children }: WindowProps) {
     const { closeWindow, minimizeWindow, maximizeWindow, focusWindow, updatePosition } = useWindowManager();
+    const { t } = useLanguage();
     const windowRef = useRef<HTMLDivElement>(null);
 
     const { position, isDragging, onMouseDown } = useDrag({
@@ -98,7 +100,7 @@ export default function Window({ windowState, children }: WindowProps) {
             >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 12, color: 'var(--win-text-secondary)' }}>
                     <span>{windowState.icon}</span>
-                    <span>{windowState.title}</span>
+                    <span>{t.windowTitles[windowState.id] || windowState.title}</span>
                 </div>
                 <div style={{ display: 'flex' }}>
                     <button

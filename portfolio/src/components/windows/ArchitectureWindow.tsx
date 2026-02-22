@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 type ArchTab = 'overview' | 'jwt' | 'authorization';
 
@@ -191,6 +192,8 @@ function DecisionNode({ label, yes, no, delay }: { label: string; yes: string; n
 // ─── Main ArchitectureWindow ────────────────────────────────────────
 export default function ArchitectureWindow() {
     const [tab, setTab] = useState<ArchTab>('overview');
+    const { t } = useLanguage();
+    const at = t.architecture;
 
     return (
         <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -201,16 +204,16 @@ export default function ArchitectureWindow() {
                 background: 'rgba(0,0,0,0.15)',
             }}>
                 {[
-                    { id: 'overview' as const, label: '🏗️ System Overview' },
-                    { id: 'jwt' as const, label: '🔐 JWT Flow' },
-                    { id: 'authorization' as const, label: '🛡️ Authorization' },
-                ].map(t => (
+                    { id: 'overview' as const, label: at.tabs.overview },
+                    { id: 'jwt' as const, label: at.tabs.jwt },
+                    { id: 'authorization' as const, label: at.tabs.authorization },
+                ].map(tb => (
                     <button
-                        key={t.id}
-                        className={`tab-btn ${tab === t.id ? 'active' : ''}`}
-                        onClick={() => setTab(t.id)}
+                        key={tb.id}
+                        className={`tab-btn ${tab === tb.id ? 'active' : ''}`}
+                        onClick={() => setTab(tb.id)}
                     >
-                        {t.label}
+                        {tb.label}
                     </button>
                 ))}
             </div>
@@ -227,17 +230,21 @@ export default function ArchitectureWindow() {
 
 // ─── Overview Diagram ───────────────────────────────────────────────
 function OverviewDiagram() {
+    const { t } = useLanguage();
+    const at = t.architecture;
+    const labels = at.labels;
+
     return (
         <div>
-            <div className="section-heading">Microservices Architecture</div>
+            <div className="section-heading">{at.overviewTitle}</div>
 
             {/* Top row: Client → API Gateway → Auth Server */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0, marginBottom: 24 }}>
-                <ArchBox label="Client (SPA)" icon="🌐" color="#60a5fa" delay={0} />
+                <ArchBox label={labels.client} icon="🌐" color="#60a5fa" delay={0} />
                 <AnimatedArrow direction="right" delay={0.2} />
-                <ArchBox label="API Gateway" icon="🚀" color="#a78bfa" delay={0.3} />
+                <ArchBox label={labels.apiGateway} icon="🚀" color="#a78bfa" delay={0.3} />
                 <AnimatedArrow direction="right" delay={0.5} />
-                <ArchBox label="Auth Server" icon="🔐" color="#f87171" delay={0.6} />
+                <ArchBox label={labels.authServer} icon="🔐" color="#f87171" delay={0.6} />
             </div>
 
             {/* Middle row: Microservices */}
@@ -245,10 +252,10 @@ function OverviewDiagram() {
                 <AnimatedArrow direction="down" delay={0.8} />
             </div>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, marginBottom: 24 }}>
-                <ArchBox label="IAM Service" icon="👥" color="#fbbf24" delay={1.0} />
-                <ArchBox label="Credits Service" icon="💰" color="#34d399" delay={1.1} />
-                <ArchBox label="Params Service" icon="⚙️" color="#fb923c" delay={1.2} />
-                <ArchBox label="Reports Service" icon="📊" color="#38bdf8" delay={1.3} />
+                <ArchBox label={labels.iamService} icon="👥" color="#fbbf24" delay={1.0} />
+                <ArchBox label={labels.creditsService} icon="💰" color="#34d399" delay={1.1} />
+                <ArchBox label={labels.paramsService} icon="⚙️" color="#fb923c" delay={1.2} />
+                <ArchBox label={labels.reportsService} icon="📊" color="#38bdf8" delay={1.3} />
             </div>
 
             {/* Bottom row: Infrastructure */}
@@ -277,7 +284,7 @@ function OverviewDiagram() {
                     textAlign: 'center',
                 }}
             >
-                Each service follows Hexagonal Architecture (Ports & Adapters) with independent databases (Database-per-Service pattern)
+                {at.overviewLegend}
             </motion.div>
         </div>
     );
@@ -285,22 +292,15 @@ function OverviewDiagram() {
 
 // ─── JWT Flow Diagram ───────────────────────────────────────────────
 function JwtFlowDiagram() {
-    const steps = [
-        { step: 1, label: 'Client Authentication', description: 'User submits credentials (username/password) to the OAuth2 Authorization Server.' },
-        { step: 2, label: 'Credential Validation', description: 'Authorization Server validates credentials against the IAM database using BCrypt password hashing.' },
-        { step: 3, label: 'JWT Generation', description: 'Server generates JWT with custom claims: user ID, roles (ADMIN, USER), permissions (CRUD per module), and organizational context.' },
-        { step: 4, label: 'Token Delivery', description: 'JWT access token + refresh token returned to client. Access token has short TTL, refresh token has longer TTL.' },
-        { step: 5, label: 'API Request', description: 'Client includes JWT in Authorization header (Bearer token) for every API request through the API Gateway.' },
-        { step: 6, label: 'Token Validation', description: 'Resource Server validates JWT signature, expiration, and extracts claims for authorization decisions.' },
-        { step: 7, label: 'Authorization Check', description: '@PreAuthorize annotations check extracted roles/permissions against endpoint requirements. Zero-trust: every request is verified.' },
-    ];
+    const { t } = useLanguage();
+    const at = t.architecture;
 
     return (
         <div>
-            <div className="section-heading">JWT Authentication Flow</div>
+            <div className="section-heading">{at.jwtTitle}</div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                {steps.map((s, i) => (
-                    <JwtStep key={i} {...s} delay={i * 0.15} />
+                {at.jwtSteps.map((s: { label: string; description: string }, i: number) => (
+                    <JwtStep key={i} step={i + 1} label={s.label} description={s.description} delay={i * 0.15} />
                 ))}
             </div>
         </div>
@@ -309,9 +309,13 @@ function JwtFlowDiagram() {
 
 // ─── Authorization Decision Flow ────────────────────────────────────
 function AuthorizationFlowDiagram() {
+    const { t } = useLanguage();
+    const at = t.architecture;
+    const an = at.authNodes;
+
     return (
         <div>
-            <div className="section-heading">Authorization Decision Flow</div>
+            <div className="section-heading">{at.authTitle}</div>
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
                 {/* Entry */}
                 <motion.div
@@ -328,20 +332,20 @@ function AuthorizationFlowDiagram() {
                         color: 'var(--win-text)',
                     }}
                 >
-                    📥 Incoming API Request
+                    {an.incoming}
                 </motion.div>
 
                 <AnimatedArrow direction="down" delay={0.2} />
-                <DecisionNode label="Valid JWT?" yes="Continue" no="401 Unauthorized" delay={0.4} />
+                <DecisionNode label={an.validJwt} yes={an.continue} no={an.unauthorized} delay={0.4} />
 
                 <AnimatedArrow direction="down" delay={0.6} />
-                <DecisionNode label="Token Expired?" yes="Refresh Flow" no="Continue" delay={0.8} />
+                <DecisionNode label={an.tokenExpired} yes={an.refreshFlow} no={an.continue} delay={0.8} />
 
                 <AnimatedArrow direction="down" delay={1.0} />
-                <DecisionNode label="Has Required Role?" yes="Continue" no="403 Forbidden" delay={1.2} />
+                <DecisionNode label={an.hasRole} yes={an.continue} no={an.forbidden} delay={1.2} />
 
                 <AnimatedArrow direction="down" delay={1.4} />
-                <DecisionNode label="Has CRUD Permission?" yes="Grant Access" no="403 Forbidden" delay={1.6} />
+                <DecisionNode label={an.hasPerm} yes={an.grantAccess} no={an.forbidden} delay={1.6} />
 
                 <AnimatedArrow direction="down" delay={1.8} />
 
@@ -360,7 +364,7 @@ function AuthorizationFlowDiagram() {
                         color: '#34d399',
                     }}
                 >
-                    ✅ Execute Business Logic + Audit Log
+                    {an.execute}
                 </motion.div>
             </div>
 
@@ -380,9 +384,7 @@ function AuthorizationFlowDiagram() {
                     lineHeight: 1.6,
                 }}
             >
-                <strong style={{ color: 'var(--win-text)' }}>Zero-Trust Model:</strong> Every single API request goes through this decision chain.
-                No action is implicitly trusted. RBAC permissions are evaluated per-resource with CRUD granularity.
-                All decisions are audit-logged for compliance.
+                <strong style={{ color: 'var(--win-text)' }}>{at.zeroTrustTitle}</strong> {at.zeroTrustDesc}
             </motion.div>
         </div>
     );

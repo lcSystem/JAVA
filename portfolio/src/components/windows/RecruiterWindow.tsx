@@ -1,40 +1,11 @@
 'use client';
 
 import React from 'react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function RecruiterWindow() {
-    const highlights = [
-        {
-            icon: '🏗️',
-            title: 'Enterprise Architecture',
-            description: 'Designed and implemented microservices architectures using Hexagonal/Clean Architecture, DDD, and event-driven patterns for scalable enterprise systems.',
-            metric: '3+ production systems',
-        },
-        {
-            icon: '🔒',
-            title: 'Security Engineering',
-            description: 'Built OAuth2 Authorization Server with JWT, RBAC with granular per-endpoint permissions, and zero-trust access control securing 50+ endpoints.',
-            metric: '50+ secured endpoints',
-        },
-        {
-            icon: '💰',
-            title: 'Financial Systems',
-            description: 'Delivered a complete Credit Management System handling the entire lifecycle from application to portfolio tracking with full audit trail.',
-            metric: 'End-to-end financial platform',
-        },
-        {
-            icon: '⚡',
-            title: 'Operational Impact',
-            description: 'Reduced system configuration time by 60% through centralized parameterization. Established architectural standards adopted across multiple teams.',
-            metric: '60% time reduction',
-        },
-        {
-            icon: '🌍',
-            title: 'International Readiness',
-            description: 'Open to relocation with visa sponsorship. Experience working in distributed teams across time zones. Portfolio designed for enterprise-level demonstration.',
-            metric: '8+ years experience',
-        },
-    ];
+    const { t } = useLanguage();
+    const rt = t.recruiter;
 
     return (
         <div style={{ height: '100%', overflow: 'auto' }}>
@@ -53,7 +24,7 @@ export default function RecruiterWindow() {
                     letterSpacing: 2,
                     marginBottom: 8,
                 }}>
-                    📊 Executive Summary Mode
+                    {rt.badge}
                 </div>
                 <h1 style={{
                     fontSize: 22,
@@ -61,7 +32,7 @@ export default function RecruiterWindow() {
                     color: 'var(--win-text)',
                     marginBottom: 4,
                 }}>
-                    Luis — Senior Java Backend Developer
+                    {rt.name}
                 </h1>
                 <p style={{
                     fontSize: 13,
@@ -70,8 +41,7 @@ export default function RecruiterWindow() {
                     margin: '0 auto',
                     lineHeight: 1.5,
                 }}>
-                    8+ years building enterprise-grade backend systems with proven expertise in
-                    security architecture, microservices, and financial platforms.
+                    {rt.subtitle}
                 </p>
             </div>
 
@@ -82,12 +52,7 @@ export default function RecruiterWindow() {
                 gap: 1,
                 background: 'var(--win-border)',
             }}>
-                {[
-                    { label: 'Years', value: '8+' },
-                    { label: 'Stack', value: 'Java/Spring' },
-                    { label: 'Focus', value: 'Enterprise' },
-                    { label: 'Status', value: 'Available' },
-                ].map(stat => (
+                {rt.stats.map((stat: { label: string; value: string }) => (
                     <div key={stat.label} style={{
                         padding: '14px 8px',
                         background: 'var(--win-surface)',
@@ -109,10 +74,10 @@ export default function RecruiterWindow() {
                     letterSpacing: 0.5,
                     marginBottom: 16,
                 }}>
-                    Key Highlights
+                    {rt.highlightsTitle}
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-                    {highlights.map((h, i) => (
+                    {rt.highlights.map((h: { icon: string; title: string; description: string; metric: string }, i: number) => (
                         <div key={i} style={{
                             display: 'flex',
                             gap: 14,
@@ -173,7 +138,7 @@ export default function RecruiterWindow() {
                     letterSpacing: 0.5,
                     marginBottom: 12,
                 }}>
-                    Primary Technology Stack
+                    {rt.techTitle}
                 </div>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                     {[

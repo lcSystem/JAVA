@@ -3,10 +3,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useWindowManager } from '@/contexts/WindowManager';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { WINDOW_REGISTRY, WindowType } from '@/types/windows';
 
 export default function StartMenu() {
     const { openWindow } = useWindowManager();
+    const { t } = useLanguage();
 
     const menuItems = Object.values(WINDOW_REGISTRY).filter(c => c.startMenuItem);
 
@@ -29,10 +31,10 @@ export default function StartMenu() {
                 borderBottom: '1px solid rgba(255,255,255,0.06)',
             }}>
                 <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--win-text)' }}>
-                    Luis — Portfolio
+                    {t.startMenu.header}
                 </div>
                 <div style={{ fontSize: 11, color: 'var(--win-text-secondary)', marginTop: 2 }}>
-                    Senior Java Backend Developer
+                    {t.startMenu.subtitle}
                 </div>
             </div>
 
@@ -60,7 +62,7 @@ export default function StartMenu() {
                         onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
                     >
                         <span style={{ fontSize: 20, width: 28, textAlign: 'center' }}>{config.icon}</span>
-                        <span>{config.title}</span>
+                        <span>{t.windowTitles[config.id]}</span>
                     </button>
                 ))}
             </div>
@@ -89,7 +91,7 @@ export default function StartMenu() {
                         onMouseLeave={e => (e.currentTarget.style.background = 'linear-gradient(90deg, rgba(0,120,212,0.12) 0%, transparent 100%)')}
                     >
                         <span style={{ fontSize: 20, width: 28, textAlign: 'center' }}>{recruiterItem.icon}</span>
-                        <span>📊 Executive Summary Mode</span>
+                        <span>{t.startMenu.executiveSummary}</span>
                     </button>
                 </div>
             )}
@@ -104,7 +106,7 @@ export default function StartMenu() {
                 fontSize: 11,
                 color: 'var(--win-text-secondary)',
             }}>
-                <span>⚡ Powered by Next.js & TypeScript</span>
+                <span>{t.startMenu.footer}</span>
             </div>
         </motion.div>
     );
