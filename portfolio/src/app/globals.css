@@ -1,0 +1,314 @@
+@import "tailwindcss";
+
+:root {
+  --win-bg: #1b1b2f;
+  --win-surface: #1e1e2e;
+  --win-surface-hover: #2a2a3e;
+  --win-border: #313145;
+  --win-titlebar: #1a1a2e;
+  --win-titlebar-inactive: #16162a;
+  --win-accent: #0078d4;
+  --win-accent-hover: #1a8ae8;
+  --win-text: #e4e4e8;
+  --win-text-secondary: #9ca0b0;
+  --win-taskbar: rgba(18, 18, 30, 0.95);
+  --win-start-bg: rgba(22, 22, 38, 0.98);
+  --win-close: #e81123;
+  --win-close-hover: #f1707a;
+  --win-minimize: #ffd700;
+  --win-maximize: #16c60c;
+  --win-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --win-shadow-active: 0 12px 48px rgba(0, 120, 212, 0.15), 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--win-bg);
+  color: var(--win-text);
+  user-select: none;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--win-surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--win-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--win-text-secondary);
+}
+
+/* Window title bar buttons */
+.win-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  color: var(--win-text-secondary);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.win-btn:hover {
+  background: var(--win-surface-hover);
+  color: var(--win-text);
+}
+
+.win-btn-close:hover {
+  background: var(--win-close) !important;
+  color: white !important;
+}
+
+/* Desktop icon styles */
+.desktop-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  width: 90px;
+  text-align: center;
+}
+
+.desktop-icon:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.desktop-icon:active,
+.desktop-icon.selected {
+  background: rgba(0, 120, 212, 0.25);
+  outline: 1px solid rgba(0, 120, 212, 0.5);
+}
+
+.desktop-icon span {
+  font-size: 11px;
+  color: white;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  line-height: 1.3;
+  word-break: break-word;
+}
+
+/* Taskbar */
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: var(--win-taskbar);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  z-index: 9999;
+  padding: 0 4px;
+}
+
+/* Start Menu */
+.start-menu {
+  position: fixed;
+  bottom: 48px;
+  left: 0;
+  width: 360px;
+  background: var(--win-start-bg);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: none;
+  border-radius: 0 8px 0 0;
+  box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  overflow: hidden;
+}
+
+/* Terminal */
+.terminal-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #16c60c;
+  font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+  font-size: 14px;
+  width: 100%;
+  caret-color: #16c60c;
+}
+
+/* Chat */
+.chat-input {
+  background: var(--win-surface);
+  border: 1px solid var(--win-border);
+  outline: none;
+  color: var(--win-text);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 14px;
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 24px;
+  transition: border-color 0.2s ease;
+}
+
+.chat-input:focus {
+  border-color: var(--win-accent);
+}
+
+/* Architecture diagrams */
+.arch-node {
+  padding: 12px 20px;
+  background: linear-gradient(135deg, rgba(0, 120, 212, 0.15), rgba(0, 120, 212, 0.05));
+  border: 1px solid rgba(0, 120, 212, 0.3);
+  border-radius: 8px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--win-text);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.arch-node:hover {
+  transform: translateY(-2px);
+  border-color: var(--win-accent);
+}
+
+.arch-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--win-accent);
+  font-size: 20px;
+}
+
+/* Tab styles */
+.tab-btn {
+  padding: 8px 20px;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--win-text-secondary);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.tab-btn:hover {
+  color: var(--win-text);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.tab-btn.active {
+  color: var(--win-accent);
+  border-bottom-color: var(--win-accent);
+}
+
+/* Skill badge */
+.skill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  background: rgba(0, 120, 212, 0.1);
+  border: 1px solid rgba(0, 120, 212, 0.2);
+  border-radius: 20px;
+  font-size: 12px;
+  color: var(--win-text);
+  transition: all 0.2s ease;
+}
+
+.skill-badge:hover {
+  background: rgba(0, 120, 212, 0.2);
+  border-color: rgba(0, 120, 212, 0.4);
+  transform: translateY(-1px);
+}
+
+/* Contact form */
+.contact-input {
+  width: 100%;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--win-border);
+  border-radius: 6px;
+  color: var(--win-text);
+  font-size: 14px;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  transition: border-color 0.2s ease;
+  outline: none;
+}
+
+.contact-input:focus {
+  border-color: var(--win-accent);
+}
+
+/* Project card */
+.project-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--win-border);
+  border-radius: 8px;
+  padding: 20px;
+  transition: all 0.2s ease;
+}
+
+.project-card:hover {
+  border-color: rgba(0, 120, 212, 0.3);
+  background: rgba(0, 120, 212, 0.04);
+}
+
+/* Section heading */
+.section-heading {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--win-text);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-heading::before {
+  content: '';
+  width: 3px;
+  height: 18px;
+  background: var(--win-accent);
+  border-radius: 2px;
+}
+
+/* Animations */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease forwards;
+}
