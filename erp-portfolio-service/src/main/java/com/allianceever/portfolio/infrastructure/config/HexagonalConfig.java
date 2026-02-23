@@ -38,7 +38,9 @@ public class HexagonalConfig {
 
     @Bean
     public RestTemplate restTemplate() {
-        return new RestTemplate();
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getInterceptors().add(new RestTemplateHeaderInterceptor());
+        return restTemplate;
     }
 
     @Bean
@@ -57,8 +59,9 @@ public class HexagonalConfig {
     }
 
     @Bean
-    public SettingsUseCase settingsUseCase(ParameterClientPort parameterClient) {
+    public SettingsUseCase settingsUseCase(SettingsRepository settingsRepo, ParameterClientPort parameterClient) {
         return new SettingsUseCaseImpl(
+                settingsRepo,
                 parameterClient,
                 defaultMaxFileSizeMb,
                 defaultAllowedExtensions,
