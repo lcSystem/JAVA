@@ -51,24 +51,16 @@ public class CreditRequest {
     @Column(name = "scoring_recommendation", columnDefinition = "TEXT")
     private String scoringRecommendation;
 
-    @Column(name = "co_debtor_name")
-    private String coDebtorName;
-
-    @Column(name = "co_debtor_id", length = 50)
-    private String coDebtorId;
-
-    @Column(name = "representative_name")
-    private String representativeName;
-
-    @Column(name = "representative_id", length = 50)
-    private String representativeId;
-
     @Column(name = "debtor_additional_info", columnDefinition = "TEXT")
     private String debtorAdditionalInfo;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "co_debtor_profile_id")
-    private CoDebtorProfile coDebtorProfile;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "credit_request_id")
+    private java.util.List<Reference> debtorReferences;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "credit_request_id")
+    private java.util.List<CoDebtorProfile> coDebtors;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "representative_profile_id")

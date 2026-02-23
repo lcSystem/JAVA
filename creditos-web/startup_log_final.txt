@@ -1,0 +1,182 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.allianceever:creditos-web >--------------------
+[INFO] Building creditos-web 0.0.1-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot-maven-plugin:3.1.1:run (default-cli) > test-compile @ creditos-web >>>
+[INFO] 
+[INFO] --- maven-resources-plugin:3.3.1:resources (default-resources) @ creditos-web ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 8 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.11.0:compile (default-compile) @ creditos-web ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:3.3.1:testResources (default-testResources) @ creditos-web ---
+[INFO] skip non existing resourceDirectory /home/lsyst/Documentos/JAVA/creditos-web/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.11.0:testCompile (default-testCompile) @ creditos-web ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] <<< spring-boot-maven-plugin:3.1.1:run (default-cli) < test-compile @ creditos-web <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot-maven-plugin:3.1.1:run (default-cli) @ creditos-web ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.1.1)
+
+2026-02-23T00:14:02.624-05:00  INFO 115021 --- [           main] c.a.creditos.CreditosWebApplication      : Starting CreditosWebApplication using Java 21.0.9 with PID 115021 (/home/lsyst/Documentos/JAVA/creditos-web/target/classes started by lsyst in /home/lsyst/Documentos/JAVA/creditos-web)
+2026-02-23T00:14:02.626-05:00  INFO 115021 --- [           main] c.a.creditos.CreditosWebApplication      : No active profile set, falling back to 1 default profile: "default"
+2026-02-23T00:14:03.253-05:00  INFO 115021 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-23T00:14:03.329-05:00  INFO 115021 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 70 ms. Found 9 JPA repository interfaces.
+2026-02-23T00:14:03.865-05:00  INFO 115021 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8082 (http)
+2026-02-23T00:14:03.884-05:00  INFO 115021 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-23T00:14:03.885-05:00  INFO 115021 --- [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.10]
+2026-02-23T00:14:04.002-05:00  INFO 115021 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-23T00:14:04.010-05:00  INFO 115021 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1340 ms
+2026-02-23T00:14:04.166-05:00  INFO 115021 --- [           main] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 9.16.3 by Redgate
+2026-02-23T00:14:04.166-05:00  INFO 115021 --- [           main] o.f.c.internal.license.VersionPrinter    : See release notes here: https://rd.gt/416ObMi
+2026-02-23T00:14:04.166-05:00  INFO 115021 --- [           main] o.f.c.internal.license.VersionPrinter    : 
+2026-02-23T00:14:04.173-05:00  INFO 115021 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-23T00:14:04.302-05:00  INFO 115021 --- [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6ef2f7ad
+2026-02-23T00:14:04.303-05:00  INFO 115021 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-23T00:14:04.310-05:00  INFO 115021 --- [           main] o.f.c.i.database.base.BaseDatabaseType   : Database: jdbc:mysql://localhost:3306/db_creditos (MySQL 5.5)
+2026-02-23T00:14:04.374-05:00  INFO 115021 --- [           main] o.f.core.internal.command.DbMigrate      : Current version of schema `db_creditos`: 6
+2026-02-23T00:14:04.385-05:00  INFO 115021 --- [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `db_creditos` to version "7 - add debtor references"
+2026-02-23T00:14:04.411-05:00  INFO 115021 --- [           main] o.f.core.internal.command.DbMigrate      : Migrating schema `db_creditos` to version "8 - fix co debtor relationship"
+2026-02-23T00:14:04.439-05:00 ERROR 115021 --- [           main] o.f.core.internal.command.DbMigrate      : Migration of schema `db_creditos` to version "8 - fix co debtor relationship" failed! Please restore backups and roll back database and code!
+2026-02-23T00:14:04.448-05:00  WARN 115021 --- [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Migration V8__fix_co_debtor_relationship.sql failed
+---------------------------------------------------
+SQL State  : 42S21
+Error Code : 1060
+Message    : Duplicate column name 'credit_request_id'
+Location   : db/migration/V8__fix_co_debtor_relationship.sql (/home/lsyst/Documentos/JAVA/creditos-web/target/classes/db/migration/V8__fix_co_debtor_relationship.sql)
+Line       : 2
+Statement  : -- Migration to fix co_debtor_profiles relationship
+ALTER TABLE co_debtor_profiles
+ADD COLUMN credit_request_id BIGINT,
+ADD FOREIGN KEY (credit_request_id) REFERENCES credit_requests (id)
+
+2026-02-23T00:14:04.449-05:00  INFO 115021 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-23T00:14:04.455-05:00  INFO 115021 --- [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-23T00:14:04.457-05:00  INFO 115021 --- [           main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-02-23T00:14:04.466-05:00  INFO 115021 --- [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-02-23T00:14:04.477-05:00 ERROR 115021 --- [           main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/autoconfigure/flyway/FlywayAutoConfiguration$FlywayConfiguration.class]: Migration V8__fix_co_debtor_relationship.sql failed
+---------------------------------------------------
+SQL State  : 42S21
+Error Code : 1060
+Message    : Duplicate column name 'credit_request_id'
+Location   : db/migration/V8__fix_co_debtor_relationship.sql (/home/lsyst/Documentos/JAVA/creditos-web/target/classes/db/migration/V8__fix_co_debtor_relationship.sql)
+Line       : 2
+Statement  : -- Migration to fix co_debtor_profiles relationship
+ALTER TABLE co_debtor_profiles
+ADD COLUMN credit_request_id BIGINT,
+ADD FOREIGN KEY (credit_request_id) REFERENCES credit_requests (id)
+
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1770) ~[spring-beans-6.0.10.jar:6.0.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:598) ~[spring-beans-6.0.10.jar:6.0.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:520) ~[spring-beans-6.0.10.jar:6.0.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:326) ~[spring-beans-6.0.10.jar:6.0.10]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.0.10.jar:6.0.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:324) ~[spring-beans-6.0.10.jar:6.0.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.0.10.jar:6.0.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:313) ~[spring-beans-6.0.10.jar:6.0.10]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:200) ~[spring-beans-6.0.10.jar:6.0.10]
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1154) ~[spring-context-6.0.10.jar:6.0.10]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:931) ~[spring-context-6.0.10.jar:6.0.10]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:608) ~[spring-context-6.0.10.jar:6.0.10]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.1.1.jar:3.1.1]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:734) ~[spring-boot-3.1.1.jar:3.1.1]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:436) ~[spring-boot-3.1.1.jar:3.1.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:312) ~[spring-boot-3.1.1.jar:3.1.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306) ~[spring-boot-3.1.1.jar:3.1.1]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295) ~[spring-boot-3.1.1.jar:3.1.1]
+	at com.allianceever.creditos.CreditosWebApplication.main(CreditosWebApplication.java:9) ~[classes/:na]
+Caused by: org.flywaydb.core.internal.command.DbMigrate$FlywayMigrateException: Migration V8__fix_co_debtor_relationship.sql failed
+---------------------------------------------------
+SQL State  : 42S21
+Error Code : 1060
+Message    : Duplicate column name 'credit_request_id'
+Location   : db/migration/V8__fix_co_debtor_relationship.sql (/home/lsyst/Documentos/JAVA/creditos-web/target/classes/db/migration/V8__fix_co_debtor_relationship.sql)
+Line       : 2
+Statement  : -- Migration to fix co_debtor_profiles relationship
+ALTER TABLE co_debtor_profiles
+ADD COLUMN credit_request_id BIGINT,
+ADD FOREIGN KEY (credit_request_id) REFERENCES credit_requests (id)
+
+	at org.flywaydb.core.internal.command.DbMigrate.doMigrateGroup(DbMigrate.java:384) ~[flyway-core-9.16.3.jar:na]
+	at org.flywaydb.core.internal.command.DbMigrate.lambda$applyMigrations$1(DbMigrate.java:274) ~[flyway-core-9.16.3.jar:na]
+	at org.flywaydb.core.internal.jdbc.TransactionalExecutionTemplate.execute(TransactionalExecutionTemplate.java:55) ~[flyway-core-9.16.3.jar:na]
+	at org.flywaydb.core.internal.command.DbMigrate.applyMigrations(DbMigrate.java:273) ~[flyway-core-9.16.3.jar:na]
+	at org.flywaydb.core.internal.command.DbMigrate.migrateGroup(DbMigrate.java:246) ~[flyway-core-9.16.3.jar:na]
+	at org.flywaydb.core.internal.command.DbMigrate.lambda$migrateAll$0(DbMigrate.java:141) ~[flyway-core-9.16.3.jar:na]
+	at org.flywaydb.database.mysql.MySQLNamedLockTemplate.execute(MySQLNamedLockTemplate.java:58) ~[flyway-mysql-9.16.3.jar:na]
+	at org.flywaydb.database.mysql.MySQLConnection.lock(MySQLConnection.java:152) ~[flyway-mysql-9.16.3.jar:na]
+	at org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory.lock(JdbcTableSchemaHistory.java:144) ~[flyway-core-9.16.3.jar:na]
+	at org.flywaydb.core.internal.command.DbMigrate.migrateAll(DbMigrate.java:141) ~[flyway-core-9.16.3.jar:na]
+	at org.flywaydb.core.internal.command.DbMigrate.migrate(DbMigrate.java:98) ~[flyway-core-9.16.3.jar:na]
+	at org.flywaydb.core.Flyway.lambda$migrate$0(Flyway.java:188) ~[flyway-core-9.16.3.jar:na]
+	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:196) ~[flyway-core-9.16.3.jar:na]
+	at org.flywaydb.core.Flyway.migrate(Flyway.java:140) ~[flyway-core-9.16.3.jar:na]
+	at org.springframework.boot.autoconfigure.flyway.FlywayMigrationInitializer.afterPropertiesSet(FlywayMigrationInitializer.java:66) ~[spring-boot-autoconfigure-3.1.1.jar:3.1.1]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1816) ~[spring-beans-6.0.10.jar:6.0.10]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1766) ~[spring-beans-6.0.10.jar:6.0.10]
+	... 18 common frames omitted
+Caused by: org.flywaydb.core.internal.sqlscript.FlywaySqlScriptException: Migration V8__fix_co_debtor_relationship.sql failed
+---------------------------------------------------
+SQL State  : 42S21
+Error Code : 1060
+Message    : Duplicate column name 'credit_request_id'
+Location   : db/migration/V8__fix_co_debtor_relationship.sql (/home/lsyst/Documentos/JAVA/creditos-web/target/classes/db/migration/V8__fix_co_debtor_relationship.sql)
+Line       : 2
+Statement  : -- Migration to fix co_debtor_profiles relationship
+ALTER TABLE co_debtor_profiles
+ADD COLUMN credit_request_id BIGINT,
+ADD FOREIGN KEY (credit_request_id) REFERENCES credit_requests (id)
+
+	at org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor.handleException(DefaultSqlScriptExecutor.java:275) ~[flyway-core-9.16.3.jar:na]
+	at org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor.executeStatement(DefaultSqlScriptExecutor.java:222) ~[flyway-core-9.16.3.jar:na]
+	at org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor.execute(DefaultSqlScriptExecutor.java:126) ~[flyway-core-9.16.3.jar:na]
+	at org.flywaydb.core.internal.resolver.sql.SqlMigrationExecutor.executeOnce(SqlMigrationExecutor.java:68) ~[flyway-core-9.16.3.jar:na]
+	at org.flywaydb.core.internal.resolver.sql.SqlMigrationExecutor.lambda$execute$0(SqlMigrationExecutor.java:57) ~[flyway-core-9.16.3.jar:na]
+	at org.flywaydb.core.internal.database.DefaultExecutionStrategy.execute(DefaultExecutionStrategy.java:27) ~[flyway-core-9.16.3.jar:na]
+	at org.flywaydb.core.internal.resolver.sql.SqlMigrationExecutor.execute(SqlMigrationExecutor.java:56) ~[flyway-core-9.16.3.jar:na]
+	at org.flywaydb.core.internal.command.DbMigrate.doMigrateGroup(DbMigrate.java:376) ~[flyway-core-9.16.3.jar:na]
+	... 34 common frames omitted
+Caused by: java.sql.SQLSyntaxErrorException: Duplicate column name 'credit_request_id'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121) ~[mysql-connector-j-8.0.33.jar:8.0.33]
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122) ~[mysql-connector-j-8.0.33.jar:8.0.33]
+	at com.mysql.cj.jdbc.StatementImpl.executeInternal(StatementImpl.java:763) ~[mysql-connector-j-8.0.33.jar:8.0.33]
+	at com.mysql.cj.jdbc.StatementImpl.execute(StatementImpl.java:648) ~[mysql-connector-j-8.0.33.jar:8.0.33]
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94) ~[HikariCP-5.0.1.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java) ~[HikariCP-5.0.1.jar:na]
+	at org.flywaydb.core.internal.jdbc.JdbcTemplate.executeStatement(JdbcTemplate.java:201) ~[flyway-core-9.16.3.jar:na]
+	at org.flywaydb.core.internal.sqlscript.ParsedSqlStatement.execute(ParsedSqlStatement.java:95) ~[flyway-core-9.16.3.jar:na]
+	at org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor.executeStatement(DefaultSqlScriptExecutor.java:210) ~[flyway-core-9.16.3.jar:na]
+	... 40 common frames omitted
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.786 s
+[INFO] Finished at: 2026-02-23T00:14:04-05:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.1.1:run (default-cli) on project creditos-web: Process terminated with exit code: 1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
