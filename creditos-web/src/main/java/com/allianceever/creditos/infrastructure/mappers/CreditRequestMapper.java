@@ -17,12 +17,13 @@ public class CreditRequestMapper {
                 entity.getStatus(),
                 entity.getScoringResult(),
                 entity.getScoringRecommendation(),
-                entity.getCoDebtorName(),
-                entity.getCoDebtorId(),
-                entity.getRepresentativeName(),
-                entity.getRepresentativeId(),
                 entity.getDebtorAdditionalInfo(),
-                CoDebtorMapper.toDomain(entity.getCoDebtorProfile()),
+                entity.getDebtorReferences() != null ? entity.getDebtorReferences().stream()
+                        .map(ReferenceMapper::toDomain)
+                        .collect(java.util.stream.Collectors.toList()) : new java.util.ArrayList<>(),
+                entity.getCoDebtors() != null ? entity.getCoDebtors().stream()
+                        .map(CoDebtorMapper::toDomain)
+                        .collect(java.util.stream.Collectors.toList()) : new java.util.ArrayList<>(),
                 CoDebtorMapper.toDomain(entity.getRepresentativeProfile()),
                 entity.getCreatedAt());
     }
@@ -38,12 +39,13 @@ public class CreditRequestMapper {
         entity.setStatus(domain.getStatus());
         entity.setScoringResult(domain.getScoringResult());
         entity.setScoringRecommendation(domain.getScoringRecommendation());
-        entity.setCoDebtorName(domain.getCoDebtorName());
-        entity.setCoDebtorId(domain.getCoDebtorId());
-        entity.setRepresentativeName(domain.getRepresentativeName());
-        entity.setRepresentativeId(domain.getRepresentativeId());
         entity.setDebtorAdditionalInfo(domain.getDebtorAdditionalInfo());
-        entity.setCoDebtorProfile(CoDebtorMapper.toEntity(domain.getCoDebtorProfile()));
+        entity.setDebtorReferences(domain.getDebtorReferences() != null ? domain.getDebtorReferences().stream()
+                .map(ReferenceMapper::toEntity)
+                .collect(java.util.stream.Collectors.toList()) : new java.util.ArrayList<>());
+        entity.setCoDebtors(domain.getCoDebtors() != null ? domain.getCoDebtors().stream()
+                .map(CoDebtorMapper::toEntity)
+                .collect(java.util.stream.Collectors.toList()) : new java.util.ArrayList<>());
         entity.setRepresentativeProfile(CoDebtorMapper.toEntity(domain.getRepresentativeProfile()));
         return entity;
     }
@@ -60,12 +62,19 @@ public class CreditRequestMapper {
                 .purpose(domain.getPurpose())
                 .status(domain.getStatus())
                 .scoringResult(domain.getScoringResult())
-                .coDebtorName(domain.getCoDebtorName())
-                .coDebtorId(domain.getCoDebtorId())
-                .representativeName(domain.getRepresentativeName())
-                .representativeId(domain.getRepresentativeId())
+                .representativeName(
+                        domain.getRepresentativeProfile() != null ? domain.getRepresentativeProfile().getFullName()
+                                : null)
+                .representativeId(
+                        domain.getRepresentativeProfile() != null ? domain.getRepresentativeProfile().getDocumentId()
+                                : null)
                 .debtorAdditionalInfo(domain.getDebtorAdditionalInfo())
-                .coDebtorProfile(CoDebtorMapper.toDTO(domain.getCoDebtorProfile()))
+                .debtorReferences(domain.getDebtorReferences() != null ? domain.getDebtorReferences().stream()
+                        .map(ReferenceMapper::toDTO)
+                        .collect(java.util.stream.Collectors.toList()) : new java.util.ArrayList<>())
+                .coDebtors(domain.getCoDebtors() != null ? domain.getCoDebtors().stream()
+                        .map(CoDebtorMapper::toDTO)
+                        .collect(java.util.stream.Collectors.toList()) : new java.util.ArrayList<>())
                 .representativeProfile(CoDebtorMapper.toDTO(domain.getRepresentativeProfile()))
                 .build();
     }

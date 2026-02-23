@@ -35,17 +35,18 @@ public class CreditRequestController {
         @PreAuthorize("hasAuthority('CREDIT_SIM_CREATE') or hasAuthority('ROLE_ADMIN') or hasAuthority('CREDIT_CREATE')")
         public ResponseEntity<CreditRequestDTO> submitRequest(@RequestBody CreditRequestDTO dto,
                         Authentication authentication) {
-                // En una implementación real, el applicantUserId podría extraerse del token
-                // Para este demo, permitimos pasarlo o podemos intentar inferirlo.
                 return ResponseEntity.ok(com.allianceever.creditos.infrastructure.mappers.CreditRequestMapper.toDTO(
                                 creditRequestUseCase.submitRequest(dto.getApplicantUserId(), dto.getCreditTypeId(),
                                                 dto.getAmount(),
                                                 dto.getTermMonths(), dto.getPurpose(),
-                                                dto.getCoDebtorName(), dto.getCoDebtorId(),
                                                 dto.getRepresentativeName(), dto.getRepresentativeId(),
                                                 dto.getDebtorAdditionalInfo(),
-                                                com.allianceever.creditos.infrastructure.mappers.CoDebtorMapper
-                                                                .toDomain(dto.getCoDebtorProfile()),
+                                                dto.getDebtorReferences() != null ? dto.getDebtorReferences().stream()
+                                                                .map(com.allianceever.creditos.infrastructure.mappers.ReferenceMapper::toDomain)
+                                                                .collect(java.util.stream.Collectors.toList()) : null,
+                                                dto.getCoDebtors() != null ? dto.getCoDebtors().stream()
+                                                                .map(com.allianceever.creditos.infrastructure.mappers.CoDebtorMapper::toDomain)
+                                                                .collect(java.util.stream.Collectors.toList()) : null,
                                                 com.allianceever.creditos.infrastructure.mappers.CoDebtorMapper
                                                                 .toDomain(dto.getRepresentativeProfile()))));
         }

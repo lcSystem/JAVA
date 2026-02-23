@@ -15,20 +15,17 @@ public class CreditRequest {
     private final String status;
     private final String scoringResult;
     private final String scoringRecommendation;
-    private final String coDebtorName;
-    private final String coDebtorId;
-    private final String representativeName;
-    private final String representativeId;
     private final String debtorAdditionalInfo;
-    private final CoDebtorProfile coDebtorProfile;
+    private final java.util.List<Reference> debtorReferences;
+    private final java.util.List<CoDebtorProfile> coDebtors;
     private final CoDebtorProfile representativeProfile;
     private final LocalDateTime createdAt;
 
     public CreditRequest(Long id, Long applicantUserId, CreditType creditType, BigDecimal amount,
             Integer termMonths, String purpose, String status, String scoringResult,
-            String scoringRecommendation, String coDebtorName, String coDebtorId,
-            String representativeName, String representativeId, String debtorAdditionalInfo,
-            CoDebtorProfile coDebtorProfile, CoDebtorProfile representativeProfile,
+            String scoringRecommendation, String debtorAdditionalInfo,
+            java.util.List<Reference> debtorReferences,
+            java.util.List<CoDebtorProfile> coDebtors, CoDebtorProfile representativeProfile,
             LocalDateTime createdAt) {
         this.id = id;
         this.applicantUserId = applicantUserId;
@@ -39,12 +36,9 @@ public class CreditRequest {
         this.status = status;
         this.scoringResult = scoringResult;
         this.scoringRecommendation = scoringRecommendation;
-        this.coDebtorName = coDebtorName;
-        this.coDebtorId = coDebtorId;
-        this.representativeName = representativeName;
-        this.representativeId = representativeId;
         this.debtorAdditionalInfo = debtorAdditionalInfo;
-        this.coDebtorProfile = coDebtorProfile;
+        this.debtorReferences = debtorReferences;
+        this.coDebtors = coDebtors;
         this.representativeProfile = representativeProfile;
         this.createdAt = createdAt;
     }

@@ -6,9 +6,10 @@ import java.util.List;
 
 public interface CreditRequestUseCase {
     CreditRequest submitRequest(Long applicantUserId, Long creditTypeId, BigDecimal amount, Integer termMonths,
-            String purpose, String coDebtorName, String coDebtorId, String representativeName,
+            String purpose, String representativeName,
             String representativeId, String debtorAdditionalInfo,
-            com.allianceever.creditos.domain.model.CoDebtorProfile coDebtorProfile,
+            java.util.List<com.allianceever.creditos.domain.model.Reference> debtorReferences,
+            java.util.List<com.allianceever.creditos.domain.model.CoDebtorProfile> coDebtors,
             com.allianceever.creditos.domain.model.CoDebtorProfile representativeProfile);
 
     CreditRequest evaluateRequest(Long requestId);

@@ -20,14 +20,16 @@ public class CreditRequestUseCaseImpl implements CreditRequestUseCase {
 
     @Override
     public CreditRequest submitRequest(Long applicantUserId, Long creditTypeId, BigDecimal amount, Integer termMonths,
-            String purpose, String coDebtorName, String coDebtorId, String representativeName,
+            String purpose, String representativeName,
             String representativeId, String debtorAdditionalInfo,
-            com.allianceever.creditos.domain.model.CoDebtorProfile coDebtorProfile,
+            java.util.List<com.allianceever.creditos.domain.model.Reference> debtorReferences,
+            java.util.List<com.allianceever.creditos.domain.model.CoDebtorProfile> coDebtors,
             com.allianceever.creditos.domain.model.CoDebtorProfile representativeProfile) {
         CreditType type = creditTypeRepositoryPort.findById(creditTypeId)
                 .orElseThrow(() -> new RuntimeException("Credit type not found"));
 
         validateCreditPolicy(amount, termMonths, type);
+        validateCoDebtorsAge(coDebtors);
 
         CreditRequest request = new CreditRequest(
                 null,
@@ -39,16 +41,28 @@ public class CreditRequestUseCaseImpl implements CreditRequestUseCase {
                 "EVALUATING",
                 null,
                 null,
-                coDebtorName,
-                coDebtorId,
-                representativeName,
-                representativeId,
                 debtorAdditionalInfo,
-                coDebtorProfile,
+                debtorReferences,
+                coDebtors,
                 representativeProfile,
                 null);
 
         return creditRequestRepositoryPort.save(request);
+    }
+
+    private void validateCoDebtorsAge(
+            java.util.List<com.allianceever.creditos.domain.model.CoDebtorProfile> coDebtors) {
+        if (coDebtors == null)
+            return;
+        java.time.LocalDate now = java.time.LocalDate.now();
+        for (com.allianceever.creditos.domain.model.CoDebtorProfile coDebtor : coDebtors) {
+            if (coDebtor.getBirthDate() != null) {
+                int age = java.time.Period.between(coDebtor.getBirthDate(), now).getYears();
+                if (age < 18) {
+                    throw new RuntimeException("El codeudor " + coDebtor.getFullName() + " debe ser mayor de edad.");
+                }
+            }
+        }
     }
 
     private void validateCreditPolicy(BigDecimal amount, Integer termMonths, CreditType type) {
@@ -78,12 +92,9 @@ public class CreditRequestUseCaseImpl implements CreditRequestUseCase {
                 request.getStatus(),
                 result.getResult(),
                 result.getRecommendation(),
-                request.getCoDebtorName(),
-                request.getCoDebtorId(),
-                request.getRepresentativeName(),
-                request.getRepresentativeId(),
                 request.getDebtorAdditionalInfo(),
-                request.getCoDebtorProfile(),
+                request.getDebtorReferences(),
+                request.getCoDebtors(),
                 request.getRepresentativeProfile(),
                 request.getCreatedAt());
 
@@ -105,12 +116,9 @@ public class CreditRequestUseCaseImpl implements CreditRequestUseCase {
                 "APPROVED",
                 request.getScoringResult(),
                 request.getScoringRecommendation(),
-                request.getCoDebtorName(),
-                request.getCoDebtorId(),
-                request.getRepresentativeName(),
-                request.getRepresentativeId(),
                 request.getDebtorAdditionalInfo(),
-                request.getCoDebtorProfile(),
+                request.getDebtorReferences(),
+                request.getCoDebtors(),
                 request.getRepresentativeProfile(),
                 request.getCreatedAt());
 
@@ -136,12 +144,9 @@ public class CreditRequestUseCaseImpl implements CreditRequestUseCase {
                 "DISBURSED",
                 request.getScoringResult(),
                 request.getScoringRecommendation(),
-                request.getCoDebtorName(),
-                request.getCoDebtorId(),
-                request.getRepresentativeName(),
-                request.getRepresentativeId(),
                 request.getDebtorAdditionalInfo(),
-                request.getCoDebtorProfile(),
+                request.getDebtorReferences(),
+                request.getCoDebtors(),
                 request.getRepresentativeProfile(),
                 request.getCreatedAt());
 
