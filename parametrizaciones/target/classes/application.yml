@@ -38,5 +38,5 @@ spring:
 logging:
   level:
     com.allianceever.parametrizaciones: DEBUG
-    org.springframework.security: INFO
+    org.springframework.security: DEBUG
     org.springframework.amqp: INFO

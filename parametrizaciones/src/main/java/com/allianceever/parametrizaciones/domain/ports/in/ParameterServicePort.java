@@ -18,4 +18,6 @@ public interface ParameterServicePort {
     List<Parameter> getAllParameters();
 
     void deleteParameter(Long id);
+
+    void hardDeleteParameter(Long id);
 }

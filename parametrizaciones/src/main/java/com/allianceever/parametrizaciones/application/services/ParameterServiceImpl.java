@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -60,7 +61,9 @@ public class ParameterServiceImpl implements ParameterServicePort {
 
     @Override
     public List<Parameter> getParametersByService(String service) {
-        return repository.findByService(service);
+        return repository.findByService(service).stream()
+                .filter(Parameter::isEnabled)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -77,6 +80,12 @@ public class ParameterServiceImpl implements ParameterServicePort {
             repository.save(param);
             publishEvent(param); // Notify about soft-delete
         });
+    }
+
+    @Override
+    @Transactional
+    public void hardDeleteParameter(Long id) {
+        repository.deleteById(id);
     }
 
     private void publishEvent(Parameter parameter) {

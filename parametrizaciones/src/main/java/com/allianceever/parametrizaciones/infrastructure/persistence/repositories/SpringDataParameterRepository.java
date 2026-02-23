@@ -10,6 +10,8 @@ public interface SpringDataParameterRepository extends JpaRepository<ParameterJp
     Optional<ParameterJpaEntity> findByServiceNameAndKey(String serviceName, String key);
 
     List<ParameterJpaEntity> findByServiceName(String serviceName);
+
+    List<ParameterJpaEntity> findByServiceNameAndEnabledTrue(String serviceName);
 }
 
 interface SpringDataParameterCategoryRepository extends JpaRepository<ParameterCategoryJpaEntity, Long> {

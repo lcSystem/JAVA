@@ -38,7 +38,7 @@ public class JpaParameterRepositoryAdapter implements ParameterRepositoryPort {
 
     @Override
     public List<Parameter> findByService(String service) {
-        return repository.findByServiceName(service).stream()
+        return repository.findByServiceNameAndEnabledTrue(service).stream()
                 .map(mapper::toDomain)
                 .collect(Collectors.toList());
     }
