@@ -1,0 +1,55 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: erp-portfolio-service
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/portfolio_db?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+      resolve-lazily: true
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8081/api/auth/jwks
+
+# Portfolio-specific configuration
+portfolio:
+  storage:
+    base-path: ./storage
+  parameter-service:
+    base-url: http://localhost:8083
+  iam-service:
+    base-url: http://localhost:8081
+  defaults:
+    max-file-size-mb: 10
+    allowed-extensions: jpg,jpeg,png,gif,pdf,doc,docx,xls,xlsx,ppt,pptx,txt
+    require-reauth: false
+
+logging:
+  level:
+    com.allianceever.portfolio: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
