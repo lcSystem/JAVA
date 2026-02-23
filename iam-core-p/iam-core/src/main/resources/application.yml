@@ -27,3 +27,8 @@ spring:
       static-locations: file:./src/main/resources/static/assets/
 server:
   port: 8081
+
+app:
+  security:
+    session-secret: "vF6eH9mN2pQ5rT8uW1xZ4aD7gJ0kM3pS" # Recommended to change in production
+    session-limit: 5

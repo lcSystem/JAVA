@@ -18,6 +18,7 @@ import com.allianceever.projectERP.AuthenticatedBackend.models.Role;
 import com.allianceever.projectERP.AuthenticatedBackend.repository.RoleRepository;
 import com.allianceever.projectERP.AuthenticatedBackend.repository.UserRepository;
 import com.allianceever.projectERP.AuthenticatedBackend.models.UserProfileDTO;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -45,6 +46,12 @@ public class AuthenticationService {
     @Autowired
     private TokenService tokenService;
 
+    @Autowired
+    private UserSessionService userSessionService;
+
+    @Autowired
+    private HttpServletRequest request;
+
     public ApplicationUser registerUser(String username, String password, String role) {
 
         String encodedPassword = passwordEncoder.encode(password);
@@ -65,7 +72,12 @@ public class AuthenticationService {
 
             String token = tokenService.generateJwt(auth);
 
-            return new LoginResponseDTO(userRepository.findByUsername(username).get(), token);
+            ApplicationUser user = userRepository.findByUsername(username).get();
+
+            // Create session record
+            userSessionService.createSession(user.getUserId(), user.getUsername(), token, request);
+
+            return new LoginResponseDTO(user, token);
 
         } catch (AuthenticationException e) {
             return new LoginResponseDTO(null, "");
