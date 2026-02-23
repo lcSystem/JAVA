@@ -39,4 +39,12 @@ public interface StoragePort {
      * @return true if the file exists
      */
     boolean exists(String storagePath);
+
+    /**
+     * Moves a file from source to target path.
+     *
+     * @param sourcePath the current relative storage path
+     * @param targetPath the new relative storage path
+     */
+    void move(String sourcePath, String targetPath);
 }

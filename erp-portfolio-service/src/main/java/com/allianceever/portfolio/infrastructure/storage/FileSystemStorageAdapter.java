@@ -19,7 +19,7 @@ public class FileSystemStorageAdapter implements StoragePort {
     private final Path basePath;
 
     public FileSystemStorageAdapter(String basePathStr) {
-        this.basePath = Paths.get(basePathStr);
+        this.basePath = Paths.get(basePathStr).toAbsolutePath().normalize();
         try {
             Files.createDirectories(this.basePath);
             log.info("Storage initialized at: {}", this.basePath.toAbsolutePath());
@@ -92,5 +92,31 @@ public class FileSystemStorageAdapter implements StoragePort {
     public boolean exists(String storagePath) {
         Path targetPath = basePath.resolve(storagePath).normalize();
         return targetPath.startsWith(basePath) && Files.exists(targetPath);
+    }
+
+    @Override
+    public void move(String sourcePath, String targetPath) {
+        try {
+            Path source = basePath.resolve(sourcePath).normalize();
+            Path target = basePath.resolve(targetPath).normalize();
+
+            // Security: ensure we're not moving outside base path
+            if (!source.startsWith(basePath) || !target.startsWith(basePath)) {
+                throw new StorageException("Invalid storage path(s): " + sourcePath + " -> " + targetPath);
+            }
+
+            if (!Files.exists(source)) {
+                throw new StorageException("Source file not found: " + sourcePath);
+            }
+
+            // Create target parent directories if they don't exist
+            Files.createDirectories(target.getParent());
+
+            // Move the file
+            Files.move(source, target, StandardCopyOption.REPLACE_EXISTING);
+            log.debug("Moved file from {} to {}", source, target);
+        } catch (IOException e) {
+            throw new StorageException("Failed to move file from " + sourcePath + " to " + targetPath, e);
+        }
     }
 }
