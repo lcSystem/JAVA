@@ -23,7 +23,7 @@ public class ParameterServiceClient implements ParameterClientPort {
     @SuppressWarnings("unchecked")
     public Optional<PortfolioSettings> fetchPortfolioSettings() {
         try {
-            String url = baseUrl + "/api/parameters?service=erp-portfolio-service";
+            String url = baseUrl + "/api/parameters/" + "erp-portfolio-service";
             ResponseEntity<List> response = restTemplate.getForEntity(url, List.class);
 
             if (response.getBody() == null || response.getBody().isEmpty()) {

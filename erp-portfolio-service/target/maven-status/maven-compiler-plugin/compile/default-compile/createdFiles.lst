@@ -9,6 +9,7 @@ com/allianceever/portfolio/domain/ports/out/ParameterClientPort.class
 com/allianceever/portfolio/domain/ports/in/ReAuthUseCase.class
 com/allianceever/portfolio/domain/model/PortfolioSettings.class
 com/allianceever/portfolio/domain/ports/in/FolderUseCase.class
+com/allianceever/portfolio/domain/ports/out/SettingsRepository.class
 com/allianceever/portfolio/domain/ports/in/SettingsUseCase.class
 com/allianceever/portfolio/domain/model/Folder.class
 com/allianceever/portfolio/infrastructure/storage/FileSystemStorageAdapter.class
@@ -19,10 +20,13 @@ com/allianceever/portfolio/domain/exception/UnauthorizedAccessException.class
 com/allianceever/portfolio/infrastructure/persistence/repositories/SpringDataFileRepository.class
 com/allianceever/portfolio/infrastructure/rest/controllers/ReAuthController.class
 com/allianceever/portfolio/infrastructure/config/HexagonalConfig.class
+com/allianceever/portfolio/infrastructure/persistence/entity/SystemSettingEntity.class
 com/allianceever/portfolio/application/services/FileUseCaseImpl.class
+com/allianceever/portfolio/infrastructure/persistence/entity/SystemSettingEntity$SystemSettingEntityBuilder.class
 com/allianceever/portfolio/application/services/FolderUseCaseImpl.class
 com/allianceever/portfolio/infrastructure/persistence/entities/FileVersionJpaEntity$FileVersionJpaEntityBuilder.class
 com/allianceever/portfolio/infrastructure/persistence/mappers/PortfolioMapper.class
+com/allianceever/portfolio/domain/model/SystemSetting.class
 com/allianceever/portfolio/infrastructure/persistence/entities/FolderJpaEntity$FolderJpaEntityBuilder.class
 com/allianceever/portfolio/domain/ports/out/IamClientPort.class
 com/allianceever/portfolio/infrastructure/security/SecurityConfig.class
@@ -31,13 +35,13 @@ com/allianceever/portfolio/domain/model/PortfolioSettings$PortfolioSettingsBuild
 com/allianceever/portfolio/domain/model/Folder$FolderBuilder.class
 com/allianceever/portfolio/domain/ports/in/FileUseCase.class
 com/allianceever/portfolio/domain/exception/FileExtensionNotAllowedException.class
-com/allianceever/portfolio/infrastructure/rest/controllers/SettingsController.class
 com/allianceever/portfolio/infrastructure/client/ParameterServiceClient.class
 com/allianceever/portfolio/domain/model/FileItem.class
 com/allianceever/portfolio/domain/exception/StorageException.class
 com/allianceever/portfolio/infrastructure/rest/controllers/FolderController.class
 com/allianceever/portfolio/domain/exception/FileNotFoundException.class
 com/allianceever/portfolio/infrastructure/persistence/entities/FileJpaEntity.class
+com/allianceever/portfolio/infrastructure/persistence/adapter/JpaSettingsRepositoryAdapter.class
 com/allianceever/portfolio/infrastructure/persistence/entities/FileJpaEntity$FileJpaEntityBuilder.class
 com/allianceever/portfolio/domain/ports/out/StoragePort.class
 com/allianceever/portfolio/infrastructure/rest/dto/RenameRequest.class
@@ -47,6 +51,7 @@ com/allianceever/portfolio/infrastructure/rest/dto/FileVersionResponse$FileVersi
 com/allianceever/portfolio/infrastructure/rest/controllers/FileController.class
 com/allianceever/portfolio/domain/enums/FileType.class
 com/allianceever/portfolio/application/services/SettingsUseCaseImpl.class
+com/allianceever/portfolio/infrastructure/persistence/repository/SpringDataSettingsRepository.class
 com/allianceever/portfolio/PortfolioServiceApplication.class
 com/allianceever/portfolio/infrastructure/client/IamServiceClient.class
 com/allianceever/portfolio/infrastructure/config/GlobalExceptionHandler.class
@@ -57,8 +62,10 @@ com/allianceever/portfolio/infrastructure/rest/dto/FileResponse.class
 com/allianceever/portfolio/infrastructure/persistence/repositories/SpringDataFileVersionRepository.class
 com/allianceever/portfolio/infrastructure/rest/dto/CreateFolderRequest.class
 com/allianceever/portfolio/domain/model/FileItem$FileItemBuilder.class
+com/allianceever/portfolio/domain/exception/ResourceNotFoundException.class
 com/allianceever/portfolio/infrastructure/persistence/entities/FileVersionJpaEntity.class
 com/allianceever/portfolio/infrastructure/persistence/adapters/JpaFileRepositoryAdapter.class
+com/allianceever/portfolio/domain/model/SystemSetting$SystemSettingBuilder.class
 com/allianceever/portfolio/infrastructure/persistence/entities/PortfolioSettingsJpaEntity$PortfolioSettingsJpaEntityBuilder.class
 com/allianceever/portfolio/infrastructure/persistence/entities/FolderJpaEntity.class
 com/allianceever/portfolio/domain/ports/out/FolderRepositoryPort.class
