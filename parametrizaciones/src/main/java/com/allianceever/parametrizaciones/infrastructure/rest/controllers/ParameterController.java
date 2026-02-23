@@ -58,6 +58,12 @@ public class ParameterController {
         return ResponseEntity.noContent().build();
     }
 
+    @DeleteMapping("/{id}/hard")
+    public ResponseEntity<Void> hardDeleteParameter(@PathVariable Long id) {
+        parameterService.hardDeleteParameter(id);
+        return ResponseEntity.noContent().build();
+    }
+
     private String getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return authentication != null ? authentication.getName() : "system";
