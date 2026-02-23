@@ -103,7 +103,7 @@ public class FileUseCaseImpl implements FileUseCase {
                 .build();
         fileRepository.saveVersion(version);
 
-        log.info("Uploaded file {} ({} bytes) to {}", originalName, sizeBytes, actualPath);
+        log.info("Uploaded file {} ({} bytes) to storage path {}", originalName, sizeBytes, storagePath);
         return saved;
     }
 
@@ -162,8 +162,33 @@ public class FileUseCaseImpl implements FileUseCase {
             }
         }
 
+        String oldPath = file.getStoragePath();
+        String newPath = buildStoragePath(ownerId, newFolderId, file.getId(), file.getExtension());
+
+        // Perform physical move of the file and its versions (if versioning is simple)
+        // Note: Currently we only move the main version. If multiple versions had
+        // different paths, we'd need more logic.
+        // But buildStoragePath includes folderId, so moving folder implies moving the
+        // physical file.
+        storagePort.move(oldPath, newPath);
+
         file.setFolderId(newFolderId);
+        file.setStoragePath(newPath);
         file.setUpdatedAt(LocalDateTime.now());
+
+        // Also update the version path (assuming only 1 version for now or all follow
+        // same path pattern)
+        // In a more robust system, we would iterate and update all version paths if
+        // they were folder-dependent.
+        List<FileVersion> versions = fileRepository.findVersionsByFileId(fileId);
+        for (FileVersion v : versions) {
+            if (v.getStoragePath().equals(oldPath)) {
+                v.setStoragePath(newPath);
+                fileRepository.saveVersion(v);
+            }
+        }
+
+        log.info("Moved file {} from {} to {}", fileId, oldPath, newPath);
         return fileRepository.save(file);
     }
 

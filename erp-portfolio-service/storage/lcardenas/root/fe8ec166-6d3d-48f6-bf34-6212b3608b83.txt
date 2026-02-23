@@ -1,0 +1,14 @@
+mini sistema operativo:
+en la opcion sistema necesito un portafolio pero este portafolio debe ser capas de dejarme guardar archivos en el servidor y poder abrirlos dentro de el los archivos deben poder ser imagnes crear carpetas guardar archivos de microsoft ofice con esas extenciones y sobre todo renombrsr carpetas y archivos y hacerlo en el servidor tambien debe dejar montar pdf debe dejar montar los archivo parametrizados en el micro servicio de parametros y debe haber parametros en ese micro-servicio para dar limitaciones como el tamaño de los archivo permitidos debe poderme dejar descargar archivo debe pedirme la cave de inicio de sesion del usuario para poder entrar en el portafolio antes es como un mini sistema operativo modo portafolio algo asi como drive drag and drop crea la bd de este micro servicio y la carpeta correspondiente para guardar archivos en el servidor usa las mejores tecnologias para que funcione rapido y aplica tecnicas de ia para que sea mas intuitivo toma de ejemplo el proyecto portafolio creale el backend y agregale las mejoras que puedas 
+
+la parametrizacion de la opcion sistema debe tener archivos permitidos peso permitido entre otros parametros que limiten el sistema crea el crud de parametrizacion en base a los lineamientos del sistema este crud es sobre el microservicio erp-portafolio-service debe poder controlar funcionalidades del proyecto erp-portafolio-service limitandolo o ampliando su funcionalidad la opcion de menu se llama paramegtrizacion del sistema
+
+
+reportes
+LLM
+
+
+el dashboard graficos opcion comercio: 
+debe estar conectado solo a las opciones del mi micro servicio configuracion mostrar por ejemplo la cantida de usuarios del sistema el numero de auditorias cantidad de sesiones abiertas y cerradas cantidad de opciones de menu cantidad de roles cantidad de roles asignados aq ue usuarios permisos que tengan ubiccion de los usuarios que inician sesion en el mapaque esta de bajo todo debe estar en español todo lo que se te ocurra sobre mi micro servicio 
+
+
