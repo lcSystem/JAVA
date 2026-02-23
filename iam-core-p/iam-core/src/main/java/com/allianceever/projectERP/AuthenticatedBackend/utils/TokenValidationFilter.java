@@ -1,6 +1,7 @@
 package com.allianceever.projectERP.AuthenticatedBackend.utils;
 
 import com.allianceever.projectERP.AuthenticatedBackend.repository.TokenBlacklistRepository;
+import com.allianceever.projectERP.AuthenticatedBackend.services.UserSessionService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,26 +12,31 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-
 @Component
 public class TokenValidationFilter extends OncePerRequestFilter {
 
     private final TokenBlacklistRepository blacklistRepository;
+    private final UserSessionService sessionService;
 
     @Autowired
-    public TokenValidationFilter(TokenBlacklistRepository blacklistRepository) {
+    public TokenValidationFilter(TokenBlacklistRepository blacklistRepository, UserSessionService sessionService) {
         this.blacklistRepository = blacklistRepository;
+        this.sessionService = sessionService;
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
         String token = extractToken(request);
 
-        if (token != null && blacklistRepository.existsByToken(token)) {
-            // Token is revoked or invalid; reject the request
-            System.out.println("Token not authorized. Token in BlackList!");
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            return;
+        if (token != null) {
+            String tokenHash = sessionService.hashToken(token);
+            if (blacklistRepository.existsByToken(tokenHash)) {
+                // Token is revoked or invalid; reject the request
+                System.out.println("Token not authorized. Token hash in BlackList!");
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
+            }
         }
 
         filterChain.doFilter(request, response);
