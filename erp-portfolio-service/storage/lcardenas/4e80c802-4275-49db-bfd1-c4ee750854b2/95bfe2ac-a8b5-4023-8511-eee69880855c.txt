@@ -1,0 +1,18 @@
+
+api gatway lo implementamos 
+*los chats deben tener opcion 
+ de configuracion del chat interfaz
+
+*los chats deben mostrar usuarios disponibles con sus roles y deben
+ tener ademas validaciones necesarias por errores manejo de 
+ errores del chat debe ser en tiempo real 
+
+*los chats deben poder aparecer en las notificaciones
+ del sistema ademas de solicitudes de permisos para 
+ interfaces 
+
+cada pagina parece tener un head en la cabecesa donde va el icono 
+de el tab del navegador <head><head> debe ser uno solo para toda la aplicacion
+
+avisar si me quedo sin internet debe ser 
+capaz de notificarme si mi core se queda sin internet 
