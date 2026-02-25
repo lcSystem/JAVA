@@ -25,7 +25,7 @@ public class CreditRequestController {
         }
 
         @GetMapping("/{id}")
-        @PreAuthorize("hasAuthority('CREDIT_READ')")
+        @PreAuthorize("hasAuthority('CREDIT_READ') or hasAuthority('ROLE_ADMIN')")
         public ResponseEntity<CreditRequestDTO> getRequestById(@PathVariable Long id) {
                 return ResponseEntity.ok(com.allianceever.creditos.infrastructure.mappers.CreditRequestMapper
                                 .toDTO(creditRequestUseCase.getRequestById(id)));
@@ -84,7 +84,7 @@ public class CreditRequestController {
         }
 
         @GetMapping("/user/{userId}")
-        @PreAuthorize("hasAuthority('CREDIT_READ')")
+        @PreAuthorize("hasAuthority('CREDIT_READ') or hasAuthority('ROLE_ADMIN')")
         public ResponseEntity<List<CreditRequestDTO>> getMyRequests(@PathVariable Long userId) {
                 return ResponseEntity.ok(creditRequestUseCase.getRequestsByUserId(userId).stream()
                                 .map(com.allianceever.creditos.infrastructure.mappers.CreditRequestMapper::toDTO)

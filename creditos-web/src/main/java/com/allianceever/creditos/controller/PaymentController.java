@@ -18,7 +18,7 @@ public class PaymentController {
     private final PaymentService paymentService;
 
     @PostMapping("/register")
-    @PreAuthorize("hasAuthority('CREDIT_PAY') or hasAuthority('CREDIT_ADMIN')")
+    @PreAuthorize("hasAuthority('CREDIT_PAY') or hasAuthority('CREDIT_ADMIN') or hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<PaymentDTO> registerPayment(@RequestBody PaymentDTO dto) {
         return ResponseEntity.ok(paymentService.registerPayment(dto));
     }
