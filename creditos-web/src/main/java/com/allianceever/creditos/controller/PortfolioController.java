@@ -19,13 +19,13 @@ public class PortfolioController {
     private final PortfolioService portfolioService;
 
     @GetMapping("/summary")
-    @PreAuthorize("hasAuthority('CREDIT_ADMIN')")
+    @PreAuthorize("hasAuthority('CREDIT_ADMIN') or hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Map<String, Object>> getSummary() {
         return ResponseEntity.ok(portfolioService.getPortfolioSummary());
     }
 
     @PostMapping("/update-statuses")
-    @PreAuthorize("hasAuthority('CREDIT_ADMIN')")
+    @PreAuthorize("hasAuthority('CREDIT_ADMIN') or hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<Void> updateStatuses() {
         portfolioService.updateOverdueInstallments();
         return ResponseEntity.ok().build();

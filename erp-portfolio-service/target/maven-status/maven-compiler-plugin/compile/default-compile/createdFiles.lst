@@ -21,6 +21,7 @@ com/allianceever/portfolio/infrastructure/persistence/repositories/SpringDataFil
 com/allianceever/portfolio/infrastructure/rest/controllers/ReAuthController.class
 com/allianceever/portfolio/infrastructure/config/HexagonalConfig.class
 com/allianceever/portfolio/infrastructure/persistence/entity/SystemSettingEntity.class
+com/allianceever/portfolio/infrastructure/config/RestTemplateHeaderInterceptor.class
 com/allianceever/portfolio/application/services/FileUseCaseImpl.class
 com/allianceever/portfolio/infrastructure/persistence/entity/SystemSettingEntity$SystemSettingEntityBuilder.class
 com/allianceever/portfolio/application/services/FolderUseCaseImpl.class
@@ -35,6 +36,7 @@ com/allianceever/portfolio/domain/model/PortfolioSettings$PortfolioSettingsBuild
 com/allianceever/portfolio/domain/model/Folder$FolderBuilder.class
 com/allianceever/portfolio/domain/ports/in/FileUseCase.class
 com/allianceever/portfolio/domain/exception/FileExtensionNotAllowedException.class
+com/allianceever/portfolio/infrastructure/rest/controllers/SettingsController.class
 com/allianceever/portfolio/infrastructure/client/ParameterServiceClient.class
 com/allianceever/portfolio/domain/model/FileItem.class
 com/allianceever/portfolio/domain/exception/StorageException.class

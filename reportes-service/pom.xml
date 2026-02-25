@@ -75,6 +75,19 @@
 			<version>1.17.2</version>
 		</dependency>
 
+		<!-- Thymeleaf for PDF templates -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+
+		<!-- Apache POI for Excel Generation -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>5.2.5</version>
+		</dependency>
+
 		<!-- Resilience & Observability -->
 		<dependency>
 			<groupId>io.github.resilience4j</groupId>

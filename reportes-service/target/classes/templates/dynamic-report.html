@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="${template.name}">Dynamic Report</title>
+    <style th:inline="css">
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            color: /*[[${config.headerTextColor}]]*/ '#000000';
+        }
+        .header {
+            text-align: center;
+            background-color: /*[[${config.headerColor}]]*/ '#ffffff';
+            padding: 20px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid /*[[${config.primaryColor}]]*/ '#3b82f6';
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .header p {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            color: #555;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            word-wrap: break-word;
+        }
+        th {
+            background-color: /*[[${config.primaryColor}]]*/ '#3b82f6';
+            color: white;
+            font-weight: bold;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1 th:text="${template.name}">Report Name</h1>
+    <p th:text="${template.description}">Report Description</p>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th th:each="col : ${columns}" 
+            th:if="${col.visible}"
+            th:text="${col.title}"
+            th:style="${'width: ' + col.width + '%; text-align: ' + col.align + ';'}">
+            Column Title
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="row : ${data}">
+        <td th:each="col : ${columns}"
+            th:if="${col.visible}"
+            th:text="${row[col.dataKey]}"
+            th:style="${'text-align: ' + col.align + ';'}">
+            Value
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

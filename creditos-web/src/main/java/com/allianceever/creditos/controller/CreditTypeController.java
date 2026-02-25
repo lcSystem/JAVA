@@ -24,13 +24,13 @@ public class CreditTypeController {
     private final CreditTypeService creditTypeService;
 
     @GetMapping
-    @PreAuthorize("hasAuthority('CREDIT_READ')")
+    @PreAuthorize("hasAuthority('CREDIT_READ') or hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<List<CreditType>> getAllCreditTypes() {
         return ResponseEntity.ok(creditTypeService.getAllActiveCreditTypes());
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('CREDIT_READ')")
+    @PreAuthorize("hasAuthority('CREDIT_READ') or hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<CreditType> getCreditTypeById(@PathVariable Long id) {
         return ResponseEntity.ok(creditTypeService.getCreditTypeById(id));
     }
