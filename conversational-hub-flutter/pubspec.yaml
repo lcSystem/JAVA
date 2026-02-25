@@ -1,0 +1,26 @@
+name: conversational_hub_flutter
+description: Conversational Hub module for ERP system.
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_secure_storage: ^9.0.0
+  provider: ^6.1.1
+  http: ^1.2.0
+  web_socket_channel: ^2.4.0
+  get_it: ^7.6.6
+  intl: ^0.19.0
+  font_awesome_flutter: ^10.7.0
+  equatable: ^2.0.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true

@@ -1,0 +1,287 @@
+Su propósito es funcionar como un asistente virtual contextual dentro de un ERP empresarial moderno basado en microservicios.
+
+No es un chatbot genérico.
+Es un asistente que:
+
+Conoce los módulos del ERP
+
+Entiende los procesos reales de la empresa
+
+Analiza eventos en tiempo real
+
+Guía usuarios según contexto
+
+Ejecuta acciones autorizadas
+
+Reduce errores operativos
+
+Facilita onboarding
+
+🎯 OBJETIVO PRINCIPAL
+
+Crear un microservicio independiente, escalable y desacoplado que:
+
+Escuche eventos del ERP
+
+Detecte contexto activo del usuario
+
+Analice comportamiento histórico
+
+Proporcione asistencia contextual inteligente
+
+Permita ejecutar acciones mediante lenguaje natural
+
+Sea extensible a futuro con modelos LLM
+
+🏗️ ARQUITECTURA REQUERIDA
+
+El microservicio debe:
+
+Ser event-driven
+
+Exponer API REST
+
+Tener arquitectura limpia (clean architecture)
+
+Soportar multi-tenant
+
+Ser desacoplado del frontend
+
+Permitir integración con cualquier LLM externo
+
+Tener sistema de embeddings para conocimiento interno
+
+Componentes internos mínimos:
+
+Context Engine
+
+Process Intelligence Engine
+
+Prompt Builder
+
+LLM Connector
+
+Action Executor
+
+Knowledge Base Manager
+
+Behavior Analyzer
+
+Audit Logger
+
+📡 INTEGRACIÓN CON EL ERP
+
+Debe poder:
+
+Recibir eventos como:
+
+OrderCreated
+
+OrderUpdated
+
+InvoiceApproved
+
+UserLogin
+
+WorkflowStepChanged
+
+Recibir contexto desde frontend:
+
+Usuario actual
+
+Rol
+
+Módulo activo
+
+Entidad activa
+
+Acción actual
+
+🤖 FUNCIONALIDADES OBLIGATORIAS
+1. Asistencia Contextual Automática
+
+Si el usuario está creando una orden:
+
+Analizar si omite pasos comunes
+
+Detectar patrones históricos
+
+Sugerir acciones preventivas
+
+2. Respuesta Inteligente por Lenguaje Natural
+
+Debe responder preguntas como:
+
+¿Por qué esta orden está detenida?
+
+¿Qué falta para cerrar este proceso?
+
+¿Quién tiene bloqueado este flujo?
+
+¿Cuál es el siguiente paso recomendado?
+
+3. Ejecución de Acciones
+
+Permitir:
+
+Crear registros
+
+Modificar estados
+
+Generar borradores
+
+Preparar resúmenes ejecutivos
+
+Siempre validando permisos por rol.
+
+4. Onboarding Automático
+
+Detectar usuarios nuevos y:
+
+Guiarlos paso a paso
+
+Explicar procesos según su rol
+
+Mostrar advertencias frecuentes
+
+5. Detección de Uso Incorrecto
+
+Analizar:
+
+Saltos de flujo
+
+Cambios excesivos
+
+Reprocesos
+
+Pasos omitidos
+
+Y generar advertencias inteligentes.
+
+🧠 INTELIGENCIA Y CONTEXTO
+
+Debe:
+
+Construir prompts dinámicos con:
+
+Contexto del usuario
+
+Datos actuales
+
+Historial reciente
+
+Reglas internas
+
+Políticas de empresa
+
+Mantener base de conocimiento indexada con:
+
+Manuales
+
+Flujos documentados
+
+Procesos históricos
+
+FAQs internas
+
+🔐 SEGURIDAD
+
+Autenticación JWT
+
+Autorización basada en roles
+
+Auditoría completa de:
+
+Preguntas
+
+Respuestas
+
+Acciones ejecutadas
+
+Modo seguro:
+
+Simulación antes de ejecutar acciones críticas
+
+📦 ENDPOINTS MÍNIMOS
+
+POST /context
+POST /ask
+POST /execute
+GET /suggestions
+POST /events
+GET /onboarding
+GET /health
+
+📊 LOGGING Y AUDITORÍA
+
+Registrar:
+
+Usuario
+
+Contexto
+
+Prompt enviado
+
+Respuesta generada
+
+Acción ejecutada
+
+Timestamp
+
+Tenant
+
+🧩 REQUISITOS TÉCNICOS
+
+Lenguaje sugerido: Node.js o Python
+
+Base de datos: PostgreSQL
+
+Vector store para embeddings
+
+Redis para contexto temporal
+
+Kafka o similar para eventos
+
+Dockerizado
+
+Configuración por variables de entorno
+
+Documentación Swagger
+
+🚀 EXTENSIBILIDAD FUTURA
+
+Debe permitir:
+
+Integración con voz
+
+Integración con frontend reactivo
+
+Modo autónomo predictivo
+
+Sistema de aprendizaje basado en feedback
+
+🏁 RESULTADO ESPERADO
+
+Generar:
+
+Estructura completa del proyecto
+
+Código base funcional
+
+Controladores
+
+Servicios
+
+Modelos
+
+Middleware de seguridad
+
+Conexión con LLM mockeada
+
+Sistema de eventos básico
+
+Ejemplo de prompt builder dinámico
+
+Dockerfile
+
+README con instrucciones
