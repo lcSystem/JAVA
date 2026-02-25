@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: erp-config
+  namespace: erp-namespace
+data:
+  # RabbitMQ Config
+  SPRING_RABBITMQ_HOST: rabbitmq-service
+  SPRING_RABBITMQ_PORT: "5672"
+  
+  # Shared URLs
+  GATEWAY_URL: "http://api-gateway:8080"
+  IAM_URL: "http://iam-service:8081"
+  CREDIT_URL: "http://creditos-service:8082"
+  PARAMS_URL: "http://params-service:8083"
+  PORTFOLIO_URL: "http://portfolio-service:8084"
+  REPORTES_URL: "http://reportes-service:8085"
+  
+  # JWT Config (Override for internal K8s comms)
+  SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: "http://iam-service:8081/api/auth/jwks"

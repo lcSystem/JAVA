@@ -1,0 +1,121 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iam-deployment
+  namespace: erp-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iam-service
+  template:
+    metadata:
+      labels:
+        app: iam-service
+    spec:
+      containers:
+      - name: iam-service
+        image: iam-core-p:latest
+        ports:
+        - containerPort: 8081
+        resources:
+          requests:
+            memory: "384Mi"
+            cpu: "100m"
+          limits:
+            memory: "768Mi"
+            cpu: "1000m"
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8081
+          initialDelaySeconds: 60
+          periodSeconds: 15
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8081
+          initialDelaySeconds: 70
+          periodSeconds: 10
+        envFrom:
+        - configMapRef:
+            name: erp-config
+        - secretRef:
+            name: erp-secrets
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:mysql://mysql-service:3306/iam_db?createDatabaseIfNotExist=true"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: iam-service
+  namespace: erp-namespace
+spec:
+  selector:
+    app: iam-service
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: creditos-deployment
+  namespace: erp-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: creditos-service
+  template:
+    metadata:
+      labels:
+        app: creditos-service
+    spec:
+      containers:
+      - name: creditos-service
+        image: creditos-web:latest
+        ports:
+        - containerPort: 8082
+        resources:
+          requests:
+            memory: "384Mi"
+            cpu: "100m"
+          limits:
+            memory: "768Mi"
+            cpu: "1000m"
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8082
+          initialDelaySeconds: 60
+          periodSeconds: 15
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8082
+          initialDelaySeconds: 70
+          periodSeconds: 10
+        envFrom:
+        - configMapRef:
+            name: erp-config
+        - secretRef:
+            name: erp-secrets
+        env:
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:mysql://mysql-service:3306/creditos_db?createDatabaseIfNotExist=true"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: creditos-service
+  namespace: erp-namespace
+spec:
+  selector:
+    app: creditos-service
+  ports:
+    - protocol: TCP
+      port: 8082
+      targetPort: 8082

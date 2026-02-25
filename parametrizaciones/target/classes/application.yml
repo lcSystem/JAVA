@@ -40,3 +40,13 @@ logging:
     com.allianceever.parametrizaciones: DEBUG
     org.springframework.security: DEBUG
     org.springframework.amqp: INFO
+
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info
