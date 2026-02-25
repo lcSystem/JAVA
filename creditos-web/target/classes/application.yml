@@ -11,6 +11,11 @@ spring:
   flyway:
     repair-on-migrate: true
     validate-on-migrate: false
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
   jpa:
     hibernate:
       ddl-auto: validate
@@ -24,3 +29,13 @@ spring:
 logging:
   level:
     org.springframework.security: DEBUG
+
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info

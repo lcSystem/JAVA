@@ -1,0 +1,3 @@
+/home/lsyst/Documentos/JAVA/api-gateway/src/main/java/com/allianceever/gateway/ApiGatewayApplication.java
+/home/lsyst/Documentos/JAVA/api-gateway/src/main/java/com/allianceever/gateway/filters/CorrelationIdFilter.java
+/home/lsyst/Documentos/JAVA/api-gateway/src/main/java/com/allianceever/gateway/filters/LoggingFilter.java

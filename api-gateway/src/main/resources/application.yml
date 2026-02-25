@@ -1,0 +1,80 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      httpclient:
+        connect-timeout: 3000
+        response-timeout: 5s
+      routes:
+        # IAM Core - Authentication & User Management
+        - id: iam-core
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/auth/**,/api/users/**,/api/roles/**,/api/permissions/**,/api/menus/**,/api/design/**,/api/organizations/**,/api/sessions/**
+
+        # Creditos Web - Credit Management
+        - id: creditos-web
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/creditos/**,/api/credit-types/**,/api/credit-requests/**,/api/applicants/**
+
+        # Parametrizaciones - Parameter Management
+        - id: parametrizaciones
+          uri: http://localhost:8083
+          predicates:
+            - Path=/api/parametrizaciones/**,/api/parameters/**
+
+        # Portfolio Service - File & Folder Management
+        - id: portfolio-service
+          uri: http://localhost:8084
+          predicates:
+            - Path=/api/portfolio/**,/api/folders/**,/api/files/**
+
+        # Reportes Service - Report Generation
+        - id: reportes-service
+          uri: http://localhost:8085
+          predicates:
+            - Path=/api/reportes/**,/api/reports/**
+
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
+
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins:
+              - "http://localhost:3000"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+              - PATCH
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+            maxAge: 3600
+
+logging:
+  level:
+    org.springframework.cloud.gateway: INFO
+    com.allianceever.gateway: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
+  endpoint:
+    health:
+      probes:
+        enabled: true
+    gateway:
+      enabled: true

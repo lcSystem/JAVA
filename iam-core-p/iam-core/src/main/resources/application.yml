@@ -16,6 +16,11 @@ spring:
     baseline-on-migrate: true
     validate-on-migrate: false
     locations: classpath:db/migration
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
   servlet:
     multipart:
       max-file-size: 10MB
@@ -32,3 +37,13 @@ app:
   security:
     session-secret: "vF6eH9mN2pQ5rT8uW1xZ4aD7gJ0kM3pS" # Recommended to change in production
     session-limit: 5
+
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info

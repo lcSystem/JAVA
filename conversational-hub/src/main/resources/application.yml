@@ -28,7 +28,7 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: iam-core
-          jwk-set-uri: http://localhost:8081/oauth2/jwks
+          jwk-set-uri: http://localhost:8081/api/auth/jwks
 
 logging:
   level:
