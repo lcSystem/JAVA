@@ -1,0 +1,53 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------< com.allianceever:conversational-hub >-----------------
+[INFO] Building conversational-hub 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.4:run (default-cli) > test-compile @ conversational-hub >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ conversational-hub ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 2 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ conversational-hub ---
+[INFO] Changes detected - recompiling the module! :input tree
+[INFO] Compiling 40 source files with javac [debug release 21] to target/classes
+[INFO] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[INFO] -------------------------------------------------------------
+[WARNING] COMPILATION WARNING : 
+[INFO] -------------------------------------------------------------
+[WARNING] /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/allianceever/conversationalhub/infrastructure/persistence/mappers/ChannelMapper.java:[10,13] Unmapped target property: "isAutomatic".
+[WARNING] /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/allianceever/conversationalhub/infrastructure/persistence/mappers/ChannelMapper.java:[12,19] Unmapped target properties: "deletedAt, isAutomatic".
+[INFO] 2 warnings 
+[INFO] -------------------------------------------------------------
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/allianceever/conversationalhub/infrastructure/persistence/mappers/MessageMapper.java:[9,13] Can't map property "String metadata" to "Map<String,Object> metadata". Consider to declare/implement a mapping method: "Map<String,Object> map(String value)".
+[ERROR] /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/allianceever/conversationalhub/infrastructure/persistence/mappers/MessageMapper.java:[11,19] No target bean properties found: can't map property "Map<String,Object> metadata" to "String metadata". Consider to declare/implement a mapping method: "String map(Map<String,Object> value)".
+[INFO] 2 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.149 s
+[INFO] Finished at: 2026-02-25T21:38:27-05:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile (default-compile) on project conversational-hub: Compilation failure: Compilation failure: 
+[ERROR] /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/allianceever/conversationalhub/infrastructure/persistence/mappers/MessageMapper.java:[9,13] Can't map property "String metadata" to "Map<String,Object> metadata". Consider to declare/implement a mapping method: "Map<String,Object> map(String value)".
+[ERROR] /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/allianceever/conversationalhub/infrastructure/persistence/mappers/MessageMapper.java:[11,19] No target bean properties found: can't map property "Map<String,Object> metadata" to "String metadata". Consider to declare/implement a mapping method: "String map(Map<String,Object> value)".
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

@@ -69,6 +69,23 @@ class ChatProvider extends ChangeNotifier {
     await repository.sendMessage(_selectedChannel!.id, content);
   }
 
+  Future<Channel?> startPrivateChat(String otherUserId, String otherUsername) async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      final channel = await repository.getOrCreatePrivateChannel(otherUserId, otherUsername);
+      await loadChannels(); // Refrescar lista de canales
+      await selectChannel(channel);
+      return channel;
+    } catch (e) {
+      print('Error starting private chat: $e');
+      return null;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
   @override
   void dispose() {
     wsClient.disconnect();

@@ -13,4 +13,6 @@ public interface ChatUseCase {
     Message sendMessage(Message message);
 
     List<Message> getMessagesByChannel(String channelId);
+
+    List<Message> getMessagesSince(String userId, java.time.LocalDateTime since);
 }

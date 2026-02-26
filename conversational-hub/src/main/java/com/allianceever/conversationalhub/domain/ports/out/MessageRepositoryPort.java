@@ -7,4 +7,6 @@ public interface MessageRepositoryPort {
     Message save(Message message);
 
     List<Message> findByChannelId(String channelId);
+
+    List<Message> findForUserSince(String userId, java.time.LocalDateTime since);
 }

@@ -7,58 +7,64 @@ spring:
   cloud:
     gateway:
       httpclient:
-        connect-timeout: 3000
-        response-timeout: 5s
+        connect-timeout: 5000
+        response-timeout: 15s
       routes:
-        # IAM Core - Authentication & User Management
-        - id: iam-core
-          uri: http://localhost:8081
-          predicates:
-            - Path=/api/auth/**,/api/users/**,/api/roles/**,/api/permissions/**,/api/menus/**,/api/design/**,/api/organizations/**,/api/sessions/**
-
         # Creditos Web - Credit Management
         - id: creditos-web
           uri: http://localhost:8082
           predicates:
-            - Path=/api/creditos/**,/api/credit-types/**,/api/credit-requests/**,/api/applicants/**
+            - Path=/api/creditos/**, /api/credit-types/**, /api/credit-requests/**, /api/applicants/**
 
         # Parametrizaciones - Parameter Management
         - id: parametrizaciones
           uri: http://localhost:8083
           predicates:
-            - Path=/api/parametrizaciones/**,/api/parameters/**
+            - Path=/api/parametrizaciones/**, /api/parameters/**
 
-        # Portfolio Service - File & Folder Management
+        # Portfolio Service - File & Fold
         - id: portfolio-service
           uri: http://localhost:8084
           predicates:
-            - Path=/api/portfolio/**,/api/folders/**,/api/files/**
+            - Path=/api/portfolio/**, /api/folders/**, /api/files/**
 
         # Reportes Service - Report Generation
         - id: reportes-service
           uri: http://localhost:8085
           predicates:
-            - Path=/api/reportes/**,/api/reports/**
+            - Path=/api/reportes/**, /api/reports/**
+
+        # Conversational Hub - Chat & AI
+        - id: conversational-hub
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/chat/**, /api/conversational-hub/**
+
+        # Conversational Hub WebSockets
+        - id: conversational-hub-ws
+          uri: ws://localhost:8090
+          predicates:
+            - Path=/ws/**
+
+        # IAM Core - Catch-all for Identity, Auth and static assets
+        - id: iam-core
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/auth/**, /api/users/**, /api/roles/**, /api/permissions/**, /api/menus/**, /api/design/**, /api/organizations/**, /api/sessions/**, /api/security/**, /uploads/**, /assets/**, /api/**
 
       default-filters:
         - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
 
       globalcors:
-        cors-configurations:
+        add-to-simple-url-handler-mapping: true
+        corsConfigurations:
           '[/**]':
-            allowedOrigins:
+            allowedOrigins: 
               - "http://localhost:3000"
-            allowedMethods:
-              - GET
-              - POST
-              - PUT
-              - DELETE
-              - OPTIONS
-              - PATCH
-            allowedHeaders:
-              - "*"
+              - "http://localhost:5500"
+            allowedMethods: "*"
+            allowedHeaders: "*"
             allowCredentials: true
-            maxAge: 3600
 
 logging:
   level:
@@ -73,5 +79,8 @@ management:
       exposure:
         include: health,info,gateway
   endpoint:
+    health:
+      probes:
+        enabled: true
     gateway:
       enabled: true

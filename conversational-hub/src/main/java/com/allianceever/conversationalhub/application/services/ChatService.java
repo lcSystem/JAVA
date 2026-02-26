@@ -57,4 +57,9 @@ public class ChatService implements ChatUseCase {
     public List<Message> getMessagesByChannel(String channelId) {
         return messageRepository.findByChannelId(channelId);
     }
+
+    @Override
+    public List<Message> getMessagesSince(String userId, LocalDateTime since) {
+        return messageRepository.findForUserSince(userId, since);
+    }
 }

@@ -1,0 +1,81 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------< com.allianceever:conversational-hub >-----------------
+[INFO] Building conversational-hub 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.2.4:run (default-cli) > test-compile @ conversational-hub >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ conversational-hub ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 2 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.11.0:compile (default-compile) @ conversational-hub ---
+[INFO] Changes detected - recompiling the module! :input tree
+[INFO] Compiling 41 source files with javac [debug release 21] to target/classes
+[INFO] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[INFO] /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/allianceever/conversationalhub/infrastructure/persistence/entities/ChannelEntity.java: Some input files use or override a deprecated API.
+[INFO] /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/allianceever/conversationalhub/infrastructure/persistence/entities/ChannelEntity.java: Recompile with -Xlint:deprecation for details.
+[INFO] -------------------------------------------------------------
+[WARNING] COMPILATION WARNING : 
+[INFO] -------------------------------------------------------------
+[WARNING] /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/allianceever/conversationalhub/infrastructure/persistence/mappers/ChannelMapper.java:[10,13] Unmapped target property: "isAutomatic".
+[WARNING] /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/allianceever/conversationalhub/infrastructure/persistence/mappers/ChannelMapper.java:[12,19] Unmapped target properties: "deletedAt, isAutomatic".
+[INFO] 2 warnings 
+[INFO] -------------------------------------------------------------
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/allianceever/conversationalhub/infrastructure/audit/AuditAdapter.java:[18,17] cannot find symbol
+  symbol:   method add(java.lang.String,java.lang.String)
+  location: variable auditLog of type java.util.Map<java.lang.String,java.lang.Object>
+[ERROR] /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/allianceever/conversationalhub/infrastructure/audit/AuditAdapter.java:[19,17] cannot find symbol
+  symbol:   method add(java.lang.String,java.lang.String)
+  location: variable auditLog of type java.util.Map<java.lang.String,java.lang.Object>
+[ERROR] /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/allianceever/conversationalhub/infrastructure/audit/AuditAdapter.java:[20,17] cannot find symbol
+  symbol:   method add(java.lang.String,java.lang.String)
+  location: variable auditLog of type java.util.Map<java.lang.String,java.lang.Object>
+[ERROR] /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/allianceever/conversationalhub/infrastructure/audit/AuditAdapter.java:[21,17] cannot find symbol
+  symbol:   method add(java.lang.String,java.lang.String)
+  location: variable auditLog of type java.util.Map<java.lang.String,java.lang.Object>
+[ERROR] /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/allianceever/conversationalhub/infrastructure/audit/AuditAdapter.java:[22,17] cannot find symbol
+  symbol:   method add(java.lang.String,java.time.LocalDateTime)
+  location: variable auditLog of type java.util.Map<java.lang.String,java.lang.Object>
+[INFO] 5 errors 
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  6.894 s
+[INFO] Finished at: 2026-02-25T21:55:56-05:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.11.0:compile (default-compile) on project conversational-hub: Compilation failure: Compilation failure: 
+[ERROR] /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/allianceever/conversationalhub/infrastructure/audit/AuditAdapter.java:[18,17] cannot find symbol
+[ERROR]   symbol:   method add(java.lang.String,java.lang.String)
+[ERROR]   location: variable auditLog of type java.util.Map<java.lang.String,java.lang.Object>
+[ERROR] /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/allianceever/conversationalhub/infrastructure/audit/AuditAdapter.java:[19,17] cannot find symbol
+[ERROR]   symbol:   method add(java.lang.String,java.lang.String)
+[ERROR]   location: variable auditLog of type java.util.Map<java.lang.String,java.lang.Object>
+[ERROR] /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/allianceever/conversationalhub/infrastructure/audit/AuditAdapter.java:[20,17] cannot find symbol
+[ERROR]   symbol:   method add(java.lang.String,java.lang.String)
+[ERROR]   location: variable auditLog of type java.util.Map<java.lang.String,java.lang.Object>
+[ERROR] /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/allianceever/conversationalhub/infrastructure/audit/AuditAdapter.java:[21,17] cannot find symbol
+[ERROR]   symbol:   method add(java.lang.String,java.lang.String)
+[ERROR]   location: variable auditLog of type java.util.Map<java.lang.String,java.lang.Object>
+[ERROR] /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/allianceever/conversationalhub/infrastructure/audit/AuditAdapter.java:[22,17] cannot find symbol
+[ERROR]   symbol:   method add(java.lang.String,java.time.LocalDateTime)
+[ERROR]   location: variable auditLog of type java.util.Map<java.lang.String,java.lang.Object>
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

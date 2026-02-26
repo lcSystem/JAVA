@@ -16,6 +16,7 @@ public class Message {
     private String id;
     private String channelId;
     private String senderId;
+    private String recipientId;
     private String content;
     private MessageType type;
     private Map<String, Object> metadata;

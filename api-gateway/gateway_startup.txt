@@ -1,0 +1,1447 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] --------------------< com.allianceever:api-gateway >--------------------
+[INFO] Building api-gateway 0.0.1-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot-maven-plugin:3.1.1:run (default-cli) > test-compile @ api-gateway >>>
+[INFO] 
+[INFO] --- maven-resources-plugin:3.3.1:resources (default-resources) @ api-gateway ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.11.0:compile (default-compile) @ api-gateway ---
+[INFO] Nothing to compile - all classes are up to date
+[INFO] 
+[INFO] --- maven-resources-plugin:3.3.1:testResources (default-testResources) @ api-gateway ---
+[INFO] skip non existing resourceDirectory /home/lsyst/Documentos/JAVA/api-gateway/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.11.0:testCompile (default-testCompile) @ api-gateway ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] <<< spring-boot-maven-plugin:3.1.1:run (default-cli) < test-compile @ api-gateway <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot-maven-plugin:3.1.1:run (default-cli) @ api-gateway ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.1.1)
+
+2026-02-25 21:37:58.018 [main] INFO  c.a.gateway.ApiGatewayApplication - Starting ApiGatewayApplication using Java 21.0.10 with PID 884569 (/home/lsyst/Documentos/JAVA/api-gateway/target/classes started by lsyst in /home/lsyst/Documentos/JAVA/api-gateway)
+2026-02-25 21:37:58.020 [main] DEBUG c.a.gateway.ApiGatewayApplication - Running with Spring Boot v3.1.1, Spring v6.0.10
+2026-02-25 21:37:58.020 [main] INFO  c.a.gateway.ApiGatewayApplication - No active profile set, falling back to 1 default profile: "default"
+2026-02-25 21:37:59.224 [main] INFO  o.s.cloud.context.scope.GenericScope - BeanFactory id=99e7543d-f2ea-3722-a73e-b9497f4c1257
+2026-02-25 21:38:00.082 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [After]
+2026-02-25 21:38:00.082 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Before]
+2026-02-25 21:38:00.082 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Between]
+2026-02-25 21:38:00.082 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Cookie]
+2026-02-25 21:38:00.082 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Header]
+2026-02-25 21:38:00.082 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Host]
+2026-02-25 21:38:00.082 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Method]
+2026-02-25 21:38:00.082 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Path]
+2026-02-25 21:38:00.082 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Query]
+2026-02-25 21:38:00.082 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [ReadBody]
+2026-02-25 21:38:00.082 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [RemoteAddr]
+2026-02-25 21:38:00.082 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [XForwardedRemoteAddr]
+2026-02-25 21:38:00.082 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [Weight]
+2026-02-25 21:38:00.082 [main] INFO  o.s.c.g.r.RouteDefinitionRouteLocator - Loaded RoutePredicateFactory [CloudFoundryRouteService]
+2026-02-25 21:38:00.450 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 3 endpoint(s) beneath base path '/actuator'
+2026-02-25 21:38:00.730 [main] INFO  o.s.b.w.e.netty.NettyWebServer - Netty started on port 8080
+2026-02-25 21:38:01.270 [main] INFO  c.a.gateway.ApiGatewayApplication - Started ApiGatewayApplication in 3.766 seconds (process running for 4.067)
+2026-02-25 21:42:51.308 [reactor-http-epoll-8] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 58b83586-7178-4524-bdbc-725c8b3f9cce
+2026-02-25 21:42:51.310 [reactor-http-epoll-7] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 978f4f75-793c-4821-9f5c-8a9cef630a0a
+2026-02-25 21:42:51.310 [reactor-http-epoll-5] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 03d10d08-047d-451a-9ab3-b872fd588dad
+2026-02-25 21:42:51.309 [reactor-http-epoll-6] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: f09376ba-f7a7-4b4d-8ab8-b1670872460d
+2026-02-25 21:42:51.322 [reactor-http-epoll-6] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=f09376ba-f7a7-4b4d-8ab8-b1670872460d
+2026-02-25 21:42:51.322 [reactor-http-epoll-7] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/security/my/menus | correlationId=978f4f75-793c-4821-9f5c-8a9cef630a0a
+2026-02-25 21:42:51.322 [reactor-http-epoll-5] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/auth/profile | correlationId=03d10d08-047d-451a-9ab3-b872fd588dad
+2026-02-25 21:42:51.334 [reactor-http-epoll-8] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=58b83586-7178-4524-bdbc-725c8b3f9cce
+2026-02-25 21:42:51.365 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: c52d9bc1-198d-461b-8718-bb3414aa3cb9
+2026-02-25 21:42:51.365 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /uploads/images/design/favicon_7b29cf69-b0cd-4d49-a825-1d7b12ea9fe1.png | correlationId=c52d9bc1-198d-461b-8718-bb3414aa3cb9
+2026-02-25 21:42:51.536 [reactor-http-epoll-8] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=202ms | correlationId=58b83586-7178-4524-bdbc-725c8b3f9cce
+2026-02-25 21:42:51.537 [reactor-http-epoll-5] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/auth/profile | status=200 | time=215ms | correlationId=03d10d08-047d-451a-9ab3-b872fd588dad
+2026-02-25 21:42:51.544 [reactor-http-epoll-6] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=222ms | correlationId=f09376ba-f7a7-4b4d-8ab8-b1670872460d
+2026-02-25 21:42:51.546 [reactor-http-epoll-3] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 28101391-1fba-41e0-9a41-e99135f93439
+2026-02-25 21:42:51.546 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/auth/profile | correlationId=28101391-1fba-41e0-9a41-e99135f93439
+2026-02-25 21:42:51.550 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /uploads/images/design/favicon_7b29cf69-b0cd-4d49-a825-1d7b12ea9fe1.png | status=200 | time=185ms | correlationId=c52d9bc1-198d-461b-8718-bb3414aa3cb9
+2026-02-25 21:42:51.576 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/auth/profile | status=200 | time=30ms | correlationId=28101391-1fba-41e0-9a41-e99135f93439
+2026-02-25 21:42:51.669 [reactor-http-epoll-7] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/security/my/menus | status=200 | time=347ms | correlationId=978f4f75-793c-4821-9f5c-8a9cef630a0a
+2026-02-25 21:42:51.671 [reactor-http-epoll-3] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 82d1c665-9e0d-42bc-b926-49b6d9f174f1
+2026-02-25 21:42:51.671 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/security/my/menus | correlationId=82d1c665-9e0d-42bc-b926-49b6d9f174f1
+2026-02-25 21:42:51.829 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/security/my/menus | status=200 | time=158ms | correlationId=82d1c665-9e0d-42bc-b926-49b6d9f174f1
+2026-02-25 21:42:52.192 [reactor-http-epoll-6] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 83dce89c-a56a-41f5-a994-0f583ff15ebb
+2026-02-25 21:42:52.192 [reactor-http-epoll-6] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /uploads/images/profiles/6083efc2-2f49-4291-9cde-1ee60cc5ffe3.png | correlationId=83dce89c-a56a-41f5-a994-0f583ff15ebb
+2026-02-25 21:42:52.223 [reactor-http-epoll-6] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /uploads/images/profiles/6083efc2-2f49-4291-9cde-1ee60cc5ffe3.png | status=200 | time=31ms | correlationId=83dce89c-a56a-41f5-a994-0f583ff15ebb
+2026-02-25 21:42:52.510 [reactor-http-epoll-3] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 501e0248-15f2-477d-88bd-24ea9e84b679
+2026-02-25 21:42:52.510 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=501e0248-15f2-477d-88bd-24ea9e84b679
+2026-02-25 21:42:52.515 [reactor-http-epoll-3] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [fcb62428-17]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:42:52.838 [reactor-http-epoll-3] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: faa387e0-bf49-4241-8416-aa1f621a74c9
+2026-02-25 21:42:52.839 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=faa387e0-bf49-4241-8416-aa1f621a74c9
+2026-02-25 21:42:52.842 [reactor-http-epoll-3] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [fcb62428-18]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:42:55.086 [reactor-http-epoll-3] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: bb3e35f6-dd6f-41dc-ac1b-496a6a6a7ea2
+2026-02-25 21:42:55.086 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/users | correlationId=bb3e35f6-dd6f-41dc-ac1b-496a6a6a7ea2
+2026-02-25 21:42:55.096 [reactor-http-epoll-3] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [fcb62428-20]  500 Server Error for HTTP GET "/api/chat/users"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/users" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:42:59.533 [reactor-http-epoll-7] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 24cf0a57-e77b-4c69-b68f-73fc752a906a
+2026-02-25 21:42:59.533 [reactor-http-epoll-7] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/users | correlationId=24cf0a57-e77b-4c69-b68f-73fc752a906a
+2026-02-25 21:42:59.536 [reactor-http-epoll-7] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [a1639a50-22]  500 Server Error for HTTP GET "/api/chat/users"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/users" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:43:12.715 [reactor-http-epoll-8] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: b859d78a-2dba-4f52-945c-f52e9a5df5ae
+2026-02-25 21:43:12.716 [reactor-http-epoll-8] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /uploads/images/design/b2985c41-00d0-4569-ae0a-5aaa21d7c5d7.png | correlationId=b859d78a-2dba-4f52-945c-f52e9a5df5ae
+2026-02-25 21:43:12.719 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 42b2d024-f320-4fb4-9a93-f8c2db485fa3
+2026-02-25 21:43:12.719 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /uploads/images/design/favicon_7b29cf69-b0cd-4d49-a825-1d7b12ea9fe1.png | correlationId=42b2d024-f320-4fb4-9a93-f8c2db485fa3
+2026-02-25 21:43:12.736 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /uploads/images/design/favicon_7b29cf69-b0cd-4d49-a825-1d7b12ea9fe1.png | status=200 | time=17ms | correlationId=42b2d024-f320-4fb4-9a93-f8c2db485fa3
+2026-02-25 21:43:12.737 [reactor-http-epoll-8] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /uploads/images/design/b2985c41-00d0-4569-ae0a-5aaa21d7c5d7.png | status=200 | time=20ms | correlationId=b859d78a-2dba-4f52-945c-f52e9a5df5ae
+2026-02-25 21:43:28.086 [reactor-http-epoll-3] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: e18a2ad4-fdfa-4250-9d08-281355b7d6b1
+2026-02-25 21:43:28.086 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [→] POST /api/design | correlationId=e18a2ad4-fdfa-4250-9d08-281355b7d6b1
+2026-02-25 21:43:28.116 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [←] POST /api/design | status=200 | time=30ms | correlationId=e18a2ad4-fdfa-4250-9d08-281355b7d6b1
+2026-02-25 21:43:30.945 [reactor-http-epoll-3] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 8a2cb4e1-60ff-466f-bf7f-cfcda2706667
+2026-02-25 21:43:30.946 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=8a2cb4e1-60ff-466f-bf7f-cfcda2706667
+2026-02-25 21:43:30.948 [reactor-http-epoll-3] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [fcb62428-28]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:43:31.247 [reactor-http-epoll-3] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: bb8c83ac-22a6-42b9-a425-93c1cd262e9b
+2026-02-25 21:43:31.247 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=bb8c83ac-22a6-42b9-a425-93c1cd262e9b
+2026-02-25 21:43:31.249 [reactor-http-epoll-3] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [fcb62428-29]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:43:43.944 [reactor-http-epoll-7] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 72c97eb5-7884-4866-8723-b0428921ad59
+2026-02-25 21:43:43.944 [reactor-http-epoll-7] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/users | correlationId=72c97eb5-7884-4866-8723-b0428921ad59
+2026-02-25 21:43:43.948 [reactor-http-epoll-7] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [a1639a50-31]  500 Server Error for HTTP GET "/api/chat/users"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/users" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:52:50.321 [reactor-http-epoll-12] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 44efad84-9a9b-4f93-ba0d-c6001a1bb746
+2026-02-25 21:52:50.322 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/security/my/menus | correlationId=44efad84-9a9b-4f93-ba0d-c6001a1bb746
+2026-02-25 21:52:50.340 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/security/my/menus | status=401 | time=18ms | correlationId=44efad84-9a9b-4f93-ba0d-c6001a1bb746
+2026-02-25 21:52:50.358 [reactor-http-epoll-3] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 21a25d86-91d7-4f07-a8d4-ddb08c6ab3c2
+2026-02-25 21:52:50.358 [reactor-http-epoll-4] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: af0d21d7-af2f-42e3-b514-0ed9df1390e2
+2026-02-25 21:52:50.358 [reactor-http-epoll-4] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=af0d21d7-af2f-42e3-b514-0ed9df1390e2
+2026-02-25 21:52:50.358 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/auth/profile | correlationId=21a25d86-91d7-4f07-a8d4-ddb08c6ab3c2
+2026-02-25 21:52:50.362 [reactor-http-epoll-11] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 4b9c5896-6b18-4ea5-9625-746b6b60e8af
+2026-02-25 21:52:50.362 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=4b9c5896-6b18-4ea5-9625-746b6b60e8af
+2026-02-25 21:52:50.364 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 85661320-b05f-4ea7-b24b-29ce2b51db99
+2026-02-25 21:52:50.364 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/security/my/menus | correlationId=85661320-b05f-4ea7-b24b-29ce2b51db99
+2026-02-25 21:52:50.388 [reactor-http-epoll-4] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=401 | time=30ms | correlationId=af0d21d7-af2f-42e3-b514-0ed9df1390e2
+2026-02-25 21:52:50.389 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/security/my/menus | status=401 | time=25ms | correlationId=85661320-b05f-4ea7-b24b-29ce2b51db99
+2026-02-25 21:52:50.390 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=401 | time=28ms | correlationId=4b9c5896-6b18-4ea5-9625-746b6b60e8af
+2026-02-25 21:52:50.404 [reactor-http-epoll-12] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: fd622644-7b07-4bc7-92e7-0117977be736
+2026-02-25 21:52:50.417 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/auth/profile | correlationId=fd622644-7b07-4bc7-92e7-0117977be736
+2026-02-25 21:52:50.427 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/auth/profile | status=401 | time=10ms | correlationId=fd622644-7b07-4bc7-92e7-0117977be736
+2026-02-25 21:52:50.446 [reactor-http-epoll-5] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 1817ea81-12c6-4c4d-9ea4-c7ff5d2c2a0e
+2026-02-25 21:52:50.447 [reactor-http-epoll-5] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /uploads/images/design/favicon_7b29cf69-b0cd-4d49-a825-1d7b12ea9fe1.png | correlationId=1817ea81-12c6-4c4d-9ea4-c7ff5d2c2a0e
+2026-02-25 21:52:50.460 [reactor-http-epoll-5] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /uploads/images/design/favicon_7b29cf69-b0cd-4d49-a825-1d7b12ea9fe1.png | status=200 | time=13ms | correlationId=1817ea81-12c6-4c4d-9ea4-c7ff5d2c2a0e
+2026-02-25 21:52:52.237 [reactor-http-epoll-12] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: b4bd7894-8ae0-4c71-bfae-0c8bf25c014d
+2026-02-25 21:52:52.237 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [→] POST /api/sessions/close-self | correlationId=b4bd7894-8ae0-4c71-bfae-0c8bf25c014d
+2026-02-25 21:52:52.245 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [←] POST /api/sessions/close-self | status=401 | time=8ms | correlationId=b4bd7894-8ae0-4c71-bfae-0c8bf25c014d
+2026-02-25 21:52:52.263 [reactor-http-epoll-12] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: da854c71-226a-47c1-9290-100614285d91
+2026-02-25 21:52:52.263 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [→] POST /api/auth/logout | correlationId=da854c71-226a-47c1-9290-100614285d91
+2026-02-25 21:52:52.270 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [←] POST /api/auth/logout | status=401 | time=6ms | correlationId=da854c71-226a-47c1-9290-100614285d91
+2026-02-25 21:52:59.695 [reactor-http-epoll-12] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: c22437e4-3240-435f-af58-a907b50ae080
+2026-02-25 21:52:59.695 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [→] POST /api/auth/login | correlationId=c22437e4-3240-435f-af58-a907b50ae080
+2026-02-25 21:52:59.814 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [←] POST /api/auth/login | status=200 | time=119ms | correlationId=c22437e4-3240-435f-af58-a907b50ae080
+2026-02-25 21:52:59.822 [reactor-http-epoll-12] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 888a4eb1-152f-45fb-b2e7-c802b7381d5e
+2026-02-25 21:52:59.822 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=888a4eb1-152f-45fb-b2e7-c802b7381d5e
+2026-02-25 21:52:59.833 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=11ms | correlationId=888a4eb1-152f-45fb-b2e7-c802b7381d5e
+2026-02-25 21:53:00.953 [reactor-http-epoll-2] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 1e9d5ef6-87c6-44c3-8567-1c31901f2043
+2026-02-25 21:53:00.953 [reactor-http-epoll-2] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/auth/profile | correlationId=1e9d5ef6-87c6-44c3-8567-1c31901f2043
+2026-02-25 21:53:00.961 [reactor-http-epoll-3] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 15adb2a4-ee56-4473-86e3-26c6f04d4f6b
+2026-02-25 21:53:00.961 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/security/my/menus | correlationId=15adb2a4-ee56-4473-86e3-26c6f04d4f6b
+2026-02-25 21:53:00.974 [reactor-http-epoll-2] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/auth/profile | status=200 | time=21ms | correlationId=1e9d5ef6-87c6-44c3-8567-1c31901f2043
+2026-02-25 21:53:00.977 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 0e305a7e-4b2d-4db3-8a85-4cdb44b858e9
+2026-02-25 21:53:00.977 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/auth/profile | correlationId=0e305a7e-4b2d-4db3-8a85-4cdb44b858e9
+2026-02-25 21:53:00.995 [reactor-http-epoll-6] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: ca9664fe-e6a2-4c2d-a677-7ec18a88547d
+2026-02-25 21:53:00.996 [reactor-http-epoll-6] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /uploads/images/profiles/6083efc2-2f49-4291-9cde-1ee60cc5ffe3.png | correlationId=ca9664fe-e6a2-4c2d-a677-7ec18a88547d
+2026-02-25 21:53:00.998 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/auth/profile | status=200 | time=21ms | correlationId=0e305a7e-4b2d-4db3-8a85-4cdb44b858e9
+2026-02-25 21:53:01.001 [reactor-http-epoll-2] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 39064617-c6b3-40cc-8a8a-5ca77995d982
+2026-02-25 21:53:01.002 [reactor-http-epoll-2] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/auth/profile | correlationId=39064617-c6b3-40cc-8a8a-5ca77995d982
+2026-02-25 21:53:01.011 [reactor-http-epoll-6] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /uploads/images/profiles/6083efc2-2f49-4291-9cde-1ee60cc5ffe3.png | status=200 | time=15ms | correlationId=ca9664fe-e6a2-4c2d-a677-7ec18a88547d
+2026-02-25 21:53:01.018 [reactor-http-epoll-2] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/auth/profile | status=200 | time=16ms | correlationId=39064617-c6b3-40cc-8a8a-5ca77995d982
+2026-02-25 21:53:01.022 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: d8305366-1a25-411a-8ff7-1174e322478e
+2026-02-25 21:53:01.022 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/auth/profile | correlationId=d8305366-1a25-411a-8ff7-1174e322478e
+2026-02-25 21:53:01.043 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/auth/profile | status=200 | time=21ms | correlationId=d8305366-1a25-411a-8ff7-1174e322478e
+2026-02-25 21:53:01.113 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/security/my/menus | status=200 | time=152ms | correlationId=15adb2a4-ee56-4473-86e3-26c6f04d4f6b
+2026-02-25 21:53:01.121 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 20b7b57c-bf0d-4177-8f59-461301efa9db
+2026-02-25 21:53:01.121 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/security/my/menus | correlationId=20b7b57c-bf0d-4177-8f59-461301efa9db
+2026-02-25 21:53:01.279 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/security/my/menus | status=200 | time=158ms | correlationId=20b7b57c-bf0d-4177-8f59-461301efa9db
+2026-02-25 21:53:04.750 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 174bb502-7b2a-48ac-96df-e6695ed58255
+2026-02-25 21:53:04.751 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=174bb502-7b2a-48ac-96df-e6695ed58255
+2026-02-25 21:53:04.753 [reactor-http-epoll-1] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [4e217360-68]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:53:05.107 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 57201ab8-8c47-4379-a39f-70ac886d3a83
+2026-02-25 21:53:05.108 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=57201ab8-8c47-4379-a39f-70ac886d3a83
+2026-02-25 21:53:05.118 [reactor-http-epoll-1] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [4e217360-69]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:53:07.524 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: ae65a12e-f0c9-489d-a4a0-149b8f8c0843
+2026-02-25 21:53:07.524 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=ae65a12e-f0c9-489d-a4a0-149b8f8c0843
+2026-02-25 21:53:07.528 [reactor-http-epoll-1] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [4e217360-70]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:53:07.597 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 733b66a1-ad7d-48f0-93ce-c9f38b04da0b
+2026-02-25 21:53:07.597 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=733b66a1-ad7d-48f0-93ce-c9f38b04da0b
+2026-02-25 21:53:07.601 [reactor-http-epoll-1] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [4e217360-71]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:53:07.767 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 6f054eb9-c947-4191-88fa-0fcc51bcd942
+2026-02-25 21:53:07.767 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/auth/profile | correlationId=6f054eb9-c947-4191-88fa-0fcc51bcd942
+2026-02-25 21:53:07.786 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/auth/profile | status=200 | time=19ms | correlationId=6f054eb9-c947-4191-88fa-0fcc51bcd942
+2026-02-25 21:53:07.792 [reactor-http-epoll-3] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: bcd0ab3b-cccb-4f1c-b457-a1dd7bd3b643
+2026-02-25 21:53:07.792 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/auth/profile | correlationId=bcd0ab3b-cccb-4f1c-b457-a1dd7bd3b643
+2026-02-25 21:53:07.814 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/auth/profile | status=200 | time=22ms | correlationId=bcd0ab3b-cccb-4f1c-b457-a1dd7bd3b643
+2026-02-25 21:53:07.836 [reactor-http-epoll-3] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 9327bc76-a89d-4c9a-af39-3f2978a1e13d
+2026-02-25 21:53:07.837 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=9327bc76-a89d-4c9a-af39-3f2978a1e13d
+2026-02-25 21:53:07.838 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 5439dcc9-7d69-4997-8829-47cc0b446eb7
+2026-02-25 21:53:07.838 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=5439dcc9-7d69-4997-8829-47cc0b446eb7
+2026-02-25 21:53:07.855 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=19ms | correlationId=9327bc76-a89d-4c9a-af39-3f2978a1e13d
+2026-02-25 21:53:07.855 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=17ms | correlationId=5439dcc9-7d69-4997-8829-47cc0b446eb7
+2026-02-25 21:53:17.913 [reactor-http-epoll-3] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 7432ff07-8fcb-4fa3-9394-d233bdb4f2c8
+2026-02-25 21:53:17.913 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/security/my/menus | correlationId=7432ff07-8fcb-4fa3-9394-d233bdb4f2c8
+2026-02-25 21:53:17.913 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 4c816662-0462-4061-b40d-b6a1b8006c7e
+2026-02-25 21:53:17.914 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/auth/profile | correlationId=4c816662-0462-4061-b40d-b6a1b8006c7e
+2026-02-25 21:53:17.933 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/auth/profile | status=200 | time=19ms | correlationId=4c816662-0462-4061-b40d-b6a1b8006c7e
+2026-02-25 21:53:17.956 [reactor-http-epoll-4] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: c98ac98a-a800-49cc-9345-44d0c4fe93c1
+2026-02-25 21:53:17.957 [reactor-http-epoll-4] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/auth/profile | correlationId=c98ac98a-a800-49cc-9345-44d0c4fe93c1
+2026-02-25 21:53:17.956 [reactor-http-epoll-12] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 9916b67d-3626-49e0-a6a5-4afa1a3ad5eb
+2026-02-25 21:53:17.959 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=9916b67d-3626-49e0-a6a5-4afa1a3ad5eb
+2026-02-25 21:53:17.971 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 3bba013a-87ac-431c-a0e7-e230950d853f
+2026-02-25 21:53:17.971 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=3bba013a-87ac-431c-a0e7-e230950d853f
+2026-02-25 21:53:17.982 [reactor-http-epoll-4] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/auth/profile | status=200 | time=25ms | correlationId=c98ac98a-a800-49cc-9345-44d0c4fe93c1
+2026-02-25 21:53:18.002 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=43ms | correlationId=9916b67d-3626-49e0-a6a5-4afa1a3ad5eb
+2026-02-25 21:53:18.019 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=48ms | correlationId=3bba013a-87ac-431c-a0e7-e230950d853f
+2026-02-25 21:53:18.161 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/security/my/menus | status=200 | time=248ms | correlationId=7432ff07-8fcb-4fa3-9394-d233bdb4f2c8
+2026-02-25 21:53:18.164 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 8926066e-8d5b-4f7b-bcf0-8edf04187249
+2026-02-25 21:53:18.164 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/security/my/menus | correlationId=8926066e-8d5b-4f7b-bcf0-8edf04187249
+2026-02-25 21:53:18.221 [reactor-http-epoll-7] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 75f109ca-e20c-48a5-ac7c-b2e9f4ffa025
+2026-02-25 21:53:18.221 [reactor-http-epoll-7] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /uploads/images/profiles/6083efc2-2f49-4291-9cde-1ee60cc5ffe3.png | correlationId=75f109ca-e20c-48a5-ac7c-b2e9f4ffa025
+2026-02-25 21:53:18.253 [reactor-http-epoll-7] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /uploads/images/profiles/6083efc2-2f49-4291-9cde-1ee60cc5ffe3.png | status=200 | time=32ms | correlationId=75f109ca-e20c-48a5-ac7c-b2e9f4ffa025
+2026-02-25 21:53:18.355 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/security/my/menus | status=200 | time=191ms | correlationId=8926066e-8d5b-4f7b-bcf0-8edf04187249
+2026-02-25 21:53:22.410 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: a8c7bf25-9501-4795-9ec4-fbac80522ce1
+2026-02-25 21:53:22.410 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=a8c7bf25-9501-4795-9ec4-fbac80522ce1
+2026-02-25 21:53:22.412 [reactor-http-epoll-1] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [4e217360-93]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:53:22.878 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 1904ab97-387f-4436-8ba3-ccf6d0349219
+2026-02-25 21:53:22.878 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=1904ab97-387f-4436-8ba3-ccf6d0349219
+2026-02-25 21:53:22.881 [reactor-http-epoll-1] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [4e217360-94]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:53:25.120 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: e2df0e7b-dfb2-4bad-9af0-9821cf5ed46c
+2026-02-25 21:53:25.120 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=e2df0e7b-dfb2-4bad-9af0-9821cf5ed46c
+2026-02-25 21:53:25.136 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=16ms | correlationId=e2df0e7b-dfb2-4bad-9af0-9821cf5ed46c
+2026-02-25 21:53:25.290 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: bd6a2d38-36c3-4214-b294-9788f8ef895c
+2026-02-25 21:53:25.290 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/preferences | correlationId=bd6a2d38-36c3-4214-b294-9788f8ef895c
+2026-02-25 21:53:25.292 [reactor-http-epoll-1] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [4e217360-98]  500 Server Error for HTTP GET "/api/chat/preferences"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/preferences" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:53:37.778 [reactor-http-epoll-12] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: ec9ff5a2-b2d0-440b-a5b2-32b3288fe45d
+2026-02-25 21:53:37.779 [reactor-http-epoll-2] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: e249b81f-76fd-46c3-80b5-f5c824162f3b
+2026-02-25 21:53:37.779 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 336fb286-75fc-4b3a-9b24-3e7b97e839b6
+2026-02-25 21:53:37.779 [reactor-http-epoll-2] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=e249b81f-76fd-46c3-80b5-f5c824162f3b
+2026-02-25 21:53:37.779 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/security/my/menus | correlationId=ec9ff5a2-b2d0-440b-a5b2-32b3288fe45d
+2026-02-25 21:53:37.779 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/auth/profile | correlationId=336fb286-75fc-4b3a-9b24-3e7b97e839b6
+2026-02-25 21:53:37.800 [reactor-http-epoll-2] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=21ms | correlationId=e249b81f-76fd-46c3-80b5-f5c824162f3b
+2026-02-25 21:53:37.807 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/auth/profile | status=200 | time=28ms | correlationId=336fb286-75fc-4b3a-9b24-3e7b97e839b6
+2026-02-25 21:53:37.817 [reactor-http-epoll-11] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 225356c2-8c36-4e25-b240-19042e7b4885
+2026-02-25 21:53:37.818 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/auth/profile | correlationId=225356c2-8c36-4e25-b240-19042e7b4885
+2026-02-25 21:53:37.821 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 4cb4f15a-c3fe-45be-bf54-5fb6edfb81bd
+2026-02-25 21:53:37.821 [reactor-http-epoll-10] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 70e28006-9dcc-4b39-b988-0b2d533f6b71
+2026-02-25 21:53:37.821 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/security/my/menus | correlationId=4cb4f15a-c3fe-45be-bf54-5fb6edfb81bd
+2026-02-25 21:53:37.821 [reactor-http-epoll-10] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=70e28006-9dcc-4b39-b988-0b2d533f6b71
+2026-02-25 21:53:37.832 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/auth/profile | status=200 | time=14ms | correlationId=225356c2-8c36-4e25-b240-19042e7b4885
+2026-02-25 21:53:37.838 [reactor-http-epoll-10] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=16ms | correlationId=70e28006-9dcc-4b39-b988-0b2d533f6b71
+2026-02-25 21:53:37.954 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/security/my/menus | status=200 | time=175ms | correlationId=ec9ff5a2-b2d0-440b-a5b2-32b3288fe45d
+2026-02-25 21:53:37.972 [reactor-http-epoll-3] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: de4cb944-d1d2-4e53-8b03-ca6f058e51e9
+2026-02-25 21:53:37.973 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /uploads/images/profiles/145b4b17-ac1a-4947-8df0-ddd3e465c799.jpeg | correlationId=de4cb944-d1d2-4e53-8b03-ca6f058e51e9
+2026-02-25 21:53:37.987 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /uploads/images/profiles/145b4b17-ac1a-4947-8df0-ddd3e465c799.jpeg | status=200 | time=14ms | correlationId=de4cb944-d1d2-4e53-8b03-ca6f058e51e9
+2026-02-25 21:53:38.048 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/security/my/menus | status=200 | time=227ms | correlationId=4cb4f15a-c3fe-45be-bf54-5fb6edfb81bd
+2026-02-25 21:53:39.091 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 4d86d587-265d-47f1-a897-af6e6a868e09
+2026-02-25 21:53:39.092 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=4d86d587-265d-47f1-a897-af6e6a868e09
+2026-02-25 21:53:39.095 [reactor-http-epoll-9] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [4ac2d145-114]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:53:39.456 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: d9b8a5f6-2f05-4547-8e87-f7be60b15424
+2026-02-25 21:53:39.456 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=d9b8a5f6-2f05-4547-8e87-f7be60b15424
+2026-02-25 21:53:39.459 [reactor-http-epoll-9] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [4ac2d145-115]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:53:42.925 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: d646fafe-591c-4ba6-b7ea-8f4b4675579e
+2026-02-25 21:53:42.926 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=d646fafe-591c-4ba6-b7ea-8f4b4675579e
+2026-02-25 21:53:42.943 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=17ms | correlationId=d646fafe-591c-4ba6-b7ea-8f4b4675579e
+2026-02-25 21:53:43.146 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 9c354a21-ae42-4876-8061-b87e002e6c87
+2026-02-25 21:53:43.147 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/preferences | correlationId=9c354a21-ae42-4876-8061-b87e002e6c87
+2026-02-25 21:53:43.150 [reactor-http-epoll-9] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [4ac2d145-119]  500 Server Error for HTTP GET "/api/chat/preferences"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/preferences" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:55:07.339 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 3e8fd44e-86f9-45d9-b433-967d6dce3898
+2026-02-25 21:55:07.340 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/security/my/menus | correlationId=3e8fd44e-86f9-45d9-b433-967d6dce3898
+2026-02-25 21:55:07.344 [reactor-http-epoll-2] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: d1ed776a-13c4-48f5-b9e2-e0384d421d46
+2026-02-25 21:55:07.349 [reactor-http-epoll-2] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/auth/profile | correlationId=d1ed776a-13c4-48f5-b9e2-e0384d421d46
+2026-02-25 21:55:07.354 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 1bf8cf43-5126-45fb-97a2-74c366f50423
+2026-02-25 21:55:07.355 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/security/my/menus | correlationId=1bf8cf43-5126-45fb-97a2-74c366f50423
+2026-02-25 21:55:07.364 [reactor-http-epoll-10] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 6c580637-714f-43de-b0d6-a9ec28b3d2c5
+2026-02-25 21:55:07.364 [reactor-http-epoll-10] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=6c580637-714f-43de-b0d6-a9ec28b3d2c5
+2026-02-25 21:55:07.364 [reactor-http-epoll-11] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: e654b4f6-5c66-45ec-8cfe-12e7d711ccc0
+2026-02-25 21:55:07.372 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/auth/profile | correlationId=e654b4f6-5c66-45ec-8cfe-12e7d711ccc0
+2026-02-25 21:55:07.376 [reactor-http-epoll-12] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 7d89ef3e-ac65-4b71-ae35-545c43c5c2a8
+2026-02-25 21:55:07.377 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=7d89ef3e-ac65-4b71-ae35-545c43c5c2a8
+2026-02-25 21:55:07.381 [reactor-http-epoll-2] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/auth/profile | status=200 | time=32ms | correlationId=d1ed776a-13c4-48f5-b9e2-e0384d421d46
+2026-02-25 21:55:07.399 [reactor-http-epoll-10] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=35ms | correlationId=6c580637-714f-43de-b0d6-a9ec28b3d2c5
+2026-02-25 21:55:07.401 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=24ms | correlationId=7d89ef3e-ac65-4b71-ae35-545c43c5c2a8
+2026-02-25 21:55:07.401 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/auth/profile | status=200 | time=29ms | correlationId=e654b4f6-5c66-45ec-8cfe-12e7d711ccc0
+2026-02-25 21:55:07.526 [reactor-http-epoll-4] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: c152aeb2-7a91-441b-b790-799257c8ad73
+2026-02-25 21:55:07.526 [reactor-http-epoll-4] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /uploads/images/profiles/145b4b17-ac1a-4947-8df0-ddd3e465c799.jpeg | correlationId=c152aeb2-7a91-441b-b790-799257c8ad73
+2026-02-25 21:55:07.550 [reactor-http-epoll-4] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /uploads/images/profiles/145b4b17-ac1a-4947-8df0-ddd3e465c799.jpeg | status=200 | time=24ms | correlationId=c152aeb2-7a91-441b-b790-799257c8ad73
+2026-02-25 21:55:07.559 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/security/my/menus | status=200 | time=219ms | correlationId=3e8fd44e-86f9-45d9-b433-967d6dce3898
+2026-02-25 21:55:07.592 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/security/my/menus | status=200 | time=237ms | correlationId=1bf8cf43-5126-45fb-97a2-74c366f50423
+2026-02-25 21:55:08.519 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 3f35e8c1-9af3-4223-aee7-f3f62ab217e9
+2026-02-25 21:55:08.520 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=3f35e8c1-9af3-4223-aee7-f3f62ab217e9
+2026-02-25 21:55:08.523 [reactor-http-epoll-9] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [4ac2d145-135]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:55:08.828 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: bca8e6ab-fac8-41e8-af6a-ccf5ff367e30
+2026-02-25 21:55:08.828 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=bca8e6ab-fac8-41e8-af6a-ccf5ff367e30
+2026-02-25 21:55:08.830 [reactor-http-epoll-9] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [4ac2d145-136]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:55:13.260 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 5e5ebd64-b5e7-412a-b04f-da5f112ea9d8
+2026-02-25 21:55:13.260 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=5e5ebd64-b5e7-412a-b04f-da5f112ea9d8
+2026-02-25 21:55:13.262 [reactor-http-epoll-9] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [4ac2d145-137]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:55:13.289 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: de768c15-2bf3-48dc-a757-79468b1854ae
+2026-02-25 21:55:13.290 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=de768c15-2bf3-48dc-a757-79468b1854ae
+2026-02-25 21:55:13.293 [reactor-http-epoll-9] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [4ac2d145-138]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:55:14.964 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 1a05dab4-24be-40bd-9424-5642943dadc8
+2026-02-25 21:55:14.966 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 7affced9-17d7-45c4-a876-b5d28bc89dfe
+2026-02-25 21:55:14.967 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=7affced9-17d7-45c4-a876-b5d28bc89dfe
+2026-02-25 21:55:14.968 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=1a05dab4-24be-40bd-9424-5642943dadc8
+2026-02-25 21:55:14.990 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=22ms | correlationId=7affced9-17d7-45c4-a876-b5d28bc89dfe
+2026-02-25 21:55:15.007 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=39ms | correlationId=1a05dab4-24be-40bd-9424-5642943dadc8
+2026-02-25 21:55:18.164 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 88ed4cde-4950-4af0-9c80-11f6105c5003
+2026-02-25 21:55:18.164 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/security/my/menus | correlationId=88ed4cde-4950-4af0-9c80-11f6105c5003
+2026-02-25 21:55:18.180 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 6e782231-5945-45e7-9ea5-dba8db5a5b6c
+2026-02-25 21:55:18.182 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/auth/profile | correlationId=6e782231-5945-45e7-9ea5-dba8db5a5b6c
+2026-02-25 21:55:18.173 [reactor-http-epoll-12] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: e031cdef-a447-4671-b3fc-8d5fd3833011
+2026-02-25 21:55:18.186 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=e031cdef-a447-4671-b3fc-8d5fd3833011
+2026-02-25 21:55:18.192 [reactor-http-epoll-11] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: ce6a5657-8380-48db-82f5-570585b0f0a2
+2026-02-25 21:55:18.193 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/security/my/menus | correlationId=ce6a5657-8380-48db-82f5-570585b0f0a2
+2026-02-25 21:55:18.203 [reactor-http-epoll-10] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: df84903b-a0d5-42d0-a932-24b4f5cca2c6
+2026-02-25 21:55:18.227 [reactor-http-epoll-10] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/auth/profile | correlationId=df84903b-a0d5-42d0-a932-24b4f5cca2c6
+2026-02-25 21:55:18.205 [reactor-http-epoll-2] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: d8dda5f7-fca1-468d-9e14-9607516e9ac0
+2026-02-25 21:55:18.237 [reactor-http-epoll-2] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=d8dda5f7-fca1-468d-9e14-9607516e9ac0
+2026-02-25 21:55:18.241 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=55ms | correlationId=e031cdef-a447-4671-b3fc-8d5fd3833011
+2026-02-25 21:55:18.245 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/auth/profile | status=200 | time=63ms | correlationId=6e782231-5945-45e7-9ea5-dba8db5a5b6c
+2026-02-25 21:55:18.264 [reactor-http-epoll-10] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/auth/profile | status=200 | time=37ms | correlationId=df84903b-a0d5-42d0-a932-24b4f5cca2c6
+2026-02-25 21:55:18.301 [reactor-http-epoll-2] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=64ms | correlationId=d8dda5f7-fca1-468d-9e14-9607516e9ac0
+2026-02-25 21:55:18.419 [reactor-http-epoll-5] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: b6c14b74-2bd7-44f8-9263-27b2d4e71b08
+2026-02-25 21:55:18.419 [reactor-http-epoll-5] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /uploads/images/profiles/145b4b17-ac1a-4947-8df0-ddd3e465c799.jpeg | correlationId=b6c14b74-2bd7-44f8-9263-27b2d4e71b08
+2026-02-25 21:55:18.430 [reactor-http-epoll-5] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /uploads/images/profiles/145b4b17-ac1a-4947-8df0-ddd3e465c799.jpeg | status=200 | time=11ms | correlationId=b6c14b74-2bd7-44f8-9263-27b2d4e71b08
+2026-02-25 21:55:18.481 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/security/my/menus | status=200 | time=317ms | correlationId=88ed4cde-4950-4af0-9c80-11f6105c5003
+2026-02-25 21:55:18.486 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/security/my/menus | status=200 | time=293ms | correlationId=ce6a5657-8380-48db-82f5-570585b0f0a2
+2026-02-25 21:55:19.391 [reactor-http-epoll-11] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: e858cb7c-8348-437e-853e-9ef591dd0b46
+2026-02-25 21:55:19.391 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=e858cb7c-8348-437e-853e-9ef591dd0b46
+2026-02-25 21:55:19.392 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 9432d2f0-97bf-4f09-8520-e2b40849698a
+2026-02-25 21:55:19.392 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=9432d2f0-97bf-4f09-8520-e2b40849698a
+2026-02-25 21:55:19.394 [reactor-http-epoll-1] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [869e44f7-158]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:55:19.405 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=14ms | correlationId=e858cb7c-8348-437e-853e-9ef591dd0b46
+2026-02-25 21:55:19.664 [reactor-http-epoll-11] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: f7c62871-2abd-4dac-8cc8-c28d04601a23
+2026-02-25 21:55:19.664 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 0516028e-48dc-432b-aff9-3e9dc8f3f13a
+2026-02-25 21:55:19.665 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=f7c62871-2abd-4dac-8cc8-c28d04601a23
+2026-02-25 21:55:19.665 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=0516028e-48dc-432b-aff9-3e9dc8f3f13a
+2026-02-25 21:55:19.668 [reactor-http-epoll-1] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [869e44f7-160]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:55:19.683 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=18ms | correlationId=f7c62871-2abd-4dac-8cc8-c28d04601a23
+2026-02-25 21:55:19.786 [reactor-http-epoll-11] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: b60665a9-2204-49bf-be89-5eac75343ab0
+2026-02-25 21:55:19.787 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/preferences | correlationId=b60665a9-2204-49bf-be89-5eac75343ab0
+2026-02-25 21:55:19.797 [reactor-http-epoll-11] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [a7ae5cb8-162]  500 Server Error for HTTP GET "/api/chat/preferences"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/preferences" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:55:19.868 [reactor-http-epoll-11] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: c0885471-718d-49a5-92b9-924d02da039f
+2026-02-25 21:55:19.868 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/preferences | correlationId=c0885471-718d-49a5-92b9-924d02da039f
+2026-02-25 21:55:19.870 [reactor-http-epoll-11] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [a7ae5cb8-163]  500 Server Error for HTTP GET "/api/chat/preferences"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/preferences" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:55:53.061 [reactor-http-epoll-11] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: e2d8ccf1-2973-4a45-9e42-895228e233c9
+2026-02-25 21:55:53.061 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/security/my/menus | correlationId=e2d8ccf1-2973-4a45-9e42-895228e233c9
+2026-02-25 21:55:53.235 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/security/my/menus | status=200 | time=174ms | correlationId=e2d8ccf1-2973-4a45-9e42-895228e233c9
+2026-02-25 21:56:01.596 [reactor-http-epoll-11] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: a29e9ec3-dd9d-4702-ac3e-ff90ebc87848
+2026-02-25 21:56:01.597 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=a29e9ec3-dd9d-4702-ac3e-ff90ebc87848
+2026-02-25 21:56:01.599 [reactor-http-epoll-11] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [a7ae5cb8-167]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:56:01.842 [reactor-http-epoll-11] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: b98bcb7c-6aa2-4063-a4e2-2928d5c6da9f
+2026-02-25 21:56:01.842 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=b98bcb7c-6aa2-4063-a4e2-2928d5c6da9f
+2026-02-25 21:56:01.844 [reactor-http-epoll-11] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [a7ae5cb8-168]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:56:03.922 [reactor-http-epoll-11] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: b9f11c21-6194-4541-95b8-521ff062dda8
+2026-02-25 21:56:03.923 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=b9f11c21-6194-4541-95b8-521ff062dda8
+2026-02-25 21:56:03.935 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=12ms | correlationId=b9f11c21-6194-4541-95b8-521ff062dda8
+2026-02-25 21:56:04.047 [reactor-http-epoll-11] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: d43a86d3-50a7-48be-84ed-f7aaafee7eb2
+2026-02-25 21:56:04.048 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/preferences | correlationId=d43a86d3-50a7-48be-84ed-f7aaafee7eb2
+2026-02-25 21:56:04.052 [reactor-http-epoll-11] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [a7ae5cb8-172]  500 Server Error for HTTP GET "/api/chat/preferences"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/preferences" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:56:08.071 [reactor-http-epoll-11] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: ee863060-97f4-4573-aa7e-40a0793e98b9
+2026-02-25 21:56:08.071 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [→] POST /api/chat/preferences | correlationId=ee863060-97f4-4573-aa7e-40a0793e98b9
+2026-02-25 21:56:08.082 [reactor-http-epoll-11] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [a7ae5cb8-174]  500 Server Error for HTTP POST "/api/chat/preferences"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP POST "/api/chat/preferences" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:56:11.995 [reactor-http-epoll-11] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 7c20b523-3d84-4d64-ae5e-ba445e602586
+2026-02-25 21:56:11.995 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [→] POST /api/chat/preferences | correlationId=7c20b523-3d84-4d64-ae5e-ba445e602586
+2026-02-25 21:56:11.997 [reactor-http-epoll-11] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [a7ae5cb8-175]  500 Server Error for HTTP POST "/api/chat/preferences"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP POST "/api/chat/preferences" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:56:25.014 [reactor-http-epoll-10] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 69b28765-d716-4680-9ac2-0cf0dc8471cf
+2026-02-25 21:56:25.014 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 5da3494d-ddb4-45c4-a926-d09f87ed784d
+2026-02-25 21:56:25.014 [reactor-http-epoll-10] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/auth/profile | correlationId=69b28765-d716-4680-9ac2-0cf0dc8471cf
+2026-02-25 21:56:25.014 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/auth/profile | correlationId=5da3494d-ddb4-45c4-a926-d09f87ed784d
+2026-02-25 21:56:25.019 [reactor-http-epoll-11] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 470ae4bb-94a7-4d1f-8a4e-8aa9480b2f5b
+2026-02-25 21:56:25.019 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/security/my/menus | correlationId=470ae4bb-94a7-4d1f-8a4e-8aa9480b2f5b
+2026-02-25 21:56:25.019 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 9e42434c-842b-4668-ad79-f657192cfb78
+2026-02-25 21:56:25.020 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/security/my/menus | correlationId=9e42434c-842b-4668-ad79-f657192cfb78
+2026-02-25 21:56:25.021 [reactor-http-epoll-12] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 937fea47-2617-459a-942e-3ae019c2e150
+2026-02-25 21:56:25.021 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=937fea47-2617-459a-942e-3ae019c2e150
+2026-02-25 21:56:25.031 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/auth/profile | status=200 | time=17ms | correlationId=5da3494d-ddb4-45c4-a926-d09f87ed784d
+2026-02-25 21:56:25.036 [reactor-http-epoll-10] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/auth/profile | status=200 | time=22ms | correlationId=69b28765-d716-4680-9ac2-0cf0dc8471cf
+2026-02-25 21:56:25.046 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=25ms | correlationId=937fea47-2617-459a-942e-3ae019c2e150
+2026-02-25 21:56:25.056 [reactor-http-epoll-2] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 0a56a66a-3f0a-43f6-a515-d7b15021c82d
+2026-02-25 21:56:25.056 [reactor-http-epoll-2] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=0a56a66a-3f0a-43f6-a515-d7b15021c82d
+2026-02-25 21:56:25.082 [reactor-http-epoll-2] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=26ms | correlationId=0a56a66a-3f0a-43f6-a515-d7b15021c82d
+2026-02-25 21:56:25.140 [reactor-http-epoll-6] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 9c6083b9-8c9f-47ca-94f3-3593f3ccd287
+2026-02-25 21:56:25.140 [reactor-http-epoll-6] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /uploads/images/profiles/145b4b17-ac1a-4947-8df0-ddd3e465c799.jpeg | correlationId=9c6083b9-8c9f-47ca-94f3-3593f3ccd287
+2026-02-25 21:56:25.148 [reactor-http-epoll-6] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /uploads/images/profiles/145b4b17-ac1a-4947-8df0-ddd3e465c799.jpeg | status=200 | time=8ms | correlationId=9c6083b9-8c9f-47ca-94f3-3593f3ccd287
+2026-02-25 21:56:25.249 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/security/my/menus | status=200 | time=230ms | correlationId=470ae4bb-94a7-4d1f-8a4e-8aa9480b2f5b
+2026-02-25 21:56:25.252 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/security/my/menus | status=200 | time=232ms | correlationId=9e42434c-842b-4668-ad79-f657192cfb78
+2026-02-25 21:56:27.459 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: ffc8fa19-75a6-4607-af4c-bc25dbba5849
+2026-02-25 21:56:27.459 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=ffc8fa19-75a6-4607-af4c-bc25dbba5849
+2026-02-25 21:56:27.461 [reactor-http-epoll-9] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [4ac2d145-190]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:56:27.652 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: bcd96d3c-c0a8-40dd-b504-93bd6d67d013
+2026-02-25 21:56:27.652 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=bcd96d3c-c0a8-40dd-b504-93bd6d67d013
+2026-02-25 21:56:27.654 [reactor-http-epoll-9] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [4ac2d145-191]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:56:29.949 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 3d994e28-4338-47f9-b465-c907278f463e
+2026-02-25 21:56:29.950 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=3d994e28-4338-47f9-b465-c907278f463e
+2026-02-25 21:56:29.962 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=12ms | correlationId=3d994e28-4338-47f9-b465-c907278f463e
+2026-02-25 21:56:30.081 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 7f045b28-12cd-49ae-a3b7-af527006916f
+2026-02-25 21:56:30.081 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/preferences | correlationId=7f045b28-12cd-49ae-a3b7-af527006916f
+2026-02-25 21:56:30.083 [reactor-http-epoll-9] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [4ac2d145-195]  500 Server Error for HTTP GET "/api/chat/preferences"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/preferences" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:56:33.239 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: b6abab74-a06f-43c3-a706-7cdc911263de
+2026-02-25 21:56:33.239 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=b6abab74-a06f-43c3-a706-7cdc911263de
+2026-02-25 21:56:33.251 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=12ms | correlationId=b6abab74-a06f-43c3-a706-7cdc911263de
+2026-02-25 21:56:33.348 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: c72ee0d6-ed37-412b-85c4-02dc5ace9959
+2026-02-25 21:56:33.349 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/preferences | correlationId=c72ee0d6-ed37-412b-85c4-02dc5ace9959
+2026-02-25 21:56:33.352 [reactor-http-epoll-9] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [4ac2d145-197]  500 Server Error for HTTP GET "/api/chat/preferences"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/preferences" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:56:34.828 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 6683cead-fcd3-4f66-995e-2a5bc0505e46
+2026-02-25 21:56:34.828 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] POST /api/chat/preferences | correlationId=6683cead-fcd3-4f66-995e-2a5bc0505e46
+2026-02-25 21:56:34.831 [reactor-http-epoll-9] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [4ac2d145-199]  500 Server Error for HTTP POST "/api/chat/preferences"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP POST "/api/chat/preferences" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:56:39.723 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 1091da95-3d3c-47c2-b03c-53839c355b62
+2026-02-25 21:56:39.723 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=1091da95-3d3c-47c2-b03c-53839c355b62
+2026-02-25 21:56:39.741 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=18ms | correlationId=1091da95-3d3c-47c2-b03c-53839c355b62
+2026-02-25 21:56:39.772 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: be05b2f2-144e-4481-a97f-dd164a3e0397
+2026-02-25 21:56:39.772 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/preferences | correlationId=be05b2f2-144e-4481-a97f-dd164a3e0397
+2026-02-25 21:56:39.774 [reactor-http-epoll-9] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [4ac2d145-202]  500 Server Error for HTTP GET "/api/chat/preferences"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/preferences" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:56:42.444 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 1d2642c4-3e5c-4323-88ec-d1b6e6ba11e6
+2026-02-25 21:56:42.444 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] POST /api/chat/preferences | correlationId=1d2642c4-3e5c-4323-88ec-d1b6e6ba11e6
+2026-02-25 21:56:42.453 [reactor-http-epoll-9] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [4ac2d145-204]  500 Server Error for HTTP POST "/api/chat/preferences"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP POST "/api/chat/preferences" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:56:43.686 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: b55a74c6-7cee-4d74-89bf-9f14f486f2d7
+2026-02-25 21:56:43.686 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] POST /api/chat/preferences | correlationId=b55a74c6-7cee-4d74-89bf-9f14f486f2d7
+2026-02-25 21:56:43.688 [reactor-http-epoll-9] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [4ac2d145-205]  500 Server Error for HTTP POST "/api/chat/preferences"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP POST "/api/chat/preferences" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:56:44.301 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: cfff4464-e40a-48b0-b7a7-d435acb25b6e
+2026-02-25 21:56:44.301 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] POST /api/chat/preferences | correlationId=cfff4464-e40a-48b0-b7a7-d435acb25b6e
+2026-02-25 21:56:44.303 [reactor-http-epoll-9] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [4ac2d145-206]  500 Server Error for HTTP POST "/api/chat/preferences"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP POST "/api/chat/preferences" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 21:56:44.854 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: ea09d437-c640-4fc1-9e50-5e0dace89cc1
+2026-02-25 21:56:44.854 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] POST /api/chat/preferences | correlationId=ea09d437-c640-4fc1-9e50-5e0dace89cc1
+2026-02-25 21:56:44.862 [reactor-http-epoll-9] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [4ac2d145-207]  500 Server Error for HTTP POST "/api/chat/preferences"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP POST "/api/chat/preferences" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 22:13:25.573 [reactor-http-epoll-10] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 1c0c4c79-4cd3-4afd-8f70-fd2d27ffa8ef
+2026-02-25 22:13:25.574 [reactor-http-epoll-1] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 8bbeac56-1340-4a8b-bf3d-bb3075c2c612
+2026-02-25 22:13:25.574 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: cc58c0f7-0d27-41c4-9afa-a8dd8ec90c3f
+2026-02-25 22:13:25.574 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=cc58c0f7-0d27-41c4-9afa-a8dd8ec90c3f
+2026-02-25 22:13:25.574 [reactor-http-epoll-10] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/auth/profile | correlationId=1c0c4c79-4cd3-4afd-8f70-fd2d27ffa8ef
+2026-02-25 22:13:25.574 [reactor-http-epoll-8] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 7f630f0c-914e-4f24-b676-3bf23c2c2c18
+2026-02-25 22:13:25.574 [reactor-http-epoll-8] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=7f630f0c-914e-4f24-b676-3bf23c2c2c18
+2026-02-25 22:13:25.574 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/security/my/menus | correlationId=8bbeac56-1340-4a8b-bf3d-bb3075c2c612
+2026-02-25 22:13:25.576 [reactor-http-epoll-11] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 78331e34-66c8-4c8f-bb46-ac48220d1d34
+2026-02-25 22:13:25.577 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/auth/profile | correlationId=78331e34-66c8-4c8f-bb46-ac48220d1d34
+2026-02-25 22:13:25.578 [reactor-http-epoll-12] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 86cff18d-f57f-46d0-a01b-5e00c4f7b00c
+2026-02-25 22:13:25.578 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/security/my/menus | correlationId=86cff18d-f57f-46d0-a01b-5e00c4f7b00c
+2026-02-25 22:13:25.595 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/auth/profile | status=200 | time=18ms | correlationId=78331e34-66c8-4c8f-bb46-ac48220d1d34
+2026-02-25 22:13:25.595 [reactor-http-epoll-10] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/auth/profile | status=200 | time=21ms | correlationId=1c0c4c79-4cd3-4afd-8f70-fd2d27ffa8ef
+2026-02-25 22:13:25.598 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=24ms | correlationId=cc58c0f7-0d27-41c4-9afa-a8dd8ec90c3f
+2026-02-25 22:13:25.599 [reactor-http-epoll-8] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=25ms | correlationId=7f630f0c-914e-4f24-b676-3bf23c2c2c18
+2026-02-25 22:13:25.749 [reactor-http-epoll-1] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/security/my/menus | status=200 | time=175ms | correlationId=8bbeac56-1340-4a8b-bf3d-bb3075c2c612
+2026-02-25 22:13:25.760 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/security/my/menus | status=200 | time=182ms | correlationId=86cff18d-f57f-46d0-a01b-5e00c4f7b00c
+2026-02-25 22:13:25.838 [reactor-http-epoll-2] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: df71b6d1-4221-4707-bba6-d4ce7c59ab07
+2026-02-25 22:13:25.839 [reactor-http-epoll-2] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /uploads/images/profiles/145b4b17-ac1a-4947-8df0-ddd3e465c799.jpeg | correlationId=df71b6d1-4221-4707-bba6-d4ce7c59ab07
+2026-02-25 22:13:25.854 [reactor-http-epoll-2] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /uploads/images/profiles/145b4b17-ac1a-4947-8df0-ddd3e465c799.jpeg | status=200 | time=15ms | correlationId=df71b6d1-4221-4707-bba6-d4ce7c59ab07
+2026-02-25 22:13:27.623 [reactor-http-epoll-12] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: f03da1a8-8c43-44b9-a6b0-b74f9fc0a332
+2026-02-25 22:13:27.623 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=f03da1a8-8c43-44b9-a6b0-b74f9fc0a332
+2026-02-25 22:13:27.627 [reactor-http-epoll-12] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [2fc69090-223]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 22:13:27.875 [reactor-http-epoll-12] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: cbc34442-f412-48e6-b1ce-014c9a5fde9e
+2026-02-25 22:13:27.875 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=cbc34442-f412-48e6-b1ce-014c9a5fde9e
+2026-02-25 22:13:27.879 [reactor-http-epoll-12] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [2fc69090-224]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 22:13:29.669 [reactor-http-epoll-12] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 2ee525ed-a894-43fc-8aab-16df704be269
+2026-02-25 22:13:29.670 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/users | correlationId=2ee525ed-a894-43fc-8aab-16df704be269
+2026-02-25 22:13:29.674 [reactor-http-epoll-12] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [2fc69090-226]  500 Server Error for HTTP GET "/api/chat/users"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/users" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 22:14:09.690 [reactor-http-epoll-3] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: a0fa2aad-5964-4de5-9c95-4caedbc3d16c
+2026-02-25 22:14:09.690 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [→] POST /api/sessions/close-self | correlationId=a0fa2aad-5964-4de5-9c95-4caedbc3d16c
+2026-02-25 22:14:09.721 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [←] POST /api/sessions/close-self | status=200 | time=31ms | correlationId=a0fa2aad-5964-4de5-9c95-4caedbc3d16c
+2026-02-25 22:14:09.738 [reactor-http-epoll-3] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 2587b749-141f-49a8-a0a5-7db80820c7bd
+2026-02-25 22:14:09.738 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [→] POST /api/auth/logout | correlationId=2587b749-141f-49a8-a0a5-7db80820c7bd
+2026-02-25 22:14:09.745 [reactor-http-epoll-3] INFO  c.a.gateway.filters.LoggingFilter - [←] POST /api/auth/logout | status=401 | time=7ms | correlationId=2587b749-141f-49a8-a0a5-7db80820c7bd
+2026-02-25 22:14:51.445 [reactor-http-epoll-12] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: e9062c24-4734-4310-bdb5-d2c24096c396
+2026-02-25 22:14:51.446 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=e9062c24-4734-4310-bdb5-d2c24096c396
+2026-02-25 22:14:51.462 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=16ms | correlationId=e9062c24-4734-4310-bdb5-d2c24096c396
+2026-02-25 22:14:51.540 [reactor-http-epoll-12] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: d590d9e0-4ff0-43b2-a97b-c64e710ec459
+2026-02-25 22:14:51.541 [reactor-http-epoll-12] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/preferences | correlationId=d590d9e0-4ff0-43b2-a97b-c64e710ec459
+2026-02-25 22:14:51.544 [reactor-http-epoll-12] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [2fc69090-234]  500 Server Error for HTTP GET "/api/chat/preferences"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/preferences" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 22:23:10.050 [reactor-http-epoll-8] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 52097923-b23e-47e9-ac02-b81727f99004
+2026-02-25 22:23:10.051 [reactor-http-epoll-8] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=52097923-b23e-47e9-ac02-b81727f99004
+2026-02-25 22:23:10.052 [reactor-http-epoll-6] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 408b8b0e-924d-4b76-8f58-65b2d32ec36b
+2026-02-25 22:23:10.052 [reactor-http-epoll-6] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/auth/profile | correlationId=408b8b0e-924d-4b76-8f58-65b2d32ec36b
+2026-02-25 22:23:10.052 [reactor-http-epoll-7] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: a9668797-04de-477a-81b4-f142271866a3
+2026-02-25 22:23:10.052 [reactor-http-epoll-7] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/security/my/menus | correlationId=a9668797-04de-477a-81b4-f142271866a3
+2026-02-25 22:23:10.061 [reactor-http-epoll-10] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 0a208683-285e-4187-b086-59b8b32e5f80
+2026-02-25 22:23:10.062 [reactor-http-epoll-10] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/security/my/menus | correlationId=0a208683-285e-4187-b086-59b8b32e5f80
+2026-02-25 22:23:10.068 [reactor-http-epoll-5] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: ce23a314-6128-47ef-8e0c-37ac85c570e8
+2026-02-25 22:23:10.068 [reactor-http-epoll-5] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/auth/profile | correlationId=ce23a314-6128-47ef-8e0c-37ac85c570e8
+2026-02-25 22:23:10.077 [reactor-http-epoll-8] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=26ms | correlationId=52097923-b23e-47e9-ac02-b81727f99004
+2026-02-25 22:23:10.078 [reactor-http-epoll-9] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 4643301a-047b-4341-b0d5-3d6ffc94052c
+2026-02-25 22:23:10.078 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/design | correlationId=4643301a-047b-4341-b0d5-3d6ffc94052c
+2026-02-25 22:23:10.079 [reactor-http-epoll-6] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/auth/profile | status=200 | time=27ms | correlationId=408b8b0e-924d-4b76-8f58-65b2d32ec36b
+2026-02-25 22:23:10.094 [reactor-http-epoll-5] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/auth/profile | status=200 | time=26ms | correlationId=ce23a314-6128-47ef-8e0c-37ac85c570e8
+2026-02-25 22:23:10.096 [reactor-http-epoll-9] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/design | status=200 | time=18ms | correlationId=4643301a-047b-4341-b0d5-3d6ffc94052c
+2026-02-25 22:23:10.217 [reactor-http-epoll-10] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/security/my/menus | status=200 | time=155ms | correlationId=0a208683-285e-4187-b086-59b8b32e5f80
+2026-02-25 22:23:10.217 [reactor-http-epoll-7] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /api/security/my/menus | status=200 | time=165ms | correlationId=a9668797-04de-477a-81b4-f142271866a3
+2026-02-25 22:23:10.222 [reactor-http-epoll-11] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 8a2d2c90-4ebd-41c1-8ed2-d02c5f30711b
+2026-02-25 22:23:10.222 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /uploads/images/profiles/145b4b17-ac1a-4947-8df0-ddd3e465c799.jpeg | correlationId=8a2d2c90-4ebd-41c1-8ed2-d02c5f30711b
+2026-02-25 22:23:10.236 [reactor-http-epoll-11] INFO  c.a.gateway.filters.LoggingFilter - [←] GET /uploads/images/profiles/145b4b17-ac1a-4947-8df0-ddd3e465c799.jpeg | status=200 | time=14ms | correlationId=8a2d2c90-4ebd-41c1-8ed2-d02c5f30711b
+2026-02-25 22:23:11.223 [reactor-http-epoll-7] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 37a07a0e-2b18-4fbe-825c-35fff99c578d
+2026-02-25 22:23:11.223 [reactor-http-epoll-7] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=37a07a0e-2b18-4fbe-825c-35fff99c578d
+2026-02-25 22:23:11.225 [reactor-http-epoll-7] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [81770f9a-250]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 22:23:11.468 [reactor-http-epoll-7] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: cca6c8cd-078c-44a5-b8b7-bb371a49d0e6
+2026-02-25 22:23:11.468 [reactor-http-epoll-7] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/channels | correlationId=cca6c8cd-078c-44a5-b8b7-bb371a49d0e6
+2026-02-25 22:23:11.470 [reactor-http-epoll-7] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [81770f9a-251]  500 Server Error for HTTP GET "/api/chat/channels"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/channels" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 22:23:13.605 [reactor-http-epoll-7] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 879f7578-8344-4083-b258-6bbac7773ba0
+2026-02-25 22:23:13.605 [reactor-http-epoll-7] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/users | correlationId=879f7578-8344-4083-b258-6bbac7773ba0
+2026-02-25 22:23:13.609 [reactor-http-epoll-7] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [81770f9a-253]  500 Server Error for HTTP GET "/api/chat/users"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/users" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+2026-02-25 22:23:17.369 [reactor-http-epoll-7] DEBUG c.a.g.filters.CorrelationIdFilter - Generated new correlation ID: 371c42cc-b895-4732-871d-3a0952d47073
+2026-02-25 22:23:17.379 [reactor-http-epoll-7] INFO  c.a.gateway.filters.LoggingFilter - [→] GET /api/chat/users | correlationId=371c42cc-b895-4732-871d-3a0952d47073
+2026-02-25 22:23:17.382 [reactor-http-epoll-7] ERROR o.s.b.a.w.r.e.AbstractErrorWebExceptionHandler - [81770f9a-254]  500 Server Error for HTTP GET "/api/chat/users"
+io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed: Conexión rehusada: localhost/127.0.0.1:8090
+	Suppressed: reactor.core.publisher.FluxOnAssembly$OnAssemblyException: 
+Error has been observed at the following site(s):
+	*__checkpoint ⇢ org.springframework.cloud.gateway.filter.WeightCalculatorWebFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ org.springframework.web.filter.reactive.ServerHttpObservationFilter [DefaultWebFilterChain]
+	*__checkpoint ⇢ HTTP GET "/api/chat/users" [ExceptionHandlingWebHandler]
+Original Stack Trace:
+Caused by: java.net.ConnectException: finishConnect(..) failed: Conexión rehusada
+	at io.netty.channel.unix.Errors.newConnectException0(Errors.java:166)
+	at io.netty.channel.unix.Errors.handleConnectErrno(Errors.java:131)
+	at io.netty.channel.unix.Socket.finishConnect(Socket.java:359)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.doFinishConnect(AbstractEpollChannel.java:710)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.finishConnect(AbstractEpollChannel.java:687)
+	at io.netty.channel.epoll.AbstractEpollChannel$AbstractEpollUnsafe.epollOutReady(AbstractEpollChannel.java:567)
+	at io.netty.channel.epoll.EpollEventLoop.processReady(EpollEventLoop.java:489)
+	at io.netty.channel.epoll.EpollEventLoop.run(EpollEventLoop.java:397)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Thread.java:1583)

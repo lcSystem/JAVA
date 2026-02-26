@@ -40,4 +40,32 @@ class ChatRepositoryImpl implements ChatRepository {
       throw Exception('Failed to send message');
     }
   }
+
+  @override
+  Future<Channel> getOrCreatePrivateChannel(String otherUserId, String otherUsername) async {
+    final response = await apiClient.get('/api/chat/channels');
+    if (response.statusCode == 200) {
+      final List<dynamic> data = jsonDecode(response.body);
+      final channels = data.map((json) => ChannelModel.fromJson(json)).toList();
+      
+      try {
+        return channels.firstWhere(
+          (c) => c.erpEntityType == 'user' && c.erpEntityId == otherUserId,
+        );
+      } catch (_) {
+        // Create new
+        final createResponse = await apiClient.post('/api/chat/channels', {
+          'name': 'Chat con $otherUsername',
+          'description': 'Canal privado',
+          'erpEntityType': 'user',
+          'erpEntityId': otherUserId,
+        });
+
+        if (createResponse.statusCode == 201) {
+          return ChannelModel.fromJson(jsonDecode(createResponse.body));
+        }
+      }
+    }
+    throw Exception('Failed to manage private channel');
+  }
 }

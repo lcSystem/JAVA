@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init-script
+  namespace: erp-namespace
+data:
+  init.sql: |
+    CREATE DATABASE db_conversational_hub;

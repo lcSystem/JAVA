@@ -15,11 +15,11 @@ public class AuditAdapter {
 
     public void logAction(String userId, String action, String entityId, String tenantId) {
         Map<String, Object> auditLog = new HashMap<>();
-        auditLog.add("userId", userId);
-        auditLog.add("action", action);
-        auditLog.add("entityId", entityId);
-        auditLog.add("tenantId", tenantId);
-        auditLog.add("timestamp", LocalDateTime.now());
+        auditLog.put("userId", userId);
+        auditLog.put("action", action);
+        auditLog.put("entityId", entityId);
+        auditLog.put("tenantId", tenantId);
+        auditLog.put("timestamp", LocalDateTime.now());
 
         eventPublisher.publishEvent("audit.log", auditLog);
     }
