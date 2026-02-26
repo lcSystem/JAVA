@@ -1,6 +1,6 @@
 -- V11__create_leave_type_table.sql
 
-CREATE TABLE leave_type (
+CREATE TABLE IF NOT EXISTS leave_type (
     leave_type_id BIGINT NOT NULL AUTO_INCREMENT,
     username VARCHAR(100) NOT NULL,
     leave_name VARCHAR(100) NOT NULL,

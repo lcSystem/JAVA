@@ -15,6 +15,7 @@ data:
   PARAMS_URL: "http://params-service:8083"
   PORTFOLIO_URL: "http://portfolio-service:8084"
   REPORTES_URL: "http://reportes-service:8085"
+  CONVERSATIONAL_HUB_URL: "http://conversational-hub-service:8090"
   
   # JWT Config (Override for internal K8s comms)
   SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI: "http://iam-service:8081/api/auth/jwks"

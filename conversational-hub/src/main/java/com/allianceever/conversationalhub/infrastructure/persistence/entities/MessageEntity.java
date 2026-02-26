@@ -25,6 +25,7 @@ public class MessageEntity {
     private String id;
     private String channelId;
     private String senderId;
+    private String recipientId;
     private String content;
     private String type;
     private String metadata; // Store as JSON string

@@ -1,0 +1,374 @@
+Compiling lib/main.dart for the Web...                          
+Wasm dry run findings:
+Found incompatibilities with WebAssembly.
+
+package:flutter_secure_storage_web/flutter_secure_storage_web.dart 5:1 - dart:html unsupported (0)
+package:flutter_secure_storage_web/flutter_secure_storage_web.dart 6:1 - dart:js_util unsupported (15)
+package:flutter_secure_storage_web/src/subtle.dart 21:1 - dart:html unsupported (0)
+package:flutter_secure_storage_web/src/subtle.dart 22:1 - dart:js_util unsupported (15)
+package:flutter_secure_storage_web/src/subtle.dart 26:1 - package:js/js.dart unsupported (14)
+
+Consider addressing these issues to enable wasm builds. See docs for more info: https://docs.flutter.dev/platform-integration/web/wasm
+
+Use --no-wasm-dry-run to disable these warnings.
+Target dart2js failed: ProcessException: Process exited abnormally with exit code 1:
+lib/ui/screens/user_list_screen.dart:6:30:
+Error: Type 'StatelessWidget' not found.
+class UserListScreen extends StatelessWidget {
+                             ^^^^^^^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:7:19:
+Error: Type 'Key' not found.
+  UserListScreen({Key? key}) : super(key: key);
+                  ^^^
+lib/ui/screens/user_list_screen.dart:10:3:
+Error: Type 'Widget' not found.
+  Widget build(BuildContext context) {
+  ^^^^^^
+lib/ui/screens/user_list_screen.dart:10:16:
+Error: Type 'BuildContext' not found.
+  Widget build(BuildContext context) {
+               ^^^^^^^^^^^^
+lib/main.dart:60:32:
+Error: A value of type 'UserListScreen' can't be returned from a function with return type 'Widget'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+ - 'Widget' is from 'package:flutter/src/widgets/framework.dart' ('flutter/packages/flutter/lib/src/widgets/framework.dart').
+        '/users': (context) => UserListScreen(),
+                               ^
+lib/ui/screens/user_list_screen.dart:7:19:
+Error: 'Key' isn't a type.
+  UserListScreen({Key? key}) : super(key: key);
+                  ^^^
+lib/ui/screens/user_list_screen.dart:10:16:
+Error: 'BuildContext' isn't a type.
+  Widget build(BuildContext context) {
+               ^^^^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:14:46:
+Error: Not a constant expression.
+    final bgColor = prefs.isDarkMode ? const Color(0xFF13131A) : Colors.grey[50];
+                                             ^^^^^
+lib/ui/screens/user_list_screen.dart:15:48:
+Error: Not a constant expression.
+    final cardColor = prefs.isDarkMode ? const Color(0xFF1C1C26) : Colors.white;
+                                               ^^^^^
+lib/ui/screens/user_list_screen.dart:38:25:
+Error: Not a constant expression.
+                  const SizedBox(height: 16),
+                        ^^^^^^^^
+lib/ui/screens/user_list_screen.dart:47:28:
+Error: Couldn't find constructor 'EdgeInsets.symmetric'.
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                           ^^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:54:31:
+Error: Couldn't find constructor 'EdgeInsets.only'.
+                margin: const EdgeInsets.only(bottom: 12),
+                              ^^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:61:41:
+Error: Couldn't find constructor 'EdgeInsets.symmetric'.
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                                        ^^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:14:66:
+Error: The getter 'Colors' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+    final bgColor = prefs.isDarkMode ? const Color(0xFF13131A) : Colors.grey[50];
+                                                                 ^^^^^^
+lib/ui/screens/user_list_screen.dart:15:68:
+Error: The getter 'Colors' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+    final cardColor = prefs.isDarkMode ? const Color(0xFF1C1C26) : Colors.white;
+                                                                   ^^^^^^
+lib/ui/screens/user_list_screen.dart:16:42:
+Error: The getter 'Colors' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+    final textColor = prefs.isDarkMode ? Colors.white : Colors.black87;
+                                         ^^^^^^
+lib/ui/screens/user_list_screen.dart:16:57:
+Error: The getter 'Colors' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+    final textColor = prefs.isDarkMode ? Colors.white : Colors.black87;
+                                                        ^^^^^^
+lib/ui/screens/user_list_screen.dart:21:81:
+Error: The getter 'FontWeight' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+        title: Text('Contactos', style: TextStyle(color: textColor, fontWeight: FontWeight.bold)),
+                                                                                ^^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:21:41:
+Error: The method 'TextStyle' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+        title: Text('Contactos', style: TextStyle(color: textColor, fontWeight: FontWeight.bold)),
+                                        ^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:21:16:
+Error: The method 'Text' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+        title: Text('Contactos', style: TextStyle(color: textColor, fontWeight: FontWeight.bold)),
+               ^^^^
+lib/ui/screens/user_list_screen.dart:24:20:
+Error: The method 'IconThemeData' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+        iconTheme: IconThemeData(color: textColor),
+                   ^^^^^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:20:15:
+Error: The method 'AppBar' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+      appBar: AppBar(
+              ^^^^^^
+lib/ui/screens/user_list_screen.dart:29:43:
+Error: The getter 'ConnectionState' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+          if (snapshot.connectionState == ConnectionState.waiting) {
+                                          ^^^^^^^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:30:34:
+Error: The method 'CircularProgressIndicator' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+            return Center(child: CircularProgressIndicator(color: prefs.primaryColor));
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:30:20:
+Error: The method 'Center' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+            return Center(child: CircularProgressIndicator(color: prefs.primaryColor));
+                   ^^^^^^
+lib/ui/screens/user_list_screen.dart:35:31:
+Error: The getter 'MainAxisSize' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                mainAxisSize: MainAxisSize.min,
+                              ^^^^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:37:24:
+Error: The getter 'Icons' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                  Icon(Icons.people_outline, size: 48, color: textColor.withOpacity(0.2)),
+                       ^^^^^
+lib/ui/screens/user_list_screen.dart:37:19:
+Error: The method 'Icon' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                  Icon(Icons.people_outline, size: 48, color: textColor.withOpacity(0.2)),
+                  ^^^^
+lib/ui/screens/user_list_screen.dart:39:62:
+Error: The method 'TextStyle' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                  Text('No hay usuarios disponibles', style: TextStyle(color: textColor.withOpacity(0.5))),
+                                                             ^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:39:19:
+Error: The method 'Text' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                  Text('No hay usuarios disponibles', style: TextStyle(color: textColor.withOpacity(0.5))),
+                  ^^^^
+lib/ui/screens/user_list_screen.dart:34:22:
+Error: The method 'Column' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+              child: Column(
+                     ^^^^^^
+lib/ui/screens/user_list_screen.dart:33:20:
+Error: The method 'Center' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+            return Center(
+                   ^^^^^^
+lib/ui/screens/user_list_screen.dart:46:18:
+Error: The getter 'ListView' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+          return ListView.builder(
+                 ^^^^^^^^
+lib/ui/screens/user_list_screen.dart:57:33:
+Error: The getter 'BorderRadius' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                  borderRadius: BorderRadius.circular(12),
+                                ^^^^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:58:27:
+Error: The getter 'Border' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                  border: Border.all(color: prefs.isDarkMode ? Colors.white.withOpacity(0.05) : Colors.grey[200]!),
+                          ^^^^^^
+lib/ui/screens/user_list_screen.dart:58:64:
+Error: The getter 'Colors' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                  border: Border.all(color: prefs.isDarkMode ? Colors.white.withOpacity(0.05) : Colors.grey[200]!),
+                                                               ^^^^^^
+lib/ui/screens/user_list_screen.dart:58:97:
+Error: The getter 'Colors' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                  border: Border.all(color: prefs.isDarkMode ? Colors.white.withOpacity(0.05) : Colors.grey[200]!),
+                                                                                          ^^^^^^
+lib/ui/screens/user_list_screen.dart:55:29:
+Error: The method 'BoxDecoration' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                decoration: BoxDecoration(
+                            ^^^^^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:66:75:
+Error: The getter 'Colors' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                        backgroundColor: (isOnline ? prefs.primaryColor : Colors.grey).withOpacity(0.1),
+                                                                          ^^^^^^
+lib/ui/screens/user_list_screen.dart:69:83:
+Error: The getter 'Colors' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                          style: TextStyle(color: isOnline ? prefs.primaryColor : Colors.grey, fontWeight: FontWeight.bold),
+                                                                                  ^^^^^^
+lib/ui/screens/user_list_screen.dart:69:108:
+Error: The getter 'FontWeight' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                          style: TextStyle(color: isOnline ? prefs.primaryColor : Colors.grey, fontWeight: FontWeight.bold),
+                                                                                          ^^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:69:34:
+Error: The method 'TextStyle' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                          style: TextStyle(color: isOnline ? prefs.primaryColor : Colors.grey, fontWeight: FontWeight.bold),
+                                 ^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:67:32:
+Error: The method 'Text' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                        child: Text(
+                               ^^^^
+lib/ui/screens/user_list_screen.dart:64:23:
+Error: The method 'CircleAvatar' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                      CircleAvatar(
+                      ^^^^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:79:47:
+Error: The getter 'Colors' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                            color: isOnline ? Colors.green : Colors.grey,
+                                              ^^^^^^
+lib/ui/screens/user_list_screen.dart:79:62:
+Error: The getter 'Colors' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                            color: isOnline ? Colors.green : Colors.grey,
+                                                             ^^^^^^
+lib/ui/screens/user_list_screen.dart:80:36:
+Error: The getter 'BoxShape' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                            shape: BoxShape.circle,
+                                   ^^^^^^^^
+lib/ui/screens/user_list_screen.dart:81:37:
+Error: The getter 'Border' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                            border: Border.all(color: cardColor, width: 2),
+                                    ^^^^^^
+lib/ui/screens/user_list_screen.dart:78:39:
+Error: The method 'BoxDecoration' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                          decoration: BoxDecoration(
+                                      ^^^^^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:75:32:
+Error: The method 'Container' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                        child: Container(
+                               ^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:72:23:
+Error: The method 'Positioned' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                      Positioned(
+                      ^^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:62:28:
+Error: The method 'Stack' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                  leading: Stack(
+                           ^^^^^
+lib/ui/screens/user_list_screen.dart:89:68:
+Error: The getter 'FontWeight' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                    style: TextStyle(color: textColor, fontWeight: FontWeight.bold, fontSize: 16),
+                                                                   ^^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:89:28:
+Error: The method 'TextStyle' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                    style: TextStyle(color: textColor, fontWeight: FontWeight.bold, fontSize: 16),
+                           ^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:87:26:
+Error: The method 'Text' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                  title: Text(
+                         ^^^^
+lib/ui/screens/user_list_screen.dart:93:56:
+Error: The getter 'Colors' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                    style: TextStyle(color: isOnline ? Colors.green : textColor.withOpacity(0.4), fontSize: 13),
+                                                       ^^^^^^
+lib/ui/screens/user_list_screen.dart:93:28:
+Error: The method 'TextStyle' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                    style: TextStyle(color: isOnline ? Colors.green : textColor.withOpacity(0.4), fontSize: 13),
+                           ^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:91:29:
+Error: The method 'Text' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                  subtitle: Text(
+                            ^^^^
+lib/ui/screens/user_list_screen.dart:95:34:
+Error: The getter 'Icons' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                  trailing: Icon(Icons.chevron_right, color: textColor.withOpacity(0.2)),
+                                 ^^^^^
+lib/ui/screens/user_list_screen.dart:95:29:
+Error: The method 'Icon' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                  trailing: Icon(Icons.chevron_right, color: textColor.withOpacity(0.2)),
+                            ^^^^
+lib/ui/screens/user_list_screen.dart:103:23:
+Error: The getter 'Navigator' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                      Navigator.pop(context); // Volver a ChatPage ya con el canal seleccionado
+                      ^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:60:24:
+Error: The method 'ListTile' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+                child: ListTile(
+                       ^^^^^^^^
+lib/ui/screens/user_list_screen.dart:53:22:
+Error: The method 'Container' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+              return Container(
+                     ^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:26:13:
+Error: The method 'FutureBuilder' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+      body: FutureBuilder<List<dynamic>>(
+            ^^^^^^^^^^^^^
+lib/ui/screens/user_list_screen.dart:18:12:
+Error: The method 'Scaffold' isn't defined for the type 'UserListScreen'.
+ - 'UserListScreen' is from 'package:conversational_hub_flutter/ui/screens/user_list_screen.dart' ('lib/ui/screens/user_list_screen.dart').
+    return Scaffold(
+           ^^^^^^^^
+Error: Compilation failed.
+  Command: /home/lsyst/Documentos/JAVA/conversational-hub-flutter/flutter/bin/cache/dart-sdk/bin/dart compile js --platform-binaries=/home/lsyst/Documentos/JAVA/conversational-hub-flutter/flutter/bin/cache/flutter_web_sdk/kernel --invoker=flutter_tool -Ddart.vm.product=true -DFLUTTER_VERSION=3.41.2 -DFLUTTER_CHANNEL=stable -DFLUTTER_GIT_URL=https://github.com/flutter/flutter.git -DFLUTTER_FRAMEWORK_REVISION=90673a4eef -DFLUTTER_ENGINE_REVISION=6c0baaebf7 -DFLUTTER_DART_VERSION=3.11.0 -DFLUTTER_WEB_USE_SKIA=true -DFLUTTER_WEB_USE_SKWASM=false -DFLUTTER_WEB_CANVASKIT_URL=https://www.gstatic.com/flutter-canvaskit/6c0baaebf70e0148f485f27d5616b3d3382da7bf/ --native-null-assertions --no-source-maps -O4 --minify -o /home/lsyst/Documentos/JAVA/conversational-hub-flutter/.dart_tool/flutter_build/f37df04883aece95094cb3f723f2680a/app.dill --packages=/home/lsyst/Documentos/JAVA/conversational-hub-flutter/.dart_tool/package_config.json --cfe-only /home/lsyst/Documentos/JAVA/conversational-hub-flutter/.dart_tool/flutter_build/f37df04883aece95094cb3f723f2680a/main.dart
+#0      RunResult.throwException (package:flutter_tools/src/base/process.dart:153:5)
+#1      _DefaultProcessUtils.run (package:flutter_tools/src/base/process.dart:379:19)
+<asynchronous suspension>
+#2      Dart2JSTarget.build (package:flutter_tools/src/build_system/targets/web.dart:208:5)
+<asynchronous suspension>
+#3      _BuildInstance._invokeInternal (package:flutter_tools/src/build_system/build_system.dart:937:9)
+<asynchronous suspension>
+#4      Future.wait.<anonymous closure> (dart:async/future.dart:546:21)
+<asynchronous suspension>
+#5      _BuildInstance.invokeTarget (package:flutter_tools/src/build_system/build_system.dart:875:32)
+<asynchronous suspension>
+#6      Future.wait.<anonymous closure> (dart:async/future.dart:546:21)
+<asynchronous suspension>
+#7      _BuildInstance.invokeTarget (package:flutter_tools/src/build_system/build_system.dart:875:32)
+<asynchronous suspension>
+#8      FlutterBuildSystem.build (package:flutter_tools/src/build_system/build_system.dart:684:16)
+<asynchronous suspension>
+#9      WebBuilder.buildWeb (package:flutter_tools/src/web/compile.dart:107:34)
+<asynchronous suspension>
+#10     BuildWebCommand.runCommand (package:flutter_tools/src/commands/build_web.dart:300:5)
+<asynchronous suspension>
+#11     FlutterCommand.run.<anonymous closure> (package:flutter_tools/src/runner/flutter_command.dart:1590:27)
+<asynchronous suspension>
+#12     AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:154:19)
+<asynchronous suspension>
+#13     CommandRunner.runCommand (package:args/command_runner.dart:212:13)
+<asynchronous suspension>
+#14     FlutterCommandRunner.runCommand.<anonymous closure> (package:flutter_tools/src/runner/flutter_command_runner.dart:496:9)
+<asynchronous suspension>
+#15     AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:154:19)
+<asynchronous suspension>
+#16     FlutterCommandRunner.runCommand (package:flutter_tools/src/runner/flutter_command_runner.dart:431:5)
+<asynchronous suspension>
+#17     FlutterCommandRunner.run.<anonymous closure> (package:flutter_tools/src/runner/flutter_command_runner.dart:307:33)
+<asynchronous suspension>
+#18     run.<anonymous closure>.<anonymous closure> (package:flutter_tools/runner.dart:104:11)
+<asynchronous suspension>
+#19     AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:154:19)
+<asynchronous suspension>
+#20     main (package:flutter_tools/executable.dart:103:3)
+<asynchronous suspension>
+
+Compiling lib/main.dart for the Web...                             36,5s
+Error: Failed to compile application for the Web.

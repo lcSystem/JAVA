@@ -30,4 +30,11 @@ public class MessagePersistenceAdapter implements MessageRepositoryPort {
                 .map(mapper::toDomain)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<Message> findForUserSince(String userId, java.time.LocalDateTime since) {
+        return repository.findForUserSince(userId, since).stream()
+                .map(mapper::toDomain)
+                .collect(Collectors.toList());
+    }
 }

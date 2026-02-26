@@ -5,8 +5,16 @@ import '../../domain/entities/message.dart';
 class MessageBubble extends StatelessWidget {
   final Message message;
   final bool isMe;
+  final Color color;
+  final Color textColor;
 
-  const MessageBubble({super.key, required this.message, this.isMe = false});
+  const MessageBubble({
+    super.key, 
+    required this.message, 
+    this.isMe = false,
+    required this.color,
+    required this.textColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,12 +47,12 @@ class MessageBubble extends StatelessWidget {
               ],
               Text(
                 message.senderId, 
-                style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 13, color: Colors.white70)
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13, color: textColor.withOpacity(0.7))
               ),
               const SizedBox(width: 8),
               Text(
                 DateFormat('HH:mm').format(message.timestamp), 
-                style: TextStyle(color: Colors.white.withOpacity(0.4), fontSize: 11)
+                style: TextStyle(color: textColor.withOpacity(0.4), fontSize: 11)
               ),
             ],
           ),
@@ -62,10 +70,7 @@ class MessageBubble extends StatelessWidget {
               margin: EdgeInsets.only(left: isMe ? 0 : 32, right: isMe ? 0 : 0),
               padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 14.0),
               decoration: BoxDecoration(
-                gradient: isMe 
-                    ? const LinearGradient(colors: [Color(0xFFFF8C00), Color(0xFFFF2D55)])
-                    : null,
-                color: isMe ? null : const Color(0xFF2C2C3E),
+                color: color,
                 borderRadius: BorderRadius.only(
                   topLeft: const Radius.circular(20),
                   topRight: const Radius.circular(20),
@@ -74,7 +79,7 @@ class MessageBubble extends StatelessWidget {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
+                    color: Colors.black.withOpacity(0.05),
                     offset: const Offset(0, 4),
                     blurRadius: 8,
                   )
@@ -82,7 +87,7 @@ class MessageBubble extends StatelessWidget {
               ),
               child: Text(
                 displayContent,
-                style: const TextStyle(color: Colors.white, fontSize: 15, height: 1.3),
+                style: TextStyle(color: isMe ? Colors.white : textColor, fontSize: 15, height: 1.3),
               ),
             ),
         ],

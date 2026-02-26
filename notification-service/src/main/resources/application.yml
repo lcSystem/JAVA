@@ -1,0 +1,21 @@
+server:
+  port: 8091
+
+spring:
+  application:
+    name: notification-service
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER:guest}
+    password: ${RABBITMQ_PASS:guest}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://iam-core:8081/api/auth/jwks
+          jwk-set-uri: http://localhost:8081/api/auth/jwks
+
+logging:
+  level:
+    com.allianceever.notifications: DEBUG

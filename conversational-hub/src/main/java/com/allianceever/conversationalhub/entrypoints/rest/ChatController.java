@@ -17,6 +17,8 @@ import java.util.List;
 public class ChatController {
     private final ChatUseCase chatService;
     private final AuthAdapter authAdapter;
+    private final com.allianceever.conversationalhub.application.services.PresenceService presenceService;
+    private final com.allianceever.conversationalhub.infrastructure.clients.EmployeeClient employeeClient;
 
     @PostMapping("/channels")
     public ResponseEntity<Channel> createChannel(@RequestBody Channel channel) {
@@ -40,5 +42,36 @@ public class ChatController {
         message.setChannelId(channelId);
         message.setSenderId(authAdapter.getCurrentUserId());
         return new ResponseEntity<>(chatService.sendMessage(message), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/sync")
+    public ResponseEntity<List<Message>> syncMessages(@RequestParam("since") String sinceStr) {
+        String userId = authAdapter.getCurrentUserId();
+        java.time.LocalDateTime since = java.time.LocalDateTime.parse(sinceStr);
+        return ResponseEntity.ok(chatService.getMessagesSince(userId, since));
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<UserStatusDTO>> getUsers() {
+        java.util.Set<String> onlineUserIds = presenceService.getOnlineUsers();
+        List<com.allianceever.conversationalhub.infrastructure.clients.EmployeeClient.EmployeeSummaryDTO> employees = employeeClient
+                .getAllEmployees();
+
+        List<UserStatusDTO> users = employees.stream()
+                .map(emp -> new UserStatusDTO(
+                        emp.getUserName(),
+                        emp.getFirst_Name() + " " + (emp.getLast_Name() != null ? emp.getLast_Name() : ""),
+                        onlineUserIds.contains(emp.getUserName())))
+                .collect(java.util.stream.Collectors.toList());
+
+        return ResponseEntity.ok(users);
+    }
+
+    @lombok.Data
+    @lombok.AllArgsConstructor
+    public static class UserStatusDTO {
+        private String userId;
+        private String username;
+        private boolean online;
     }
 }
