@@ -12,7 +12,7 @@ public interface FolderRepositoryPort {
 
     Optional<Folder> findById(UUID id);
 
-    List<Folder> findByParentIdAndNotDeleted(UUID parentId);
+    List<Folder> findByParentIdAndNotDeleted(UUID parentId, String ownerId);
 
     List<Folder> findRootFoldersByOwner(String ownerId);
 

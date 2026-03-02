@@ -165,7 +165,8 @@ public class FileController {
         // ─── Mapping helpers ────────────────────────────────────────────
 
         private String getOwnerId(Jwt jwt) {
-                return jwt.getSubject();
+                String username = jwt.getClaimAsString("username");
+                return (username != null && !username.isEmpty()) ? username : jwt.getSubject();
         }
 
         private FileResponse toResponse(FileItem file) {

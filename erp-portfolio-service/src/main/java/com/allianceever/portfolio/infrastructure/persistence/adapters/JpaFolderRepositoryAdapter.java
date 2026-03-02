@@ -34,8 +34,8 @@ public class JpaFolderRepositoryAdapter implements FolderRepositoryPort {
     }
 
     @Override
-    public List<Folder> findByParentIdAndNotDeleted(UUID parentId) {
-        return repository.findByParentIdAndNotDeleted(mapper.uuidToBytes(parentId))
+    public List<Folder> findByParentIdAndNotDeleted(UUID parentId, String ownerId) {
+        return repository.findByParentIdAndNotDeleted(mapper.uuidToBytes(parentId), ownerId)
                 .stream().map(mapper::toDomain).collect(Collectors.toList());
     }
 

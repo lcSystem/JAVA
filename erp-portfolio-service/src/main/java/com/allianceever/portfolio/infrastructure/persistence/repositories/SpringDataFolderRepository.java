@@ -12,8 +12,9 @@ import java.util.List;
 @Repository
 public interface SpringDataFolderRepository extends JpaRepository<FolderJpaEntity, byte[]> {
 
-    @Query("SELECT f FROM FolderJpaEntity f WHERE f.parentId = :parentId AND f.deleted = false")
-    List<FolderJpaEntity> findByParentIdAndNotDeleted(@Param("parentId") byte[] parentId);
+    @Query("SELECT f FROM FolderJpaEntity f WHERE f.parentId = :parentId AND f.ownerId = :ownerId AND f.deleted = false")
+    List<FolderJpaEntity> findByParentIdAndNotDeleted(@Param("parentId") byte[] parentId,
+            @Param("ownerId") String ownerId);
 
     @Query("SELECT f FROM FolderJpaEntity f WHERE f.parentId IS NULL AND f.ownerId = :ownerId AND f.deleted = false")
     List<FolderJpaEntity> findRootFoldersByOwner(@Param("ownerId") String ownerId);

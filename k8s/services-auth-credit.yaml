@@ -20,10 +20,10 @@ spec:
         - containerPort: 8081
         resources:
           requests:
-            memory: "384Mi"
+            memory: "128Mi"
             cpu: "100m"
           limits:
-            memory: "768Mi"
+            memory: "384Mi"
             cpu: "1000m"
         livenessProbe:
           httpGet:
@@ -43,6 +43,8 @@ spec:
         - secretRef:
             name: erp-secrets
         env:
+        - name: JAVA_TOOL_OPTIONS
+          value: "-Xmx256m -Xms128m -XX:MaxMetaspaceSize=128m"
         - name: SPRING_DATASOURCE_URL
           value: "jdbc:mysql://mysql-service:3306/iam_db?createDatabaseIfNotExist=true"
 ---
@@ -81,10 +83,10 @@ spec:
         - containerPort: 8082
         resources:
           requests:
-            memory: "384Mi"
+            memory: "128Mi"
             cpu: "100m"
           limits:
-            memory: "768Mi"
+            memory: "384Mi"
             cpu: "1000m"
         livenessProbe:
           httpGet:
@@ -104,6 +106,8 @@ spec:
         - secretRef:
             name: erp-secrets
         env:
+        - name: JAVA_TOOL_OPTIONS
+          value: "-Xmx256m -Xms128m -XX:MaxMetaspaceSize=128m"
         - name: SPRING_DATASOURCE_URL
           value: "jdbc:mysql://mysql-service:3306/creditos_db?createDatabaseIfNotExist=true"
 ---
