@@ -1,0 +1,23 @@
+package com.projectERP.service;
+
+import com.projectERP.model.dto.HolidayDto;
+import com.projectERP.model.dto.LeavesDto;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public interface LeavesService {
+
+    LeavesDto getByLeavesID(Long leavesID);
+
+    LeavesDto create(LeavesDto leavesDto);
+
+    LeavesDto update(Long leavesID, LeavesDto leavesDto);
+
+    List<LeavesDto> getAllLeavesOrderedByDate();
+
+    List<LeavesDto> getAllLeavesByUsernameOrderedByDate(String username);
+
+    void delete(Long leavesID);
+}

@@ -18,6 +18,8 @@ spring:
   flyway:
     enabled: true
     baseline-on-migrate: true
+    baseline-version: 0
+    table: flyway_hub_schema_history
   rabbitmq:
     host: ${RABBITMQ_HOST:localhost}
     port: ${RABBITMQ_PORT:5672}
@@ -32,7 +34,7 @@ spring:
 
 logging:
   level:
-    com.allianceever.conversationalhub: DEBUG
+    com.conversationalhub: DEBUG
     org.springframework.security: INFO
 
 management:

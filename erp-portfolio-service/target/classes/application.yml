@@ -50,7 +50,7 @@ portfolio:
 
 logging:
   level:
-    com.allianceever.portfolio: DEBUG
+    com.portfolio: DEBUG
     org.springframework.security: DEBUG
     org.springframework.web: DEBUG
 
