@@ -1,0 +1,88 @@
+package com.creditos.model;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "credit_requests")
+@org.hibernate.annotations.SQLDelete(sql = "UPDATE credit_requests SET deleted_at = NOW() WHERE id = ?")
+@org.hibernate.annotations.Where(clause = "deleted_at IS NULL")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class CreditRequest {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "applicant_id", nullable = false)
+    private ApplicantProfile applicant;
+
+    @ManyToOne
+    @JoinColumn(name = "credit_type_id", nullable = false)
+    private CreditType creditType;
+
+    @Column(nullable = false)
+    private BigDecimal amount;
+
+    @Column(name = "term_months", nullable = false)
+    private Integer termMonths;
+
+    @Column(columnDefinition = "TEXT")
+    private String purpose;
+
+    @Column(nullable = false, length = 50)
+    private String status; // DRAFT, EVALUATING, APPROVED, REJECTED, DISBURSED
+
+    @Column(name = "scoring_result", length = 50)
+    private String scoringResult;
+
+    @Column(name = "scoring_recommendation", columnDefinition = "TEXT")
+    private String scoringRecommendation;
+
+    @Column(name = "debtor_additional_info", columnDefinition = "TEXT")
+    private String debtorAdditionalInfo;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "credit_request_id")
+    private java.util.List<Reference> debtorReferences;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "credit_request_id")
+    private java.util.List<CoDebtorProfile> coDebtors;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "representative_profile_id")
+    private CoDebtorProfile representativeProfile;
+
+    @CreationTimestamp
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    @Version
+    private Long version;
+
+    @Column(name = "created_by")
+    private String createdBy;
+
+    @Column(name = "updated_by")
+    private String updatedBy;
+
+    @Column(name = "deleted_at")
+    private LocalDateTime deletedAt;
+}
