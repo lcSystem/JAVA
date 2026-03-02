@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-02-25T21:55:54-0500",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.10 (Ubuntu)"
+    date = "2026-02-28T21:17:11-0500",
+    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.45.0.v20260128-0750, environment: Java 21.0.9 (Eclipse Adoptium)"
 )
 @Component
 public class UserPreferencesMapperImpl implements UserPreferencesMapper {
@@ -21,9 +21,9 @@ public class UserPreferencesMapperImpl implements UserPreferencesMapper {
 
         UserPreferences.UserPreferencesBuilder userPreferences = UserPreferences.builder();
 
-        userPreferences.userId( entity.getUserId() );
         userPreferences.chatColor( entity.getChatColor() );
         userPreferences.themeMode( entity.getThemeMode() );
+        userPreferences.userId( entity.getUserId() );
 
         return userPreferences.build();
     }
@@ -36,9 +36,9 @@ public class UserPreferencesMapperImpl implements UserPreferencesMapper {
 
         UserPreferencesEntity.UserPreferencesEntityBuilder userPreferencesEntity = UserPreferencesEntity.builder();
 
-        userPreferencesEntity.userId( domain.getUserId() );
         userPreferencesEntity.chatColor( domain.getChatColor() );
         userPreferencesEntity.themeMode( domain.getThemeMode() );
+        userPreferencesEntity.userId( domain.getUserId() );
 
         return userPreferencesEntity.build();
     }

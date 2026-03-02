@@ -18,6 +18,11 @@ spec:
         image: iam-core-front:latest
         ports:
         - containerPort: 3000
+        resources:
+          requests:
+            memory: "256Mi"
+          limits:
+            memory: "512Mi"
         env:
         - name: NEXT_PUBLIC_API_URL
           value: "http://api.erp.local"  # External URL through Ingress

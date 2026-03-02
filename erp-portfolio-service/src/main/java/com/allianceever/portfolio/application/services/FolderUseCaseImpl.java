@@ -142,7 +142,7 @@ public class FolderUseCaseImpl implements FolderUseCase {
 
     @Override
     public List<Folder> listChildren(UUID parentId, String ownerId) {
-        return folderRepository.findByParentIdAndNotDeleted(parentId);
+        return folderRepository.findByParentIdAndNotDeleted(parentId, ownerId);
     }
 
     @Override

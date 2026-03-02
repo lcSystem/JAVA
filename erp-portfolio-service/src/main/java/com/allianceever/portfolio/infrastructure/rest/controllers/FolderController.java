@@ -113,7 +113,8 @@ public class FolderController {
     // ─── Mapping helpers ────────────────────────────────────────────
 
     private String getOwnerId(Jwt jwt) {
-        return jwt.getSubject();
+        String username = jwt.getClaimAsString("username");
+        return (username != null && !username.isEmpty()) ? username : jwt.getSubject();
     }
 
     private FolderResponse toResponse(Folder folder) {
