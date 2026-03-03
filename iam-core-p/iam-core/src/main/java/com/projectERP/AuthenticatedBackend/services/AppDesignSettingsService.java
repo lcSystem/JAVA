@@ -57,6 +57,8 @@ public class AppDesignSettingsService {
             settings.setSidebarColor(dto.getSidebarColor());
         if (dto.getTableHeaderColor() != null)
             settings.setTableHeaderColor(dto.getTableHeaderColor());
+        if (dto.getHeaderColor() != null)
+            settings.setHeaderColor(dto.getHeaderColor());
 
         AppDesignSettings saved = designRepository.save(settings);
         return new AppDesignSettingsDTO(saved);
@@ -74,6 +76,7 @@ public class AppDesignSettingsService {
         defaults.setIsDarkMode(false);
         defaults.setSidebarColor("#FFFFFF");
         defaults.setTableHeaderColor("#F9FAFB");
+        defaults.setHeaderColor("#FFFFFF");
         return defaults;
     }
 

@@ -19,6 +19,7 @@ public class ChatController {
     private final AuthAdapter authAdapter;
     private final com.conversationalhub.application.services.PresenceService presenceService;
     private final com.conversationalhub.infrastructure.clients.EmployeeClient employeeClient;
+    private final com.conversationalhub.domain.ports.in.UserChannelPreferenceUseCase userChannelPreferenceUseCase;
 
     @PostMapping("/channels")
     public ResponseEntity<Channel> createChannel(@RequestBody Channel channel) {
@@ -27,9 +28,33 @@ public class ChatController {
     }
 
     @GetMapping("/channels")
-    public ResponseEntity<List<Channel>> getChannels() {
+    public ResponseEntity<List<ChannelResponseDTO>> getChannels() {
+        String userId = authAdapter.getCurrentUserId();
         String tenantId = authAdapter.getCurrentTenantId();
-        return ResponseEntity.ok(chatService.getChannelsByTenant(tenantId));
+        List<Channel> channels = chatService.getChannelsByTenant(tenantId);
+        List<com.conversationalhub.domain.entities.UserChannelPreference> prefs = userChannelPreferenceUseCase
+                .getPreferencesByUser(userId);
+
+        java.util.Map<String, com.conversationalhub.domain.entities.UserChannelPreference> prefMap = prefs.stream()
+                .collect(java.util.stream.Collectors
+                        .toMap(com.conversationalhub.domain.entities.UserChannelPreference::getChannelId, p -> p));
+
+        List<ChannelResponseDTO> response = channels.stream()
+                .map(c -> {
+                    com.conversationalhub.domain.entities.UserChannelPreference p = prefMap.get(c.getId());
+                    return new ChannelResponseDTO(c, p != null && p.isPinned(), p != null && p.isArchived());
+                })
+                .collect(java.util.stream.Collectors.toList());
+
+        return ResponseEntity.ok(response);
+    }
+
+    @lombok.Data
+    @lombok.AllArgsConstructor
+    public static class ChannelResponseDTO {
+        private Channel channel;
+        private boolean pinned;
+        private boolean archived;
     }
 
     @GetMapping("/channels/{channelId}/messages")
@@ -59,9 +84,10 @@ public class ChatController {
 
         List<UserStatusDTO> users = employees.stream()
                 .map(emp -> new UserStatusDTO(
-                        emp.getUserName(),
-                        emp.getFirstName() + " " + (emp.getLastName() != null ? emp.getLastName() : ""),
-                        onlineUserIds.contains(emp.getUserName())))
+                        emp.getUsername(),
+                        (emp.getFirstName() != null ? emp.getFirstName() : "") + " " +
+                                (emp.getLastName() != null ? emp.getLastName() : ""),
+                        onlineUserIds.contains(emp.getUsername())))
                 .collect(java.util.stream.Collectors.toList());
 
         return ResponseEntity.ok(users);

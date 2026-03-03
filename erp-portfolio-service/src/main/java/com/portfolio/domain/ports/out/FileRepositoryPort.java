@@ -30,4 +30,6 @@ public interface FileRepositoryPort {
     List<FileVersion> findVersionsByFileId(UUID fileId);
 
     int getMaxVersionNumber(UUID fileId);
+
+    long getTotalStorageUsed();
 }

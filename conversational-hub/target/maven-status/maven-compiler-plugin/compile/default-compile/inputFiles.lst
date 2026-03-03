@@ -1,3 +1,4 @@
+/home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/application/services/UserChannelPreferenceService.java
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/infrastructure/cache/RedisConfig.java
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/entrypoints/rest/PreferenceController.java
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/infrastructure/messaging/config/RabbitMQConfig.java
@@ -12,6 +13,7 @@
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/infrastructure/mq/RabbitNotificationPublisher.java
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/domain/ports/out/UserPreferencesRepositoryPort.java
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/domain/ports/in/ChatUseCase.java
+/home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/infrastructure/persistence/entities/UserChannelPreferenceEntity.java
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/entrypoints/rest/ChatController.java
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/infrastructure/audit/AuditAdapter.java
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/domain/entities/Message.java
@@ -23,13 +25,17 @@
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/entrypoints/websocket/StompChatController.java
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/infrastructure/persistence/repositories/JpaUserPreferencesRepository.java
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/entrypoints/websocket/config/WebSocketConfig.java
+/home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/domain/ports/out/UserChannelPreferenceRepositoryPort.java
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/infrastructure/persistence/adapters/ChannelPersistenceAdapter.java
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/infrastructure/persistence/entities/MessageEntity.java
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/infrastructure/persistence/mappers/MessageMapper.java
+/home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/infrastructure/persistence/repositories/JpaUserChannelPreferenceRepository.java
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/infrastructure/mq/dto/ChatNotificationEvent.java
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/infrastructure/messaging/adapters/RabbitMQPublisherAdapter.java
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/infrastructure/persistence/entities/ChannelEntity.java
+/home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/domain/entities/UserChannelPreference.java
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/infrastructure/persistence/adapters/MessagePersistenceAdapter.java
+/home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/domain/ports/in/UserChannelPreferenceUseCase.java
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/application/services/PresenceService.java
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/application/services/BotEngine.java
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/infrastructure/security/SecurityConfig.java
@@ -38,4 +44,5 @@
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/infrastructure/persistence/mappers/ChannelMapper.java
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/domain/ports/out/NotificationPublisherPort.java
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/infrastructure/auth/AuthAdapter.java
+/home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/infrastructure/persistence/adapters/UserChannelPreferencePersistenceAdapter.java
 /home/lsyst/Documentos/JAVA/conversational-hub/src/main/java/com/conversationalhub/domain/ports/in/UserPreferencesUseCase.java

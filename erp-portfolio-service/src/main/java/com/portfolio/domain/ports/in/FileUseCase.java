@@ -31,4 +31,6 @@ public interface FileUseCase {
     FileItem getFileById(UUID fileId, String ownerId);
 
     List<FileVersion> getFileVersions(UUID fileId, String ownerId);
+
+    long getTotalStorageUsed();
 }

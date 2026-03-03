@@ -162,6 +162,18 @@ public class FileController {
                 return ResponseEntity.noContent().build();
         }
 
+        @GetMapping("/storage-stats")
+        @PreAuthorize("hasRole('ADMIN') or hasAuthority('PORTFOLIO_READ')")
+        public ResponseEntity<java.util.Map<String, Long>> getStorageStats() {
+                long used = fileUseCase.getTotalStorageUsed();
+                // Default limit 500MB (can be made configurable later)
+                long limit = 524288000L;
+                java.util.Map<String, Long> stats = new java.util.HashMap<>();
+                stats.put("used", used);
+                stats.put("limit", limit);
+                return ResponseEntity.ok(stats);
+        }
+
         // ─── Mapping helpers ────────────────────────────────────────────
 
         private String getOwnerId(Jwt jwt) {

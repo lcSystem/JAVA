@@ -50,6 +50,14 @@ public class UserSession {
 
     private String closedReason;
 
+    private String city;
+    private String country;
+    private Double latitude;
+    private Double longitude;
+    private Boolean isVpn;
+    private Boolean isProxy;
+    private String isp;
+
     public UserSession() {
     }
 

@@ -32,7 +32,7 @@ spring:
         - id: reportes-service
           uri: http://localhost:8085
           predicates:
-            - Path=/api/reportes/**, /api/reports/**
+            - Path=/api/reportes/**, /api/reports/**, /api/v1/dynamic-reports/**
 
         # Conversational Hub - Chat & AI
         - id: conversational-hub

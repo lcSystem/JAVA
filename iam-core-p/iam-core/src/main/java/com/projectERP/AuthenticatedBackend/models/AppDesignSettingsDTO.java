@@ -18,6 +18,7 @@ public class AppDesignSettingsDTO {
     private Boolean isDarkMode;
     private String sidebarColor;
     private String tableHeaderColor;
+    private String headerColor;
 
     public AppDesignSettingsDTO(AppDesignSettings settings) {
         if (settings != null) {
@@ -31,6 +32,7 @@ public class AppDesignSettingsDTO {
             this.isDarkMode = settings.getIsDarkMode();
             this.sidebarColor = settings.getSidebarColor();
             this.tableHeaderColor = settings.getTableHeaderColor();
+            this.headerColor = settings.getHeaderColor();
         }
     }
 }
