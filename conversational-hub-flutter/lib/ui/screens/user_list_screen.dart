@@ -4,12 +4,25 @@ import '../../core/services/presence_provider.dart';
 import '../../core/services/preferences_provider.dart';
 import '../../features/chat/presentation/providers/chat_provider.dart';
 
-class UserListScreen extends StatelessWidget {
-  UserListScreen({Key? key}) : super(key: key);
+class UserListScreen extends StatefulWidget {
+  const UserListScreen({Key? key}) : super(key: key);
+
+  @override
+  State<UserListScreen> createState() => _UserListScreenState();
+}
+
+class _UserListScreenState extends State<UserListScreen> {
+  late Future<List<dynamic>> _usersFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    // Fetch users only once when the screen is initialized
+    _usersFuture = Provider.of<PresenceProvider>(context, listen: false).fetchUsers();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final presenceProvider = Provider.of<PresenceProvider>(context);
     final prefs = Provider.of<PreferencesProvider>(context);
 
     final bgColor = prefs.isDarkMode ? const Color(0xFF13131A) : Colors.grey[50];
@@ -25,7 +38,7 @@ class UserListScreen extends StatelessWidget {
         iconTheme: IconThemeData(color: textColor),
       ),
       body: FutureBuilder<List<dynamic>>(
-        future: presenceProvider.fetchUsers(),
+        future: _usersFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator(color: prefs.primaryColor));

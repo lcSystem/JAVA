@@ -16,4 +16,7 @@ public interface SpringDataFileVersionRepository extends JpaRepository<FileVersi
 
     @Query("SELECT COALESCE(MAX(v.versionNumber), 0) FROM FileVersionJpaEntity v WHERE v.fileId = :fileId")
     int getMaxVersionNumber(@Param("fileId") byte[] fileId);
+
+    @Query("SELECT SUM(v.sizeBytes) FROM FileVersionJpaEntity v")
+    Long countTotalSizeBytes();
 }

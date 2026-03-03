@@ -26,4 +26,7 @@ public interface SpringDataFileRepository extends JpaRepository<FileJpaEntity, b
     @Modifying
     @Query("UPDATE FileJpaEntity f SET f.deleted = true WHERE f.id = :id")
     void softDeleteById(@Param("id") byte[] id);
+
+    @Query("SELECT SUM(f.sizeBytes) FROM FileJpaEntity f WHERE f.deleted = false")
+    Long countTotalSizeBytes();
 }

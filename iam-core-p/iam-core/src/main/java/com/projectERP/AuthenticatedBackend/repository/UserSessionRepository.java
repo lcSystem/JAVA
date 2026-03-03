@@ -31,4 +31,6 @@ public interface UserSessionRepository extends JpaRepository<UserSession, Long> 
 
     @Query("DELETE FROM UserSession s WHERE s.status IN ('CLOSED', 'EXPIRED', 'REVOKED') AND s.startTime < :threshold")
     void deleteOldSessions(@Param("threshold") LocalDateTime threshold);
+
+    Optional<UserSession> findFirstByIpAddressAndLatitudeIsNotNullOrderByStartTimeDesc(String ipAddress);
 }

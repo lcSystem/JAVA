@@ -216,6 +216,11 @@ public class FileUseCaseImpl implements FileUseCase {
         return fileRepository.findVersionsByFileId(fileId);
     }
 
+    @Override
+    public long getTotalStorageUsed() {
+        return fileRepository.getTotalStorageUsed();
+    }
+
     // ─── Helper methods ─────────────────────────────────────────────
 
     private FileItem getFileOrThrow(UUID fileId) {

@@ -52,4 +52,7 @@ public class AppDesignSettings {
 
     @Column(name = "table_header_color")
     private String tableHeaderColor;
+
+    @Column(name = "header_color")
+    private String headerColor;
 }

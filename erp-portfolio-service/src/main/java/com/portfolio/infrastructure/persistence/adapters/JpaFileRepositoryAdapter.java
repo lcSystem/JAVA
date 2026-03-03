@@ -85,4 +85,10 @@ public class JpaFileRepositoryAdapter implements FileRepositoryPort {
     public int getMaxVersionNumber(UUID fileId) {
         return versionRepository.getMaxVersionNumber(mapper.uuidToBytes(fileId));
     }
+
+    @Override
+    public long getTotalStorageUsed() {
+        Long versionsSize = versionRepository.countTotalSizeBytes();
+        return versionsSize != null ? versionsSize : 0L;
+    }
 }

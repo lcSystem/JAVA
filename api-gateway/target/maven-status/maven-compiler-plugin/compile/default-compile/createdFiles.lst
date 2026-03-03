@@ -1,0 +1,3 @@
+com/gateway/filters/CorrelationIdFilter.class
+com/gateway/filters/LoggingFilter.class
+com/gateway/ApiGatewayApplication.class

@@ -13,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
+import java.util.Map;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
@@ -60,7 +62,63 @@ public class UserSessionService {
 
         UserSession session = new UserSession(userId, username, now, expiresAt, tokenHash, ipAddress, deviceInfo,
                 SessionStatus.ACTIVE);
+
+        // Geolocation & VPN detection with Cache
+        enrichSessionWithGeolocation(ipAddress, session);
+
         sessionRepository.save(session);
+    }
+
+    private void enrichSessionWithGeolocation(String ipAddress, UserSession session) {
+        if (ipAddress == null)
+            return;
+
+        // 0. Handle Localhost for testing/demo purposes
+        if (ipAddress.equals("127.0.0.1") || ipAddress.equals("0:0:0:0:0:0:0:1")) {
+            session.setCity("Turbaco (Local Test)");
+            session.setCountry("Colombia");
+            session.setLatitude(10.33);
+            session.setLongitude(-75.41);
+            session.setIsp("Local Network");
+            session.setIsVpn(false);
+            session.setIsProxy(false);
+            return;
+        }
+
+        // 1. Backend Cache: Check if we have geolocation for this IP in a recent
+        // session
+        sessionRepository.findFirstByIpAddressAndLatitudeIsNotNullOrderByStartTimeDesc(ipAddress)
+                .ifPresent(existing -> {
+                    session.setCity(existing.getCity());
+                    session.setCountry(existing.getCountry());
+                    session.setLatitude(existing.getLatitude());
+                    session.setLongitude(existing.getLongitude());
+                    session.setIsVpn(existing.getIsVpn());
+                    session.setIsProxy(existing.getIsProxy());
+                    session.setIsp(existing.getIsp());
+                });
+
+        // 2. Fetch if not found in cache
+        if (session.getLatitude() == null) {
+            try {
+                RestTemplate restTemplate = new RestTemplate();
+                String url = "https://www.iplocate.io/api/lookup/" + ipAddress;
+                Map<String, Object> response = restTemplate.getForObject(url, Map.class);
+
+                if (response != null) {
+                    session.setCity((String) response.get("city"));
+                    session.setCountry((String) response.get("country"));
+                    session.setLatitude(response.get("latitude") instanceof Number n ? n.doubleValue() : null);
+                    session.setLongitude(response.get("longitude") instanceof Number n ? n.doubleValue() : null);
+                    session.setIsVpn((Boolean) response.get("is_vpn"));
+                    session.setIsProxy((Boolean) response.get("is_proxy"));
+                    session.setIsp((String) response.get("org")); // 'org' in iplocate is usually the ISP
+                }
+            } catch (Exception e) {
+                // Silently fail geolocation to not block login
+                System.err.println("Error fetching geolocation for IP " + ipAddress + ": " + e.getMessage());
+            }
+        }
     }
 
     public void closeSession(Long sessionId, String closedBy, String reason) {
@@ -86,10 +144,23 @@ public class UserSessionService {
     }
 
     public Page<UserSession> getSessions(SessionStatus status, Pageable pageable) {
+        Page<UserSession> sessions;
         if (status != null) {
-            return sessionRepository.findAllByStatus(status, pageable);
+            sessions = sessionRepository.findAllByStatus(status, pageable);
+        } else {
+            sessions = sessionRepository.findAll(pageable);
         }
-        return sessionRepository.findAll(pageable);
+
+        // Proactively enrich sessions that lack geolocation data (e.g. existing
+        // sessions after migration)
+        sessions.forEach(session -> {
+            if (session.getLatitude() == null && session.getIpAddress() != null) {
+                enrichSessionWithGeolocation(session.getIpAddress(), session);
+                sessionRepository.save(session);
+            }
+        });
+
+        return sessions;
     }
 
     public String hashToken(String token) {
