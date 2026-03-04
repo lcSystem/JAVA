@@ -46,6 +46,12 @@ spring:
           predicates:
             - Path=/ws/**
 
+        # Notification Service - System Alerts
+        - id: notification-service
+          uri: http://localhost:8091
+          predicates:
+            - Path=/api/notifications/**
+
         # IAM Core - Catch-all for Identity, Auth and static assets
         - id: iam-core
           uri: http://localhost:8081
