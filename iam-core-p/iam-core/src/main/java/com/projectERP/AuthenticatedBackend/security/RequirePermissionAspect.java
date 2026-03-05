@@ -14,6 +14,10 @@ import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.stereotype.Component;
 
+import com.projectERP.AuthenticatedBackend.infrastructure.messaging.dto.NotificationLevel;
+import com.projectERP.AuthenticatedBackend.infrastructure.messaging.dto.NotificationType;
+import com.projectERP.AuthenticatedBackend.infrastructure.messaging.dto.SystemNotificationEvent;
+import com.projectERP.AuthenticatedBackend.infrastructure.messaging.publisher.SystemNotificationPublisher;
 import com.projectERP.AuthenticatedBackend.repository.RoleRepository;
 import com.projectERP.AuthenticatedBackend.services.PermissionService;
 
@@ -31,6 +35,9 @@ public class RequirePermissionAspect {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private SystemNotificationPublisher systemNotificationPublisher;
+
     @Around("@annotation(requirePermission)")
     public Object checkPermission(ProceedingJoinPoint joinPoint, RequirePermission requirePermission) throws Throwable {
         String menuCodigo = requirePermission.menu();
@@ -44,10 +51,12 @@ public class RequirePermissionAspect {
 
         Set<String> roleNames = new HashSet<>();
         Set<Integer> roleIds = new HashSet<>();
+        String userId = null;
 
         if (authentication instanceof JwtAuthenticationToken) {
             JwtAuthenticationToken jwtAuth = (JwtAuthenticationToken) authentication;
             Jwt jwt = jwtAuth.getToken();
+            userId = jwt.getSubject();
 
             // Extract roles from JWT claim
             String rolesStr = jwt.getClaimAsString("roles");
@@ -80,8 +89,22 @@ public class RequirePermissionAspect {
         }
 
         if (!permissionService.hasPermission(roleNames, roleIds, menuCodigo, action)) {
-            throw new AccessDeniedException(
-                    String.format("Access denied: permission %s on menu %s required", action, menuCodigo));
+            String message = "No tienes permisos para realizar esta accion en menu " + menuCodigo;
+            try {
+                if (userId != null) {
+                    final String finalUserId = userId;
+                    SystemNotificationEvent event = SystemNotificationEvent.builder()
+                            .userId(finalUserId)
+                            .message("Intento de acceso no autorizado. " + message)
+                            .type(NotificationType.SYSTEM)
+                            .level(NotificationLevel.ERROR)
+                            .extraData("Acción rechazada: " + action + " en menú: " + menuCodigo)
+                            .build();
+                    systemNotificationPublisher.publishNotification(event);
+                }
+            } catch (Exception ignored) {
+            }
+            throw new AccessDeniedException(message);
         }
 
         return joinPoint.proceed();

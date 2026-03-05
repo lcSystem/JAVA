@@ -6,26 +6,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class DataSourceConfig {
-    private String microserviceId;
-    private String microserviceName;
-    private List<EntityConfig> entities;
-
-    @Data
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class EntityConfig {
-        private String entityId;
-        private String entityName;
-        private String endpointUrl;
-        private List<FieldConfig> fields;
-    }
+    private String dataSourceId;
+    private String displayName;
+    private Set<String> allowedRoles;
+    private List<FieldConfig> fields;
 
     @Data
     @Builder

@@ -9,6 +9,10 @@ import com.reportes.domain.ports.out.DynamicPdfGeneratorPort;
 import com.reportes.domain.ports.out.DynamicReportRepository;
 import com.reportes.domain.ports.out.DynamicReportHistoryRepositoryPort;
 import com.reportes.domain.model.dynamic.DynamicReportHistory;
+import com.reportes.domain.ports.out.DataSourcePort;
+import com.reportes.domain.model.dynamic.ReportExecutionAudit;
+import com.reportes.domain.ports.out.ReportExecutionAuditRepositoryPort;
+import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -28,6 +32,9 @@ public class DynamicReportService implements ManageTemplateUseCase, GenerateDyna
     private final DynamicPdfGeneratorPort pdfGeneratorPort;
     private final DynamicExcelGeneratorPort excelGeneratorPort;
     private final DynamicReportHistoryRepositoryPort historyRepositoryPort;
+    private final List<DataSourcePort> dataSourcePorts;
+    private final DataSourceRegistryService dataSourceRegistryService;
+    private final ReportExecutionAuditRepositoryPort auditRepositoryPort;
 
     @Override
     @Transactional
@@ -71,18 +78,50 @@ public class DynamicReportService implements ManageTemplateUseCase, GenerateDyna
     }
 
     @Override
-    public byte[] generateReport(UUID templateId, String rawData, Map<String, Object> parameters, String format,
-            String microserviceId, String entityId, String requestedBy) {
+    @Bulkhead(name = "reportGeneration")
+    public byte[] generateReport(UUID templateId, String dataSourceId, Map<String, Object> filters,
+            Map<String, Object> parameters, String format, String authToken, java.util.Set<String> userRoles,
+            String requestedBy) {
         ReportTemplate template = getTemplate(templateId);
 
-        log.info("Generating {} report for template: {}", format, templateId);
+        log.info("Generating {} report for template: {} from source: {}", format, templateId, dataSourceId);
+
+        if (!dataSourceRegistryService.isAllowed(dataSourceId, userRoles)) {
+            saveAudit(requestedBy, dataSourceId, 0, "ERROR", "Access denied to data source");
+            throw new org.springframework.security.access.AccessDeniedException(
+                    "User is not authorized to access this data source");
+        }
+
+        DataSourcePort dataSource = dataSourcePorts.stream()
+                .filter(port -> port.supports(dataSourceId))
+                .findFirst()
+                .orElseThrow(() -> {
+                    saveAudit(requestedBy, dataSourceId, 0, "ERROR", "No adapter found for data source");
+                    return new RuntimeException("No adapter found for data source: " + dataSourceId);
+                });
+
+        List<Map<String, Object>> rawDataList;
+        try {
+            rawDataList = dataSource.fetchData(dataSourceId, filters, authToken);
+        } catch (Exception e) {
+            saveAudit(requestedBy, dataSourceId, 0, "ERROR", "Error fetching data: " + e.getMessage());
+            throw e;
+        }
 
         byte[] resultBytes;
-        if ("EXCEL".equalsIgnoreCase(format)) {
-            resultBytes = excelGeneratorPort.generateExcel(template, rawData, parameters);
-        } else {
-            resultBytes = pdfGeneratorPort.generatePdf(template, rawData, parameters);
+        try {
+            if ("EXCEL".equalsIgnoreCase(format)) {
+                resultBytes = excelGeneratorPort.generateExcel(template, rawDataList, parameters);
+            } else {
+                resultBytes = pdfGeneratorPort.generatePdf(template, rawDataList, parameters);
+            }
+        } catch (Exception e) {
+            saveAudit(requestedBy, dataSourceId, rawDataList.size(), "ERROR",
+                    "Error generating file: " + e.getMessage());
+            throw e;
         }
+
+        saveAudit(requestedBy, dataSourceId, rawDataList.size(), "SUCCESS", null);
 
         // Save history
         try {
@@ -90,8 +129,8 @@ public class DynamicReportService implements ManageTemplateUseCase, GenerateDyna
                     .id(UUID.randomUUID())
                     .templateId(templateId)
                     .templateName(template.getName())
-                    .microserviceId(microserviceId)
-                    .entityId(entityId)
+                    .microserviceId(dataSourceId) // Using dataSourceId for history traceability
+                    .entityId("") // No longer applicable
                     .format(format)
                     .createdBy(requestedBy)
                     .createdAt(LocalDateTime.now())
@@ -102,6 +141,23 @@ public class DynamicReportService implements ManageTemplateUseCase, GenerateDyna
         }
 
         return resultBytes;
+    }
+
+    private void saveAudit(String userId, String dataSourceId, int recordCount, String status, String errorMessage) {
+        try {
+            ReportExecutionAudit audit = ReportExecutionAudit.builder()
+                    .id(UUID.randomUUID().toString())
+                    .userId(userId)
+                    .dataSourceId(dataSourceId)
+                    .recordCount(recordCount)
+                    .status(status)
+                    .errorMessage(errorMessage)
+                    .createdAt(LocalDateTime.now())
+                    .build();
+            auditRepositoryPort.save(audit);
+        } catch (Exception e) {
+            log.error("Failed to save report execution audit", e);
+        }
     }
 
     public List<DynamicReportHistory> getReportHistory() {

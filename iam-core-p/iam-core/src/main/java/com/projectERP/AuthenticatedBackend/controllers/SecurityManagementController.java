@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
 import com.projectERP.AuthenticatedBackend.models.ApplicationUser;
 import com.projectERP.AuthenticatedBackend.models.AssignPermissionRequest;
@@ -28,6 +30,10 @@ import com.projectERP.AuthenticatedBackend.models.Role;
 import com.projectERP.AuthenticatedBackend.repository.RoleRepository;
 import com.projectERP.AuthenticatedBackend.services.PermissionService;
 import com.projectERP.AuthenticatedBackend.services.SecurityManagementService;
+import com.projectERP.AuthenticatedBackend.infrastructure.messaging.publisher.SystemNotificationPublisher;
+import com.projectERP.AuthenticatedBackend.infrastructure.messaging.dto.SystemNotificationEvent;
+import com.projectERP.AuthenticatedBackend.infrastructure.messaging.dto.NotificationType;
+import com.projectERP.AuthenticatedBackend.infrastructure.messaging.dto.NotificationLevel;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -42,6 +48,9 @@ public class SecurityManagementController {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private SystemNotificationPublisher systemNotificationPublisher;
 
     // ============================
     // Users
@@ -211,7 +220,25 @@ public class SecurityManagementController {
         Set<String> roleNames = extractRoleNames(jwt);
         Set<Integer> roleIds = resolveRoleIds(roleNames);
         if (!permissionService.hasPermission(roleNames, roleIds, menuCodigo, action)) {
-            throw new RuntimeException("Access Denied: You do not have permission to " + action + " " + menuCodigo);
+            String message = "No tienes permisos para realizar esta accion en menu " + menuCodigo;
+
+            try {
+                String userId = jwt.getSubject();
+                if (userId != null) {
+                    SystemNotificationEvent event = SystemNotificationEvent.builder()
+                            .userId(userId)
+                            .message("Intento de acceso no autorizado. " + message)
+                            .type(NotificationType.SYSTEM)
+                            .level(NotificationLevel.ERROR)
+                            .extraData("Acción rechazada: " + action + " en menú: " + menuCodigo)
+                            .build();
+                    systemNotificationPublisher.publishNotification(event);
+                }
+            } catch (Exception e) {
+                // Ignore messaging errors so it doesn't mask the actual security exception
+            }
+
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, message);
         }
     }
 
