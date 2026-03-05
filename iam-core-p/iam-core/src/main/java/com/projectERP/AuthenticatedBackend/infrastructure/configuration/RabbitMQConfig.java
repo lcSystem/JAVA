@@ -14,6 +14,8 @@ public class RabbitMQConfig {
     public static final String USER_EXCHANGE = "user.exchange";
     public static final String USER_ROUTING_KEY = "user.events.v1";
 
+    public static final String SYSTEM_NOTIFICATION_EXCHANGE = "system.notifications.exchange";
+
     @Bean
     public TopicExchange userExchange() {
         return new TopicExchange(USER_EXCHANGE);

@@ -65,23 +65,32 @@ public class DynamicReportController {
     }
 
     @PostMapping("/generate")
-    public ResponseEntity<byte[]> generateReport(@RequestBody GenerateReportRequest request) {
+    public ResponseEntity<byte[]> generateReport(
+            @RequestBody GenerateReportRequest request,
+            @RequestHeader(value = "Authorization", required = false) String authHeader) {
+
         String username = "system";
+        java.util.Set<String> roles = java.util.Set.of();
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && auth.getPrincipal() instanceof Jwt jwt) {
             username = jwt.getClaimAsString("preferred_username");
             if (username == null) {
                 username = jwt.getSubject();
             }
+            if (jwt.getClaimAsStringList("roles") != null) {
+                roles = new java.util.HashSet<>(jwt.getClaimAsStringList("roles"));
+            }
         }
 
         byte[] fileBytes = generateDynamicReportUseCase.generateReport(
                 request.getTemplateId(),
-                request.getRawData(),
+                request.getDataSourceId(),
+                request.getFilters(),
                 request.getParameters(),
                 request.getFormat(),
-                request.getMicroserviceId(),
-                request.getEntityId(),
+                authHeader,
+                roles,
                 username);
 
         HttpHeaders headers = new HttpHeaders();
@@ -100,10 +109,9 @@ public class DynamicReportController {
     @Data
     public static class GenerateReportRequest {
         private UUID templateId;
-        private String rawData; // typically a JSON array string
+        private String dataSourceId;
+        private Map<String, Object> filters;
         private Map<String, Object> parameters;
         private String format; // "PDF" or "EXCEL"
-        private String microserviceId;
-        private String entityId;
     }
 }

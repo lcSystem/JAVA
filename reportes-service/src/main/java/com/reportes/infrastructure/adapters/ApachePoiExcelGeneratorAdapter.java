@@ -1,8 +1,5 @@
 package com.reportes.infrastructure.adapters;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.reportes.domain.model.dynamic.ReportTemplate;
 import com.reportes.domain.model.dynamic.ReportColumn;
 import com.reportes.domain.ports.out.DynamicExcelGeneratorPort;
@@ -23,10 +20,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ApachePoiExcelGeneratorAdapter implements DynamicExcelGeneratorPort {
 
-    private final ObjectMapper objectMapper;
-
     @Override
-    public byte[] generateExcel(ReportTemplate template, String rawDataJson, Map<String, Object> parameters) {
+    public byte[] generateExcel(ReportTemplate template, List<Map<String, Object>> dataList,
+            Map<String, Object> parameters) {
         try (Workbook workbook = new XSSFWorkbook(); ByteArrayOutputStream out = new ByteArrayOutputStream()) {
 
             Sheet sheet = workbook.createSheet(template.getName().replaceAll("[^a-zA-Z0-9.\\-]", "_"));
@@ -55,10 +51,6 @@ public class ApachePoiExcelGeneratorAdapter implements DynamicExcelGeneratorPort
                 sheet.setColumnWidth(i, visibleColumns.get(i).getWidth() * 256);
             }
 
-            // Parse Data
-            List<Map<String, Object>> dataList = objectMapper.readValue(rawDataJson, new TypeReference<>() {
-            });
-
             // Populate Data Rows
             int rowIdx = 1;
             for (Map<String, Object> dataItem : dataList) {
@@ -83,9 +75,6 @@ public class ApachePoiExcelGeneratorAdapter implements DynamicExcelGeneratorPort
             workbook.write(out);
             return out.toByteArray();
 
-        } catch (JsonProcessingException e) {
-            log.error("Failed to parse JSON string for Excel export", e);
-            throw new RuntimeException("Invalid JSON Data format", e);
         } catch (IOException e) {
             log.error("Excel generation failed", e);
             throw new RuntimeException("Error writing Excel file", e);

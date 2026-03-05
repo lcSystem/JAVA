@@ -273,8 +273,10 @@ public class PermissionService {
             throw new RuntimeException("Cannot modify ADMIN role permissions — ADMIN has automatic full access");
         }
 
-        // Delete existing permissions for this role
+        // Delete existing permissions for this role and flush immediately to prevent
+        // unique constraint violations on inserts
         permissionRepository.deleteByRoleRoleId(roleId);
+        permissionRepository.flush();
 
         // Insert new permissions
         for (AssignPermissionRequest.PermissionEntry entry : request.getPermissions()) {

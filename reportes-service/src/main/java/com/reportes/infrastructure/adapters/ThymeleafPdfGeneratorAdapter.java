@@ -1,8 +1,5 @@
 package com.reportes.infrastructure.adapters;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 import com.reportes.domain.model.dynamic.ReportTemplate;
 import com.reportes.domain.ports.out.DynamicPdfGeneratorPort;
@@ -22,14 +19,10 @@ import java.util.Map;
 public class ThymeleafPdfGeneratorAdapter implements DynamicPdfGeneratorPort {
 
     private final TemplateEngine templateEngine;
-    private final ObjectMapper objectMapper;
 
     @Override
-    public byte[] generatePdf(ReportTemplate template, String rawDataJson, Map<String, Object> parameters) {
+    public byte[] generatePdf(ReportTemplate template, List<Map<String, Object>> data, Map<String, Object> parameters) {
         try {
-            // 1. Parse raw json data into a list of maps for easy iteration in thymeleaf
-            List<Map<String, Object>> data = objectMapper.readValue(rawDataJson, new TypeReference<>() {
-            });
 
             // 2. Prepare Thymeleaf Context
             Context context = new Context();
@@ -54,9 +47,6 @@ public class ThymeleafPdfGeneratorAdapter implements DynamicPdfGeneratorPort {
                 return os.toByteArray();
             }
 
-        } catch (JsonProcessingException e) {
-            log.error("Failed to parse raw data for PDF report", e);
-            throw new RuntimeException("Invalid JSON data format", e);
         } catch (Exception e) {
             log.error("Error generating PDF", e);
             throw new RuntimeException("PDF generation failed", e);
