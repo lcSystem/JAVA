@@ -18,6 +18,7 @@ public class CreditRequest {
     private final String debtorAdditionalInfo;
     private final java.util.List<Reference> debtorReferences;
     private final java.util.List<CoDebtorProfile> coDebtors;
+    private final java.util.List<PreviousCredit> previousCredits;
     private final CoDebtorProfile representativeProfile;
     private final LocalDateTime createdAt;
 
@@ -25,7 +26,9 @@ public class CreditRequest {
             Integer termMonths, String purpose, String status, String scoringResult,
             String scoringRecommendation, String debtorAdditionalInfo,
             java.util.List<Reference> debtorReferences,
-            java.util.List<CoDebtorProfile> coDebtors, CoDebtorProfile representativeProfile,
+            java.util.List<CoDebtorProfile> coDebtors,
+            java.util.List<PreviousCredit> previousCredits,
+            CoDebtorProfile representativeProfile,
             LocalDateTime createdAt) {
         this.id = id;
         this.applicantUserId = applicantUserId;
@@ -39,6 +42,7 @@ public class CreditRequest {
         this.debtorAdditionalInfo = debtorAdditionalInfo;
         this.debtorReferences = debtorReferences;
         this.coDebtors = coDebtors;
+        this.previousCredits = previousCredits;
         this.representativeProfile = representativeProfile;
         this.createdAt = createdAt;
     }

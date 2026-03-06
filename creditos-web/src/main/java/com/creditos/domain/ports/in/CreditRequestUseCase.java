@@ -10,6 +10,7 @@ public interface CreditRequestUseCase {
             String representativeId, String debtorAdditionalInfo,
             java.util.List<com.creditos.domain.model.Reference> debtorReferences,
             java.util.List<com.creditos.domain.model.CoDebtorProfile> coDebtors,
+            java.util.List<com.creditos.domain.model.PreviousCredit> previousCredits,
             com.creditos.domain.model.CoDebtorProfile representativeProfile);
 
     CreditRequest evaluateRequest(Long requestId);
@@ -17,6 +18,8 @@ public interface CreditRequestUseCase {
     CreditRequest approveRequest(Long requestId, String approver, String comments);
 
     CreditRequest disburseRequest(Long requestId);
+
+    CreditRequest rejectRequest(Long requestId, String rejecter, String comments);
 
     CreditRequest restructureCredit(Long requestId, Integer newTerm, String approver, String comments);
 

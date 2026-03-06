@@ -22,9 +22,12 @@ public class CreditRequestDTO {
     private String scoringResult;
     private String representativeName;
     private String representativeId;
+    private String applicantName;
+    private String applicantIdentification;
     private String debtorAdditionalInfo;
     private java.util.List<ReferenceDTO> debtorReferences;
 
     private java.util.List<CoDebtorProfileDTO> coDebtors;
+    private java.util.List<PreviousCreditDTO> previousCredits;
     private CoDebtorProfileDTO representativeProfile;
 }

@@ -24,7 +24,7 @@ public class CoDebtorProfile {
     @Column(name = "full_name", nullable = false)
     private String fullName;
 
-    @Column(name = "document_id", length = 50, nullable = false, unique = true)
+    @Column(name = "document_id", length = 50, nullable = false)
     private String documentId;
 
     @Column(name = "birth_date")

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-03-02T20:24:42-0500",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.10 (Ubuntu)"
+    date = "2026-03-05T06:50:56-0400",
+    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.45.0.v20260128-0750, environment: Java 21.0.9 (Eclipse Adoptium)"
 )
 @Component
 public class ChannelMapperImpl implements ChannelMapper {
@@ -21,13 +21,13 @@ public class ChannelMapperImpl implements ChannelMapper {
 
         Channel.ChannelBuilder channel = Channel.builder();
 
-        channel.id( entity.getId() );
-        channel.tenantId( entity.getTenantId() );
-        channel.name( entity.getName() );
+        channel.createdAt( entity.getCreatedAt() );
         channel.description( entity.getDescription() );
         channel.erpEntityId( entity.getErpEntityId() );
         channel.erpEntityType( entity.getErpEntityType() );
-        channel.createdAt( entity.getCreatedAt() );
+        channel.id( entity.getId() );
+        channel.name( entity.getName() );
+        channel.tenantId( entity.getTenantId() );
 
         return channel.build();
     }
@@ -40,13 +40,13 @@ public class ChannelMapperImpl implements ChannelMapper {
 
         ChannelEntity.ChannelEntityBuilder channelEntity = ChannelEntity.builder();
 
-        channelEntity.id( domain.getId() );
-        channelEntity.tenantId( domain.getTenantId() );
-        channelEntity.name( domain.getName() );
+        channelEntity.createdAt( domain.getCreatedAt() );
         channelEntity.description( domain.getDescription() );
         channelEntity.erpEntityId( domain.getErpEntityId() );
         channelEntity.erpEntityType( domain.getErpEntityType() );
-        channelEntity.createdAt( domain.getCreatedAt() );
+        channelEntity.id( domain.getId() );
+        channelEntity.name( domain.getName() );
+        channelEntity.tenantId( domain.getTenantId() );
 
         return channelEntity.build();
     }

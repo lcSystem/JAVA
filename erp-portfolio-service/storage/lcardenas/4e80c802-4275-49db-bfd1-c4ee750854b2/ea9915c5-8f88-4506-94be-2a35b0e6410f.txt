@@ -1,0 +1,18 @@
+
+
+en la opcion productos no me deja eliminar los productos 
+
+
+Error de Sistema
+Error al rechazar la solicitud. Verifica los permisos. donde verifico permisos porque me da error donde le doy permisos
+
+
+en Información para el Crédito cuando intento cargar  datos anteriores me sale esto No se pudo cargar la información 
+
+
+los datos de las opciones aprobaciones y productos deben salir en todos los usuarios osea los usuarios con permiso a
+estas opciones deben poder ver todos los registros y ajustar tambien lo siguiente en aprobaciones permitir buscar por otros 
+campos como identificacion nombre del solicitante para poder ver a quien le voy aprobar 
+
+nota: revisar si el microservicio de credito debe estar desde otro login por temas de ingreso masivo
+
