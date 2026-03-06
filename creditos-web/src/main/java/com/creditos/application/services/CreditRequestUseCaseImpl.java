@@ -24,6 +24,7 @@ public class CreditRequestUseCaseImpl implements CreditRequestUseCase {
             String representativeId, String debtorAdditionalInfo,
             java.util.List<com.creditos.domain.model.Reference> debtorReferences,
             java.util.List<com.creditos.domain.model.CoDebtorProfile> coDebtors,
+            java.util.List<com.creditos.domain.model.PreviousCredit> previousCredits,
             com.creditos.domain.model.CoDebtorProfile representativeProfile) {
         CreditType type = creditTypeRepositoryPort.findById(creditTypeId)
                 .orElseThrow(() -> new RuntimeException("Credit type not found"));
@@ -44,6 +45,7 @@ public class CreditRequestUseCaseImpl implements CreditRequestUseCase {
                 debtorAdditionalInfo,
                 debtorReferences,
                 coDebtors,
+                previousCredits,
                 representativeProfile,
                 null);
 
@@ -95,6 +97,7 @@ public class CreditRequestUseCaseImpl implements CreditRequestUseCase {
                 request.getDebtorAdditionalInfo(),
                 request.getDebtorReferences(),
                 request.getCoDebtors(),
+                request.getPreviousCredits(),
                 request.getRepresentativeProfile(),
                 request.getCreatedAt());
 
@@ -119,6 +122,7 @@ public class CreditRequestUseCaseImpl implements CreditRequestUseCase {
                 request.getDebtorAdditionalInfo(),
                 request.getDebtorReferences(),
                 request.getCoDebtors(),
+                request.getPreviousCredits(),
                 request.getRepresentativeProfile(),
                 request.getCreatedAt());
 
@@ -147,10 +151,36 @@ public class CreditRequestUseCaseImpl implements CreditRequestUseCase {
                 request.getDebtorAdditionalInfo(),
                 request.getDebtorReferences(),
                 request.getCoDebtors(),
+                request.getPreviousCredits(),
                 request.getRepresentativeProfile(),
                 request.getCreatedAt());
 
         return creditRequestRepositoryPort.save(disbursedRequest);
+    }
+
+    @Override
+    public CreditRequest rejectRequest(Long requestId, String rejecter, String comments) {
+        CreditRequest request = creditRequestRepositoryPort.findById(requestId)
+                .orElseThrow(() -> new RuntimeException("Request not found"));
+
+        CreditRequest rejectedRequest = new CreditRequest(
+                request.getId(),
+                request.getApplicantUserId(),
+                request.getCreditType(),
+                request.getAmount(),
+                request.getTermMonths(),
+                request.getPurpose(),
+                "REJECTED",
+                request.getScoringResult(),
+                request.getScoringRecommendation(),
+                request.getDebtorAdditionalInfo(),
+                request.getDebtorReferences(),
+                request.getCoDebtors(),
+                request.getPreviousCredits(),
+                request.getRepresentativeProfile(),
+                request.getCreatedAt());
+
+        return creditRequestRepositoryPort.save(rejectedRequest);
     }
 
     @Override

@@ -3,13 +3,16 @@
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/security/CustomAuthoritiesConverter.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/model/CreditType.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/infrastructure/configuration/RabbitMQConfig.java
+/home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/model/PreviousCredit.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/repository/PaymentRepository.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/domain/ports/out/CreditTypeRepositoryPort.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/model/AmortizationInstallment.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/repository/CreditTypeRepository.java
+/home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/dto/PreviousCreditDTO.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/model/Payment.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/domain/ports/in/ScoringUseCase.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/controller/AmortizationController.java
+/home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/controller/GlobalExceptionHandler.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/dto/CreditRequestDTO.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/model/ApplicantProfile.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/infrastructure/persistence/entity/ProcessedEvent.java
@@ -49,8 +52,10 @@
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/model/Reference.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/service/ScoringService.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/dto/CoDebtorProfileDTO.java
+/home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/domain/model/PreviousCredit.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/dto/ReferenceDTO.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/infrastructure/mappers/CreditRequestMapper.java
+/home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/infrastructure/mappers/PreviousCreditMapper.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/repository/ApprovalAuditRepository.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/dto/CreditReferenceDTO.java
 /home/lsyst/Documentos/JAVA/creditos-web/src/main/java/com/creditos/domain/model/CreditType.java

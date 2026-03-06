@@ -47,6 +47,9 @@ public class CreditRequestController {
                                                 dto.getCoDebtors() != null ? dto.getCoDebtors().stream()
                                                                 .map(com.creditos.infrastructure.mappers.CoDebtorMapper::toDomain)
                                                                 .collect(java.util.stream.Collectors.toList()) : null,
+                                                dto.getPreviousCredits() != null ? dto.getPreviousCredits().stream()
+                                                                .map(com.creditos.infrastructure.mappers.PreviousCreditMapper::toDomain)
+                                                                .collect(java.util.stream.Collectors.toList()) : null,
                                                 com.creditos.infrastructure.mappers.CoDebtorMapper
                                                                 .toDomain(dto.getRepresentativeProfile()))));
         }
@@ -61,7 +64,11 @@ public class CreditRequestController {
         @PostMapping("/{id}/approve")
         @PreAuthorize("hasAuthority('CREDIT_APP_UPDATE') or hasAuthority('CREDIT_APPROVE') or hasAuthority('ROLE_ADMIN') or hasAuthority('CREDIT_ADMIN')")
         public ResponseEntity<CreditRequestDTO> approve(@PathVariable Long id,
-                        @RequestParam(required = false) String comments, Authentication authentication) {
+                        @RequestBody(required = false) java.util.Map<String, String> body,
+                        Authentication authentication) {
+                System.out.println("DEBUG: Approve request " + id + " by " + authentication.getName());
+                System.out.println("DEBUG: User authorities: " + authentication.getAuthorities());
+                String comments = body != null ? body.get("comments") : null;
                 return ResponseEntity.ok(com.creditos.infrastructure.mappers.CreditRequestMapper
                                 .toDTO(creditRequestUseCase.approveRequest(id, authentication.getName(), comments)));
         }
@@ -71,6 +78,18 @@ public class CreditRequestController {
         public ResponseEntity<CreditRequestDTO> disburse(@PathVariable Long id) {
                 return ResponseEntity.ok(com.creditos.infrastructure.mappers.CreditRequestMapper
                                 .toDTO(creditRequestUseCase.disburseRequest(id)));
+        }
+
+        @PostMapping("/{id}/reject")
+        @PreAuthorize("hasAuthority('CREDIT_APP_UPDATE') or hasAuthority('ROLE_ADMIN') or hasAuthority('CREDIT_ADMIN')")
+        public ResponseEntity<CreditRequestDTO> reject(@PathVariable Long id,
+                        @RequestBody(required = false) java.util.Map<String, String> body,
+                        Authentication authentication) {
+                System.out.println("DEBUG: Reject request " + id + " by " + authentication.getName());
+                System.out.println("DEBUG: User authorities: " + authentication.getAuthorities());
+                String comments = body != null ? body.get("comments") : null;
+                return ResponseEntity.ok(com.creditos.infrastructure.mappers.CreditRequestMapper
+                                .toDTO(creditRequestUseCase.rejectRequest(id, authentication.getName(), comments)));
         }
 
         @PostMapping("/{id}/restructure")

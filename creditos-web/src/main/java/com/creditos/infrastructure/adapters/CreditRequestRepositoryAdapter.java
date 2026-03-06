@@ -66,7 +66,7 @@ public class CreditRequestRepositoryAdapter implements CreditRequestRepositoryPo
 
     @Override
     public List<CreditRequest> findByApplicantUserId(Long userId) {
-        return creditRequestRepository.findByApplicantUserId(userId).stream()
+        return creditRequestRepository.findByApplicantUserIdOrderByIdDesc(userId).stream()
                 .map(CreditRequestMapper::toDomain)
                 .collect(Collectors.toList());
     }

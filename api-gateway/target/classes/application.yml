@@ -14,7 +14,7 @@ spring:
         - id: creditos-web
           uri: http://localhost:8082
           predicates:
-            - Path=/api/creditos/**, /api/credit-types/**, /api/credit-requests/**, /api/applicants/**
+            - Path=/api/creditos/**, /api/credit-types/**, /api/credit-requests/**, /api/applicants/**, /api/creditos-portfolio/**
 
         # Parametrizaciones - Parameter Management
         - id: parametrizaciones
@@ -59,7 +59,7 @@ spring:
             - Path=/api/auth/**, /api/users/**, /api/roles/**, /api/permissions/**, /api/menus/**, /api/design/**, /api/organizations/**, /api/sessions/**, /api/security/**, /uploads/**, /assets/**, /api/**
 
       default-filters:
-        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials, RETAIN_UNIQUE
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials Vary, RETAIN_UNIQUE
 
       globalcors:
         add-to-simple-url-handler-mapping: true

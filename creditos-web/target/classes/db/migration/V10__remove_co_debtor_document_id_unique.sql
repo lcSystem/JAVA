@@ -1,0 +1,1 @@
+ALTER TABLE co_debtor_profiles DROP INDEX uk_codebtor_document;

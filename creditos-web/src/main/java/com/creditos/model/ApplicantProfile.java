@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "applicant_profiles")
 @org.hibernate.annotations.SQLDelete(sql = "UPDATE applicant_profiles SET deleted_at = NOW() WHERE id = ?")
-@org.hibernate.annotations.Where(clause = "deleted_at IS NULL")
+// @org.hibernate.annotations.Where(clause = "deleted_at IS NULL")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

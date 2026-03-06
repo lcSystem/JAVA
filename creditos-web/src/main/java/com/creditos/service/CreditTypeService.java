@@ -4,6 +4,7 @@ import com.creditos.model.CreditType;
 import com.creditos.repository.CreditTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class CreditTypeService {
     private final CreditTypeRepository creditTypeRepository;
 
     public List<CreditType> getAllActiveCreditTypes() {
-        return creditTypeRepository.findAll(); // In a real app, maybe filter by active=true
+        return creditTypeRepository.findAllActive();
     }
 
     public CreditType getCreditTypeById(Long id) {
@@ -40,7 +41,18 @@ public class CreditTypeService {
         return creditTypeRepository.save(existing);
     }
 
+    @Transactional
     public void deleteCreditType(Long id) {
-        creditTypeRepository.deleteById(id);
+        System.out.println("[CreditTypeService] Attempting to explicit soft-delete credit type with ID: " + id);
+        try {
+            creditTypeRepository.softDeleteById(id);
+            System.out.println("[CreditTypeService] Successfully soft-deleted credit type with ID: " + id);
+        } catch (Exception e) {
+            System.err.println(
+                    "[CreditTypeService] Error soft-deleting credit type with ID: " + id + ". Error: "
+                            + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
     }
 }

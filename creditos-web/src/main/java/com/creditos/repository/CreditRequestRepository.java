@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface CreditRequestRepository extends JpaRepository<CreditRequest, Long> {
-    List<CreditRequest> findByApplicantUserId(Long userId);
+    List<CreditRequest> findByApplicantUserIdOrderByIdDesc(Long userId);
 }

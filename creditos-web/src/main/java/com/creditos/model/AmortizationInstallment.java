@@ -16,7 +16,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Entity
 @Table(name = "amortization_schedule")
 @org.hibernate.annotations.SQLDelete(sql = "UPDATE amortization_schedule SET deleted_at = NOW() WHERE id = ?")
-@org.hibernate.annotations.Where(clause = "deleted_at IS NULL")
+// @org.hibernate.annotations.Where(clause = "deleted_at IS NULL")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

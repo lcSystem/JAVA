@@ -14,8 +14,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "credit_types")
-@org.hibernate.annotations.SQLDelete(sql = "UPDATE credit_types SET deleted_at = NOW() WHERE id = ?")
-@org.hibernate.annotations.Where(clause = "deleted_at IS NULL")
+// Soft delete handled explicitly in repository to avoid Hibernate 6 parameter
+// mismatch bugs
+// @org.hibernate.annotations.SQLDelete(sql = "UPDATE credit_types SET
+// deleted_at = NOW() WHERE id = ?")
+// @org.hibernate.annotations.Where(clause = "deleted_at IS NULL")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

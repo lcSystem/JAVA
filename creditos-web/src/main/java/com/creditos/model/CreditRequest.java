@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "credit_requests")
 @org.hibernate.annotations.SQLDelete(sql = "UPDATE credit_requests SET deleted_at = NOW() WHERE id = ?")
-@org.hibernate.annotations.Where(clause = "deleted_at IS NULL")
+// @org.hibernate.annotations.Where(clause = "deleted_at IS NULL")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -61,6 +61,10 @@ public class CreditRequest {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "credit_request_id")
     private java.util.List<CoDebtorProfile> coDebtors;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "credit_request_id")
+    private java.util.List<PreviousCredit> previousCredits;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "representative_profile_id")
