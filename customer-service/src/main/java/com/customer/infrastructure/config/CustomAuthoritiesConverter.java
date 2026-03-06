@@ -1,4 +1,4 @@
-package com.creditos.security;
+package com.customer.infrastructure.config;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,8 +22,6 @@ public class CustomAuthoritiesConverter implements Converter<Jwt, Collection<Gra
         extractedRoles.stream()
                 .map(auth -> {
                     String authority = auth.getAuthority();
-                    // If it doesn't start with ROLE_ and it contains an underscore,
-                    // it's likely a permission (e.g., CREDIT_APP_UPDATE), so we don't prefix it.
                     if (!authority.startsWith("ROLE_") && !authority.contains("_")) {
                         return new SimpleGrantedAuthority("ROLE_" + authority);
                     }
@@ -34,9 +32,6 @@ public class CustomAuthoritiesConverter implements Converter<Jwt, Collection<Gra
         // Handle permissions
         Collection<GrantedAuthority> extractedPermissions = extractAuthorities(jwt, "permissions");
         extractedPermissions.forEach(authorities::add);
-
-        System.out.println("DEBUG: Extracted Authorities from JWT: " +
-                authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(", ")));
 
         return authorities;
     }
