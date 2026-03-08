@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,10 +42,16 @@ public class CustomerService implements
     @Override
     @Transactional
     public Customer update(Customer customer) {
-        Customer updated = customerRepository.save(customer);
-        logEvent(updated.getId(), "UPDATE", "Información de cliente actualizada");
-        eventPublisher.publishCustomerUpdated(updated.getId());
-        return updated;
+        try {
+            Customer updated = customerRepository.save(customer);
+            logEvent(updated.getId(), "UPDATE", "Información de cliente actualizada");
+            eventPublisher.publishCustomerUpdated(updated.getId());
+            return updated;
+        } catch (Exception e) {
+            System.err.println("ERROR UPDATING CUSTOMER: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     @Override
@@ -95,6 +102,15 @@ public class CustomerService implements
         return customerRepository.findNotesByCustomerId(customerId);
     }
 
+    @Override
+    @Transactional
+    public void deleteNote(Long customerId, Long noteId) {
+        customerRepository.findNoteById(noteId).ifPresent(note -> {
+            customerRepository.deleteNote(noteId);
+            logEvent(customerId, "DELETE_NOTE", "Nota interna eliminada: " + note.getNote());
+        });
+    }
+
     // History Implementation
     @Override
     @Transactional(readOnly = true)
@@ -105,6 +121,14 @@ public class CustomerService implements
     @Override
     @Transactional
     public void logEvent(Long customerId, String eventType, String description) {
+        List<CustomerHistory> existingHistory = customerRepository.findHistoryByCustomerId(customerId);
+        if (existingHistory.size() >= 100) {
+            existingHistory.stream()
+                    .sorted(Comparator.comparing(CustomerHistory::getCreatedAt))
+                    .limit(existingHistory.size() - 99)
+                    .forEach(h -> customerRepository.deleteHistoryById(h.getId()));
+        }
+
         CustomerHistory history = CustomerHistory.builder()
                 .customerId(customerId)
                 .eventType(eventType)

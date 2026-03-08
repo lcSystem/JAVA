@@ -25,8 +25,14 @@ public interface CustomerRepositoryPort {
 
     List<CustomerNote> findNotesByCustomerId(Long customerId);
 
+    Optional<CustomerNote> findNoteById(Long noteId);
+
+    void deleteNote(Long noteId);
+
     // History
     CustomerHistory saveHistory(CustomerHistory history);
 
     List<CustomerHistory> findHistoryByCustomerId(Long customerId);
+
+    void deleteHistoryById(Long id);
 }

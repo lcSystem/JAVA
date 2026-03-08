@@ -100,6 +100,13 @@ public class CustomerController {
         return new ResponseEntity<>(mapper.toDto(added), HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/{id}/notes/{noteId}")
+    @PreAuthorize("hasAuthority('CLIENTES_UPDATE')")
+    public ResponseEntity<Void> deleteNote(@PathVariable Long id, @PathVariable Long noteId) {
+        manageCustomerNotesUseCase.deleteNote(id, noteId);
+        return ResponseEntity.noContent().build();
+    }
+
     // History
     @GetMapping("/{id}/history")
     @PreAuthorize("hasAuthority('CLIENTES_READ')")

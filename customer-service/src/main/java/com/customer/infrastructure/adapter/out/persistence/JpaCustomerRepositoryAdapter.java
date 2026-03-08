@@ -78,6 +78,16 @@ public class JpaCustomerRepositoryAdapter implements CustomerRepositoryPort {
     }
 
     @Override
+    public Optional<CustomerNote> findNoteById(Long noteId) {
+        return noteRepository.findById(noteId).map(mapper::toDomain);
+    }
+
+    @Override
+    public void deleteNote(Long noteId) {
+        noteRepository.deleteById(noteId);
+    }
+
+    @Override
     public CustomerHistory saveHistory(CustomerHistory history) {
         CustomerHistoryEntity entity = mapper.toEntity(history);
         if (history.getCustomerId() != null) {
@@ -95,5 +105,10 @@ public class JpaCustomerRepositoryAdapter implements CustomerRepositoryPort {
                 .stream()
                 .map(mapper::toDomain)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteHistoryById(Long id) {
+        historyRepository.deleteById(id);
     }
 }
