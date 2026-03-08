@@ -7,4 +7,6 @@ public interface ManageCustomerNotesUseCase {
     CustomerNote addNote(Long customerId, String note);
 
     List<CustomerNote> getNotes(Long customerId);
+
+    void deleteNote(Long customerId, Long noteId);
 }

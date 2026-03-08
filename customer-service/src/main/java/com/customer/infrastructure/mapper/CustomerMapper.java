@@ -9,8 +9,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 
-import java.util.List;
-
 @Mapper(componentModel = "spring")
 public interface CustomerMapper {
 
@@ -25,8 +23,6 @@ public interface CustomerMapper {
     @Mapping(target = "history", ignore = true)
     Customer toDomainNoRelationships(CustomerEntity entity);
 
-    @Mapping(target = "addresses", ignore = true)
-    @Mapping(target = "contacts", ignore = true)
     @Mapping(target = "notes", ignore = true)
     @Mapping(target = "history", ignore = true)
     CustomerEntity toEntity(Customer domain);
@@ -47,14 +43,18 @@ public interface CustomerMapper {
         }
     }
 
+    @Mapping(target = "customerId", source = "customer.id")
     CustomerAddress toDomain(CustomerAddressEntity entity);
 
     CustomerAddressEntity toEntity(CustomerAddress domain);
 
+    @Mapping(target = "addressType", source = "type")
     CustomerAddress toDomain(CustomerAddressDto dto);
 
+    @Mapping(target = "type", source = "addressType")
     CustomerAddressDto toDto(CustomerAddress domain);
 
+    @Mapping(target = "customerId", source = "customer.id")
     CustomerContact toDomain(CustomerContactEntity entity);
 
     CustomerContactEntity toEntity(CustomerContact domain);
@@ -79,8 +79,12 @@ public interface CustomerMapper {
 
     CustomerHistoryDto toDto(CustomerHistory domain);
 
+    @Mapping(target = "notes", ignore = true)
+    @Mapping(target = "history", ignore = true)
     Customer toDomain(CreateCustomerRequest request);
 
+    @Mapping(target = "notes", ignore = true)
+    @Mapping(target = "history", ignore = true)
     Customer toDomain(UpdateCustomerRequest request);
 
     CustomerResponse toResponse(Customer domain);

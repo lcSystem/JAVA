@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-03-06T09:28:26-0400",
+    date = "2026-03-07T20:00:01-0400",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.10 (Ubuntu)"
 )
 @Component
@@ -100,6 +100,8 @@ public class CustomerMapperImpl implements CustomerMapper {
         customerEntity.createdBy( domain.getCreatedBy() );
         customerEntity.updatedBy( domain.getUpdatedBy() );
         customerEntity.deletedAt( domain.getDeletedAt() );
+        customerEntity.addresses( customerAddressListToCustomerAddressEntityList( domain.getAddresses() ) );
+        customerEntity.contacts( customerContactListToCustomerContactEntityList( domain.getContacts() ) );
 
         return customerEntity.build();
     }
@@ -112,6 +114,7 @@ public class CustomerMapperImpl implements CustomerMapper {
 
         CustomerAddress.CustomerAddressBuilder customerAddress = CustomerAddress.builder();
 
+        customerAddress.customerId( entityCustomerId( entity ) );
         customerAddress.id( entity.getId() );
         customerAddress.street( entity.getStreet() );
         customerAddress.city( entity.getCity() );
@@ -152,6 +155,7 @@ public class CustomerMapperImpl implements CustomerMapper {
 
         CustomerAddress.CustomerAddressBuilder customerAddress = CustomerAddress.builder();
 
+        customerAddress.addressType( dto.getType() );
         customerAddress.id( dto.getId() );
         customerAddress.street( dto.getStreet() );
         customerAddress.city( dto.getCity() );
@@ -170,6 +174,7 @@ public class CustomerMapperImpl implements CustomerMapper {
 
         CustomerAddressDto customerAddressDto = new CustomerAddressDto();
 
+        customerAddressDto.setType( domain.getAddressType() );
         customerAddressDto.setId( domain.getId() );
         customerAddressDto.setStreet( domain.getStreet() );
         customerAddressDto.setCity( domain.getCity() );
@@ -188,11 +193,15 @@ public class CustomerMapperImpl implements CustomerMapper {
 
         CustomerContact.CustomerContactBuilder customerContact = CustomerContact.builder();
 
+        customerContact.customerId( entityCustomerId1( entity ) );
         customerContact.id( entity.getId() );
         customerContact.name( entity.getName() );
         customerContact.position( entity.getPosition() );
         customerContact.email( entity.getEmail() );
         customerContact.phone( entity.getPhone() );
+        customerContact.documentNumber( entity.getDocumentNumber() );
+        customerContact.birthDate( entity.getBirthDate() );
+        customerContact.isLegalRepresentative( entity.getIsLegalRepresentative() );
         customerContact.createdAt( entity.getCreatedAt() );
 
         return customerContact.build();
@@ -211,6 +220,9 @@ public class CustomerMapperImpl implements CustomerMapper {
         customerContactEntity.position( domain.getPosition() );
         customerContactEntity.email( domain.getEmail() );
         customerContactEntity.phone( domain.getPhone() );
+        customerContactEntity.documentNumber( domain.getDocumentNumber() );
+        customerContactEntity.birthDate( domain.getBirthDate() );
+        customerContactEntity.isLegalRepresentative( domain.getIsLegalRepresentative() );
         customerContactEntity.createdAt( domain.getCreatedAt() );
 
         return customerContactEntity.build();
@@ -229,6 +241,10 @@ public class CustomerMapperImpl implements CustomerMapper {
         customerContact.position( dto.getPosition() );
         customerContact.email( dto.getEmail() );
         customerContact.phone( dto.getPhone() );
+        customerContact.documentNumber( dto.getDocumentNumber() );
+        customerContact.birthDate( dto.getBirthDate() );
+        customerContact.isLegalRepresentative( dto.getIsLegalRepresentative() );
+        customerContact.createdAt( dto.getCreatedAt() );
 
         return customerContact.build();
     }
@@ -246,6 +262,10 @@ public class CustomerMapperImpl implements CustomerMapper {
         customerContactDto.setPosition( domain.getPosition() );
         customerContactDto.setEmail( domain.getEmail() );
         customerContactDto.setPhone( domain.getPhone() );
+        customerContactDto.setDocumentNumber( domain.getDocumentNumber() );
+        customerContactDto.setBirthDate( domain.getBirthDate() );
+        customerContactDto.setIsLegalRepresentative( domain.getIsLegalRepresentative() );
+        customerContactDto.setCreatedAt( domain.getCreatedAt() );
 
         return customerContactDto;
     }
@@ -473,6 +493,62 @@ public class CustomerMapperImpl implements CustomerMapper {
         }
 
         return list1;
+    }
+
+    protected List<CustomerAddressEntity> customerAddressListToCustomerAddressEntityList(List<CustomerAddress> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<CustomerAddressEntity> list1 = new ArrayList<CustomerAddressEntity>( list.size() );
+        for ( CustomerAddress customerAddress : list ) {
+            list1.add( toEntity( customerAddress ) );
+        }
+
+        return list1;
+    }
+
+    protected List<CustomerContactEntity> customerContactListToCustomerContactEntityList(List<CustomerContact> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<CustomerContactEntity> list1 = new ArrayList<CustomerContactEntity>( list.size() );
+        for ( CustomerContact customerContact : list ) {
+            list1.add( toEntity( customerContact ) );
+        }
+
+        return list1;
+    }
+
+    private Long entityCustomerId(CustomerAddressEntity customerAddressEntity) {
+        if ( customerAddressEntity == null ) {
+            return null;
+        }
+        CustomerEntity customer = customerAddressEntity.getCustomer();
+        if ( customer == null ) {
+            return null;
+        }
+        Long id = customer.getId();
+        if ( id == null ) {
+            return null;
+        }
+        return id;
+    }
+
+    private Long entityCustomerId1(CustomerContactEntity customerContactEntity) {
+        if ( customerContactEntity == null ) {
+            return null;
+        }
+        CustomerEntity customer = customerContactEntity.getCustomer();
+        if ( customer == null ) {
+            return null;
+        }
+        Long id = customer.getId();
+        if ( id == null ) {
+            return null;
+        }
+        return id;
     }
 
     protected List<CustomerAddress> customerAddressDtoListToCustomerAddressList(List<CustomerAddressDto> list) {

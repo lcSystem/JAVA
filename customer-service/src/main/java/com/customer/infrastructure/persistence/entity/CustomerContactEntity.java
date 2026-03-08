@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -32,6 +33,15 @@ public class CustomerContactEntity {
     private String position;
     private String email;
     private String phone;
+
+    @Column(name = "document_number")
+    private String documentNumber;
+
+    @Column(name = "birth_date")
+    private LocalDate birthDate;
+
+    @Column(name = "is_legal_representative")
+    private Boolean isLegalRepresentative;
 
     @CreatedDate
     @Column(name = "created_at", updatable = false)

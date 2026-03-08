@@ -1,0 +1,3 @@
+micro sevicio de reportes
+LLM el micro servicio de reportes debo poder organizar el diseño del reporte modo drag and drop trabajemos en que sea inteligente tenga cambio de colores mover ubicacion de la informacion poder quitar columnas pero que pueda imprimir reportes de cualquier micro servicio agregarle o quitarle graficos a la salida del reporte algo muy abanzado digno de un servicio de reportes 2026agrega parametros para controlar alcances del microservicio
+

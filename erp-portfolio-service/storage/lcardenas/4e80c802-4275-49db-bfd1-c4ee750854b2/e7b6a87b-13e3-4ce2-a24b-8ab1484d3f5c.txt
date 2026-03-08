@@ -1,0 +1,38 @@
+creditos---------------------------------------------
+la opcion informacion para el credito no me carga la informacion anterior me sale fail to fetch
+
+en simulador el boton solicitar credito ahora no cumple con el estandar de diseño dado por la opcion diseño 
+
+en la opcion mis creditos cuando le doy en ver no tengo como devolverme a mis creditos nuevamente
+
+en la opcion productos no me deja eliminar los productos 
+
+opcion aprobaciones cuando estudio el credito 
+Error de Sistema
+Error al rechazar la solicitud. Verifica los permisos. donde verifico permisos porque me da error donde le doy permisos
+
+en cartera no puedo apreciar datos como cartera total creditos activos cartera en mora indice de mora todo sale 0 apesar que ya tengo varios creditos tampoco veo los diagramas 
+
+nota: el microservicio de credito debe estar desde otro login para ingresar con otras credenciales (no deben estar en mi tabla de usuarios es algo independiente las debe tomar de cliente user el id y la clave una columna protegida en db) por temas de ingreso masivo de solicitantes
+
+desde mi panel debe poder acceder todos los clientes (crear modulo clientes)registrados con CC como usuario y la contraseña debe ser otro campo encriptado por jwt yo debo poder acceder a todas las opciones tal cual como ahora desde mi sistema de administracion
+
+todos los que entren desde login creditos deben tener permiso solo de solicitarlos ver sus creditos ampliar la idea de creditos tener en cudenta
+el diseño para este debe ser dado por configuraciones en las opciones de creditos una opcion llamada configuracion esto debe contener modificaciones para todo el sistema-masivo de creditos
+logo de la organizacion
+diseño de la organizacion
+
+podria ser crear otro menu que integre el micro servicio un frontend expuesto para usuarios masivos con caracteristicas de rendimiento 
+un login masivo esto puede ser otro frontedn ver que tecnologias son mas apropiadas para esto
+
+
+
+
+cleite-----------------------------------
+
+en historial en todos los registros sale invalid date en una esquina  ademas no sale que nota elimino deberia mostrarme la nota que elimino, este nombre que sale SISTEMA ERP deberia salir el nombre definido en diseño del sistema 
+
+portafolio-------------------------------
+
+en portfolio-service debo alterar los meta datos de ubicacion y otros metadatos por seguridad de mis clientes al momento de descargar los archivos
+
