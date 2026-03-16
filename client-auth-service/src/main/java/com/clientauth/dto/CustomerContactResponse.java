@@ -16,6 +16,8 @@ public class CustomerContactResponse {
     private String phone;
     private String email;
     private String position;
+    private String companyName;
+    private String workPhone;
     private String documentNumber;
     private LocalDate birthDate;
     private Boolean isLegalRepresentative;

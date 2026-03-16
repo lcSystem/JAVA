@@ -13,6 +13,8 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -49,6 +51,23 @@ public class CustomerEntity {
 
     @Column(length = 50)
     private String phone;
+
+    @Column(name = "birth_date")
+    private LocalDate birthDate;
+
+    @Column(name = "company_name", length = 200)
+    private String companyName;
+
+    @Column(length = 150)
+    private String position;
+
+    @Column(name = "work_phone", length = 50)
+    private String workPhone;
+
+    @Column(name = "corporate_email", length = 150)
+    private String corporateEmail;
+
+    private BigDecimal salary;
 
     @Enumerated(EnumType.STRING)
     @Builder.Default

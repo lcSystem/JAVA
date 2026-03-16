@@ -23,14 +23,19 @@ public class AmortizationService implements AmortizationUseCase {
         BigDecimal annualRate = request.getCreditType().getAnnualInterestRate().divide(new BigDecimal("100"), 10,
                 RoundingMode.HALF_UP);
         BigDecimal monthlyRate = annualRate.divide(new BigDecimal("12"), 10, RoundingMode.HALF_UP);
+        BigDecimal monthlyInstallment;
 
-        BigDecimal onePlusR = BigDecimal.ONE.add(monthlyRate);
-        BigDecimal compoundInterest = onePlusR.pow(terms);
+        if (monthlyRate.compareTo(BigDecimal.ZERO) > 0) {
+            BigDecimal onePlusR = BigDecimal.ONE.add(monthlyRate);
+            BigDecimal compoundInterest = onePlusR.pow(terms);
 
-        BigDecimal numerator = principal.multiply(monthlyRate).multiply(compoundInterest);
-        BigDecimal denominator = compoundInterest.subtract(BigDecimal.ONE);
+            BigDecimal numerator = principal.multiply(monthlyRate).multiply(compoundInterest);
+            BigDecimal denominator = compoundInterest.subtract(BigDecimal.ONE);
 
-        BigDecimal monthlyInstallment = numerator.divide(denominator, 2, RoundingMode.HALF_UP);
+            monthlyInstallment = numerator.divide(denominator, 2, RoundingMode.HALF_UP);
+        } else {
+            monthlyInstallment = principal.divide(new BigDecimal(terms), 2, RoundingMode.HALF_UP);
+        }
 
         BigDecimal remainingBalance = principal;
         LocalDate nextDueDate = LocalDate.now().plusMonths(1);

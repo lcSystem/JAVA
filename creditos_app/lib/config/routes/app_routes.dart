@@ -7,7 +7,6 @@ import '../../features/creditos/presentation/screens/credit_info_screen.dart';
 import '../../features/creditos/presentation/screens/simulator_screen.dart';
 import '../../features/creditos/presentation/screens/my_credits_screen.dart';
 import '../../features/creditos/presentation/screens/credit_detail_screen.dart';
-import '../../features/creditos/presentation/screens/edit_credit_screen.dart';
 import '../../features/creditos/domain/models/credit_models.dart';
 import '../../features/perfil/presentation/screens/profile_screen.dart';
 
@@ -60,9 +59,8 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/creditos/editar/:id',
         builder: (context, state) {
-          final id = int.parse(state.pathParameters['id']!);
           final credit = state.extra as CreditRequest?;
-          return EditCreditScreen(requestId: id, initialCredit: credit);
+          return CreditInfoScreen(creditRequest: credit);
         },
       ),
       GoRoute(

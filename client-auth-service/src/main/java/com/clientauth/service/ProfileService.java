@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.clientauth.entity.CustomerAddressEntity;
 import com.clientauth.entity.CustomerContactEntity;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -51,6 +50,24 @@ public class ProfileService {
         }
         if (request.getPhone() != null && !request.getPhone().isBlank()) {
             customer.setPhone(request.getPhone());
+        }
+        if (request.getBirthDate() != null) {
+            customer.setBirthDate(request.getBirthDate());
+        }
+        if (request.getCompanyName() != null) {
+            customer.setCompanyName(request.getCompanyName());
+        }
+        if (request.getPosition() != null) {
+            customer.setPosition(request.getPosition());
+        }
+        if (request.getWorkPhone() != null) {
+            customer.setWorkPhone(request.getWorkPhone());
+        }
+        if (request.getCorporateEmail() != null) {
+            customer.setCorporateEmail(request.getCorporateEmail());
+        }
+        if (request.getSalary() != null) {
+            customer.setSalary(request.getSalary());
         }
 
         // Addresses
@@ -103,6 +120,8 @@ public class ProfileService {
                             .position(contReq.getPosition())
                             .documentNumber(contReq.getDocumentNumber())
                             .birthDate(contReq.getBirthDate())
+                            .companyName(contReq.getCompanyName())
+                            .workPhone(contReq.getWorkPhone())
                             .isLegalRepresentative(contReq.getIsLegalRepresentative())
                             .build());
                 } else {
@@ -117,6 +136,8 @@ public class ProfileService {
                                 c.setPosition(contReq.getPosition());
                                 c.setDocumentNumber(contReq.getDocumentNumber());
                                 c.setBirthDate(contReq.getBirthDate());
+                                c.setCompanyName(contReq.getCompanyName());
+                                c.setWorkPhone(contReq.getWorkPhone());
                                 c.setIsLegalRepresentative(contReq.getIsLegalRepresentative());
                             });
                 }
@@ -136,6 +157,12 @@ public class ProfileService {
                 .documentNumber(customer.getDocumentNumber())
                 .email(customer.getEmail())
                 .phone(customer.getPhone())
+                .birthDate(customer.getBirthDate())
+                .companyName(customer.getCompanyName())
+                .position(customer.getPosition())
+                .workPhone(customer.getWorkPhone())
+                .corporateEmail(customer.getCorporateEmail())
+                .salary(customer.getSalary())
                 .type(customer.getType())
                 .status(customer.getStatus())
                 .addresses(customer.getAddresses() != null ? customer.getAddresses().stream()
@@ -158,6 +185,8 @@ public class ProfileService {
                                 .position(contact.getPosition())
                                 .documentNumber(contact.getDocumentNumber())
                                 .birthDate(contact.getBirthDate())
+                                .companyName(contact.getCompanyName())
+                                .workPhone(contact.getWorkPhone())
                                 .isLegalRepresentative(contact.getIsLegalRepresentative())
                                 .build())
                         .collect(Collectors.toList()) : null)

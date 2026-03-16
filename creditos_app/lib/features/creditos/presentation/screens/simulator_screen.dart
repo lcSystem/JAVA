@@ -44,14 +44,19 @@ class _SimulatorScreenState extends ConsumerState<SimulatorScreen> {
     final n = _term;
 
     // Payment = P * [r(1+r)^n] / [(1+r)^n - 1]
-    final monthlyPayment = principal * (monthlyRate * pow(1 + monthlyRate, n)) / (pow(1 + monthlyRate, n) - 1);
+    double monthlyPayment;
+    if (monthlyRate > 0) {
+      monthlyPayment = principal * (monthlyRate * pow(1 + monthlyRate, n)) / (pow(1 + monthlyRate, n) - 1);
+    } else {
+      monthlyPayment = principal / n;
+    }
 
     double remaining = principal;
     final List<AmortizationInstallment> newSchedule = [];
     DateTime currentDate = DateTime.now();
 
     for (int i = 1; i <= n; i++) {
-      final interest = remaining * monthlyRate;
+      final interest = monthlyRate > 0 ? remaining * monthlyRate : 0.0;
       double principalPayment = monthlyPayment - interest;
 
       if (i == n) {

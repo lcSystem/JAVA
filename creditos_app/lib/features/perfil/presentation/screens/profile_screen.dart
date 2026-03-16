@@ -20,6 +20,13 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _phoneController = TextEditingController();
+  final _birthDateController = TextEditingController();
+  final _companyController = TextEditingController();
+  final _positionController = TextEditingController();
+  final _workPhoneController = TextEditingController();
+  final _workEmailController = TextEditingController();
+  final _salaryController = TextEditingController();
+  DateTime? _selectedBirthDate;
   bool _isEditing = false;
   bool _isSaving = false;
   bool _isLoading = true;
@@ -48,15 +55,22 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         debugPrint('PERFIL: addresses=${customer.addresses.length}, contacts=${customer.contacts.length}');
         // Update the global auth state too
         ref.read(authProvider).updateCustomer(customer);
-        if (mounted) {
           setState(() {
             _nameController.text = customer.name;
             _emailController.text = customer.email ?? '';
             _phoneController.text = customer.phone ?? '';
+            _selectedBirthDate = customer.birthDate;
+            _birthDateController.text = customer.birthDate != null 
+                ? '${customer.birthDate!.day}/${customer.birthDate!.month}/${customer.birthDate!.year}' 
+                : '';
+            _companyController.text = customer.companyName ?? '';
+            _positionController.text = customer.position ?? '';
+            _workPhoneController.text = customer.workPhone ?? '';
+            _workEmailController.text = customer.corporateEmail ?? '';
+            _salaryController.text = customer.salary?.toString() ?? '';
             _localAddresses = List.from(customer.addresses);
             _localContacts = List.from(customer.contacts);
           });
-        }
       }
     } catch (e) {
       debugPrint('PERFIL: ERROR cargando perfil desde API: $e');
@@ -68,6 +82,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
           _nameController.text = customer.name;
           _emailController.text = customer.email ?? '';
           _phoneController.text = customer.phone ?? '';
+          _selectedBirthDate = customer.birthDate;
+          _birthDateController.text = customer.birthDate != null 
+              ? '${customer.birthDate!.day}/${customer.birthDate!.month}/${customer.birthDate!.year}' 
+              : '';
+          _companyController.text = customer.companyName ?? '';
+          _positionController.text = customer.position ?? '';
+          _workPhoneController.text = customer.workPhone ?? '';
+          _workEmailController.text = customer.corporateEmail ?? '';
+          _salaryController.text = customer.salary?.toString() ?? '';
           _localAddresses = List.from(customer.addresses);
           _localContacts = List.from(customer.contacts);
         });
@@ -85,6 +108,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
         'name': _nameController.text.trim(),
         'email': _emailController.text.trim(),
         'phone': _phoneController.text.trim(),
+        'birthDate': _selectedBirthDate != null ? '${_selectedBirthDate!.year}-${_selectedBirthDate!.month.toString().padLeft(2, '0')}-${_selectedBirthDate!.day.toString().padLeft(2, '0')}' : null,
+        'companyName': _companyController.text.trim(),
+        'position': _positionController.text.trim(),
+        'workPhone': _workPhoneController.text.trim(),
+        'corporateEmail': _workEmailController.text.trim(),
+        'salary': double.tryParse(_salaryController.text.trim()),
         'addresses': _localAddresses.map((e) => e.toJson()).toList(),
         'contacts': _localContacts.map((e) => e.toJson()).toList(),
       });
@@ -120,6 +149,12 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     _nameController.dispose();
     _emailController.dispose();
     _phoneController.dispose();
+    _birthDateController.dispose();
+    _companyController.dispose();
+    _positionController.dispose();
+    _workPhoneController.dispose();
+    _workEmailController.dispose();
+    _salaryController.dispose();
     super.dispose();
   }
 
@@ -210,10 +245,75 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               enabled: _isEditing,
               keyboardType: TextInputType.phone,
             ),
+            
+            // Editable Birth Date
+            GestureDetector(
+              onTap: _isEditing ? () async {
+                final date = await showDatePicker(
+                  context: context,
+                  initialDate: _selectedBirthDate ?? DateTime(2000),
+                  firstDate: DateTime(1900),
+                  lastDate: DateTime.now(),
+                );
+                if (date != null) {
+                  setState(() {
+                    _selectedBirthDate = date;
+                    _birthDateController.text = '${date.day}/${date.month}/${date.year}';
+                  });
+                }
+              } : null,
+              child: AbsorbPointer(
+                child: _ProfileField(
+                  label: 'Fecha de Nacimiento',
+                  controller: _birthDateController,
+                  icon: Icons.calendar_today_outlined,
+                  enabled: _isEditing,
+                ),
+              ),
+            ),
+
             // Non-editable fields
             _ReadOnlyField(label: 'Cédula', value: customer?.documentNumber ?? ''),
-            _ReadOnlyField(label: 'Tipo', value: customer?.type ?? ''),
-            _ReadOnlyField(label: 'Estado', value: customer?.status ?? ''),
+            _ReadOnlyField(label: 'Tipo de Cliente', value: customer?.type == 'INDIVIDUAL' ? 'Persona Natural' : 'Persona Jurídica'),
+            
+            const SizedBox(height: 24),
+            _buildSectionHeader(context, config, 'Información Laboral', Icons.work_outline, () {}),
+            const SizedBox(height: 12),
+            _ProfileField(
+              label: 'Empresa',
+              controller: _companyController,
+              icon: Icons.business_outlined,
+              enabled: _isEditing,
+            ),
+            _ProfileField(
+              label: 'Cargo',
+              controller: _positionController,
+              icon: Icons.badge_outlined,
+              enabled: _isEditing,
+            ),
+            _ProfileField(
+              label: 'Teléfono de Trabajo',
+              controller: _workPhoneController,
+              icon: Icons.phone_android_outlined,
+              enabled: _isEditing,
+              keyboardType: TextInputType.phone,
+            ),
+            _ProfileField(
+              label: 'Email Corporativo',
+              controller: _workEmailController,
+              icon: Icons.email_outlined,
+              enabled: _isEditing,
+              keyboardType: TextInputType.emailAddress,
+            ),
+            _ProfileField(
+              label: 'Salario / Ingresos',
+              controller: _salaryController,
+              icon: Icons.attach_money_outlined,
+              enabled: _isEditing,
+              keyboardType: TextInputType.number,
+            ),
+            
+            _ReadOnlyField(label: 'Estado de Cuenta', value: customer?.status ?? 'ACTIVO'),
 
             const SizedBox(height: 24),
             _buildSectionHeader(context, config, 'Direcciones', Icons.map_outlined, () => _showAddressDialog(context, config)),
@@ -450,6 +550,15 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           letterSpacing: 1,
                         ),
                       ),
+                      if (contact.birthDate != null)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: Text(
+                            'Nac: ${contact.birthDate!.day}/${contact.birthDate!.month}/${contact.birthDate!.year}',
+                            style: GoogleFonts.inter(fontSize: 9, color: Colors.grey),
+                          ),
+                        ),
+                      const Spacer(),
                       Row(
                         children: [
                           if (contact.isLegalRepresentative == true)
@@ -487,12 +596,29 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                       Icon(Icons.phone_outlined, size: 12, color: Colors.grey.shade400),
                       const SizedBox(width: 4),
                       Text(contact.phone, style: GoogleFonts.inter(fontSize: 12, color: Colors.grey)),
+                      if (contact.workPhone != null && contact.workPhone!.isNotEmpty) ...[
+                        const SizedBox(width: 8),
+                        Icon(Icons.work_outline, size: 12, color: Colors.grey.shade400),
+                        const SizedBox(width: 4),
+                        Text(contact.workPhone!, style: GoogleFonts.inter(fontSize: 12, color: Colors.grey)),
+                      ],
                       const SizedBox(width: 12),
                       Icon(Icons.email_outlined, size: 12, color: Colors.grey.shade400),
                       const SizedBox(width: 4),
                       Expanded(child: Text(contact.email, style: GoogleFonts.inter(fontSize: 12, color: Colors.grey), overflow: TextOverflow.ellipsis)),
                     ],
                   ),
+                  if (contact.companyName != null && contact.companyName!.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Row(
+                        children: [
+                          Icon(Icons.business_outlined, size: 12, color: Colors.grey.shade400),
+                          const SizedBox(width: 4),
+                          Text(contact.companyName!, style: GoogleFonts.inter(fontSize: 12, color: Colors.grey)),
+                        ],
+                      ),
+                    ),
                 ],
               ),
             ),
@@ -597,6 +723,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
     final emailCtrl = TextEditingController(text: contact?.email ?? '');
     final posCtrl = TextEditingController(text: contact?.position ?? '');
     final docCtrl = TextEditingController(text: contact?.documentNumber ?? '');
+    final companyCtrl = TextEditingController(text: contact?.companyName ?? '');
+    final workPhoneCtrl = TextEditingController(text: contact?.workPhone ?? '');
     DateTime? selectedBirthDate = contact?.birthDate;
     bool isRep = contact?.isLegalRepresentative ?? false;
 
@@ -612,9 +740,11 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
               children: [
                 TextField(controller: nameCtrl, decoration: const InputDecoration(labelText: 'Nombre')),
                 TextField(controller: docCtrl, decoration: const InputDecoration(labelText: 'Documento / Cédula')),
-                TextField(controller: phoneCtrl, decoration: const InputDecoration(labelText: 'Teléfono', hintText: 'Ej: 3001234567')),
+                TextField(controller: phoneCtrl, decoration: const InputDecoration(labelText: 'Teléfono Personal', hintText: 'Ej: 3001234567')),
                 TextField(controller: emailCtrl, decoration: const InputDecoration(labelText: 'Email', hintText: 'ejemplo@correo.com')),
-                TextField(controller: posCtrl, decoration: const InputDecoration(labelText: 'Cargo / Relación', hintText: 'Gerente, Esposo(a)...')),
+                TextField(controller: posCtrl, decoration: const InputDecoration(labelText: 'Relación / Cargo', hintText: 'Gerente, Esposo(a)...')),
+                TextField(controller: companyCtrl, decoration: const InputDecoration(labelText: 'Empresa (Opcional)')),
+                TextField(controller: workPhoneCtrl, decoration: const InputDecoration(labelText: 'Teléfono Trabajo (Opcional)')),
                 const SizedBox(height: 16),
                 const Text('Fecha de Nacimiento:', style: TextStyle(fontSize: 12, color: Colors.grey)),
                 ListTile(
@@ -656,6 +786,8 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                   position: posCtrl.text.trim(),
                   documentNumber: docCtrl.text.trim().isEmpty ? null : docCtrl.text.trim(),
                   birthDate: selectedBirthDate,
+                  companyName: companyCtrl.text.trim().isEmpty ? null : companyCtrl.text.trim(),
+                  workPhone: workPhoneCtrl.text.trim().isEmpty ? null : workPhoneCtrl.text.trim(),
                   isLegalRepresentative: isRep,
                 );
                 setState(() {

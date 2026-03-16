@@ -40,6 +40,15 @@ class CreditRequestNotifier extends StateNotifier<CreditRequestState> {
     state = state.copyWith(debtorInfo: info);
   }
 
+  void prefillFromLastCredit(CreditRequest lastCredit) {
+    state = state.copyWith(
+      debtorInfo: lastCredit.debtorAdditionalInfo,
+      references: lastCredit.debtorReferences,
+      previousCredits: lastCredit.previousCredits,
+      coDebtors: lastCredit.coDebtors,
+    );
+  }
+
   void setReferences(List<Reference> references) {
     state = state.copyWith(references: references);
   }

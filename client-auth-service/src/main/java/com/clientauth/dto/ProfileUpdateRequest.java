@@ -3,6 +3,8 @@ package com.clientauth.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -20,6 +22,12 @@ public class ProfileUpdateRequest {
 
     @Size(min = 7, max = 50, message = "El teléfono debe tener entre 7 y 50 caracteres")
     private String phone;
+    private LocalDate birthDate;
+    private String companyName;
+    private String position;
+    private String workPhone;
+    private String corporateEmail;
+    private BigDecimal salary;
 
     private List<CustomerAddressResponse> addresses;
     private List<CustomerContactResponse> contacts;
