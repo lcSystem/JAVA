@@ -109,4 +109,24 @@ public class CreditRequestController {
                                 .map(com.creditos.infrastructure.mappers.CreditRequestMapper::toDTO)
                                 .collect(java.util.stream.Collectors.toList()));
         }
+
+        @PutMapping("/{id}")
+        @PreAuthorize("hasAuthority('CREDIT_CREATE') or hasAuthority('ROLE_ADMIN')")
+        public ResponseEntity<CreditRequestDTO> updateRequest(@PathVariable Long id,
+                        @RequestBody CreditRequestDTO dto) {
+                return ResponseEntity.ok(com.creditos.infrastructure.mappers.CreditRequestMapper.toDTO(
+                                creditRequestUseCase.updateRequest(id, dto.getAmount(), dto.getTermMonths(),
+                                                dto.getPurpose(), dto.getDebtorAdditionalInfo(),
+                                                dto.getDebtorReferences() != null ? dto.getDebtorReferences().stream()
+                                                                .map(com.creditos.infrastructure.mappers.ReferenceMapper::toDomain)
+                                                                .collect(java.util.stream.Collectors.toList()) : null,
+                                                dto.getCoDebtors() != null ? dto.getCoDebtors().stream()
+                                                                .map(com.creditos.infrastructure.mappers.CoDebtorMapper::toDomain)
+                                                                .collect(java.util.stream.Collectors.toList()) : null,
+                                                dto.getPreviousCredits() != null ? dto.getPreviousCredits().stream()
+                                                                .map(com.creditos.infrastructure.mappers.PreviousCreditMapper::toDomain)
+                                                                .collect(java.util.stream.Collectors.toList()) : null,
+                                                com.creditos.infrastructure.mappers.CoDebtorMapper
+                                                                .toDomain(dto.getRepresentativeProfile()))));
+        }
 }

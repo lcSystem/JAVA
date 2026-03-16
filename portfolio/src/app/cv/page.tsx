@@ -13,321 +13,346 @@ export default function CVPage() {
 
     return (
         <div className="cv-wrapper">
-            <style jsx global>{`
-                :root {
-                    --cv-primary: #0f172a;
-                    --cv-accent: #0ea5e9;
-                    --cv-text-main: #1e293b;
-                    --cv-text-muted: #64748b;
-                    --cv-border: #e2e8f0;
-                    --cv-sidebar-text: #f1f5f9;
-                }
+          <style jsx global>{`
+:root {
+    --cv-primary: #0f172a;
+    --cv-accent: #0ea5e9;
+    --cv-text-main: #1e293b;
+    --cv-text-muted: #64748b;
+    --cv-border: #e2e8f0;
+    --cv-sidebar-text: #f1f5f9;
+}
 
-                @media print {
-                    @page {
-                        margin: 0;
-                        size: A4;
-                    }
-                    body {
-                        margin: 0;
-                        -webkit-print-color-adjust: exact;
-                        print-color-adjust: exact;
-                    }
-                    .no-print {
-                        display: none !important;
-                    }
-                    .cv-wrapper {
-                        margin: 0 !important;
-                        padding: 0 !important;
-                        box-shadow: none !important;
-                        width: 100% !important;
-                        height: 297mm !important;
-                    }
-                }
+/* ================= PRINT ================= */
 
-                body {
-                    background: #f1f5f9;
-                    font-family: 'Inter', -apple-system, system-ui, sans-serif;
-                    margin: 0;
-                    padding: 0;
-                    color: var(--cv-text-main);
-                }
+@media print {
 
-                .cv-wrapper {
-                    max-width: 900px;
-                    margin: 40px auto;
-                    background: white;
-                    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-                    min-height: 297mm;
-                    display: grid;
-                    grid-template-columns: 300px 1fr;
-                    position: relative;
-                    overflow: hidden;
-                }
+    @page {
+        size: A4;
+        margin: 0;
+    }
 
-                /* Sidebar Styles */
-                .sidebar {
-                    background: var(--cv-primary);
-                    color: var(--cv-sidebar-text);
-                    padding: 50px 35px;
-                    display: flex;
-                    flex-direction: column;
-                    border-right: 1px solid rgba(255,255,255,0.05);
-                }
+    body {
+        margin: 0;
+        background: white;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
 
-                .profile-section {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    text-align: center;
-                    margin-bottom: 40px;
-                }
+    .no-print {
+        display: none !important;
+    }
 
-                .profile-img-container {
-                    width: 170px;
-                    height: 170px;
-                    border-radius: 50%;
-                    padding: 8px;
-                    background: linear-gradient(135deg, var(--cv-accent) 0%, #1e293b 100%);
-                    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-                    margin-bottom: 25px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
+    /* IMPORTANTE */
 
-                .profile-img {
-                    width: 100%;
-                    height: 100%;
-                    border-radius: 50%;
-                    object-fit: cover;
-                    border: 3px solid rgba(255,255,255,0.1);
-                    background: #1e293b;
-                }
+    .cv-wrapper{
+        display:block !important;
+        width:100% !important;
+        max-width:none !important;
+        margin:0 !important;
+        box-shadow:none !important;
+        overflow:visible !important;
+        min-height:auto !important;
+    }
 
-                .name-header h1 {
-                    font-size: 34px;
-                    font-weight: 800;
-                    margin: 0;
-                    letter-spacing: -0.5px;
-                    color: white;
-                }
+    .sidebar{
+        width:300px;
+        float:left;
+        min-height:100vh;
+    }
 
-                .name-header .title {
-                    font-size: 13px;
-                    color: var(--cv-accent);
-                    font-weight: 700;
-                    text-transform: uppercase;
-                    letter-spacing: 2px;
-                    margin-top: 10px;
-                    background: rgba(14, 165, 233, 0.1);
-                    padding: 4px 12px;
-                    border-radius: 20px;
-                    display: inline-block;
-                }
+    .main-content{
+        margin-left:300px;
+    }
 
-                .sidebar-section {
-                    margin-bottom: 30px;
-                }
+    .section,
+    .experience-item,
+    .project-card{
+        page-break-inside: avoid;
+    }
 
-                .sidebar-title {
-                    font-size: 12px;
-                    font-weight: 700;
-                    text-transform: uppercase;
-                    letter-spacing: 1.5px;
-                    color: var(--cv-accent);
-                    margin-bottom: 18px;
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                }
+}
 
-                .sidebar-title::after {
-                    content: '';
-                    flex: 1;
-                    height: 1px;
-                    background: rgba(255,255,255,0.1);
-                }
+/* ================= NORMAL SCREEN ================= */
 
-                .contact-list {
-                    list-style: none;
-                    padding: 0;
-                    margin: 0;
-                }
+body {
+    background: #f1f5f9;
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    margin: 0;
+    padding: 0;
+    color: var(--cv-text-main);
+}
 
-                .contact-item {
-                    display: flex;
-                    align-items: center;
-                    gap: 12px;
-                    margin-bottom: 14px;
-                    font-size: 12.5px;
-                    color: #cbd5e1;
-                }
+.cv-wrapper {
+    max-width: 900px;
+    margin: 40px auto;
+    background: white;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    min-height: 297mm;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    position: relative;
+}
 
-                .contact-icon {
-                    font-size: 16px;
-                    color: var(--cv-accent);
-                }
+/* Sidebar */
 
-                .skills-container {
-                    display: flex;
-                    flex-wrap: wrap;
-                    gap: 6px;
-                }
+.sidebar {
+    background: var(--cv-primary);
+    color: var(--cv-sidebar-text);
+    padding: 50px 35px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(255,255,255,0.05);
+}
 
-                .skill-tag {
-                    background: rgba(255,255,255,0.06);
-                    padding: 5px 12px;
-                    border-radius: 6px;
-                    font-size: 10.5px;
-                    border: 1px solid rgba(255,255,255,0.1);
-                    color: #e2e8f0;
-                }
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 40px;
+}
 
-                /* Main Content Styles */
-                .main-content {
-                    padding: 60px 45px;
-                    background: white;
-                }
+.profile-img-container {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    padding: 8px;
+    background: linear-gradient(135deg, var(--cv-accent) 0%, #1e293b 100%);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-                .section {
-                    margin-bottom: 35px;
-                }
+.profile-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255,255,255,0.1);
+    background: #1e293b;
+}
 
-                .section-header {
-                    display: flex;
-                    align-items: center;
-                    gap: 15px;
-                    margin-bottom: 20px;
-                }
+.name-header h1 {
+    font-size: 34px;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -0.5px;
+    color: white;
+}
 
-                .section-header h2 {
-                    font-size: 18px;
-                    font-weight: 800;
-                    margin: 0;
-                    text-transform: uppercase;
-                    letter-spacing: 1.5px;
-                    color: var(--cv-primary);
-                }
+.name-header .title {
+    font-size: 13px;
+    color: var(--cv-accent);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 10px;
+    background: rgba(14, 165, 233, 0.1);
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: inline-block;
+}
 
-                .section-header .line {
-                    flex: 1;
-                    height: 2px;
-                    background: #f1f5f9;
-                }
+.sidebar-section {
+    margin-bottom: 30px;
+}
 
-                .summary-text {
-                    font-size: 14px;
-                    line-height: 1.8;
-                    color: #334155;
-                    margin: 0;
-                    text-align: justify;
-                }
+.sidebar-title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--cv-accent);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 
-                .experience-item {
-                    margin-bottom: 30px;
-                    position: relative;
-                }
+.sidebar-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+}
 
-                .exp-top {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: baseline;
-                    margin-bottom: 8px;
-                }
+.contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
 
-                .company {
-                    font-size: 16px;
-                    font-weight: 700;
-                    color: var(--cv-primary);
-                }
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    font-size: 12.5px;
+    color: #cbd5e1;
+}
 
-                .period {
-                    font-size: 11px;
-                    color: var(--cv-primary);
-                    font-weight: 700;
-                    background: #e0f2fe;
-                    padding: 3px 10px;
-                    border-radius: 12px;
-                }
+.contact-icon {
+    font-size: 16px;
+    color: var(--cv-accent);
+}
 
-                .role {
-                    font-size: 14px;
-                    color: var(--cv-accent);
-                    font-weight: 700;
-                    margin-bottom: 12px;
-                    display: flex;
-                    align-items: center;
-                    gap: 8px;
-                }
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
 
-                .role::before {
-                    content: '▹';
-                    font-weight: 400;
-                }
+.skill-tag {
+    background: rgba(255,255,255,0.06);
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 10.5px;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #e2e8f0;
+}
 
-                .exp-list {
-                    padding-left: 20px;
-                    margin: 0;
-                }
+/* Main Content */
 
-                .exp-list li {
-                    font-size: 13px;
-                    line-height: 1.7;
-                    color: #475569;
-                    margin-bottom: 8px;
-                }
+.main-content {
+    padding: 60px 45px;
+    background: white;
+}
 
-                .project-card {
-                    background: #f8fafc;
-                    border-left: 4px solid var(--cv-accent);
-                    padding: 20px;
-                    border-radius: 0 12px 12px 0;
-                    margin-bottom: 15px;
-                }
+.section {
+    margin-bottom: 35px;
+}
 
-                .project-title {
-                    font-size: 15px;
-                    font-weight: 700;
-                    margin-bottom: 8px;
-                    color: var(--cv-primary);
-                }
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
 
-                .project-desc {
-                    font-size: 13px;
-                    color: #475569;
-                    line-height: 1.6;
-                    margin: 0;
-                }
+.section-header h2 {
+    font-size: 18px;
+    font-weight: 800;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--cv-primary);
+}
 
-                .print-controls {
-                    position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    z-index: 1000;
-                }
+.section-header .line {
+    flex: 1;
+    height: 2px;
+    background: #f1f5f9;
+}
 
-                .btn-primary {
-                    background: var(--cv-primary);
-                    color: white;
-                    border: none;
-                    padding: 12px 24px;
-                    border-radius: 10px;
-                    font-weight: 700;
-                    font-size: 14px;
-                    cursor: pointer;
-                    display: flex;
-                    align-items: center;
-                    gap: 10px;
-                    box-shadow: 0 10px 20px rgba(15, 23, 42, 0.2);
-                    transition: all 0.2s;
-                }
+.summary-text {
+    font-size: 14px;
+    line-height: 1.8;
+    color: #334155;
+    margin: 0;
+    text-align: justify;
+}
 
-                .btn-primary:hover {
-                    transform: translateY(-2px);
-                    box-shadow: 0 15px 30px rgba(15, 23, 42, 0.3);
-                }
-            `}</style>
+.exp-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+}
+
+.company {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--cv-primary);
+}
+
+.period {
+    font-size: 11px;
+    color: var(--cv-primary);
+    font-weight: 700;
+    background: #e0f2fe;
+    padding: 3px 10px;
+    border-radius: 12px;
+}
+
+.role {
+    font-size: 14px;
+    color: var(--cv-accent);
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.role::before {
+    content: '▹';
+}
+
+.exp-list {
+    padding-left: 20px;
+    margin: 0;
+}
+
+.exp-list li {
+    font-size: 13px;
+    line-height: 1.7;
+    color: #475569;
+    margin-bottom: 8px;
+}
+
+.project-card {
+    background: #f8fafc;
+    border-left: 4px solid var(--cv-accent);
+    padding: 20px;
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 15px;
+}
+
+.project-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--cv-primary);
+}
+
+.project-desc {
+    font-size: 13px;
+    color: #475569;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.print-controls {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.btn-primary {
+    background: var(--cv-primary);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 10px 20px rgba(15, 23, 42, 0.2);
+    transition: all 0.2s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(15, 23, 42, 0.3);
+}
+`}</style>
 
             <div className="print-controls no-print">
                 <button className="btn-primary" onClick={() => window.print()}>
@@ -352,23 +377,19 @@ export default function CVPage() {
                     <ul className="contact-list">
                         <li className="contact-item">
                             <span className="contact-icon">📧</span>
-                            Available on request
+                            luigis10-02@hotmail.com
                         </li>
                         <li className="contact-item">
                             <span className="contact-icon">📱</span>
-                            +57 300 000 0000
-                        </li>
-                        <li className="contact-item">
-                            <span className="contact-icon">📍</span>
-                            Remoto / Presencial
+                            3043040486
                         </li>
                         <li className="contact-item">
                             <span className="contact-icon">🔗</span>
-                            linkedin.com/in/luigis
+                            <a href="https://www.linkedin.com/in/luigis-cardenas-almanza-900803137/" target="_blank" rel="noopener noreferrer">linkedin.com/in/luigis-cardenas-almanza-900803137</a>
                         </li>
                         <li className="contact-item">
                             <span className="contact-icon">🐙</span>
-                            github.com/luigis
+                            <a href="https://github.com/lcSystem/" target="_blank" rel="noopener noreferrer">github.com/lcSystem</a>
                         </li>
                     </ul>
                 </div>
@@ -421,7 +442,7 @@ export default function CVPage() {
 
                     <div className="experience-item">
                         <div className="exp-top">
-                            <span className="company">Proyectos Propios / Desarrollo Freelance</span>
+                            <span className="company">Proyectos Propios</span>
                             <span className="period">Ene 2026 — Presente</span>
                         </div>
                         <div className="role">Desarrollador Backend Java</div>

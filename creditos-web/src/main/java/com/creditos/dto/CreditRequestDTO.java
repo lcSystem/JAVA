@@ -25,6 +25,11 @@ public class CreditRequestDTO {
     private String applicantName;
     private String applicantIdentification;
     private String debtorAdditionalInfo;
+    private String creditTypeName;
+    private BigDecimal monthlyPayment;
+    private BigDecimal totalPayment;
+    private BigDecimal interestRate;
+    private java.time.LocalDateTime createdAt;
     private java.util.List<ReferenceDTO> debtorReferences;
 
     private java.util.List<CoDebtorProfileDTO> coDebtors;
