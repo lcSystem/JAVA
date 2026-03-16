@@ -6,6 +6,8 @@ class CustomerAddress {
   final String? state;
   final String country;
   final String? postalCode;
+  final String? neighborhood;
+  final String? apartment;
   final String type;
 
   const CustomerAddress({
@@ -15,6 +17,8 @@ class CustomerAddress {
     this.state,
     required this.country,
     this.postalCode,
+    this.neighborhood,
+    this.apartment,
     required this.type,
   });
 
@@ -26,6 +30,8 @@ class CustomerAddress {
       state: json['state'],
       country: json['country'] ?? '',
       postalCode: json['postalCode'],
+      neighborhood: json['neighborhood'],
+      apartment: json['apartment'],
       type: json['type'] ?? 'Principal',
     );
   }
@@ -37,6 +43,8 @@ class CustomerAddress {
         'state': state,
         'country': country,
         'postalCode': postalCode,
+        'neighborhood': neighborhood,
+        'apartment': apartment,
         'type': type,
       };
 }
@@ -50,6 +58,8 @@ class CustomerContact {
   final String? position;
   final String? documentNumber;
   final DateTime? birthDate;
+  final String? companyName;
+  final String? workPhone;
   final bool? isLegalRepresentative;
 
   const CustomerContact({
@@ -60,6 +70,8 @@ class CustomerContact {
     this.position,
     this.documentNumber,
     this.birthDate,
+    this.companyName,
+    this.workPhone,
     this.isLegalRepresentative,
   });
 
@@ -74,6 +86,8 @@ class CustomerContact {
       birthDate: json['birthDate'] != null
           ? DateTime.tryParse(json['birthDate'])
           : null,
+      companyName: json['companyName'],
+      workPhone: json['workPhone'],
       isLegalRepresentative: json['isLegalRepresentative'],
     );
   }
@@ -86,6 +100,8 @@ class CustomerContact {
         'position': position,
         'documentNumber': documentNumber,
         'birthDate': birthDate != null ? '${birthDate!.year.toString().padLeft(4, '0')}-${birthDate!.month.toString().padLeft(2, '0')}-${birthDate!.day.toString().padLeft(2, '0')}' : null,
+        'companyName': companyName,
+        'workPhone': workPhone,
         'isLegalRepresentative': isLegalRepresentative,
       };
 }
@@ -97,6 +113,12 @@ class CustomerProfile {
   final String documentNumber;
   final String? email;
   final String? phone;
+  final DateTime? birthDate;
+  final String? companyName;
+  final String? workPhone;
+  final String? corporateEmail;
+  final String? position;
+  final double? salary;
   final String type;
   final String status;
   final List<CustomerAddress> addresses;
@@ -108,6 +130,12 @@ class CustomerProfile {
     required this.documentNumber,
     this.email,
     this.phone,
+    this.birthDate,
+    this.companyName,
+    this.workPhone,
+    this.corporateEmail,
+    this.position,
+    this.salary,
     required this.type,
     required this.status,
     this.addresses = const [],
@@ -121,6 +149,12 @@ class CustomerProfile {
       documentNumber: json['documentNumber'],
       email: json['email'],
       phone: json['phone'],
+      birthDate: json['birthDate'] != null ? DateTime.tryParse(json['birthDate']) : null,
+      companyName: json['companyName'],
+      workPhone: json['workPhone'],
+      corporateEmail: json['corporateEmail'],
+      position: json['position'],
+      salary: json['salary'] != null ? (json['salary'] as num).toDouble() : null,
       type: json['type'] ?? 'NATURAL',
       status: json['status'] ?? 'ACTIVE',
       addresses: (json['addresses'] as List?)
@@ -140,6 +174,12 @@ class CustomerProfile {
         'documentNumber': documentNumber,
         'email': email,
         'phone': phone,
+        'birthDate': birthDate != null ? '${birthDate!.year.toString().padLeft(4, '0')}-${birthDate!.month.toString().padLeft(2, '0')}-${birthDate!.day.toString().padLeft(2, '0')}' : null,
+        'companyName': companyName,
+        'workPhone': workPhone,
+        'corporateEmail': corporateEmail,
+        'position': position,
+        'salary': salary,
         'type': type,
         'status': status,
         'addresses': addresses.map((e) => e.toJson()).toList(),

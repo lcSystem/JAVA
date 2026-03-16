@@ -34,6 +34,12 @@ public class CustomerContactEntity {
     private String email;
     private String phone;
 
+    @Column(name = "company_name")
+    private String companyName;
+
+    @Column(name = "work_phone")
+    private String workPhone;
+
     @Column(name = "document_number")
     private String documentNumber;
 

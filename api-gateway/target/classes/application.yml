@@ -14,7 +14,7 @@ spring:
         - id: creditos-web
           uri: http://localhost:8082
           predicates:
-            - Path=/api/creditos/**, /api/credit-types/**, /api/credit-requests/**, /api/applicants/**, /api/creditos-portfolio/**
+            - Path=/api/creditos/**, /api/credit-types/**, /api/credit-requests/**, /api/applicants/**, /api/creditos-portfolio/**, /api/amortization/**
 
         # Parametrizaciones - Parameter Management
         - id: parametrizaciones

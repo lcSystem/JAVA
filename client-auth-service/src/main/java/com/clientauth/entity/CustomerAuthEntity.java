@@ -3,6 +3,8 @@ package com.clientauth.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -37,6 +39,22 @@ public class CustomerAuthEntity {
 
     @Column(name = "type", nullable = false)
     private String type;
+
+    @Column(name = "birth_date")
+    private LocalDate birthDate;
+
+    @Column(name = "company_name")
+    private String companyName;
+
+    private String position;
+
+    @Column(name = "work_phone")
+    private String workPhone;
+
+    @Column(name = "corporate_email")
+    private String corporateEmail;
+
+    private BigDecimal salary;
 
     @Column(name = "status")
     private String status;
