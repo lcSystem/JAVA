@@ -25,6 +25,12 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: http://localhost:8081/api/auth/jwks
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+jwt:
+  secret: Y2xpZW50LWF1dGgtc2VydmljZS1zZWNyZXQta2V5LWZvci1qd3QtdG9rZW4tZ2VuZXJhdGlvbi1zZWN1cmUtMjAyNi1zbWFydC1jcmVkaXQtYXBw
+  issuer: client-auth
 
 logging:
   level:

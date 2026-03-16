@@ -107,7 +107,12 @@ public class CreditRequestMapper {
                                                                 : null)
                                 .applicantName(applicantName)
                                 .applicantIdentification(applicantIdentification)
-                                .debtorAdditionalInfo(domain.getDebtorAdditionalInfo())
+                                .debtorAdditionalInfo(json)
+                                .creditTypeName(domain.getCreditType().getName())
+                                .interestRate(domain.getCreditType().getAnnualInterestRate())
+                                .createdAt(domain.getCreatedAt())
+                                .monthlyPayment(calculateMonthlyPayment(domain))
+                                .totalPayment(calculateTotalPayment(domain))
                                 .debtorReferences(
                                                 domain.getDebtorReferences() != null
                                                                 ? domain.getDebtorReferences().stream()
@@ -128,5 +133,33 @@ public class CreditRequestMapper {
                                                                 : new java.util.ArrayList<>())
                                 .representativeProfile(CoDebtorMapper.toDTO(domain.getRepresentativeProfile()))
                                 .build();
+        }
+
+        private static java.math.BigDecimal calculateMonthlyPayment(CreditRequest domain) {
+                if (domain.getAmount() == null || domain.getTermMonths() == null || domain.getTermMonths() <= 0) {
+                        return java.math.BigDecimal.ZERO;
+                }
+                java.math.BigDecimal annualRate = domain.getCreditType().getAnnualInterestRate()
+                                .divide(new java.math.BigDecimal("100"), 10, java.math.RoundingMode.HALF_UP);
+                java.math.BigDecimal monthlyRate = annualRate.divide(new java.math.BigDecimal("12"), 10,
+                                java.math.RoundingMode.HALF_UP);
+
+                if (monthlyRate.compareTo(java.math.BigDecimal.ZERO) == 0) {
+                        return domain.getAmount().divide(new java.math.BigDecimal(domain.getTermMonths()), 2,
+                                        java.math.RoundingMode.HALF_UP);
+                }
+
+                // P * [r(1+r)^n] / [(1+r)^n - 1]
+                java.math.BigDecimal onePlusR = monthlyRate.add(java.math.BigDecimal.ONE);
+                java.math.BigDecimal onePlusRToN = onePlusR.pow(domain.getTermMonths());
+                java.math.BigDecimal numerator = monthlyRate.multiply(onePlusRToN);
+                java.math.BigDecimal denominator = onePlusRToN.subtract(java.math.BigDecimal.ONE);
+
+                return domain.getAmount().multiply(numerator.divide(denominator, 2, java.math.RoundingMode.HALF_UP));
+        }
+
+        private static java.math.BigDecimal calculateTotalPayment(CreditRequest domain) {
+                java.math.BigDecimal monthly = calculateMonthlyPayment(domain);
+                return monthly.multiply(new java.math.BigDecimal(domain.getTermMonths()));
         }
 }

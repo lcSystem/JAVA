@@ -1,0 +1,56 @@
+name: creditos_app
+description: Aplicación móvil de créditos - Portal público para solicitud y consulta de créditos
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State Management
+  flutter_riverpod: ^2.5.0
+  riverpod_annotation: ^2.3.0
+
+  # Networking
+  dio: ^5.4.0
+
+  # Secure Storage
+  flutter_secure_storage: ^9.0.0
+
+  # Navigation
+  go_router: ^14.0.0
+
+  # UI Enhancements
+  google_fonts: ^6.2.1
+  flutter_svg: ^2.0.10+1
+  shimmer: ^3.0.0
+  cached_network_image: ^3.3.1
+  fl_chart: ^0.68.0
+  lottie: ^3.1.0
+
+  # Forms
+  flutter_form_builder: ^10.3.0+2
+  form_builder_validators: ^11.3.0
+
+  # Utilities
+  intl: ^0.20.2
+  equatable: ^2.0.5
+  json_annotation: ^4.8.1
+  path_provider: ^2.1.2
+  shared_preferences: ^2.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.4.8
+  json_serializable: ^6.7.1
+  riverpod_generator: ^2.3.0
+  flutter_lints: ^3.0.1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/

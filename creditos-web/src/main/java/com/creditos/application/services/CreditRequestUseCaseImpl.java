@@ -200,6 +200,44 @@ public class CreditRequestUseCaseImpl implements CreditRequestUseCase {
     }
 
     @Override
+    public CreditRequest updateRequest(Long requestId, BigDecimal amount, Integer termMonths,
+            String purpose, String debtorAdditionalInfo,
+            java.util.List<com.creditos.domain.model.Reference> debtorReferences,
+            java.util.List<com.creditos.domain.model.CoDebtorProfile> coDebtors,
+            java.util.List<com.creditos.domain.model.PreviousCredit> previousCredits,
+            com.creditos.domain.model.CoDebtorProfile representativeProfile) {
+
+        CreditRequest request = creditRequestRepositoryPort.findById(requestId)
+                .orElseThrow(() -> new RuntimeException("Request not found"));
+
+        if ("APPROVED".equals(request.getStatus()) || "DISBURSED".equals(request.getStatus())) {
+            throw new RuntimeException("No se puede editar una solicitud que ya está aprobada o desembolsada.");
+        }
+
+        validateCreditPolicy(amount, termMonths, request.getCreditType());
+        validateCoDebtorsAge(coDebtors);
+
+        CreditRequest updatedRequest = new CreditRequest(
+                request.getId(),
+                request.getApplicantUserId(),
+                request.getCreditType(),
+                amount,
+                termMonths,
+                purpose,
+                request.getStatus(), // Keep current status (could change to RE-SUBMITTED?)
+                null, // Reset scoring as data changed
+                null,
+                debtorAdditionalInfo,
+                debtorReferences,
+                coDebtors,
+                previousCredits,
+                representativeProfile,
+                request.getCreatedAt());
+
+        return creditRequestRepositoryPort.save(updatedRequest);
+    }
+
+    @Override
     public CreditRequest getRequestById(Long id) {
         return creditRequestRepositoryPort.findById(id)
                 .orElseThrow(() -> new RuntimeException("Request not found"));
