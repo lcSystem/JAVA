@@ -22,6 +22,7 @@ import lombok.EqualsAndHashCode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @Entity
 @Table(name = "menu")
 @Data

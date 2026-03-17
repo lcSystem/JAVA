@@ -34,7 +34,7 @@ public class CustomerController {
     private final CustomerMapper mapper;
 
     @PostMapping
-    @PreAuthorize("hasAuthority('CLIENTES_CREATE')")
+    @PreAuthorize("hasAuthority('CUSTOMERS_CREATE')")
     public ResponseEntity<CustomerResponse> create(@Valid @RequestBody CreateCustomerRequest request) {
         Customer customer = mapper.toDomain(request);
         Customer created = createCustomerUseCase.create(customer);
@@ -42,7 +42,7 @@ public class CustomerController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('CLIENTES_READ')")
+    @PreAuthorize("hasAuthority('CUSTOMERS_READ')")
     public ResponseEntity<Page<CustomerResponse>> list(Pageable pageable) {
         Page<CustomerResponse> responses = listCustomersUseCase.findAll(pageable)
                 .map(mapper::toResponse);
@@ -50,14 +50,14 @@ public class CustomerController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('CLIENTES_READ')")
+    @PreAuthorize("hasAuthority('CUSTOMERS_READ')")
     public ResponseEntity<CustomerResponse> getById(@PathVariable Long id) {
         Customer customer = getCustomerUseCase.getById(id);
         return ResponseEntity.ok(mapper.toResponse(customer));
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasAuthority('CLIENTES_UPDATE')")
+    @PreAuthorize("hasAuthority('CUSTOMERS_UPDATE')")
     public ResponseEntity<CustomerResponse> update(@PathVariable Long id,
             @Valid @RequestBody UpdateCustomerRequest request) {
         request.setId(id);
@@ -67,14 +67,14 @@ public class CustomerController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('CLIENTES_DELETE')")
+    @PreAuthorize("hasAuthority('CUSTOMERS_DELETE')")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         deleteCustomerUseCase.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/search")
-    @PreAuthorize("hasAuthority('CLIENTES_READ')")
+    @PreAuthorize("hasAuthority('CUSTOMERS_READ')")
     public ResponseEntity<CustomerResponse> searchByDocument(@RequestParam String document) {
         return searchCustomerByDocumentUseCase.findByDocumentNumber(document)
                 .map(mapper::toResponse)
@@ -84,7 +84,7 @@ public class CustomerController {
 
     // Notes
     @GetMapping("/{id}/notes")
-    @PreAuthorize("hasAuthority('CLIENTES_READ')")
+    @PreAuthorize("hasAuthority('CUSTOMERS_READ')")
     public ResponseEntity<List<CustomerNoteDto>> getNotes(@PathVariable Long id) {
         List<CustomerNoteDto> notes = manageCustomerNotesUseCase.getNotes(id)
                 .stream()
@@ -94,14 +94,14 @@ public class CustomerController {
     }
 
     @PostMapping("/{id}/notes")
-    @PreAuthorize("hasAuthority('CLIENTES_UPDATE')")
+    @PreAuthorize("hasAuthority('CUSTOMERS_UPDATE')")
     public ResponseEntity<CustomerNoteDto> addNote(@PathVariable Long id, @RequestBody String note) {
         CustomerNote added = manageCustomerNotesUseCase.addNote(id, note);
         return new ResponseEntity<>(mapper.toDto(added), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}/notes/{noteId}")
-    @PreAuthorize("hasAuthority('CLIENTES_UPDATE')")
+    @PreAuthorize("hasAuthority('CUSTOMERS_UPDATE')")
     public ResponseEntity<Void> deleteNote(@PathVariable Long id, @PathVariable Long noteId) {
         manageCustomerNotesUseCase.deleteNote(id, noteId);
         return ResponseEntity.noContent().build();
@@ -109,7 +109,7 @@ public class CustomerController {
 
     // History
     @GetMapping("/{id}/history")
-    @PreAuthorize("hasAuthority('CLIENTES_READ')")
+    @PreAuthorize("hasAuthority('CUSTOMERS_READ')")
     public ResponseEntity<List<CustomerHistoryDto>> getHistory(@PathVariable Long id) {
         List<CustomerHistoryDto> history = getCustomerHistoryUseCase.getHistory(id)
                 .stream()

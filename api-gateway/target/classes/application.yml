@@ -20,7 +20,7 @@ spring:
         - id: parametrizaciones
           uri: http://localhost:8083
           predicates:
-            - Path=/api/parametrizaciones/**, /api/parameters/**
+            - Path=/api/parametrizaciones/**, /api/parameters/**, /api/catalogs/**
 
         # Portfolio Service - File & Fold
         - id: portfolio-service
