@@ -77,7 +77,11 @@ public class SecurityConfiguration {
                     // Auth libre
                     auth.requestMatchers("/api/auth/**").permitAll();
                     auth.requestMatchers("/uploads/**").permitAll();
-                    auth.requestMatchers("/api/security/users").permitAll(); // Temporary bypass for verification
+                    auth.requestMatchers("/api/security/users").permitAll();
+                    auth.requestMatchers("/api/security/menus").permitAll();
+                    auth.requestMatchers("/api/customer/**").permitAll();
+                    auth.requestMatchers("/api/payment/**").permitAll();
+                    auth.requestMatchers("/api/expenses/**").permitAll();
 
                     // TODO API protegida
                     auth.requestMatchers("/api/**").authenticated();
