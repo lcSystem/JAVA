@@ -21,6 +21,7 @@
 /home/lsyst/Documentos/JAVA/parametrizaciones/src/main/java/com/parametrizaciones/infrastructure/persistence/repositories/SpringDataParameterRepository.java
 /home/lsyst/Documentos/JAVA/parametrizaciones/src/main/java/com/parametrizaciones/infrastructure/persistence/repository/CatalogItemRepository.java
 /home/lsyst/Documentos/JAVA/parametrizaciones/src/main/java/com/parametrizaciones/infrastructure/persistence/repository/CatalogRepository.java
+/home/lsyst/Documentos/JAVA/parametrizaciones/src/main/java/com/parametrizaciones/infrastructure/persistence/services/LocalLocationSyncService.java
 /home/lsyst/Documentos/JAVA/parametrizaciones/src/main/java/com/parametrizaciones/infrastructure/rest/controllers/CatalogController.java
 /home/lsyst/Documentos/JAVA/parametrizaciones/src/main/java/com/parametrizaciones/infrastructure/rest/controllers/ParameterController.java
 /home/lsyst/Documentos/JAVA/parametrizaciones/src/main/java/com/parametrizaciones/infrastructure/rest/dto/CatalogDto.java
