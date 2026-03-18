@@ -110,6 +110,14 @@ public class CreditRequestController {
                                 .collect(java.util.stream.Collectors.toList()));
         }
 
+        @GetMapping("/customer/{documentNumber}")
+        @PreAuthorize("hasAuthority('CREDIT_READ') or hasAuthority('ROLE_ADMIN')")
+        public ResponseEntity<List<CreditRequestDTO>> getByCustomerDocument(@PathVariable String documentNumber) {
+                return ResponseEntity.ok(creditRequestUseCase.getRequestsByDocumentNumber(documentNumber).stream()
+                                .map(com.creditos.infrastructure.mappers.CreditRequestMapper::toDTO)
+                                .collect(java.util.stream.Collectors.toList()));
+        }
+
         @PutMapping("/{id}")
         @PreAuthorize("hasAuthority('CREDIT_CREATE') or hasAuthority('ROLE_ADMIN')")
         public ResponseEntity<CreditRequestDTO> updateRequest(@PathVariable Long id,

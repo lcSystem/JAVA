@@ -28,6 +28,9 @@ public class ApplicantProfile {
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
+    @Column(name = "document_number")
+    private String documentNumber;
+
     @Column(name = "monthly_income", nullable = false)
     private BigDecimal monthlyIncome;
 

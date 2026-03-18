@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-03-16T12:16:23-0400",
-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.45.0.v20260128-0750, environment: Java 21.0.9 (Eclipse Adoptium)"
+    date = "2026-03-18T11:48:11-0500",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.10 (Ubuntu)"
 )
 @Component
 public class MessageMapperImpl extends MessageMapper {
@@ -22,15 +22,15 @@ public class MessageMapperImpl extends MessageMapper {
         Message.MessageBuilder message = Message.builder();
 
         message.metadata( jsonToMap( entity.getMetadata() ) );
-        message.channelId( entity.getChannelId() );
-        message.content( entity.getContent() );
         message.id( entity.getId() );
-        message.recipientId( entity.getRecipientId() );
+        message.channelId( entity.getChannelId() );
         message.senderId( entity.getSenderId() );
-        message.timestamp( entity.getTimestamp() );
+        message.recipientId( entity.getRecipientId() );
+        message.content( entity.getContent() );
         if ( entity.getType() != null ) {
             message.type( Enum.valueOf( Message.MessageType.class, entity.getType() ) );
         }
+        message.timestamp( entity.getTimestamp() );
 
         return message.build();
     }
@@ -44,15 +44,15 @@ public class MessageMapperImpl extends MessageMapper {
         MessageEntity.MessageEntityBuilder messageEntity = MessageEntity.builder();
 
         messageEntity.metadata( mapToJson( domain.getMetadata() ) );
-        messageEntity.channelId( domain.getChannelId() );
-        messageEntity.content( domain.getContent() );
         messageEntity.id( domain.getId() );
-        messageEntity.recipientId( domain.getRecipientId() );
+        messageEntity.channelId( domain.getChannelId() );
         messageEntity.senderId( domain.getSenderId() );
-        messageEntity.timestamp( domain.getTimestamp() );
+        messageEntity.recipientId( domain.getRecipientId() );
+        messageEntity.content( domain.getContent() );
         if ( domain.getType() != null ) {
             messageEntity.type( domain.getType().name() );
         }
+        messageEntity.timestamp( domain.getTimestamp() );
 
         return messageEntity.build();
     }

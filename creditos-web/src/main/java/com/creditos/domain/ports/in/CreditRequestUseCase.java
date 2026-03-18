@@ -5,34 +5,36 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface CreditRequestUseCase {
-    CreditRequest submitRequest(Long applicantUserId, Long creditTypeId, BigDecimal amount, Integer termMonths,
-            String purpose, String representativeName,
-            String representativeId, String debtorAdditionalInfo,
-            java.util.List<com.creditos.domain.model.Reference> debtorReferences,
-            java.util.List<com.creditos.domain.model.CoDebtorProfile> coDebtors,
-            java.util.List<com.creditos.domain.model.PreviousCredit> previousCredits,
-            com.creditos.domain.model.CoDebtorProfile representativeProfile);
+        CreditRequest submitRequest(Long applicantUserId, Long creditTypeId, BigDecimal amount, Integer termMonths,
+                        String purpose, String representativeName,
+                        String representativeId, String debtorAdditionalInfo,
+                        java.util.List<com.creditos.domain.model.Reference> debtorReferences,
+                        java.util.List<com.creditos.domain.model.CoDebtorProfile> coDebtors,
+                        java.util.List<com.creditos.domain.model.PreviousCredit> previousCredits,
+                        com.creditos.domain.model.CoDebtorProfile representativeProfile);
 
-    CreditRequest updateRequest(Long requestId, BigDecimal amount, Integer termMonths,
-            String purpose, String debtorAdditionalInfo,
-            java.util.List<com.creditos.domain.model.Reference> debtorReferences,
-            java.util.List<com.creditos.domain.model.CoDebtorProfile> coDebtors,
-            java.util.List<com.creditos.domain.model.PreviousCredit> previousCredits,
-            com.creditos.domain.model.CoDebtorProfile representativeProfile);
+        CreditRequest updateRequest(Long requestId, BigDecimal amount, Integer termMonths,
+                        String purpose, String debtorAdditionalInfo,
+                        java.util.List<com.creditos.domain.model.Reference> debtorReferences,
+                        java.util.List<com.creditos.domain.model.CoDebtorProfile> coDebtors,
+                        java.util.List<com.creditos.domain.model.PreviousCredit> previousCredits,
+                        com.creditos.domain.model.CoDebtorProfile representativeProfile);
 
-    CreditRequest evaluateRequest(Long requestId);
+        CreditRequest evaluateRequest(Long requestId);
 
-    CreditRequest approveRequest(Long requestId, String approver, String comments);
+        CreditRequest approveRequest(Long requestId, String approver, String comments);
 
-    CreditRequest disburseRequest(Long requestId);
+        CreditRequest disburseRequest(Long requestId);
 
-    CreditRequest rejectRequest(Long requestId, String rejecter, String comments);
+        CreditRequest rejectRequest(Long requestId, String rejecter, String comments);
 
-    CreditRequest restructureCredit(Long requestId, Integer newTerm, String approver, String comments);
+        CreditRequest restructureCredit(Long requestId, Integer newTerm, String approver, String comments);
 
-    List<CreditRequest> getRequestsByUserId(Long userId);
+        List<CreditRequest> getRequestsByUserId(Long userId);
 
-    List<CreditRequest> getAllRequests();
+        List<CreditRequest> getRequestsByDocumentNumber(String documentNumber);
 
-    CreditRequest getRequestById(Long id);
+        List<CreditRequest> getAllRequests();
+
+        CreditRequest getRequestById(Long id);
 }

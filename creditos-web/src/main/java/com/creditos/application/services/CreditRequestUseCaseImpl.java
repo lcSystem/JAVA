@@ -195,6 +195,11 @@ public class CreditRequestUseCaseImpl implements CreditRequestUseCase {
     }
 
     @Override
+    public List<CreditRequest> getRequestsByDocumentNumber(String documentNumber) {
+        return creditRequestRepositoryPort.findByApplicantDocumentNumber(documentNumber);
+    }
+
+    @Override
     public List<CreditRequest> getAllRequests() {
         return creditRequestRepositoryPort.findAll();
     }

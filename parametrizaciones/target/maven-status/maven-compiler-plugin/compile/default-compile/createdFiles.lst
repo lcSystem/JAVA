@@ -8,12 +8,14 @@ com/parametrizaciones/infrastructure/config/CacheConfig.class
 com/parametrizaciones/domain/model/Parameter.class
 com/parametrizaciones/domain/model/ParameterCategory.class
 com/parametrizaciones/infrastructure/persistence/entities/CatalogItemJpaEntity.class
+com/parametrizaciones/infrastructure/persistence/adapters/FileLocationAdapter$DepartmentDto.class
 com/parametrizaciones/infrastructure/messaging/adapters/RabbitMQEventPublisherAdapter.class
 com/parametrizaciones/infrastructure/persistence/repository/CatalogItemRepository.class
 com/parametrizaciones/infrastructure/persistence/services/LocalLocationSyncService.class
 com/parametrizaciones/domain/ports/in/ParameterServicePort.class
 com/parametrizaciones/domain/model/ParameterCategory$ParameterCategoryBuilder.class
 com/parametrizaciones/infrastructure/persistence/repository/CatalogRepository.class
+com/parametrizaciones/infrastructure/rest/controllers/FileLocationController$ValidationRequest.class
 com/parametrizaciones/domain/model/events/ParameterUpdatedEvent.class
 com/parametrizaciones/domain/model/CatalogItem$CatalogItemBuilder.class
 com/parametrizaciones/domain/model/events/ParameterUpdatedEvent$ParameterUpdatedEventBuilder.class
@@ -24,7 +26,9 @@ com/parametrizaciones/infrastructure/persistence/entities/ParameterJpaEntity$Par
 com/parametrizaciones/infrastructure/persistence/repositories/SpringDataParameterRepository.class
 com/parametrizaciones/infrastructure/security/CustomAuthoritiesConverter.class
 com/parametrizaciones/infrastructure/rest/dto/CatalogDto$CatalogDtoBuilder.class
+com/parametrizaciones/infrastructure/persistence/adapters/FileLocationAdapter$CityDto.class
 com/parametrizaciones/ParametrizacionesApplication.class
+com/parametrizaciones/infrastructure/rest/controllers/FileLocationController.class
 com/parametrizaciones/infrastructure/rest/dto/CatalogItemDto$CatalogItemDtoBuilder.class
 com/parametrizaciones/domain/model/Catalog$CatalogBuilder.class
 com/parametrizaciones/infrastructure/rest/dto/ParameterDto.class
@@ -40,7 +44,9 @@ com/parametrizaciones/application/services/ParameterServiceImpl.class
 com/parametrizaciones/infrastructure/persistence/entities/CatalogItemJpaEntity$CatalogItemJpaEntityBuilder.class
 com/parametrizaciones/application/services/CatalogService.class
 com/parametrizaciones/infrastructure/persistence/entities/CatalogJpaEntity$CatalogJpaEntityBuilder.class
+com/parametrizaciones/infrastructure/persistence/adapters/FileLocationAdapter$1.class
 com/parametrizaciones/infrastructure/persistence/adapters/JpaParameterRepositoryAdapter.class
 com/parametrizaciones/infrastructure/persistence/entities/ParameterCategoryJpaEntity$ParameterCategoryJpaEntityBuilder.class
 com/parametrizaciones/infrastructure/rest/dto/CatalogDto.class
+com/parametrizaciones/infrastructure/persistence/adapters/FileLocationAdapter.class
 com/parametrizaciones/domain/model/CatalogItem.class
