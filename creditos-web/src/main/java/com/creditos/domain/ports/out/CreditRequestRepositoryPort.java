@@ -11,5 +11,7 @@ public interface CreditRequestRepositoryPort {
 
     List<CreditRequest> findByApplicantUserId(Long userId);
 
+    List<CreditRequest> findByApplicantDocumentNumber(String documentNumber);
+
     List<CreditRequest> findAll();
 }

@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface ApplicantProfileRepository extends JpaRepository<ApplicantProfile, Long> {
     Optional<ApplicantProfile> findByUserId(Long userId);
+
+    Optional<ApplicantProfile> findByDocumentNumber(String documentNumber);
 }

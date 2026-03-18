@@ -12,6 +12,7 @@
 /home/lsyst/Documentos/JAVA/parametrizaciones/src/main/java/com/parametrizaciones/infrastructure/config/CacheConfig.java
 /home/lsyst/Documentos/JAVA/parametrizaciones/src/main/java/com/parametrizaciones/infrastructure/messaging/adapters/RabbitMQEventPublisherAdapter.java
 /home/lsyst/Documentos/JAVA/parametrizaciones/src/main/java/com/parametrizaciones/infrastructure/messaging/config/RabbitMQConfig.java
+/home/lsyst/Documentos/JAVA/parametrizaciones/src/main/java/com/parametrizaciones/infrastructure/persistence/adapters/FileLocationAdapter.java
 /home/lsyst/Documentos/JAVA/parametrizaciones/src/main/java/com/parametrizaciones/infrastructure/persistence/adapters/JpaParameterRepositoryAdapter.java
 /home/lsyst/Documentos/JAVA/parametrizaciones/src/main/java/com/parametrizaciones/infrastructure/persistence/entities/CatalogItemJpaEntity.java
 /home/lsyst/Documentos/JAVA/parametrizaciones/src/main/java/com/parametrizaciones/infrastructure/persistence/entities/CatalogJpaEntity.java
@@ -23,6 +24,7 @@
 /home/lsyst/Documentos/JAVA/parametrizaciones/src/main/java/com/parametrizaciones/infrastructure/persistence/repository/CatalogRepository.java
 /home/lsyst/Documentos/JAVA/parametrizaciones/src/main/java/com/parametrizaciones/infrastructure/persistence/services/LocalLocationSyncService.java
 /home/lsyst/Documentos/JAVA/parametrizaciones/src/main/java/com/parametrizaciones/infrastructure/rest/controllers/CatalogController.java
+/home/lsyst/Documentos/JAVA/parametrizaciones/src/main/java/com/parametrizaciones/infrastructure/rest/controllers/FileLocationController.java
 /home/lsyst/Documentos/JAVA/parametrizaciones/src/main/java/com/parametrizaciones/infrastructure/rest/controllers/ParameterController.java
 /home/lsyst/Documentos/JAVA/parametrizaciones/src/main/java/com/parametrizaciones/infrastructure/rest/dto/CatalogDto.java
 /home/lsyst/Documentos/JAVA/parametrizaciones/src/main/java/com/parametrizaciones/infrastructure/rest/dto/CatalogItemDto.java

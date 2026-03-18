@@ -72,6 +72,13 @@ public class CreditRequestRepositoryAdapter implements CreditRequestRepositoryPo
     }
 
     @Override
+    public List<CreditRequest> findByApplicantDocumentNumber(String documentNumber) {
+        return creditRequestRepository.findByApplicantDocumentNumberOrderByIdDesc(documentNumber).stream()
+                .map(CreditRequestMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<CreditRequest> findAll() {
         return creditRequestRepository.findAll().stream()
                 .map(CreditRequestMapper::toDomain)
