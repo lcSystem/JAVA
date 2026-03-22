@@ -1,0 +1,37 @@
+server:
+  port: 8092
+  error:
+    include-message: always
+
+spring:
+  application:
+    name: appointment-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/iam_db?currentSchema=appointment
+    username: iam_user
+    password: iam_password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+    table: appointment_schema_history
+    schemas: appointment
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8081/api/auth/jwks
+
+rabbitmq:
+  exchange:
+    notification: notification-exchange
+  routing:
+    appointment: appointment.notification

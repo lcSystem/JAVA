@@ -107,6 +107,13 @@ public class CustomerController {
         return ResponseEntity.noContent().build();
     }
 
+    // Name (used by appointment-service via Feign)
+    @GetMapping("/{id}/name")
+    public ResponseEntity<String> getName(@PathVariable Long id) {
+        Customer customer = getCustomerUseCase.getById(id);
+        return ResponseEntity.ok(customer.getName());
+    }
+
     // History
     @GetMapping("/{id}/history")
     @PreAuthorize("hasAuthority('CUSTOMERS_READ')")

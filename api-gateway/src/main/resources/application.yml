@@ -58,6 +58,12 @@ spring:
           predicates:
             - Path=/api/client/auth/**, /api/client/perfil, /api/client/perfil/**, /api/config-creditos, /api/config-creditos/**
 
+        # Appointment Service - Scheduling and Calendar
+        - id: appointment-service
+          uri: http://localhost:8092
+          predicates:
+            - Path=/api/appointments, /api/appointments/**
+
         # Customer Service - Customer Management
         - id: customer-service
           uri: http://localhost:8086
