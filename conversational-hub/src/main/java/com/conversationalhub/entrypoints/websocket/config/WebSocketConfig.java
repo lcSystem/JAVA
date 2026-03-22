@@ -57,13 +57,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void configureMessageBroker(MessageBrokerRegistry registry) {
         // Habilitamos el Broker Relay que envía los mensajes reales hacia RabbitMQ
         // (AMQP -> STOMP)
-        registry.enableStompBrokerRelay("/topic", "/queue", "/exchange")
-                .setRelayHost(java.util.Objects.requireNonNull(rabbitmqHost))
-                .setRelayPort(61613) // Puerto STOMP de RabbitMQ
-                .setClientLogin(java.util.Objects.requireNonNull(rabbitmqUser))
-                .setClientPasscode(java.util.Objects.requireNonNull(rabbitmqPassword))
-                .setSystemLogin(java.util.Objects.requireNonNull(rabbitmqUser))
-                .setSystemPasscode(java.util.Objects.requireNonNull(rabbitmqPassword));
+        registry.enableSimpleBroker("/topic", "/queue", "/exchange");
 
         // Los mensajes que el cliente envíe al servidor con prefijo /app serán
         // procesados por los @MessageMapping

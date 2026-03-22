@@ -9,6 +9,10 @@ import com.appointment.application.ports.in.RescheduleAppointmentCommand;
 import com.appointment.application.ports.in.RescheduleAppointmentUseCase;
 import com.appointment.application.ports.in.ScheduleAppointmentCommand;
 import com.appointment.application.ports.in.ScheduleAppointmentUseCase;
+import com.appointment.application.ports.in.UpdateAppointmentCommand;
+import com.appointment.application.ports.in.UpdateAppointmentUseCase;
+import com.appointment.application.ports.in.RespondInvitationUseCase;
+import com.appointment.application.ports.in.RespondInvitationCommand;
 import com.appointment.application.ports.out.AppointmentAuditRepositoryPort;
 import com.appointment.application.ports.out.AppointmentRepositoryPort;
 import com.appointment.application.ports.out.AvailabilityRepositoryPort;
@@ -18,7 +22,9 @@ import com.appointment.domain.model.Appointment;
 import com.appointment.domain.model.AppointmentAudit;
 import com.appointment.domain.model.AppointmentStatus;
 import com.appointment.domain.model.Availability;
+import com.appointment.domain.model.AppointmentAttendee;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +35,7 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 public class AppointmentManagementService
                 implements ScheduleAppointmentUseCase, CancelAppointmentUseCase, RescheduleAppointmentUseCase,
-                GetAvailabilityUseCase {
+                UpdateAppointmentUseCase, GetAvailabilityUseCase, RespondInvitationUseCase {
 
         private final AppointmentRepositoryPort appointmentRepository;
         private final AvailabilityRepositoryPort availabilityRepository;
@@ -77,6 +83,17 @@ public class AppointmentManagementService
                                 .updatedAt(LocalDateTime.now())
                                 .createdBy(command.getCreatedBy())
                                 .build();
+
+                if (command.getAttendeeIds() != null) {
+                        List<AppointmentAttendee> attendees = command.getAttendeeIds().stream()
+                                        .map(id -> AppointmentAttendee.builder()
+                                                        .id(UUID.randomUUID())
+                                                        .userId(id)
+                                                        .status(AppointmentAttendee.AttendeeStatus.PENDING)
+                                                        .build())
+                                        .collect(Collectors.toList());
+                        appointment.setAttendees(attendees);
+                }
 
                 // 4. Save
                 Appointment saved = appointmentRepository.save(appointment);
@@ -183,6 +200,71 @@ public class AppointmentManagementService
         }
 
         @Override
+        public Appointment update(UpdateAppointmentCommand command) {
+                Appointment appointment = appointmentRepository.findById(command.getAppointmentId())
+                                .orElseThrow(() -> new IllegalArgumentException("Appointment not found: "
+                                                + command.getAppointmentId()));
+
+                if (command.getStartTime().isBefore(LocalDateTime.now())
+                                && !command.getStartTime().equals(appointment.getStartTime())) {
+                        throw new IllegalArgumentException("Cannot schedule appointments in the past");
+                }
+
+                long durationMinutes = java.time.Duration.between(command.getStartTime(), command.getEndTime())
+                                .toMinutes();
+                if (durationMinutes <= 0) {
+                        throw new IllegalArgumentException("Appointment duration must be positive");
+                }
+
+                boolean overlapping = appointmentRepository.existsOverlappingExcluding(
+                                appointment.getEmployeeId(),
+                                command.getStartTime(),
+                                command.getEndTime(),
+                                appointment.getId());
+
+                if (overlapping) {
+                        throw new TimeSlotTakenException("The new time slot is already taken.");
+                }
+
+                appointment.setTitle(command.getTitle());
+                appointment.setCustomerId(command.getCustomerId());
+                appointment.setStartTime(command.getStartTime());
+                appointment.setEndTime(command.getEndTime());
+                appointment.setDuration((int) durationMinutes);
+                appointment.setType(command.getType());
+                appointment.setNotes(command.getNotes());
+                appointment.setUpdatedAt(LocalDateTime.now());
+
+                if (command.getAttendeeIds() != null) {
+                        List<AppointmentAttendee> attendees = command.getAttendeeIds().stream()
+                                        .map(id -> AppointmentAttendee.builder()
+                                                        .id(UUID.randomUUID())
+                                                        .userId(id)
+                                                        .status(AppointmentAttendee.AttendeeStatus.PENDING)
+                                                        .build())
+                                        .collect(Collectors.toList());
+                        appointment.setAttendees(attendees);
+                } else {
+                        appointment.setAttendees(null);
+                }
+
+                Appointment saved = appointmentRepository.save(appointment);
+
+                auditRepository.save(AppointmentAudit.builder()
+                                .id(UUID.randomUUID())
+                                .tenantId(saved.getTenantId())
+                                .appointmentId(saved.getId())
+                                .action("UPDATE")
+                                .oldStatus(appointment.getStatus().name())
+                                .newStatus(saved.getStatus().name())
+                                .changedAt(LocalDateTime.now())
+                                .changedBy(command.getUpdatedBy())
+                                .build());
+
+                return saved;
+        }
+
+        @Override
         public List<Availability> getEmployeeAvailability(UUID employeeId, UUID branchId) {
                 return availabilityRepository.findByEmployeeId(employeeId);
         }
@@ -190,5 +272,43 @@ public class AppointmentManagementService
         @Override
         public List<Appointment> getEmployeeAppointments(UUID employeeId, LocalDateTime start, LocalDateTime end) {
                 return appointmentRepository.findByEmployeeIdAndDateRange(employeeId, start, end);
+        }
+
+        @Override
+        public Appointment respond(RespondInvitationCommand command) {
+                Appointment appointment = appointmentRepository.findById(command.getAppointmentId())
+                                .orElseThrow(() -> new IllegalArgumentException("Appointment not found: "
+                                                + command.getAppointmentId()));
+
+                boolean updated = false;
+                if (appointment.getAttendees() != null) {
+                        for (AppointmentAttendee attendee : appointment.getAttendees()) {
+                                if (attendee.getUserId().equals(command.getUserId())) {
+                                        attendee.setStatus(command.getStatus());
+                                        updated = true;
+                                        break;
+                                }
+                        }
+                }
+
+                if (!updated) {
+                        throw new IllegalArgumentException("Attendee not found for this appointment.");
+                }
+
+                Appointment saved = appointmentRepository.save(appointment);
+
+                // Re-notify optionally if status changed to ACCEPTED/REJECTED
+                auditRepository.save(AppointmentAudit.builder()
+                                .id(UUID.randomUUID())
+                                .tenantId(saved.getTenantId())
+                                .appointmentId(saved.getId())
+                                .action(command.getStatus().name())
+                                .oldStatus("PENDING")
+                                .newStatus(command.getStatus().name())
+                                .changedAt(LocalDateTime.now())
+                                .changedBy(command.getUserId().toString())
+                                .build());
+
+                return saved;
         }
 }

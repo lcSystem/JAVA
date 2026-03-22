@@ -59,6 +59,16 @@ public class AppDesignSettingsService {
             settings.setTableHeaderColor(dto.getTableHeaderColor());
         if (dto.getHeaderColor() != null)
             settings.setHeaderColor(dto.getHeaderColor());
+        if (dto.getInfoColor() != null)
+            settings.setInfoColor(dto.getInfoColor());
+        if (dto.getWarningColor() != null)
+            settings.setWarningColor(dto.getWarningColor());
+        if (dto.getErrorColor() != null)
+            settings.setErrorColor(dto.getErrorColor());
+        if (dto.getSuccessColor() != null)
+            settings.setSuccessColor(dto.getSuccessColor());
+        if (dto.getSystemColor() != null)
+            settings.setSystemColor(dto.getSystemColor());
 
         AppDesignSettings saved = designRepository.save(settings);
         return new AppDesignSettingsDTO(saved);
@@ -77,6 +87,11 @@ public class AppDesignSettingsService {
         defaults.setSidebarColor("#FFFFFF");
         defaults.setTableHeaderColor("#F9FAFB");
         defaults.setHeaderColor("#FFFFFF");
+        defaults.setInfoColor("#0EA5E9");
+        defaults.setWarningColor("#F59E0B");
+        defaults.setErrorColor("#EF4444");
+        defaults.setSuccessColor("#10B981");
+        defaults.setSystemColor("#6366F1");
         return defaults;
     }
 

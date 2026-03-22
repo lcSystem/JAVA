@@ -19,7 +19,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.appointment.application.ports.in.ScheduleAppointmentCommand;
+
+import com.appointment.application.ports.out.AppointmentAuditRepositoryPort;
 import com.appointment.application.ports.out.AppointmentRepositoryPort;
+import com.appointment.application.ports.out.AvailabilityRepositoryPort;
 import com.appointment.application.ports.out.NotificationPort;
 import com.appointment.domain.exception.TimeSlotTakenException;
 import com.appointment.domain.model.Appointment;
@@ -30,6 +33,12 @@ class AppointmentManagementServiceTest {
 
     @Mock
     private AppointmentRepositoryPort appointmentRepository;
+
+    @Mock
+    private AvailabilityRepositoryPort availabilityRepository;
+
+    @Mock
+    private AppointmentAuditRepositoryPort auditRepository;
 
     @Mock
     private NotificationPort notificationPort;

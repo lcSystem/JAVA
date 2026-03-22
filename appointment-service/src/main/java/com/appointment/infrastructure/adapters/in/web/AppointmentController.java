@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,14 +19,20 @@ import com.appointment.application.ports.in.CancelAppointmentUseCase;
 import com.appointment.application.ports.in.GetAvailabilityUseCase;
 import com.appointment.application.ports.in.RescheduleAppointmentCommand;
 import com.appointment.application.ports.in.RescheduleAppointmentUseCase;
+import com.appointment.application.ports.in.RespondInvitationUseCase;
+import com.appointment.application.ports.in.RespondInvitationCommand;
 import com.appointment.application.ports.in.ScheduleAppointmentCommand;
 import com.appointment.application.ports.in.ScheduleAppointmentUseCase;
 import com.appointment.application.ports.out.CustomerServicePort;
 import com.appointment.domain.model.Appointment;
 import com.appointment.domain.model.Availability;
+import com.appointment.domain.model.AppointmentAttendee.AttendeeStatus;
 import com.appointment.infrastructure.adapters.in.web.dto.AppointmentResponse;
 import com.appointment.infrastructure.adapters.in.web.dto.RescheduleAppointmentRequest;
 import com.appointment.infrastructure.adapters.in.web.dto.ScheduleAppointmentRequest;
+import com.appointment.infrastructure.adapters.in.web.dto.UpdateAppointmentRequest;
+import com.appointment.application.ports.in.UpdateAppointmentUseCase;
+import com.appointment.application.ports.in.UpdateAppointmentCommand;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +45,9 @@ public class AppointmentController {
     private final ScheduleAppointmentUseCase scheduleUseCase;
     private final CancelAppointmentUseCase cancelUseCase;
     private final RescheduleAppointmentUseCase rescheduleUseCase;
+    private final UpdateAppointmentUseCase updateUseCase;
     private final GetAvailabilityUseCase availabilityUseCase;
+    private final RespondInvitationUseCase respondUseCase;
     private final CustomerServicePort customerServicePort;
 
     @PostMapping
@@ -55,6 +64,7 @@ public class AppointmentController {
                 .endTime(request.getEndTime())
                 .type(request.getType())
                 .notes(request.getNotes())
+                .attendeeIds(request.getAttendeeIds())
                 .createdBy(auth != null ? auth.getName() : "system")
                 .build();
 
@@ -86,6 +96,27 @@ public class AppointmentController {
         return ResponseEntity.ok(mapToResponse(appointment));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<AppointmentResponse> update(@PathVariable("id") UUID id,
+            @Valid @RequestBody UpdateAppointmentRequest request,
+            Authentication auth) {
+        UpdateAppointmentCommand command = UpdateAppointmentCommand.builder()
+                .appointmentId(id)
+                .tenantId(request.getTenantId())
+                .title(request.getTitle())
+                .customerId(request.getCustomerId())
+                .startTime(request.getStartTime())
+                .endTime(request.getEndTime())
+                .type(request.getType())
+                .notes(request.getNotes())
+                .attendeeIds(request.getAttendeeIds())
+                .updatedBy(auth != null ? auth.getName() : "system")
+                .build();
+
+        Appointment appointment = updateUseCase.update(command);
+        return ResponseEntity.ok(mapToResponse(appointment));
+    }
+
     @GetMapping("/availability/employee/{employeeId}")
     public ResponseEntity<List<Availability>> getAvailability(@PathVariable("employeeId") UUID employeeId,
             @RequestParam(name = "branchId", required = false) UUID branchId) {
@@ -102,6 +133,36 @@ public class AppointmentController {
         List<AppointmentResponse> response = appointments.stream().map(this::mapToResponse).toList();
 
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/{id}/attendees/{userId}/accept")
+    public ResponseEntity<AppointmentResponse> acceptInvitation(
+            @PathVariable("id") UUID id,
+            @PathVariable("userId") UUID userId) {
+
+        RespondInvitationCommand command = RespondInvitationCommand.builder()
+                .appointmentId(id)
+                .userId(userId)
+                .status(AttendeeStatus.ACCEPTED)
+                .build();
+
+        Appointment appointment = respondUseCase.respond(command);
+        return ResponseEntity.ok(mapToResponse(appointment));
+    }
+
+    @PostMapping("/{id}/attendees/{userId}/reject")
+    public ResponseEntity<AppointmentResponse> rejectInvitation(
+            @PathVariable("id") UUID id,
+            @PathVariable("userId") UUID userId) {
+
+        RespondInvitationCommand command = RespondInvitationCommand.builder()
+                .appointmentId(id)
+                .userId(userId)
+                .status(AttendeeStatus.REJECTED)
+                .build();
+
+        Appointment appointment = respondUseCase.respond(command);
+        return ResponseEntity.ok(mapToResponse(appointment));
     }
 
     private AppointmentResponse mapToResponse(Appointment appointment) {

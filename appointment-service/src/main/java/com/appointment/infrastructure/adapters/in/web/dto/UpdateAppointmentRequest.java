@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class ScheduleAppointmentRequest {
+public class UpdateAppointmentRequest {
     @NotNull(message = "Tenant ID is required")
     private UUID tenantId;
 
@@ -19,12 +19,6 @@ public class ScheduleAppointmentRequest {
 
     @NotNull(message = "Customer ID is required")
     private String customerId;
-
-    @NotNull(message = "Employee ID is required")
-    private UUID employeeId;
-
-    @NotNull(message = "Branch ID is required")
-    private UUID branchId;
 
     @NotNull(message = "Start time is required")
     private LocalDateTime startTime;

@@ -55,4 +55,19 @@ public class AppDesignSettings {
 
     @Column(name = "header_color")
     private String headerColor;
+
+    @Column(name = "info_color")
+    private String infoColor;
+
+    @Column(name = "warning_color")
+    private String warningColor;
+
+    @Column(name = "error_color")
+    private String errorColor;
+
+    @Column(name = "success_color")
+    private String successColor;
+
+    @Column(name = "system_color")
+    private String systemColor;
 }

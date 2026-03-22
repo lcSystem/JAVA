@@ -1,6 +1,7 @@
 package com.appointment.domain.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 import lombok.AllArgsConstructor;
@@ -34,6 +35,8 @@ public class Appointment {
     private boolean isDeleted;
     private String timezone;
     private Integer duration;
+
+    private List<AppointmentAttendee> attendees;
 
     public void softDelete() {
         this.isDeleted = true;

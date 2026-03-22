@@ -19,6 +19,11 @@ public class AppDesignSettingsDTO {
     private String sidebarColor;
     private String tableHeaderColor;
     private String headerColor;
+    private String infoColor;
+    private String warningColor;
+    private String errorColor;
+    private String successColor;
+    private String systemColor;
 
     public AppDesignSettingsDTO(AppDesignSettings settings) {
         if (settings != null) {
@@ -33,6 +38,11 @@ public class AppDesignSettingsDTO {
             this.sidebarColor = settings.getSidebarColor();
             this.tableHeaderColor = settings.getTableHeaderColor();
             this.headerColor = settings.getHeaderColor();
+            this.infoColor = settings.getInfoColor();
+            this.warningColor = settings.getWarningColor();
+            this.errorColor = settings.getErrorColor();
+            this.successColor = settings.getSuccessColor();
+            this.systemColor = settings.getSystemColor();
         }
     }
 }
