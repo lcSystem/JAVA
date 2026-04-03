@@ -6,7 +6,7 @@ import 'features/configuracion/providers/config_provider.dart';
 
 /// Root widget that applies dynamic theming from the config API.
 class CreditosApp extends ConsumerWidget {
-  const CreditosApp({super.key});
+  const CreditosApp({super.key}); 
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

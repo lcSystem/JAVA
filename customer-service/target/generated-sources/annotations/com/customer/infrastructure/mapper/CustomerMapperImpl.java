@@ -24,8 +24,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-03-22T00:04:08-0500",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.10 (Ubuntu)"
+    date = "2026-03-25T17:07:40-0500",
+    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.45.0.v20260128-0750, environment: Java 21.0.9 (Eclipse Adoptium)"
 )
 @Component
 public class CustomerMapperImpl implements CustomerMapper {
@@ -38,20 +38,20 @@ public class CustomerMapperImpl implements CustomerMapper {
 
         Customer.CustomerBuilder customer = Customer.builder();
 
-        customer.id( entity.getId() );
-        customer.type( entity.getType() );
-        customer.name( entity.getName() );
-        customer.documentNumber( entity.getDocumentNumber() );
-        customer.email( entity.getEmail() );
-        customer.phone( entity.getPhone() );
-        customer.status( entity.getStatus() );
-        customer.createdAt( entity.getCreatedAt() );
-        customer.updatedAt( entity.getUpdatedAt() );
-        customer.createdBy( entity.getCreatedBy() );
-        customer.updatedBy( entity.getUpdatedBy() );
-        customer.deletedAt( entity.getDeletedAt() );
         customer.addresses( customerAddressEntityListToCustomerAddressList( entity.getAddresses() ) );
         customer.contacts( customerContactEntityListToCustomerContactList( entity.getContacts() ) );
+        customer.createdAt( entity.getCreatedAt() );
+        customer.createdBy( entity.getCreatedBy() );
+        customer.deletedAt( entity.getDeletedAt() );
+        customer.documentNumber( entity.getDocumentNumber() );
+        customer.email( entity.getEmail() );
+        customer.id( entity.getId() );
+        customer.name( entity.getName() );
+        customer.phone( entity.getPhone() );
+        customer.status( entity.getStatus() );
+        customer.type( entity.getType() );
+        customer.updatedAt( entity.getUpdatedAt() );
+        customer.updatedBy( entity.getUpdatedBy() );
 
         return customer.build();
     }
@@ -64,18 +64,18 @@ public class CustomerMapperImpl implements CustomerMapper {
 
         Customer.CustomerBuilder customer = Customer.builder();
 
-        customer.id( entity.getId() );
-        customer.type( entity.getType() );
-        customer.name( entity.getName() );
+        customer.createdAt( entity.getCreatedAt() );
+        customer.createdBy( entity.getCreatedBy() );
+        customer.deletedAt( entity.getDeletedAt() );
         customer.documentNumber( entity.getDocumentNumber() );
         customer.email( entity.getEmail() );
+        customer.id( entity.getId() );
+        customer.name( entity.getName() );
         customer.phone( entity.getPhone() );
         customer.status( entity.getStatus() );
-        customer.createdAt( entity.getCreatedAt() );
+        customer.type( entity.getType() );
         customer.updatedAt( entity.getUpdatedAt() );
-        customer.createdBy( entity.getCreatedBy() );
         customer.updatedBy( entity.getUpdatedBy() );
-        customer.deletedAt( entity.getDeletedAt() );
 
         return customer.build();
     }
@@ -88,20 +88,20 @@ public class CustomerMapperImpl implements CustomerMapper {
 
         CustomerEntity.CustomerEntityBuilder customerEntity = CustomerEntity.builder();
 
-        customerEntity.id( domain.getId() );
-        customerEntity.type( domain.getType() );
-        customerEntity.name( domain.getName() );
-        customerEntity.documentNumber( domain.getDocumentNumber() );
-        customerEntity.email( domain.getEmail() );
-        customerEntity.phone( domain.getPhone() );
-        customerEntity.status( domain.getStatus() );
-        customerEntity.createdAt( domain.getCreatedAt() );
-        customerEntity.updatedAt( domain.getUpdatedAt() );
-        customerEntity.createdBy( domain.getCreatedBy() );
-        customerEntity.updatedBy( domain.getUpdatedBy() );
-        customerEntity.deletedAt( domain.getDeletedAt() );
         customerEntity.addresses( customerAddressListToCustomerAddressEntityList( domain.getAddresses() ) );
         customerEntity.contacts( customerContactListToCustomerContactEntityList( domain.getContacts() ) );
+        customerEntity.createdAt( domain.getCreatedAt() );
+        customerEntity.createdBy( domain.getCreatedBy() );
+        customerEntity.deletedAt( domain.getDeletedAt() );
+        customerEntity.documentNumber( domain.getDocumentNumber() );
+        customerEntity.email( domain.getEmail() );
+        customerEntity.id( domain.getId() );
+        customerEntity.name( domain.getName() );
+        customerEntity.phone( domain.getPhone() );
+        customerEntity.status( domain.getStatus() );
+        customerEntity.type( domain.getType() );
+        customerEntity.updatedAt( domain.getUpdatedAt() );
+        customerEntity.updatedBy( domain.getUpdatedBy() );
 
         return customerEntity.build();
     }
@@ -115,14 +115,14 @@ public class CustomerMapperImpl implements CustomerMapper {
         CustomerAddress.CustomerAddressBuilder customerAddress = CustomerAddress.builder();
 
         customerAddress.customerId( entityCustomerId( entity ) );
-        customerAddress.id( entity.getId() );
-        customerAddress.street( entity.getStreet() );
-        customerAddress.city( entity.getCity() );
-        customerAddress.state( entity.getState() );
-        customerAddress.country( entity.getCountry() );
-        customerAddress.postalCode( entity.getPostalCode() );
         customerAddress.addressType( entity.getAddressType() );
+        customerAddress.city( entity.getCity() );
+        customerAddress.country( entity.getCountry() );
         customerAddress.createdAt( entity.getCreatedAt() );
+        customerAddress.id( entity.getId() );
+        customerAddress.postalCode( entity.getPostalCode() );
+        customerAddress.state( entity.getState() );
+        customerAddress.street( entity.getStreet() );
 
         return customerAddress.build();
     }
@@ -135,14 +135,14 @@ public class CustomerMapperImpl implements CustomerMapper {
 
         CustomerAddressEntity.CustomerAddressEntityBuilder customerAddressEntity = CustomerAddressEntity.builder();
 
-        customerAddressEntity.id( domain.getId() );
-        customerAddressEntity.street( domain.getStreet() );
-        customerAddressEntity.city( domain.getCity() );
-        customerAddressEntity.state( domain.getState() );
-        customerAddressEntity.country( domain.getCountry() );
-        customerAddressEntity.postalCode( domain.getPostalCode() );
         customerAddressEntity.addressType( domain.getAddressType() );
+        customerAddressEntity.city( domain.getCity() );
+        customerAddressEntity.country( domain.getCountry() );
         customerAddressEntity.createdAt( domain.getCreatedAt() );
+        customerAddressEntity.id( domain.getId() );
+        customerAddressEntity.postalCode( domain.getPostalCode() );
+        customerAddressEntity.state( domain.getState() );
+        customerAddressEntity.street( domain.getStreet() );
 
         return customerAddressEntity.build();
     }
@@ -156,12 +156,12 @@ public class CustomerMapperImpl implements CustomerMapper {
         CustomerAddress.CustomerAddressBuilder customerAddress = CustomerAddress.builder();
 
         customerAddress.addressType( dto.getType() );
-        customerAddress.id( dto.getId() );
-        customerAddress.street( dto.getStreet() );
         customerAddress.city( dto.getCity() );
-        customerAddress.state( dto.getState() );
         customerAddress.country( dto.getCountry() );
+        customerAddress.id( dto.getId() );
         customerAddress.postalCode( dto.getPostalCode() );
+        customerAddress.state( dto.getState() );
+        customerAddress.street( dto.getStreet() );
 
         return customerAddress.build();
     }
@@ -175,12 +175,12 @@ public class CustomerMapperImpl implements CustomerMapper {
         CustomerAddressDto customerAddressDto = new CustomerAddressDto();
 
         customerAddressDto.setType( domain.getAddressType() );
-        customerAddressDto.setId( domain.getId() );
-        customerAddressDto.setStreet( domain.getStreet() );
         customerAddressDto.setCity( domain.getCity() );
-        customerAddressDto.setState( domain.getState() );
         customerAddressDto.setCountry( domain.getCountry() );
+        customerAddressDto.setId( domain.getId() );
         customerAddressDto.setPostalCode( domain.getPostalCode() );
+        customerAddressDto.setState( domain.getState() );
+        customerAddressDto.setStreet( domain.getStreet() );
 
         return customerAddressDto;
     }
@@ -194,15 +194,15 @@ public class CustomerMapperImpl implements CustomerMapper {
         CustomerContact.CustomerContactBuilder customerContact = CustomerContact.builder();
 
         customerContact.customerId( entityCustomerId1( entity ) );
-        customerContact.id( entity.getId() );
-        customerContact.name( entity.getName() );
-        customerContact.position( entity.getPosition() );
-        customerContact.email( entity.getEmail() );
-        customerContact.phone( entity.getPhone() );
-        customerContact.documentNumber( entity.getDocumentNumber() );
         customerContact.birthDate( entity.getBirthDate() );
-        customerContact.isLegalRepresentative( entity.getIsLegalRepresentative() );
         customerContact.createdAt( entity.getCreatedAt() );
+        customerContact.documentNumber( entity.getDocumentNumber() );
+        customerContact.email( entity.getEmail() );
+        customerContact.id( entity.getId() );
+        customerContact.isLegalRepresentative( entity.getIsLegalRepresentative() );
+        customerContact.name( entity.getName() );
+        customerContact.phone( entity.getPhone() );
+        customerContact.position( entity.getPosition() );
 
         return customerContact.build();
     }
@@ -215,15 +215,15 @@ public class CustomerMapperImpl implements CustomerMapper {
 
         CustomerContactEntity.CustomerContactEntityBuilder customerContactEntity = CustomerContactEntity.builder();
 
-        customerContactEntity.id( domain.getId() );
-        customerContactEntity.name( domain.getName() );
-        customerContactEntity.position( domain.getPosition() );
-        customerContactEntity.email( domain.getEmail() );
-        customerContactEntity.phone( domain.getPhone() );
-        customerContactEntity.documentNumber( domain.getDocumentNumber() );
         customerContactEntity.birthDate( domain.getBirthDate() );
-        customerContactEntity.isLegalRepresentative( domain.getIsLegalRepresentative() );
         customerContactEntity.createdAt( domain.getCreatedAt() );
+        customerContactEntity.documentNumber( domain.getDocumentNumber() );
+        customerContactEntity.email( domain.getEmail() );
+        customerContactEntity.id( domain.getId() );
+        customerContactEntity.isLegalRepresentative( domain.getIsLegalRepresentative() );
+        customerContactEntity.name( domain.getName() );
+        customerContactEntity.phone( domain.getPhone() );
+        customerContactEntity.position( domain.getPosition() );
 
         return customerContactEntity.build();
     }
@@ -236,15 +236,15 @@ public class CustomerMapperImpl implements CustomerMapper {
 
         CustomerContact.CustomerContactBuilder customerContact = CustomerContact.builder();
 
-        customerContact.id( dto.getId() );
-        customerContact.name( dto.getName() );
-        customerContact.position( dto.getPosition() );
-        customerContact.email( dto.getEmail() );
-        customerContact.phone( dto.getPhone() );
-        customerContact.documentNumber( dto.getDocumentNumber() );
         customerContact.birthDate( dto.getBirthDate() );
-        customerContact.isLegalRepresentative( dto.getIsLegalRepresentative() );
         customerContact.createdAt( dto.getCreatedAt() );
+        customerContact.documentNumber( dto.getDocumentNumber() );
+        customerContact.email( dto.getEmail() );
+        customerContact.id( dto.getId() );
+        customerContact.isLegalRepresentative( dto.getIsLegalRepresentative() );
+        customerContact.name( dto.getName() );
+        customerContact.phone( dto.getPhone() );
+        customerContact.position( dto.getPosition() );
 
         return customerContact.build();
     }
@@ -257,15 +257,15 @@ public class CustomerMapperImpl implements CustomerMapper {
 
         CustomerContactDto customerContactDto = new CustomerContactDto();
 
-        customerContactDto.setId( domain.getId() );
-        customerContactDto.setName( domain.getName() );
-        customerContactDto.setPosition( domain.getPosition() );
-        customerContactDto.setEmail( domain.getEmail() );
-        customerContactDto.setPhone( domain.getPhone() );
-        customerContactDto.setDocumentNumber( domain.getDocumentNumber() );
         customerContactDto.setBirthDate( domain.getBirthDate() );
-        customerContactDto.setIsLegalRepresentative( domain.getIsLegalRepresentative() );
         customerContactDto.setCreatedAt( domain.getCreatedAt() );
+        customerContactDto.setDocumentNumber( domain.getDocumentNumber() );
+        customerContactDto.setEmail( domain.getEmail() );
+        customerContactDto.setId( domain.getId() );
+        customerContactDto.setIsLegalRepresentative( domain.getIsLegalRepresentative() );
+        customerContactDto.setName( domain.getName() );
+        customerContactDto.setPhone( domain.getPhone() );
+        customerContactDto.setPosition( domain.getPosition() );
 
         return customerContactDto;
     }
@@ -278,10 +278,10 @@ public class CustomerMapperImpl implements CustomerMapper {
 
         CustomerNote.CustomerNoteBuilder customerNote = CustomerNote.builder();
 
+        customerNote.createdAt( entity.getCreatedAt() );
+        customerNote.createdBy( entity.getCreatedBy() );
         customerNote.id( entity.getId() );
         customerNote.note( entity.getNote() );
-        customerNote.createdBy( entity.getCreatedBy() );
-        customerNote.createdAt( entity.getCreatedAt() );
 
         return customerNote.build();
     }
@@ -294,10 +294,10 @@ public class CustomerMapperImpl implements CustomerMapper {
 
         CustomerNoteEntity.CustomerNoteEntityBuilder customerNoteEntity = CustomerNoteEntity.builder();
 
+        customerNoteEntity.createdAt( domain.getCreatedAt() );
+        customerNoteEntity.createdBy( domain.getCreatedBy() );
         customerNoteEntity.id( domain.getId() );
         customerNoteEntity.note( domain.getNote() );
-        customerNoteEntity.createdBy( domain.getCreatedBy() );
-        customerNoteEntity.createdAt( domain.getCreatedAt() );
 
         return customerNoteEntity.build();
     }
@@ -310,10 +310,10 @@ public class CustomerMapperImpl implements CustomerMapper {
 
         CustomerNote.CustomerNoteBuilder customerNote = CustomerNote.builder();
 
+        customerNote.createdAt( dto.getCreatedAt() );
+        customerNote.createdBy( dto.getCreatedBy() );
         customerNote.id( dto.getId() );
         customerNote.note( dto.getNote() );
-        customerNote.createdBy( dto.getCreatedBy() );
-        customerNote.createdAt( dto.getCreatedAt() );
 
         return customerNote.build();
     }
@@ -326,10 +326,10 @@ public class CustomerMapperImpl implements CustomerMapper {
 
         CustomerNoteDto customerNoteDto = new CustomerNoteDto();
 
+        customerNoteDto.setCreatedAt( domain.getCreatedAt() );
+        customerNoteDto.setCreatedBy( domain.getCreatedBy() );
         customerNoteDto.setId( domain.getId() );
         customerNoteDto.setNote( domain.getNote() );
-        customerNoteDto.setCreatedBy( domain.getCreatedBy() );
-        customerNoteDto.setCreatedAt( domain.getCreatedAt() );
 
         return customerNoteDto;
     }
@@ -342,11 +342,11 @@ public class CustomerMapperImpl implements CustomerMapper {
 
         CustomerHistory.CustomerHistoryBuilder customerHistory = CustomerHistory.builder();
 
-        customerHistory.id( entity.getId() );
-        customerHistory.eventType( entity.getEventType() );
-        customerHistory.description( entity.getDescription() );
-        customerHistory.createdBy( entity.getCreatedBy() );
         customerHistory.createdAt( entity.getCreatedAt() );
+        customerHistory.createdBy( entity.getCreatedBy() );
+        customerHistory.description( entity.getDescription() );
+        customerHistory.eventType( entity.getEventType() );
+        customerHistory.id( entity.getId() );
 
         return customerHistory.build();
     }
@@ -359,11 +359,11 @@ public class CustomerMapperImpl implements CustomerMapper {
 
         CustomerHistoryEntity.CustomerHistoryEntityBuilder customerHistoryEntity = CustomerHistoryEntity.builder();
 
-        customerHistoryEntity.id( domain.getId() );
-        customerHistoryEntity.eventType( domain.getEventType() );
-        customerHistoryEntity.description( domain.getDescription() );
-        customerHistoryEntity.createdBy( domain.getCreatedBy() );
         customerHistoryEntity.createdAt( domain.getCreatedAt() );
+        customerHistoryEntity.createdBy( domain.getCreatedBy() );
+        customerHistoryEntity.description( domain.getDescription() );
+        customerHistoryEntity.eventType( domain.getEventType() );
+        customerHistoryEntity.id( domain.getId() );
 
         return customerHistoryEntity.build();
     }
@@ -376,11 +376,11 @@ public class CustomerMapperImpl implements CustomerMapper {
 
         CustomerHistory.CustomerHistoryBuilder customerHistory = CustomerHistory.builder();
 
-        customerHistory.id( dto.getId() );
-        customerHistory.eventType( dto.getEventType() );
-        customerHistory.description( dto.getDescription() );
-        customerHistory.createdBy( dto.getCreatedBy() );
         customerHistory.createdAt( dto.getCreatedAt() );
+        customerHistory.createdBy( dto.getCreatedBy() );
+        customerHistory.description( dto.getDescription() );
+        customerHistory.eventType( dto.getEventType() );
+        customerHistory.id( dto.getId() );
 
         return customerHistory.build();
     }
@@ -393,11 +393,11 @@ public class CustomerMapperImpl implements CustomerMapper {
 
         CustomerHistoryDto customerHistoryDto = new CustomerHistoryDto();
 
-        customerHistoryDto.setId( domain.getId() );
-        customerHistoryDto.setEventType( domain.getEventType() );
-        customerHistoryDto.setDescription( domain.getDescription() );
-        customerHistoryDto.setCreatedBy( domain.getCreatedBy() );
         customerHistoryDto.setCreatedAt( domain.getCreatedAt() );
+        customerHistoryDto.setCreatedBy( domain.getCreatedBy() );
+        customerHistoryDto.setDescription( domain.getDescription() );
+        customerHistoryDto.setEventType( domain.getEventType() );
+        customerHistoryDto.setId( domain.getId() );
 
         return customerHistoryDto;
     }
@@ -410,13 +410,13 @@ public class CustomerMapperImpl implements CustomerMapper {
 
         Customer.CustomerBuilder customer = Customer.builder();
 
-        customer.type( request.getType() );
-        customer.name( request.getName() );
-        customer.documentNumber( request.getDocumentNumber() );
-        customer.email( request.getEmail() );
-        customer.phone( request.getPhone() );
         customer.addresses( customerAddressDtoListToCustomerAddressList( request.getAddresses() ) );
         customer.contacts( customerContactDtoListToCustomerContactList( request.getContacts() ) );
+        customer.documentNumber( request.getDocumentNumber() );
+        customer.email( request.getEmail() );
+        customer.name( request.getName() );
+        customer.phone( request.getPhone() );
+        customer.type( request.getType() );
 
         return customer.build();
     }
@@ -429,15 +429,15 @@ public class CustomerMapperImpl implements CustomerMapper {
 
         Customer.CustomerBuilder customer = Customer.builder();
 
-        customer.id( request.getId() );
-        customer.type( request.getType() );
-        customer.name( request.getName() );
-        customer.documentNumber( request.getDocumentNumber() );
-        customer.email( request.getEmail() );
-        customer.phone( request.getPhone() );
-        customer.status( request.getStatus() );
         customer.addresses( customerAddressDtoListToCustomerAddressList( request.getAddresses() ) );
         customer.contacts( customerContactDtoListToCustomerContactList( request.getContacts() ) );
+        customer.documentNumber( request.getDocumentNumber() );
+        customer.email( request.getEmail() );
+        customer.id( request.getId() );
+        customer.name( request.getName() );
+        customer.phone( request.getPhone() );
+        customer.status( request.getStatus() );
+        customer.type( request.getType() );
 
         return customer.build();
     }
@@ -450,21 +450,21 @@ public class CustomerMapperImpl implements CustomerMapper {
 
         CustomerResponse customerResponse = new CustomerResponse();
 
-        customerResponse.setId( domain.getId() );
-        customerResponse.setType( domain.getType() );
-        customerResponse.setName( domain.getName() );
-        customerResponse.setDocumentNumber( domain.getDocumentNumber() );
-        customerResponse.setEmail( domain.getEmail() );
-        customerResponse.setPhone( domain.getPhone() );
-        customerResponse.setStatus( domain.getStatus() );
-        customerResponse.setCreatedAt( domain.getCreatedAt() );
-        customerResponse.setUpdatedAt( domain.getUpdatedAt() );
-        customerResponse.setCreatedBy( domain.getCreatedBy() );
-        customerResponse.setUpdatedBy( domain.getUpdatedBy() );
         customerResponse.setAddresses( customerAddressListToCustomerAddressDtoList( domain.getAddresses() ) );
         customerResponse.setContacts( customerContactListToCustomerContactDtoList( domain.getContacts() ) );
-        customerResponse.setNotes( customerNoteListToCustomerNoteDtoList( domain.getNotes() ) );
+        customerResponse.setCreatedAt( domain.getCreatedAt() );
+        customerResponse.setCreatedBy( domain.getCreatedBy() );
+        customerResponse.setDocumentNumber( domain.getDocumentNumber() );
+        customerResponse.setEmail( domain.getEmail() );
         customerResponse.setHistory( customerHistoryListToCustomerHistoryDtoList( domain.getHistory() ) );
+        customerResponse.setId( domain.getId() );
+        customerResponse.setName( domain.getName() );
+        customerResponse.setNotes( customerNoteListToCustomerNoteDtoList( domain.getNotes() ) );
+        customerResponse.setPhone( domain.getPhone() );
+        customerResponse.setStatus( domain.getStatus() );
+        customerResponse.setType( domain.getType() );
+        customerResponse.setUpdatedAt( domain.getUpdatedAt() );
+        customerResponse.setUpdatedBy( domain.getUpdatedBy() );
 
         return customerResponse;
     }
@@ -603,19 +603,6 @@ public class CustomerMapperImpl implements CustomerMapper {
         return list1;
     }
 
-    protected List<CustomerNoteDto> customerNoteListToCustomerNoteDtoList(List<CustomerNote> list) {
-        if ( list == null ) {
-            return null;
-        }
-
-        List<CustomerNoteDto> list1 = new ArrayList<CustomerNoteDto>( list.size() );
-        for ( CustomerNote customerNote : list ) {
-            list1.add( toDto( customerNote ) );
-        }
-
-        return list1;
-    }
-
     protected List<CustomerHistoryDto> customerHistoryListToCustomerHistoryDtoList(List<CustomerHistory> list) {
         if ( list == null ) {
             return null;
@@ -624,6 +611,19 @@ public class CustomerMapperImpl implements CustomerMapper {
         List<CustomerHistoryDto> list1 = new ArrayList<CustomerHistoryDto>( list.size() );
         for ( CustomerHistory customerHistory : list ) {
             list1.add( toDto( customerHistory ) );
+        }
+
+        return list1;
+    }
+
+    protected List<CustomerNoteDto> customerNoteListToCustomerNoteDtoList(List<CustomerNote> list) {
+        if ( list == null ) {
+            return null;
+        }
+
+        List<CustomerNoteDto> list1 = new ArrayList<CustomerNoteDto>( list.size() );
+        for ( CustomerNote customerNote : list ) {
+            list1.add( toDto( customerNote ) );
         }
 
         return list1;
