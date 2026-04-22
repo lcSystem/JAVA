@@ -21,10 +21,24 @@ public class DataSourceController {
         @GetMapping
         public ResponseEntity<List<DataSourceConfig>> getDataSources(
                         org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken authentication) {
-                java.util.Set<String> roles = authentication.getToken().getClaimAsStringList("roles") != null
-                                ? new java.util.HashSet<>(authentication.getToken().getClaimAsStringList("roles"))
-                                : java.util.Set.of();
+
+                java.util.Set<String> roles = extractRoles(authentication.getToken());
 
                 return ResponseEntity.ok(registryService.getAllAllowedForUser(roles));
+        }
+
+        private java.util.Set<String> extractRoles(org.springframework.security.oauth2.jwt.Jwt jwt) {
+                java.util.Set<String> roles = new java.util.HashSet<>();
+                Object rolesClaim = jwt.getClaim("roles");
+                if (rolesClaim instanceof String) {
+                        for (String r : ((String) rolesClaim).split(" ")) {
+                                roles.add(r.replaceFirst("^ROLE_", ""));
+                        }
+                } else if (rolesClaim instanceof java.util.List) {
+                        for (Object r : (java.util.List<?>) rolesClaim) {
+                                roles.add(r.toString().replaceFirst("^ROLE_", ""));
+                        }
+                }
+                return roles;
         }
 }

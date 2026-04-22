@@ -78,8 +78,17 @@ public class DynamicReportController {
             if (username == null) {
                 username = jwt.getSubject();
             }
-            if (jwt.getClaimAsStringList("roles") != null) {
-                roles = new java.util.HashSet<>(jwt.getClaimAsStringList("roles"));
+            Object rolesClaim = jwt.getClaim("roles");
+            if (rolesClaim instanceof String) {
+                roles = new java.util.HashSet<>();
+                for (String r : ((String) rolesClaim).split(" ")) {
+                    roles.add(r.replaceFirst("^ROLE_", ""));
+                }
+            } else if (rolesClaim instanceof java.util.List) {
+                roles = new java.util.HashSet<>();
+                for (Object r : (java.util.List<?>) rolesClaim) {
+                    roles.add(r.toString().replaceFirst("^ROLE_", ""));
+                }
             }
         }
 

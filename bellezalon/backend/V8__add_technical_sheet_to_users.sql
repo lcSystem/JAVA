@@ -1,0 +1,1 @@
+ALTER TABLE users ADD COLUMN technical_sheet JSON DEFAULT NULL;

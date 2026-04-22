@@ -1,0 +1,4 @@
+ALTER TABLE citas
+ADD COLUMN payment_status VARCHAR(20) DEFAULT 'pending',
+ADD COLUMN transaction_id VARCHAR(100) DEFAULT NULL,
+ADD COLUMN deposit_amount DECIMAL(10, 2) DEFAULT 0.00;

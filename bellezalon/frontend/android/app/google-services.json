@@ -1,0 +1,69 @@
+{
+    "project_info": {
+        "project_number": "853255923788",
+        "firebase_url": "https://prueba-notificacion-2877d.firebaseio.com",
+        "project_id": "prueba-notificacion-2877d",
+        "storage_bucket": "prueba-notificacion-2877d.firebasestorage.app"
+    },
+    "client": [
+        {
+            "client_info": {
+                "mobilesdk_app_id": "1:853255923788:android:78dc7b83d508e266ad2ce9",
+                "android_client_info": {
+                    "package_name": "com.bellezalon.app"
+                }
+            },
+            "oauth_client": [
+                {
+                    "client_id": "853255923788-hm8d65935qo9k2fqv2ttp2anf5d6helg.apps.googleusercontent.com",
+                    "client_type": 3
+                }
+            ],
+            "api_key": [
+                {
+                    "current_key": "AIzaSyB2wtR1qI9iAVBp2Kbzu--sfZB-kdm5vkA"
+                }
+            ],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": [
+                        {
+                            "client_id": "853255923788-hm8d65935qo9k2fqv2ttp2anf5d6helg.apps.googleusercontent.com",
+                            "client_type": 3
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "client_info": {
+                "mobilesdk_app_id": "1:853255923788:android:771ce63acb19c3bdad2ce9",
+                "android_client_info": {
+                    "package_name": "com.prueba.notificacionpush"
+                }
+            },
+            "oauth_client": [
+                {
+                    "client_id": "853255923788-hm8d65935qo9k2fqv2ttp2anf5d6helg.apps.googleusercontent.com",
+                    "client_type": 3
+                }
+            ],
+            "api_key": [
+                {
+                    "current_key": "AIzaSyB2wtR1qI9iAVBp2Kbzu--sfZB-kdm5vkA"
+                }
+            ],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": [
+                        {
+                            "client_id": "853255923788-hm8d65935qo9k2fqv2ttp2anf5d6helg.apps.googleusercontent.com",
+                            "client_type": 3
+                        }
+                    ]
+                }
+            }
+        }
+    ],
+    "configuration_version": "1"
+}

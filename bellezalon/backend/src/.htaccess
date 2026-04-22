@@ -1,0 +1,18 @@
+# CONFIGURACIÓN DEFINITIVA DE CORS Y RUTEO
+<IfModule mod_headers.c>
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, PATCH, OPTIONS"
+    Header always set Access-Control-Allow-Headers "X-Requested-With, Content-Type, Accept, Origin, Authorization"
+</IfModule>
+
+RewriteEngine On
+# Ajustar la base al directorio donde está el index.php
+RewriteBase /api/src/
+
+# Evitar interferencias
+RewriteOptions InheritDownBefore
+
+# Ruteo estándar de Slim
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
