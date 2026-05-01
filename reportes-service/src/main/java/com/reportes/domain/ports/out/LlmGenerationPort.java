@@ -4,4 +4,6 @@ import com.reportes.domain.model.ReportType;
 
 public interface LlmGenerationPort {
     String generateHtml(ReportType type, String data);
+
+    String generateText(String prompt);
 }

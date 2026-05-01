@@ -22,6 +22,7 @@ public class ReportExecutionAuditRepositoryAdapter implements ReportExecutionAud
                 .recordCount(audit.getRecordCount())
                 .status(audit.getStatus())
                 .errorMessage(audit.getErrorMessage())
+                .executedSql(audit.getExecutedSql())
                 .createdAt(audit.getCreatedAt())
                 .build();
 
@@ -34,6 +35,7 @@ public class ReportExecutionAuditRepositoryAdapter implements ReportExecutionAud
                 .recordCount(entity.getRecordCount())
                 .status(entity.getStatus())
                 .errorMessage(entity.getErrorMessage())
+                .executedSql(entity.getExecutedSql())
                 .createdAt(entity.getCreatedAt())
                 .build();
     }

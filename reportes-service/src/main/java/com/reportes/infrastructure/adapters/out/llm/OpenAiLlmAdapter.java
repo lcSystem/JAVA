@@ -66,6 +66,38 @@ public class OpenAiLlmAdapter implements LlmGenerationPort {
         throw new RuntimeException("LLM generation failed with status: " + response.getStatusCode());
     }
 
+    @Override
+    @CircuitBreaker(name = "llmCircuitBreaker")
+    @TimeLimiter(name = "llmTimeLimiter")
+    @Bulkhead(name = "llmBulkhead")
+    public String generateText(String prompt) {
+        log.info("Requesting LLM for Text Generation");
+
+        Map<String, Object> requestBody = Map.of(
+                "model", model,
+                "messages", List.of(
+                        Map.of("role", "system", "content",
+                                "You are a specialized SQL Assistant. Return ONLY raw text or code without HTML. Do not wrap in markdown unless requested."),
+                        Map.of("role", "user", "content", prompt)),
+                "max_tokens", 2000);
+
+        ResponseEntity<Map> response = restClient.post()
+                .uri(apiUrl)
+                .header("Authorization", "Bearer " + apiKey)
+                .body(requestBody)
+                .retrieve()
+                .toEntity(Map.class);
+
+        if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+            List<Map<String, Object>> choices = (List<Map<String, Object>>) response.getBody().get("choices");
+            if (choices != null && !choices.isEmpty()) {
+                return (String) ((Map<String, Object>) choices.get(0).get("message")).get("content");
+            }
+        }
+
+        throw new RuntimeException("LLM Text generation failed with status: " + response.getStatusCode());
+    }
+
     private String sanitizeHtml(String html) {
         log.debug("Sanitizing LLM output");
         // Using relaxed safelist to allow tables, styles, etc., but stripping scripts.

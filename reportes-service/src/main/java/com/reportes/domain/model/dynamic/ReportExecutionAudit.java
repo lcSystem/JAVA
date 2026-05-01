@@ -18,5 +18,6 @@ public class ReportExecutionAudit {
     private Integer recordCount;
     private String status;
     private String errorMessage;
+    private String executedSql;
     private LocalDateTime createdAt;
 }

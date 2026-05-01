@@ -1,0 +1,21 @@
+{
+    "name": "learning/learning-service-php",
+    "description": "Gamified K-12 Learning Platform API - PHP Edition",
+    "type": "project",
+    "require": {
+        "slim/slim": "4.*",
+        "slim/psr7": "^1.5",
+        "php-di/php-di": "^7.0",
+        "vlucas/phpdotenv": "^5.5",
+        "tuupola/slim-jwt-auth": "^3.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "config": {
+        "process-timeout": 0,
+        "sort-packages": true
+    }
+}

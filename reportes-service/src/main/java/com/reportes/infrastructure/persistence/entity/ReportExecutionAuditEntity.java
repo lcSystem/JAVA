@@ -24,5 +24,9 @@ public class ReportExecutionAuditEntity {
     private Integer recordCount;
     private String status;
     private String errorMessage;
+
+    @jakarta.persistence.Column(length = 4000)
+    private String executedSql;
+
     private LocalDateTime createdAt;
 }
